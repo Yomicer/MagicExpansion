@@ -1,4 +1,4 @@
-package io.Yomicer.magicExpansion.items.tools;
+package io.Yomicer.magicExpansion.items.quickMachine;
 
 import io.Yomicer.magicExpansion.specialActions.EntitySpawner;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;

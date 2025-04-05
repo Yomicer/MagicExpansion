@@ -1,6 +1,6 @@
-package io.Yomicer.magicExpansion.items.tools;
+package io.Yomicer.magicExpansion.items.quickMachine;
 
-import io.Yomicer.magicExpansion.utils.CreateItem;
+import io.Yomicer.magicExpansion.utils.QuickMachineMBUtile;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -14,30 +14,32 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
+
 import javax.annotation.Nonnull;
+
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static io.Yomicer.magicExpansion.utils.GiveItem.giveOrDropItem;
-import static io.Yomicer.magicExpansion.utils.QuickMachineUtils.*;
+import static io.Yomicer.magicExpansion.Listener.SlimefunRegistryFinalized.MAGIC_WORKBENCH_RECIPES;
+import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
+import static io.Yomicer.magicExpansion.utils.QuickMachineUtils.addAvailableRecipesToMenu;
 
-public class MagicExpansionQuickSmeltery extends SimpleSlimefunItem<ItemUseHandler> implements NotPlaceable {
-
-    public MagicExpansionQuickSmeltery(ItemGroup category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+public class MagicExpansionQuickMagicWorkbench extends SimpleSlimefunItem<ItemUseHandler> implements NotPlaceable {
+    public MagicExpansionQuickMagicWorkbench(ItemGroup category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(category, item, recipeType, recipe);
     }
 
 
-    // 预加载的 SMELTERY 配方列表（静态常量）
-    private static final List<Map<String, Integer>> SMELTERY_RECIPES = new ArrayList<>();
+    // 预加载的 增强型合成台 配方列表（静态常量）
+    private static final List<Map<String, Integer>> MAGIC_WORKBENCH_RECIPES = new ArrayList<>();
 
     static {
         // 在类加载时预加载所有 SMELTERY 类型的配方
         List<SlimefunItem> smelteryItems = Slimefun.getRegistry().getAllSlimefunItems().stream()
-                .filter(item -> item.getRecipeType() == RecipeType.SMELTERY)
+                .filter(item -> item.getRecipeType() == RecipeType.MAGIC_WORKBENCH)
                 .toList();
 
         for (SlimefunItem item : smelteryItems) {
@@ -68,8 +70,9 @@ public class MagicExpansionQuickSmeltery extends SimpleSlimefunItem<ItemUseHandl
             }
 
             // 将整合后的配方存入列表
-            SMELTERY_RECIPES.add(recipeMap);
+            MAGIC_WORKBENCH_RECIPES.add(recipeMap);
         }
+//        System.out.println("预加载的配方数量MAGIC_WORKBENCH_RECIPES：" + MAGIC_WORKBENCH_RECIPES.size());
     }
 
     @Nonnull
@@ -83,11 +86,11 @@ public class MagicExpansionQuickSmeltery extends SimpleSlimefunItem<ItemUseHandl
             // 获取玩家
             Player player = e.getPlayer();
             // 打开菜单并动态加载配方
-            ChestMenu menu = new ChestMenu("可用冶炼炉配方");
-            addAvailableRecipesToMenu(player, menu,0, SMELTERY_RECIPES);
+            ChestMenu menu = new ChestMenu(getGradientName("魔法工作台（魔法工作台）"));
+            addAvailableRecipesToMenu(player, menu,0, MAGIC_WORKBENCH_RECIPES,RecipeType.MAGIC_WORKBENCH);
 
             // 设置空槽位是否可点击
-            menu.setEmptySlotsClickable(true);
+            menu.setEmptySlotsClickable(false);
             menu.setPlayerInventoryClickable(true);
             // 显示菜单给玩家
             menu.open(player);

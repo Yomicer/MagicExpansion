@@ -1,5 +1,7 @@
 package io.Yomicer.magicExpansion;
 
+import io.Yomicer.magicExpansion.Listener.SlimefunRegistryFinalized;
+import io.Yomicer.magicExpansion.specialActions.Command.MagicExpansionCommand;
 import io.Yomicer.magicExpansion.utils.ColorGradient;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import lombok.SneakyThrows;
@@ -19,6 +21,11 @@ public class MagicExpansionMachines extends JavaPlugin implements SlimefunAddon 
 
         // Registering Items
         MagicExpansionItemSetup.setup(this);
+
+        // Registering Command
+        this.getCommand("magicexpansion").setExecutor(new MagicExpansionCommand());
+        // 注册事件监听器
+        getServer().getPluginManager().registerEvents(new SlimefunRegistryFinalized(), this);
 
 
 

@@ -1,4 +1,4 @@
-package io.Yomicer.magicExpansion.items.tools;
+package io.Yomicer.magicExpansion.items.quickMachine;
 import io.Yomicer.magicExpansion.utils.GiveItem;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -76,7 +76,7 @@ public class MagicExpansionMineralCave extends SimpleSlimefunItem<ItemUseHandler
         }
 
         // 设置空槽位是否可点击
-        menu.setEmptySlotsClickable(true);
+        menu.setEmptySlotsClickable(false);
         menu.setPlayerInventoryClickable(true);
 
         // 打开菜单

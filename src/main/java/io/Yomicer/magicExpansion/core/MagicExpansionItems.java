@@ -18,14 +18,14 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack MAGIC_EXPANSION_AUTHOR = new SlimefunItemStack(
             "MAGIC_EXPANSION_AUTHOR",
             "8adb25ab9976d89d0bd8118d72c1c06bb907060c1e02a729b652d1e86b1ebbbc",
-            getGradientName("Yomicer"),
+            getGradientName("magicsolo"),
             "",
-            getGradientName("Another name: magicsolo"),
+            getGradientName("Github: Yomicer"),
             getGradientName("Author of MagicExpansion")
     );
     //INFO
     public static final SlimefunItemStack MAGIC_EXPANSION_INFO = new SlimefunItemStack(
-            "MAGIC_EXPANSION_AUTHOR",
+            "MAGIC_EXPANSION_INFO",
             Material.PAPER,
             getGradientName("当前魔法拓展版本："),
             "",
@@ -48,6 +48,14 @@ public class MagicExpansionItems {
             getGradientName("进阶万能魔法合成材料"),
             "",
             getGradientName("用来修补没有安装魔法附属的问题")
+    );
+
+    public static final SlimefunItemStack MAGIC_EXPANSION_INTERACTIVE_CORE = new SlimefunItemStack(
+            "MAGIC_EXPANSION_INTERACTIVE_CORE",
+            Material.STRUCTURE_VOID,
+            getGradientName("魔法交互核心"),
+            "",
+            getGradientName("负责快捷机器的交互")
     );
 
 
@@ -79,17 +87,22 @@ public class MagicExpansionItems {
             getGradientName("点击石头处，即可挖掘")
     );
 
+    public static final SlimefunItemStack MAGIC_EXPANSION_QUICK_ENHANCED_CRAFTING_TABLE = new SlimefunItemStack(
+            "MAGIC_EXPANSION_QUICK_ENHANCED_CRAFTING_TABLE",
+            doGlow(Material.CRAFTING_TABLE),
+            getGradientName("魔法工作台（增强型工作台）"),
+            "",
+            getGradientName("右键打开魔法工作台"),
+            getGradientName("可以对背包内的材料进行快速合成")
+    );
+
     public static final SlimefunItemStack MAGIC_EXPANSION_QUICK_SMELTERY = new SlimefunItemStack(
             "MAGIC_EXPANSION_QUICK_SMELTERY",
             doGlow(Material.FURNACE),
             getGradientName("魔法冶炼炉"),
             "",
             getGradientName("右键打开魔法冶炼炉"),
-            getGradientName("可以对背包内的材料进行快速冶炼"),
-            getGradientName("右键点击冶炼炉内的物品，查看单次合成所需的材料"),
-            getGradientName("左键点击冶炼一次"),
-            getGradientName("按住 Shift 并右键点击冶炼炉内的物品，可以一次冶炼32个产物"),
-            getGradientName("按住 Shift 并左键点击冶炼炉内的物品，冶炼所有可制作的产物")
+            getGradientName("可以对背包内的材料进行快速冶炼")
     );
     /*
     public static final SlimefunItemStack MAGIC_EXPANSION_QUICK_SMELTERY2 = new SlimefunItemStack(
@@ -105,6 +118,81 @@ public class MagicExpansionItems {
             getGradientName("按住 Shift 并左键点击冶炼炉内的物品，冶炼所有可制作的产物")
     );
     */
+
+    public static final SlimefunItemStack MAGIC_EXPANSION_QUICK_GRIND_STONE = new SlimefunItemStack(
+            "MAGIC_EXPANSION_QUICK_GRIND_STONE",
+            doGlow(Material.DISPENSER),
+            getGradientName("魔法磨石"),
+            "",
+            getGradientName("右键打开魔法磨石"),
+            getGradientName("可以对背包内的材料进行快速研磨")
+    );
+
+    public static final SlimefunItemStack MAGIC_EXPANSION_QUICK_ORE_CRUSHER = new SlimefunItemStack(
+            "MAGIC_EXPANSION_QUICK_ORE_CRUSHER",
+            doGlow(Material.IRON_BARS),
+            getGradientName("魔法粉碎机"),
+            "",
+            getGradientName("右键打开魔法粉碎机"),
+            getGradientName("可以对背包内的材料进行快速粉碎")
+    );
+
+    public static final SlimefunItemStack MAGIC_EXPANSION_QUICK_ARMOR_FORGE = new SlimefunItemStack(
+            "MAGIC_EXPANSION_QUICK_ARMOR_FORGE",
+            doGlow(Material.ANVIL),
+            getGradientName("魔法装备锻造台"),
+            "",
+            getGradientName("右键打开魔法锻造台"),
+            getGradientName("可以对背包内的材料进行快速锻造")
+    );
+
+    public static final SlimefunItemStack MAGIC_EXPANSION_QUICK_COMPRESSOR = new SlimefunItemStack(
+            "MAGIC_EXPANSION_QUICK_COMPRESSOR",
+            doGlow(Material.PISTON),
+            getGradientName("魔法压缩机"),
+            "",
+            getGradientName("右键打开魔法压缩机"),
+            getGradientName("可以对背包内的材料进行快速压缩")
+    );
+
+    public static final SlimefunItemStack MAGIC_EXPANSION_QUICK_PRESSURE_CHAMBER = new SlimefunItemStack(
+            "MAGIC_EXPANSION_QUICK_PRESSURE_CHAMBER",
+            doGlow(Material.GLASS),
+            getGradientName("魔法压力机"),
+            "",
+            getGradientName("右键打开魔法压力机"),
+            getGradientName("可以对背包内的材料进行快速合成")
+    );
+
+    public static final SlimefunItemStack MAGIC_EXPANSION_QUICK_MAGIC_WORKBENCH = new SlimefunItemStack(
+            "MAGIC_EXPANSION_QUICK_MAGIC_WORKBENCH",
+            doGlow(Material.BOOKSHELF),
+            getGradientName("魔法工作台（魔法工作台）"),
+            "",
+            getGradientName("右键打开魔法工作台"),
+            getGradientName("可以对背包内的材料进行快速合成")
+    );
+
+    public static final SlimefunItemStack MAGIC_EXPANSION_QUICK_AUTOMATED_PANNING_MACHINE = new SlimefunItemStack(
+            "MAGIC_EXPANSION_QUICK_AUTOMATED_PANNING_MACHINE",
+            doGlow(Material.BOWL),
+            getGradientName("魔法淘金盘"),
+            "",
+            getGradientName("右键打开魔法淘金盘"),
+            getGradientName("可以对背包内的材料进行快速淘金")
+    );
+
+    public static final SlimefunItemStack MAGIC_EXPANSION_QUICK_AUTOMATED_ANCIENT_ALTAR = new SlimefunItemStack(
+            "MAGIC_EXPANSION_QUICK_AUTOMATED_ANCIENT_ALTAR",
+            doGlow(Material.ENCHANTING_TABLE),
+            getGradientName("魔法祭坛"),
+            "",
+            getGradientName("右键打开魔法祭坛"),
+            getGradientName("可以对背包内的材料进行快速合成")
+    );
+
+
+
 
 
 

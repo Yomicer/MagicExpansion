@@ -7,3 +7,10 @@ api-version: '1.20'
 depend: [Slimefun]
 ## CHANGE this to a meaninful but short description of your plugin.
 description: Have fun
+
+commands:
+  magicexpansion:
+    description: MagicExpansion 插件主指令
+    usage: /magicexpansion <reload slimefun>
+    permission: magicexpansion.command
+    permission-message: &c你没有权限执行此指令！
