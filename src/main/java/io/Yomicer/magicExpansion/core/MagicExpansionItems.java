@@ -33,6 +33,15 @@ public class MagicExpansionItems {
             getGradientName("Author of MagicExpansion")
     );
 
+    public static final SlimefunItemStack MAGIC_EXPANSION_QUICK_MACHINE_INFO = new SlimefunItemStack(
+            "MAGIC_EXPANSION_QUICK_MACHINE_INFO",
+            Material.PAPER,
+            getGradientName("快捷机器提示"),
+            "",
+            getGradientName("支持几乎所有的配方"),
+            getGradientName("小部分配方可能不支持")
+    );
+
 
     //材料
     public static final SlimefunItemStack MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC = new SlimefunItemStack(
@@ -53,7 +62,7 @@ public class MagicExpansionItems {
 
     public static final SlimefunItemStack MAGIC_EXPANSION_INTERACTIVE_CORE = new SlimefunItemStack(
             "MAGIC_EXPANSION_INTERACTIVE_CORE",
-            Material.STRUCTURE_VOID,
+            Material.CHAIN_COMMAND_BLOCK,
             getGradientName("魔法交互核心"),
             "",
             getGradientName("负责快捷机器的交互")

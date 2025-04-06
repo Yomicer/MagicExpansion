@@ -26,7 +26,7 @@ public class MagicExpansionMachines extends JavaPlugin implements SlimefunAddon 
 
         if (cfg.getBoolean("options.auto-update") && getDescription().getVersion().startsWith("Build ")) {
             getLogger().info("§b正在加载更新！");
-            GuizhanUpdater.start(this, getFile(), "SlimefunGuguProject", "MagicExpansion", "master");
+            GuizhanUpdater.start(this, getFile(), "Yomicer", "MagicExpansion", "master");
             getLogger().info("§b更新完毕！");
         }else{
             getLogger().info("§b已是最新版！");

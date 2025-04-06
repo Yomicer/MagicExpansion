@@ -80,6 +80,12 @@ public final class MagicExpansionItemSetup {
                 null, null, null
         }).register(plugin);
 
+        //快捷机器提示
+        new UnplaceableBlock(magicexpansionquickmachine, MagicExpansionItems.MAGIC_EXPANSION_QUICK_MACHINE_INFO, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
 
         //初级万能魔法合成材料
         new UnplaceableBlock(magicexpansionresource, MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
