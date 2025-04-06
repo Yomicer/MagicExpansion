@@ -6,7 +6,7 @@
 
     <groupId>io.Yomicer</groupId>
     <artifactId>MagicExpansion</artifactId>
-    <version>0.1-test</version>
+    <version>-Build 1</version>
     <packaging>jar</packaging>
 
     <name>MagicExpansion</name>
