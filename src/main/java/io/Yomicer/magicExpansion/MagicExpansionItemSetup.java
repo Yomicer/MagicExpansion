@@ -66,6 +66,13 @@ public final class MagicExpansionItemSetup {
     public static void setup(@Nonnull MagicExpansionMachines plugin) {
 
 
+        //版本信息
+        new UnplaceableBlock(magicexpansioncontribution, MagicExpansionItems.MAGIC_EXPANSION_INFO, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
+
         //magicsolo头颅
         new UnplaceableBlock(magicexpansioncontribution, MagicExpansionItems.MAGIC_EXPANSION_AUTHOR, SPECIAL_RECIPE_TYPE, new ItemStack[] {
                 null, null, null,
@@ -73,12 +80,6 @@ public final class MagicExpansionItemSetup {
                 null, null, null
         }).register(plugin);
 
-        //版本信息
-        new UnplaceableBlock(magicexpansioncontribution, MagicExpansionItems.MAGIC_EXPANSION_INFO, SPECIAL_RECIPE_TYPE, new ItemStack[] {
-                null, null, null,
-                null, null, null,
-                null, null, null
-        }).register(plugin);
 
         //初级万能魔法合成材料
         new UnplaceableBlock(magicexpansionresource, MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {

@@ -14,24 +14,25 @@ public class MagicExpansionItems {
 
     private MagicExpansionItems(){
     }
-    //AUTHOR
-    public static final SlimefunItemStack MAGIC_EXPANSION_AUTHOR = new SlimefunItemStack(
-            "MAGIC_EXPANSION_AUTHOR",
-            "8adb25ab9976d89d0bd8118d72c1c06bb907060c1e02a729b652d1e86b1ebbbc",
-            getGradientName("magicsolo"),
-            "",
-            getGradientName("Github: Yomicer"),
-            getGradientName("Author of MagicExpansion")
-    );
     //INFO
     public static final SlimefunItemStack MAGIC_EXPANSION_INFO = new SlimefunItemStack(
             "MAGIC_EXPANSION_INFO",
             Material.PAPER,
-            getGradientName("当前魔法拓展版本："),
+            getGradientName("信息"),
             "",
             getGradientName("Version-0.1"),
             getGradientName("您在提issues的时候需要展示这个")
     );
+    //AUTHOR
+    public static final SlimefunItemStack MAGIC_EXPANSION_AUTHOR = new SlimefunItemStack(
+            "MAGIC_EXPANSION_AUTHOR",
+            "8adb25ab9976d89d0bd8118d72c1c06bb907060c1e02a729b652d1e86b1ebbbc",
+            getGradientName("开发者：magicsolo"),
+            "",
+            getGradientName("Github: Yomicer"),
+            getGradientName("Author of MagicExpansion")
+    );
+
 
     //材料
     public static final SlimefunItemStack MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC = new SlimefunItemStack(

@@ -29,7 +29,7 @@ public class MagicExpansionCommand implements CommandExecutor {
                     MagicExpansionSlimefunItemCache.reloadCache();
                     sender.sendMessage("§a已成功清空缓存并重新加载所有 Slimefun 物品！");
                 } else {
-                    sender.sendMessage("§c用法: /magicexpansion reload slimefun");
+                    sender.sendMessage("§c用法: /magicexpansion reload slimefun   重载魔法拓展对Slimefun物品的缓存");
                 }
                 break;
 
