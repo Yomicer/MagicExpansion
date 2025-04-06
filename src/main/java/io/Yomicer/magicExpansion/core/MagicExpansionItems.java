@@ -20,7 +20,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Build 1"),
+            getGradientName("Version: Build 1"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
