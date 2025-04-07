@@ -41,5 +41,5 @@ This is Yomicer‘s first Slimefun addon project
 ```
 
 - **Special Item（特殊道具）**
-  - 随机实体蛋
+  - Random Entity Spawn（随机实体蛋)
 
