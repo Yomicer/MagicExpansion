@@ -14,3 +14,10 @@ commands:
     usage: /magicexpansion <reload slimefun>
     permission: magicexpansion.command
     permission-message: &c你没有权限执行此指令！
+
+  mx:
+    description: Main command for map management.
+  permissions:
+    MagicExpansionMachines.use:
+      description: Allows players to use the plugin commands.
+      default: op

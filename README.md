@@ -25,7 +25,7 @@ This is Yomicer‘s first Slimefun addon project
 
 - **Quick Machine (快捷机器)**
   - Magic Mine Cave（随身矿洞）
-  - Quick Recipe Machine（快捷配方机器）  - 目前10个配方分布给了10个不同的机器。可理解为随身合成计划，展示可合成产物，快捷合成
+  - Quick Recipe Machine（快捷配方机器）  - 目前10个配方分布给了10个不同的机器。可理解为随身合成计划，展示可合成产物，快捷合成。目前有两个版本，一种随身机器，一种放置机器。
 
 ```
 - 增强型工作台
@@ -38,8 +38,27 @@ This is Yomicer‘s first Slimefun addon project
 - 压缩机
 - 压力机
 - 远古祭坛
+- 破损的碎矿机
+- 加热压力舱
 ```
 
 - **Special Item（特殊道具）**
-  - Random Entity Spawn（随机实体蛋)
+  - Random Entity Spawn（随机实体蛋）
+  - Better Hoe（更好的镰刀）
+  - Coming soon（敬请期待）
+- **Generator（资源生成器）**
+  - Wood Machine（魔法翠木之源）（生产8种原木的机器）
+  - Coming soon（敬请期待）
+- **Recipe Machine（机器）**
+  - Wood Transform（翠木转换机）（转换原木）
+  - Coming soon（敬请期待）
+- **Special machine（特殊机器）**
+  - Magic Enchant（魔法赋能机）
+  - Coming soon（敬请期待）
+- **Boss（大怪物）**
+  - Fire Zombie（烈焰僵尸）
+  - Coming soon（敬请期待）
+- **Pre Buildings（预制建筑）**
+  - 8 Pre Tree（8种预制树）
+  - Coming soon（敬请期待）
 

@@ -1,6 +1,6 @@
 package io.Yomicer.magicExpansion.items.quickMachine;
 
-import io.Yomicer.magicExpansion.utils.QuickMachineMBUtile;
+import io.Yomicer.magicExpansion.utils.quickMachine.QuickMachineMBUtile;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
@@ -40,7 +40,7 @@ public class MagicExpansionQuickSmeltery extends SimpleSlimefunItem<ItemUseHandl
 
             // 设置空槽位是否可点击
             menu.setEmptySlotsClickable(false);
-            menu.setPlayerInventoryClickable(true);
+            menu.setPlayerInventoryClickable(false);
             // 显示菜单给玩家
             menu.open(player);
 

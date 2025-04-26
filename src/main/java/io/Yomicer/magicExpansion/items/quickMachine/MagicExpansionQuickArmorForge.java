@@ -1,6 +1,5 @@
 package io.Yomicer.magicExpansion.items.quickMachine;
 
-import io.Yomicer.magicExpansion.utils.QuickMachineMBUtile;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -22,9 +21,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static io.Yomicer.magicExpansion.Listener.SlimefunRegistryFinalized.ARMOR_FORGE_RECIPES;
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
-import static io.Yomicer.magicExpansion.utils.QuickMachineUtils.addAvailableRecipesToMenu;
+import static io.Yomicer.magicExpansion.utils.quickMachine.QuickMachineUtils.addAvailableRecipesToMenu;
 
 public class MagicExpansionQuickArmorForge extends SimpleSlimefunItem<ItemUseHandler> implements NotPlaceable {
     public MagicExpansionQuickArmorForge(ItemGroup category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
@@ -32,7 +30,7 @@ public class MagicExpansionQuickArmorForge extends SimpleSlimefunItem<ItemUseHan
     }
 
     // 预加载的 增强型合成台 配方列表（静态常量）
-    private static final List<Map<String, Integer>> ARMOR_FORGE_RECIPES = new ArrayList<>();
+    public static final List<Map<String, Integer>> ARMOR_FORGE_RECIPES = new ArrayList<>();
 
     static {
         // 在类加载时预加载所有 SMELTERY 类型的配方
@@ -90,7 +88,7 @@ public class MagicExpansionQuickArmorForge extends SimpleSlimefunItem<ItemUseHan
 
             // 设置空槽位是否可点击
             menu.setEmptySlotsClickable(false);
-            menu.setPlayerInventoryClickable(true);
+            menu.setPlayerInventoryClickable(false);
             // 显示菜单给玩家
             menu.open(player);
 
