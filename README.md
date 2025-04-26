@@ -43,21 +43,21 @@ This is Yomicer‘s first Slimefun addon project
 ```
 
 - **Special Item（特殊道具）**
-  - 随机实体蛋
-  - 更好的镰刀
-  - 敬请期待
+  - Random Entity Spawn（随机实体蛋）
+  - Better Hoe（更好的镰刀）
+  - Coming soon（敬请期待）
 - **Generator（资源生成器）**
-  - 魔法翠木之源（生产8种原木的机器）
-  - 敬请期待
+  - Wood Machine（魔法翠木之源）（生产8种原木的机器）
+  - Coming soon（敬请期待）
 - **Recipe Machine（机器）**
-  - 翠木转换机（转换原木）
-  - 敬请期待
+  - Wood Transform（翠木转换机）（转换原木）
+  - Coming soon（敬请期待）
 - **Special machine（特殊机器）**
-  - 魔法赋能机
-  - 敬请期待
+  - Magic Enchant（魔法赋能机）
+  - Coming soon（敬请期待）
 - **Boss（大怪物）**
-  - 烈焰僵尸
-  - 敬请期待
+  - Fire Zombie（烈焰僵尸）
+  - Coming soon（敬请期待）
 - **Pre Buildings（预制建筑）**
-  - 8种预制树
-  - 敬请期待
+  - 8 Pre Tree（8种预制树）
+  - Coming soon（敬请期待）
