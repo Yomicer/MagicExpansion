@@ -1,8 +1,15 @@
 package io.Yomicer.magicExpansion;
 
 import io.Yomicer.magicExpansion.Listener.SlimefunRegistryFinalized;
+import io.Yomicer.magicExpansion.Listener.bossListener.BasicBossAttackListener;
+import io.Yomicer.magicExpansion.Listener.bossListener.BasicBossDropListener;
+import io.Yomicer.magicExpansion.Listener.magicItemEffectManager.ArrowHitLocationListener;
+import io.Yomicer.magicExpansion.Listener.magicItemEffectManager.ItemEffectAttackListener;
+import io.Yomicer.magicExpansion.Listener.worldListener.Events;
 import io.Yomicer.magicExpansion.specialActions.Command.MagicExpansionCommand;
-import io.Yomicer.magicExpansion.utils.ColorGradient;
+import io.Yomicer.magicExpansion.Listener.magicItemEffectManager.ItemEffectKillListener;
+import io.Yomicer.magicExpansion.specialActions.Command.WorldCommand;
+import io.Yomicer.magicExpansion.utils.Language;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import lombok.SneakyThrows;
@@ -10,9 +17,18 @@ import net.guizhanss.guizhanlibplugin.updater.GuizhanUpdater;
 import org.bukkit.plugin.java.JavaPlugin;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.io.File;
 
 public class MagicExpansionMachines extends JavaPlugin implements SlimefunAddon {
+    public static boolean testmod=false;
+    public static boolean clearConfig=false;
+    public static boolean testmode(){
+        return testmod;
+    }
     private static MagicExpansionMachines instance;
+
+
+
 
     @SneakyThrows
     @Override
@@ -31,14 +47,34 @@ public class MagicExpansionMachines extends JavaPlugin implements SlimefunAddon 
         }else{
             getLogger().info("§b已是最新版！");
         }
+        ConfigLoader.load(this);
+        Language.loadConfig(ConfigLoader.LANGUAGE);
+        getLogger().info("§b语言包加载完毕！");
 
         // Registering Items
         MagicExpansionItemSetup.setup(this);
+        getLogger().info("§b物品注册完毕！");
+
 
         // Registering Command
         this.getCommand("magicexpansion").setExecutor(new MagicExpansionCommand());
+        this.getCommand("mx").setExecutor(new WorldCommand(this));
+
+        // 创建地图保存目录
+        File mapsDir = new File(getDataFolder(), "maps");
+        if (!mapsDir.exists()) {
+            mapsDir.mkdirs();
+        }
+        getLogger().info("§b指令注册完毕");
         // 注册事件监听器
         getServer().getPluginManager().registerEvents(new SlimefunRegistryFinalized(), this);
+        getServer().getPluginManager().registerEvents(new ItemEffectAttackListener(), this);
+        getServer().getPluginManager().registerEvents(new ItemEffectKillListener(), this);
+        getServer().getPluginManager().registerEvents(new ArrowHitLocationListener(), this);
+        getServer().getPluginManager().registerEvents(new BasicBossAttackListener(), this);
+        getServer().getPluginManager().registerEvents(new BasicBossDropListener(), this);
+        getServer().getPluginManager().registerEvents(new Events(), this);
+        getLogger().info("§b监听注册完毕！");
 
 
 

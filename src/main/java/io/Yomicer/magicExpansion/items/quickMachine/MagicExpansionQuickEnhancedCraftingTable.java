@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
-import static io.Yomicer.magicExpansion.utils.QuickMachineUtils.addAvailableRecipesToMenu;
+import static io.Yomicer.magicExpansion.utils.quickMachine.QuickMachineUtils.addAvailableRecipesToMenu;
 
 public class MagicExpansionQuickEnhancedCraftingTable extends SimpleSlimefunItem<ItemUseHandler> implements NotPlaceable {
 
@@ -31,7 +31,7 @@ public class MagicExpansionQuickEnhancedCraftingTable extends SimpleSlimefunItem
     }
 
     // 预加载的 增强型合成台 配方列表（静态常量）
-    private static final List<Map<String, Integer>> ENHANCED_CRAFTING_TABLE_RECIPES = new ArrayList<>();
+    public static final List<Map<String, Integer>> ENHANCED_CRAFTING_TABLE_RECIPES = new ArrayList<>();
 
     static {
         // 在类加载时预加载所有 SMELTERY 类型的配方
@@ -89,7 +89,7 @@ public class MagicExpansionQuickEnhancedCraftingTable extends SimpleSlimefunItem
 
             // 设置空槽位是否可点击
             menu.setEmptySlotsClickable(false);
-            menu.setPlayerInventoryClickable(true);
+            menu.setPlayerInventoryClickable(false);
             // 显示菜单给玩家
             menu.open(player);
 

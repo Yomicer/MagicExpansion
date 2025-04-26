@@ -1,11 +1,13 @@
-package io.Yomicer.magicExpansion.utils;
+package io.Yomicer.magicExpansion.utils.quickMachine;
 
+import io.Yomicer.magicExpansion.utils.CreateItem;
+import io.Yomicer.magicExpansion.utils.MagicExpansionSlimefunItemCache;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
-import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.collections.Pair;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
+import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.AContainer;
+import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecipe;
 import net.guizhanss.guizhanlib.minecraft.helper.inventory.ItemStackHelper;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -13,14 +15,17 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import static io.Yomicer.magicExpansion.Listener.SlimefunRegistryFinalized.getUniqueItemKey;
 import static io.Yomicer.magicExpansion.utils.GiveItem.giveOrDropItem;
 import static io.Yomicer.magicExpansion.utils.Utils.doGlow;
 import static io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils.isItemSimilar;
 
-public class QuickMachineUtils {
+public class QuickMachineMBUtile {
+
 
     public static boolean consumeMaterials(Player player, Map<String, Integer> recipe, int amount) {
         PlayerInventory inventory = player.getInventory();
@@ -119,29 +124,6 @@ public class QuickMachineUtils {
     }
 
 
-   /**
-     * 获取配方结果
-     * 根据配方类型和配方数组获取配方结果
-     *
-     * @param recipe      配方数组
-     * @param recipeType  配方类型
-     * @return 配方结果
-     */
-    public static Pair<ItemStack, Integer> getRecipeResult(Map<String, Integer> recipe, RecipeType recipeType) {
-        for (SlimefunItem item : Slimefun.getRegistry().getAllSlimefunItems()) {
-            if (item.getRecipeType() == recipeType) {
-                Map<String, Integer> recipeMap = convertRecipeToMap(item.getRecipe());
-                if (recipeMap.equals(recipe)) {
-                    // 返回匹配的产物及其数量
-                    ItemStack output = item.getRecipeOutput().clone();
-                    int outputAmount = output != null ? output.getAmount() : 1; // 默认数量为 1
-                    return new Pair<>(output, outputAmount);
-                }
-            }
-        }
-        return null; // 如果未找到匹配的物品，返回 null
-    }
-
 
     /**
      * 整合配方材料，合并相同物品
@@ -150,29 +132,21 @@ public class QuickMachineUtils {
      * @param recipe 配方数组
      * @return 配方 Map
      */
-    public static Map<String, Integer> convertRecipeToMap(ItemStack[] recipe) {
-        Map<String, Integer> recipeMap = new HashMap<>();
-        for (ItemStack requiredItem : recipe) {
-            if (requiredItem == null || requiredItem.getType() == Material.AIR) {
+    private static Map<String, Integer> convertRecipeToMap(ItemStack[] recipe) {
+        Map<String, Integer> recipeMap = new LinkedHashMap<>();
+
+        // 处理输入部分
+        for (ItemStack input : recipe) {
+            if (input == null || input.getType() == Material.AIR) {
                 continue; // 忽略空槽位
             }
 
-            int requiredAmount = requiredItem.getAmount();
-
-            // 判断是否为 SlimefunItem
-            String itemKey;
-            SlimefunItem slimefunItem = SlimefunItem.getByItem(requiredItem);
-            if (slimefunItem != null) {
-                // 如果是 SlimefunItem，使用其 ID 作为键
-                itemKey = "sf:" + slimefunItem.getId();
-            } else {
-                // 如果不是 SlimefunItem，则默认为原版物品
-                itemKey = "mc:" + requiredItem.getType().name();
+            String itemKey = getUniqueItemKey(input); // 获取唯一键
+            if (itemKey != null) {
+                recipeMap.put(itemKey, recipeMap.getOrDefault(itemKey, 0) + input.getAmount()); // 统一为正数
             }
-
-            // 整合相同物品的数量
-            recipeMap.put(itemKey, recipeMap.getOrDefault(itemKey, 0) + requiredAmount);
         }
+
         return recipeMap;
     }
 
@@ -310,21 +284,46 @@ public class QuickMachineUtils {
         return hasEnoughMaterials(playerItems, recipe, 1); // 调用带 amount 参数的方法，默认值为 1
     }
 
+
     /**
-     * 获取配方结果及其数量
+     * 根据目标配方获取对应的输出物品和数量
      *
-     * @param recipe      配方
-     * @param recipeType  配方类型
-     * @return 包含配方结果的 Pair，其中 Pair 的第一个元素为 ItemStack，第二个元素为该配方结果的数量
+     * @param targetRecipe 目标配方（包含输入和输出）
+     * @return 匹配的输出物品和数量（Pair<ItemStack, Integer>），如果未找到匹配则返回 null
      */
-    public static Pair<ItemStack, Integer> getRecipeResultWithAmount(Map<String, Integer> recipe, RecipeType recipeType) {
-        for (SlimefunItem item : MagicExpansionSlimefunItemCache.getAllSlimefunItems()) {
-            if (item.getRecipeType() == recipeType) {
-                Map<String, Integer> recipeMap = convertRecipeToMap(item.getRecipe());
-                if (recipeMap.equals(recipe)) {
-                    ItemStack output = item.getRecipeOutput().clone();
-                    int outputAmount = output != null ? output.getAmount() : 1; // 默认数量为 1
-                    return new Pair<>(output, outputAmount);
+    private static Pair<ItemStack, Integer> getRecipeResultWithAmount(Map<String, Integer> targetRecipe) {
+        for (SlimefunItem slimefunItem : MagicExpansionSlimefunItemCache.getAllSlimefunItems()) {
+            // 检查是否为 AContainer 类型
+            if (slimefunItem instanceof AContainer aContainer) {
+                // 获取机器的所有配方
+                List<MachineRecipe> machineRecipes = aContainer.getMachineRecipes();
+
+                // 遍历每个 MachineRecipe
+                for (MachineRecipe machineRecipe : machineRecipes) {
+                    ItemStack[] input = machineRecipe.getInput(); // 获取输入物品数组
+                    ItemStack[] output = machineRecipe.getOutput(); // 获取输出物品数组
+
+                    // 将输入和输出合并为一个完整的配方 Map
+                    Map<String, Integer> recipeMap = new LinkedHashMap<>();
+                    recipeMap.putAll(convertRecipeToMap(input)); // 输入部分
+
+                    // 检查目标配方是否完全匹配当前配方
+                    boolean isMatch = targetRecipe.equals(recipeMap);
+
+                    if (isMatch) {
+                        // 如果匹配，从输出部分提取第一个物品及其数量
+                        ItemStack result = output != null && output.length > 0 ? output[0] : null;
+                        int outputAmount = result != null ? result.getAmount() : 1; // 默认数量为 1
+
+                        // 打印完整的配方信息
+//                        System.out.println("匹配成功: 配方=" + recipeMap);
+//                        System.out.println("输出物品: " + result);
+
+                        return new Pair<>(result, outputAmount);
+                    } else {
+                        // 打印不匹配的日志
+//                        System.out.println("配方不匹配: 当前配方=" + recipeMap + " vs 目标配方=" + targetRecipe);
+                    }
                 }
             }
         }
@@ -340,7 +339,7 @@ public class QuickMachineUtils {
      * @param menu   菜单对象
      * @param page   当前页码（从 0 开始）
      */
-    public static void addAvailableRecipesToMenu(Player player, ChestMenu menu, int page, List<Map<String, Integer>> ReceivedRecipes, RecipeType recipeType) {
+    public static void addAvailableRecipesToMenu(Player player, ChestMenu menu, int page, List<Map<String, Integer>> receivedRecipes) {
         // 获取玩家背包中的所有物品及其数量
         Map<String, Integer> playerItems = getPlayerInventoryItems(player);
 
@@ -348,17 +347,17 @@ public class QuickMachineUtils {
         for (int i = 0; i < menu.getSize(); i++) {
             menu.addItem(i, null);
         }
-        menu.addItem(49, new CustomItemStack(doGlow(Material.NETHER_STAR),"§x§F§D§B§7§D§4使用说明",
-                        "§e右键 §b点击菜单内的物品，查看单次合成所需的材料",
-                        "§e左键 §b点击菜单内的物品,制作一次",
-                        "§b按住 §eShift 右键 §b点击菜单内的物品，可以一次制作32个物品",
-                        "§b按住 §eShift 左键 §b点击菜单内的物品，制作所有可制作的物品"),
-                (player1, slot, item, action) -> {
-                    return false;
-                });
+
+        // 添加说明按钮
+        menu.addItem(49, new CustomItemStack(doGlow(Material.NETHER_STAR), "§x§F§D§B§7§D§4使用说明",
+                        "§e右键 §b查看单次合成所需的材料",
+                        "§e左键 §b制作一次",
+                        "§b按住 §eShift 右键 §b一次制作32个物品",
+                        "§b按住 §eShift 左键 §b制作所有可制作的物品"),
+                (player1, slot, item, action) -> false);
 
         // 筛选出玩家可以制作的配方
-        List<Map<String, Integer>> availableRecipes = ReceivedRecipes.stream()
+        List<Map<String, Integer>> availableRecipes = receivedRecipes.stream()
                 .filter(recipe -> hasEnoughMaterials(playerItems, recipe))
                 .toList();
 
@@ -375,118 +374,75 @@ public class QuickMachineUtils {
 
         // 添加配方到菜单中
         int slot = 0;
+//        System.out.println("可用的所有配方: "+ currentPageRecipes);
         for (Map<String, Integer> recipe : currentPageRecipes) {
-            // 获取配方的产物及其单次合成的数量
-            Pair<ItemStack, Integer> recipeResult = getRecipeResultWithAmount(recipe, recipeType);
-            if (recipeResult == null) continue;
+            Pair<ItemStack, Integer> recipeResult = getRecipeResultWithAmount(recipe);
+            if (recipeResult == null || recipeResult.getFirstValue() == null) {
+//                System.out.println("无效的配方结果: " + recipe); // Debug 输出
+                continue;
+            }
 
-            ItemStack resultItem = recipeResult.getFirstValue(); // 提取产物
+            ItemStack resultItem = recipeResult.getFirstValue().clone(); // 提取产物并克隆以避免修改原对象
             int outputAmountPerCraft = recipeResult.getSecondValue(); // 提取单次合成数量
 
-            // 创建一个局部变量 currentSlot 来存储当前槽位
-            int currentSlot = slot++;
-            menu.addItem(currentSlot, resultItem, (p, s, item, action) -> {
+
+            // 添加产物到菜单
+            menu.addItem(slot++, resultItem, (p, s, item, action) -> {
                 if (action.isRightClicked() && !action.isShiftClicked()) {
                     // 右键点击：显示制作一份所需的材料
                     p.sendMessage("§a配方: §b" + getDisplayName(resultItem));
                     p.sendMessage("§a所需材料:");
                     for (Map.Entry<String, Integer> ingredient : recipe.entrySet()) {
-                        String itemKey = ingredient.getKey(); // 材料键值（如 "mc:COBBLESTONE" 或 "sf:some_item_id"）
-                        int requiredAmount = ingredient.getValue(); // 所需数量
-
-                        // 获取材料的显示名称
-                        String displayName = getIngredientDisplayName(itemKey);
-
-                        // 发送消息
+                        String displayName = getIngredientDisplayName(ingredient.getKey());
+                        int requiredAmount = ingredient.getValue();
                         p.sendMessage(" - §e" + displayName + " x " + requiredAmount);
                     }
                 } else if (!action.isRightClicked() && !action.isShiftClicked()) {
                     // 左键点击：消耗一份材料并给予一份产品
-                    Map<String, Integer> currentPlayerItems = getPlayerInventoryItems(p);
-                    if (!hasEnoughMaterials(currentPlayerItems, recipe)) {
-                        p.sendMessage("§c材料不足，无法合成！");
+                    if (!consumeMaterials(p, recipe, 1)) {
+                        p.sendMessage("§c材料不足或数据错误！");
                         return false;
                     }
 
-                    // 消耗材料
-                    if (!consumeMaterials(p, recipe, 1)) {
-                        // 如果材料不足，发送提示信息并终止后续逻辑
-                        p.sendMessage("§c材料数据错误，请使用正确的材料！");
-                        return false; // 或者根据需求抛出异常、中断操作等
-                    }
-
-                    // 给予产品
-                    resultItem.setAmount(outputAmountPerCraft); // 设置产物数量
-
-                    giveOrDropItem(p, resultItem); // 给予玩家物品
-
-                    // 提示信息
-                    String productName = getDisplayName(resultItem);
-                    p.sendMessage("§a你成功合成了 §b" + outputAmountPerCraft + " §a个 §b" + productName + "§a。");
-
-                    // 刷新菜单
-                    addAvailableRecipesToMenu(p, menu, 0, ReceivedRecipes, recipeType);
+                    giveOrDropItem(p, new CustomItemStack(resultItem.clone(), outputAmountPerCraft));
+                    p.sendMessage("§a成功合成了 §b" + outputAmountPerCraft + " §a个 §b" + getDisplayName(resultItem) + "§a。");
+                    addAvailableRecipesToMenu(p, menu, 0, receivedRecipes); // 刷新菜单
                 } else if (!action.isRightClicked() && action.isShiftClicked()) {
                     // Shift + 左键点击：批量合成
-                    Map<String, Integer> currentPlayerItems = getPlayerInventoryItems(p);
-                    int maxCraftableAmount = calculateMaxCraftableAmount(currentPlayerItems, recipe);
-
-                    if (maxCraftableAmount <= 0) {
-                        p.sendMessage("§c材料不足，无法合成！");
+                    int maxCraftable = calculateMaxCraftableAmount(playerItems, recipe);
+                    if (maxCraftable <= 0) {
+                        p.sendMessage("§c材料不足，无法批量合成！");
                         return false;
                     }
 
-                    // 消耗材料
-                    if(!consumeMaterials(p, recipe, maxCraftableAmount)){
-                        // 如果材料不足，发送提示信息并终止后续逻辑
-                        p.sendMessage("§c材料数据错误，请使用正确的材料！");
-                        return false; // 或者根据需求抛出异常、中断操作等
+                    if (!consumeMaterials(p, recipe, maxCraftable)) {
+                        p.sendMessage("§c材料不足或数据错误！");
+                        return false;
                     }
 
-                    // 给予产品
-                    int totalOutputAmount = maxCraftableAmount * outputAmountPerCraft; // 计算总产物数量
-                    resultItem.setAmount(totalOutputAmount); // 设置产物数量
-
-                    giveOrDropItem(p, resultItem); // 给予玩家物品
-
-                    // 提示信息
-                    String productName = getDisplayName(resultItem);
-                    p.sendMessage("§a你成功合成了 §b" + totalOutputAmount + " §a个 §b" + productName + "§a。");
-
-                    // 刷新菜单
-                    addAvailableRecipesToMenu(p, menu, 0, ReceivedRecipes, recipeType);
+                    int totalOutput = maxCraftable * outputAmountPerCraft;
+                    giveOrDropItem(p, new CustomItemStack(resultItem.clone(), totalOutput));
+                    p.sendMessage("§a成功合成了 §b" + totalOutput + " §a个 §b" + getDisplayName(resultItem) + "§a。");
+                    addAvailableRecipesToMenu(p, menu, 0, receivedRecipes); // 刷新菜单
                 } else if (action.isRightClicked() && action.isShiftClicked()) {
                     // Shift + 右键点击：固定合成 32 份
-                    Map<String, Integer> currentPlayerItems = getPlayerInventoryItems(p);
                     int requiredCrafts = 32;
-
-                    // 检查是否可以合成 32 份
-                    if (!hasEnoughMaterials(currentPlayerItems, recipe, requiredCrafts)) {
-                        p.sendMessage("§c材料不足，无法合成 32 份产物！");
+                    if (!hasEnoughMaterials(playerItems, recipe, requiredCrafts)) {
+                        p.sendMessage("§c材料不足，无法合成 32 份！");
                         return false;
                     }
 
-                    // 消耗材料
-                    if(!consumeMaterials(p, recipe, requiredCrafts)){
-                        // 如果材料不足，发送提示信息并终止后续逻辑
-                        p.sendMessage("§c材料数据错误，请使用正确的材料！");
-                        return false; // 或者根据需求抛出异常、中断操作等
+                    if (!consumeMaterials(p, recipe, requiredCrafts)) {
+                        p.sendMessage("§c材料不足或数据错误！");
+                        return false;
                     }
 
-                    // 给予产品
-                    int totalOutputAmount = requiredCrafts * outputAmountPerCraft; // 计算总产物数量
-                    resultItem.setAmount(totalOutputAmount); // 设置产物数量
-
-                    giveOrDropItem(p, resultItem); // 给予玩家物品
-
-                    // 提示信息
-                    String productName = getDisplayName(resultItem);
-                    p.sendMessage("§a你成功合成了 §b" + totalOutputAmount + " §a个 §b" + productName + "§a。");
-
-                    // 刷新菜单
-                    addAvailableRecipesToMenu(p, menu, 0, ReceivedRecipes, recipeType);
+                    int totalOutput = requiredCrafts * outputAmountPerCraft;
+                    giveOrDropItem(p, new CustomItemStack(resultItem.clone(), totalOutput));
+                    p.sendMessage("§a成功合成了 §b" + totalOutput + " §a个 §b" + getDisplayName(resultItem) + "§a。");
+                    addAvailableRecipesToMenu(p, menu, 0, receivedRecipes); // 刷新菜单
                 }
-                return false; // 不消耗物品
+                return false;
             });
         }
 
@@ -495,7 +451,7 @@ public class QuickMachineUtils {
             // 上一页按钮
             final int previousPage = page - 1; // 使用局部变量存储上一页的页码
             menu.addItem(45, CreateItem.createItem(Material.ARROW, "§a上一页"), (p, s, item, action) -> {
-                addAvailableRecipesToMenu(p, menu, previousPage,ReceivedRecipes, recipeType); // 切换到上一页
+                addAvailableRecipesToMenu(p, menu, previousPage, receivedRecipes);
                 return false;
             });
         }
@@ -504,7 +460,7 @@ public class QuickMachineUtils {
             // 下一页按钮
             final int nextPage = page + 1; // 使用局部变量存储下一页的页码
             menu.addItem(53, CreateItem.createItem(Material.ARROW, "§a下一页"), (p, s, item, action) -> {
-                addAvailableRecipesToMenu(p, menu, nextPage,ReceivedRecipes, recipeType); // 切换到下一页
+                addAvailableRecipesToMenu(p, menu, nextPage, receivedRecipes);
                 return false;
             });
         }
@@ -517,6 +473,7 @@ public class QuickMachineUtils {
             });
         }
     }
+
 
 
 }

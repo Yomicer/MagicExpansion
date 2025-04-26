@@ -1,12 +1,15 @@
 package io.Yomicer.magicExpansion.items.quickMachine;
 
 import io.Yomicer.magicExpansion.specialActions.EntitySpawner;
+import io.Yomicer.magicExpansion.utils.ItemPermissionUtils;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.NotPlaceable;
 import io.github.thebusybiscuit.slimefun4.core.handlers.ItemUseHandler;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import org.bukkit.Color;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -17,6 +20,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
+import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
 import static org.bukkit.inventory.EquipmentSlot.HAND;
 
 public class MagicExpansionRandomSummon extends SimpleSlimefunItem<ItemUseHandler> implements NotPlaceable {
@@ -40,6 +44,9 @@ public class MagicExpansionRandomSummon extends SimpleSlimefunItem<ItemUseHandle
                 // 检查玩家手上是否有物品
                 if (e.getHand()!= HAND) {
                     player.sendMessage(getGradientName("请使用主手使用~", createColorList()));
+                    return;
+                }
+                if(!ItemPermissionUtils.hasPermissionRe(player)){
                     return;
                 }
 

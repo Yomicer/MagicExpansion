@@ -1,6 +1,7 @@
 package io.Yomicer.magicExpansion.utils;
 
 import io.Yomicer.magicExpansion.core.MagicExpansionItems;
+import io.Yomicer.magicExpansion.utils.log.Debug;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import org.bukkit.inventory.ItemStack;
 
@@ -11,7 +12,7 @@ public class ConvertItem {
 
         // 检查是否成功获取到 Slimefun 物品
         if (slimefunItem == null) {
-            System.out.println("无法找到 ID 为 " + selectedItem + " 的 Slimefun 物品！");
+            Debug.logInfo("无法找到 ID 为 " + selectedItem + " 的 Slimefun 物品！");
             return MagicExpansionItems.MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC; // 返回一个初级
         }
 
@@ -28,7 +29,7 @@ public class ConvertItem {
 
         // 检查是否成功获取到 Slimefun 物品
         if (slimefunItem == null) {
-            System.out.println("无法找到 ID 为 " + selectedItem + " 的 Slimefun 物品！");
+            Debug.logInfo("无法找到 ID 为 " + selectedItem + " 的 Slimefun 物品！");
             return MagicExpansionItems.MAGIC_EXPANSION_TO_MAGIC_ITEM_ADVANCED; // 返回一个进阶
         }
 

@@ -1,11 +1,10 @@
 package io.Yomicer.magicExpansion.Listener;
 
+import io.Yomicer.magicExpansion.utils.log.Debug;
 import io.github.thebusybiscuit.slimefun4.api.events.SlimefunItemRegistryFinalizedEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.core.multiblocks.MultiBlockMachine;
-import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
@@ -34,6 +33,9 @@ public class SlimefunRegistryFinalized implements Listener {
 
     public static final List<Map<String, Integer>> AUTOMATED_PANNING_MACHINE_RECIPES = new ArrayList<>();
 
+
+
+
     //冶炼炉
     String ID1 = "SMELTERY";
     //磨石
@@ -41,13 +43,13 @@ public class SlimefunRegistryFinalized implements Listener {
     //粉碎机
     String ID3 = "ORE_CRUSHER";
     //盔甲锻造台
-    String ID4 = "ARMOR_FORGE";
+//    String ID4 = "ARMOR_FORGE";
     //压缩机
     String ID5 = "COMPRESSOR";
     //压力机
     String ID6 = "PRESSURE_CHAMBER";
     //魔法工作台
-    String ID7 = "MAGIC_WORKBENCH";
+//    String ID7 = "MAGIC_WORKBENCH";
 
 
 
@@ -64,6 +66,9 @@ public class SlimefunRegistryFinalized implements Listener {
         loadGrindStoneRecipes(ID5,COMPRESSOR_RECIPES);
         loadGrindStoneRecipes(ID6,PRESSURE_CHAMBER_RECIPES);
 //        loadGrindStoneRecipes(ID7,MAGIC_WORKBENCH_RECIPES);
+
+        Debug.logInfo("加载 recipes 完成");
+//        Debug.logError("磨石配方list："+ GRIND_STONE_RECIPES);
     }
 
 
@@ -76,7 +81,7 @@ public class SlimefunRegistryFinalized implements Listener {
         try {
             return (MultiBlockMachine) SlimefunItem.getById(id);
         } catch (Exception e) {
-            System.out.println("获取 GRIND_STONE 实例时出错: " + e.getMessage());
+            Debug.logInfo("获取 GRIND_STONE 实例时出错: " + e.getMessage());
             return null;
         }
     }
@@ -88,7 +93,7 @@ public class SlimefunRegistryFinalized implements Listener {
         // 获取 GRIND_STONE 实例
         MultiBlockMachine machine = getGrindStoneMachine(id);
         if (machine == null) {
-            System.out.println("无法找到 GRIND_STONE 或它不是一个 MultiBlockMachine.");
+            Debug.logInfo("无法找到 GRIND_STONE 或它不是一个 MultiBlockMachine.");
             return;
         }
 
@@ -97,14 +102,14 @@ public class SlimefunRegistryFinalized implements Listener {
         List<ItemStack> outputList = getRecipeOutputList(machine);
 
         if (inputList == null || inputList.isEmpty() || outputList == null || outputList.isEmpty()) {
-            System.out.println("未能加载任何有效的输入或输出物品列表.");
+//            Debug.logInfo("未能加载任何有效的输入或输出物品列表.");
 //            System.out.println("配方类型为："+machine);
             return;
         }
 
         // 确保输入和输出的配方数量一致
         if (inputList.size() != outputList.size()) {
-            System.out.println("输入和输出配方数量不匹配!");
+//            Debug.logInfo("输入和输出配方数量不匹配!");
             return;
         }
 
@@ -116,12 +121,12 @@ public class SlimefunRegistryFinalized implements Listener {
 
             // 确保输入和输出都有效
             if (Arrays.stream(input).allMatch(item -> item == null || item.getType() == Material.AIR)) {
-                System.out.println("无效的输入物品: " + Arrays.toString(input));
+//                Debug.logInfo("无效的输入物品: " + Arrays.toString(input));
                 continue;
             }
 
             if (output == null || output.getType() == Material.AIR) {
-                System.out.println("无效的输出物品: " + output);
+//                Debug.logInfo("无效的输出物品: " + output);
                 continue;
             }
 
@@ -138,7 +143,7 @@ public class SlimefunRegistryFinalized implements Listener {
                 if (itemKey != null) {
                     recipeMap.put(itemKey, recipeMap.getOrDefault(itemKey, 0) + requiredItem.getAmount());
                 } else {
-                    System.out.println("无法识别输入物品: " + requiredItem);
+//                    Debug.logInfo("无法识别输入物品: " + requiredItem);
                 }
             }
 
@@ -218,7 +223,7 @@ public class SlimefunRegistryFinalized implements Listener {
             SlimefunItem slimefunItem = SlimefunItem.getByItem(item);
             return slimefunItem != null ? "sf:" + slimefunItem.getId() : "mc:" + item.getType().name();
         } catch (Exception e) {
-            System.out.println("获取物品唯一键时出错: " + e.getMessage());
+//            Debug.logInfo("获取物品唯一键时出错: " + e.getMessage());
             return null;
         }
     }

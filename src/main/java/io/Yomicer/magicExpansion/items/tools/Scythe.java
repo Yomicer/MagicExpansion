@@ -17,6 +17,7 @@ import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.data.Ageable;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 import javax.annotation.Nonnull;
@@ -51,23 +52,37 @@ public class Scythe extends SimpleSlimefunItem<ItemUseHandler> implements NotPla
                 return;
             }
 
-            if (e.getBlock().getBlockData() instanceof Ageable
-                    && ((Ageable) e.getBlock().getBlockData()).getAge()
-                    == ((Ageable) e.getBlock().getBlockData()).getMaximumAge()) {
-                List<Block> crops = Vein.find(e.getBlock(), MAX_BROKEN, b -> Tag.CROPS.isTagged(b.getType()));
+            if (e.getBlock().getBlockData() instanceof Ageable) {
+                Ageable ageable = (Ageable) e.getBlock().getBlockData();
 
-                crops.remove(e.getBlock());
+                // 只处理完全成熟的作物
+                if (ageable.getAge() == ageable.getMaximumAge()) {
+                    // 在搜索时增加成熟度验证
+                    List<Block> crops = Vein.find(e.getBlock(), MAX_BROKEN, b -> {
+                        BlockData data = b.getBlockData();
 
-                boolean creative = e.getPlayer().getGameMode() == GameMode.CREATIVE;
+                        // 双重验证：既是作物且已成熟
+                        return Tag.CROPS.isTagged(b.getType())
+                                && data instanceof Ageable
+                                && ((Ageable) data).getAge() == ((Ageable) data).getMaximumAge();
+                    });
 
-                for (Block b : crops) {
-                    if (Slimefun.getProtectionManager().hasPermission(e.getPlayer(), b, Interaction.BREAK_BLOCK)) {
-                        AlternateBreakEvent breakEvent = new AlternateBreakEvent(b, e.getPlayer());
-                        Bukkit.getPluginManager().callEvent(breakEvent);
-                        if (creative) {
-                            b.setType(Material.AIR);
-                        } else {
-                            b.breakNaturally(tool);
+                    crops.remove(e.getBlock()); // 移除原始方块
+
+                    boolean creative = e.getPlayer().getGameMode() == GameMode.CREATIVE;
+
+                    for (Block b : crops) {
+                        if (Slimefun.getProtectionManager().hasPermission(e.getPlayer(), b, Interaction.BREAK_BLOCK)) {
+                            AlternateBreakEvent breakEvent = new AlternateBreakEvent(b, e.getPlayer());
+                            Bukkit.getPluginManager().callEvent(breakEvent);
+
+                            if (!breakEvent.isCancelled()) {
+                                if (creative) {
+                                    b.setType(Material.AIR);
+                                } else {
+                                    b.breakNaturally(tool);
+                                }
+                            }
                         }
                     }
                 }

@@ -40,4 +40,7 @@ public class MagicExpansionCommand implements CommandExecutor {
 
         return true;
     }
+
+
+
 }

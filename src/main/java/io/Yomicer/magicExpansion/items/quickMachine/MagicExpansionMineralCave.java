@@ -77,7 +77,7 @@ public class MagicExpansionMineralCave extends SimpleSlimefunItem<ItemUseHandler
 
         // 设置空槽位是否可点击
         menu.setEmptySlotsClickable(false);
-        menu.setPlayerInventoryClickable(true);
+        menu.setPlayerInventoryClickable(false);
 
         // 打开菜单
         menu.open(player);
