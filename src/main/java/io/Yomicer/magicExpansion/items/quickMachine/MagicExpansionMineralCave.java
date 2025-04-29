@@ -107,6 +107,10 @@ public class MagicExpansionMineralCave extends SimpleSlimefunItem<ItemUseHandler
         ITEMS.add(new ItemStack(Material.BONE));
         ITEMS.add(new ItemStack(Material.CLAY));
         ITEMS.add(new ItemStack(Material.BONE_BLOCK));
+        ITEMS.add(new ItemStack(Material.NETHERITE_SCRAP));
+        ITEMS.add(new ItemStack(Material.SOUL_SAND));
+        ITEMS.add(new ItemStack(Material.GOLD_NUGGET));
+        ITEMS.add(new ItemStack(Material.NETHERRACK));
         ITEMS.add(SlimefunItems.TIN_INGOT);
         ITEMS.add(SlimefunItems.SILVER_INGOT);
         ITEMS.add(SlimefunItems.LEAD_INGOT);

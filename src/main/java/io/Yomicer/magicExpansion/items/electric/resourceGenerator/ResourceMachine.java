@@ -78,7 +78,7 @@ public class ResourceMachine extends AbstractElectricResourceMachine {
 	public List<ItemStack> getDisplayRecipes() {
 	    List<ItemStack> display = new ArrayList<>();
 
-        display.add(new CustomItemStack(Material.KNOWLEDGE_BOOK, getGradientName("产物⇨"),getGradientName("生产效率⇨ ⚙ 每 " + getCraftSecond() + " s生成一次"),getGradientName("生产能耗⇨ ⚡ "+ getEnergyConsumption()*2 +"J/s")));
+        display.add(new CustomItemStack(Material.KNOWLEDGE_BOOK, getGradientName("产物⇨"),getGradientName("生产效率⇨ ⚙ 每 " + getCraftSecond() + " s生成一次"),getGradientName("生产能耗⇨ ⚡ "+ getEnergyConsumption()*2 +" J/s")));
         display.add(new CustomItemStack(Material.KNOWLEDGE_BOOK, getGradientName("产物⇨"),getGradientName("生产效率⇨ ⚙ 每 " + getCraftSecond() + " s生成一次"),getGradientName("生产能耗⇨ ⚡ "+ getEnergyConsumption()*2 +" J/s")));
         // 将输出物品数组中的所有物品添加到显示列表
         display.addAll(Arrays.asList(getItemStackOutputs()));
