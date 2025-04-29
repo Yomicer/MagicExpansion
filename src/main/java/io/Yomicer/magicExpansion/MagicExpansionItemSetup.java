@@ -13,6 +13,7 @@ import io.Yomicer.magicExpansion.items.summonBossItem.FireZombie;
 import io.Yomicer.magicExpansion.items.tools.*;
 import io.Yomicer.magicExpansion.core.MagicExpansionItems;
 import io.Yomicer.magicExpansion.utils.ColorGradient;
+import io.Yomicer.magicExpansion.utils.CustomHeadUtils.CustomHead;
 import io.Yomicer.magicExpansion.utils.itemUtils.newItem;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
@@ -36,6 +37,7 @@ import static io.Yomicer.magicExpansion.utils.ConvertItem.BasicCreateItem;
 import static io.Yomicer.magicExpansion.utils.Language.get;
 import static io.Yomicer.magicExpansion.utils.Language.getList;
 import static io.Yomicer.magicExpansion.utils.Utils.doGlow;
+import static io.Yomicer.magicExpansion.utils.itemUtils.sfItemUtils.sfItemAmount;
 
 
 public final class MagicExpansionItemSetup {
@@ -74,16 +76,21 @@ public final class MagicExpansionItemSetup {
 
     private static final ItemGroup magicexpansionresourcegenerator = new SubItemGroup(
             new NamespacedKey(MagicExpansionMachines.getInstance(), "resourcegenerator"), magicexpansion,
-            new CustomItemStack(doGlow(Material.LANTERN), ColorGradient.getGradientName("魔法-生成器")), 5
+            new CustomItemStack(doGlow(Material.LANTERN), ColorGradient.getGradientName("魔法-资源生成器")), 5
     );
     private static final ItemGroup magicexpansionrecipemachine = new SubItemGroup(
             new NamespacedKey(MagicExpansionMachines.getInstance(), "recipemachine"), magicexpansion,
-            new CustomItemStack(doGlow(Material.SOUL_CAMPFIRE), ColorGradient.getGradientName("魔法-机器")), 5
+            new CustomItemStack(doGlow(Material.SOUL_CAMPFIRE), ColorGradient.getGradientName("魔法-消耗型生产机器")), 5
     );
 
     private static final ItemGroup magicexpansionenergy = new SubItemGroup(
             new NamespacedKey(MagicExpansionMachines.getInstance(), "energy"), magicexpansion,
             new CustomItemStack(doGlow(Material.SOUL_LANTERN), ColorGradient.getGradientName("魔法-特殊机器")), 6
+    );
+
+    private static final ItemGroup magicexpansionelectricbot = new SubItemGroup(
+            new NamespacedKey(MagicExpansionMachines.getInstance(), "electric_bot"), magicexpansion,
+            new CustomItemStack(CustomHead.BOT_PINK.getItem(), ColorGradient.getGradientName("魔法-电力机器人")), 6
     );
 
     private static final ItemGroup magicexpansionboss = new SubItemGroup(
@@ -108,7 +115,22 @@ public final class MagicExpansionItemSetup {
             new CustomItemStack(Material.TOTEM_OF_UNDYING,"§x§F§D§B§7§D§4无§x§F§A§7§E§B§3法§x§F§F§6§9§B§4合§x§F§F§6§9§B§4成",getGradientName("痴情的人啊"),getGradientName("请再等一世吧")), // 图标
             (input, output) -> {});
 
-    // 定义一个新的配方类型
+    // 光能激发器
+    public static final RecipeType LIGHT_TRANSFORM_BASIC = new RecipeType(
+            new NamespacedKey(MagicExpansionMachines.getInstance(), "magicexpansion_light_transform_basic"),
+            new CustomItemStack(Material.AMETHYST_BLOCK,getGradientName("光能激发器"),getGradientName("散发着幽异的光芒。"),"",getGradientName("功能: 使用电力激发光能"),
+                    getGradientName("能源需求: 每秒钟消耗少量电力从光源中提取光能"),getGradientName(""),getGradientName("“有限光源，有限的能源...”")),
+            (input, output) -> {});
+
+    // 魔法建筑工坊
+    public static final RecipeType PRE_BUILDINGS_MACHINE = new RecipeType(
+            new NamespacedKey(MagicExpansionMachines.getInstance(), "magicexpansion_pre_buildings_machine"),
+            new CustomItemStack(Material.PINK_GLAZED_TERRACOTTA,getGradientName("魔法建筑工坊"),getGradientName("一座神秘的工坊，里面藏有许多图纸。"),"",getGradientName("只要你能提供材料，他就能给你建造出来。"),
+                    getGradientName(""),getGradientName("功能: 制作预制建筑"),getGradientName("能源需求: 每秒钟消耗少量电力")
+                    ,getGradientName(""),getGradientName("是魔法之力？还是远古工匠的智慧结晶？"),getGradientName("无论如何，这座工坊流传着一些未知的秘密。")),
+            (input, output) -> {});
+
+    //  掉落物
     public static final RecipeType MAGICEXPANSION_MOB_DROP = new RecipeType(
             new NamespacedKey(MagicExpansionMachines.getInstance(), "magicexpansion_mob_drop"),
             new CustomItemStack(Material.TOTEM_OF_UNDYING,ColorGradient.getGradientName("魔法生物掉落"),getGradientName("通过召唤魔法生物"),getGradientName("并将其击败"),getGradientName("有概率获取")), // 图标
@@ -433,51 +455,51 @@ public final class MagicExpansionItemSetup {
         }).register(plugin);
         //魔法金锭
         new UnplaceableBlock(magicexpansionresource, MagicExpansionItems.GOLD_INGOT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.IRON_DUST, SlimefunItems.MAGIC_LUMP_1,
-                SlimefunItems.IRON_DUST, new ItemStack(Material.GOLD_INGOT),SlimefunItems.IRON_DUST,
-                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.IRON_DUST,SlimefunItems.MAGIC_LUMP_1
+                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.GOLD_DUST, SlimefunItems.MAGIC_LUMP_1,
+                SlimefunItems.GOLD_DUST, new ItemStack(Material.GOLD_INGOT),SlimefunItems.GOLD_DUST,
+                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.GOLD_DUST,SlimefunItems.MAGIC_LUMP_1
         }).register(plugin);
         //魔法铜锭
         new UnplaceableBlock(magicexpansionresource, MagicExpansionItems.COPPER_INGOT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.IRON_DUST, SlimefunItems.MAGIC_LUMP_1,
-                SlimefunItems.IRON_DUST, SlimefunItems.COPPER_INGOT,SlimefunItems.IRON_DUST,
-                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.IRON_DUST,SlimefunItems.MAGIC_LUMP_1
+                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.COPPER_DUST, SlimefunItems.MAGIC_LUMP_1,
+                SlimefunItems.COPPER_DUST, SlimefunItems.COPPER_INGOT,SlimefunItems.COPPER_DUST,
+                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.COPPER_DUST,SlimefunItems.MAGIC_LUMP_1
         }).register(plugin);
         //魔法锡锭
         new UnplaceableBlock(magicexpansionresource, MagicExpansionItems.TIN_INGOT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.IRON_DUST, SlimefunItems.MAGIC_LUMP_1,
-                SlimefunItems.IRON_DUST, SlimefunItems.TIN_INGOT,SlimefunItems.IRON_DUST,
-                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.IRON_DUST,SlimefunItems.MAGIC_LUMP_1
+                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.TIN_DUST, SlimefunItems.MAGIC_LUMP_1,
+                SlimefunItems.TIN_DUST, SlimefunItems.TIN_INGOT,SlimefunItems.TIN_DUST,
+                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.TIN_DUST,SlimefunItems.MAGIC_LUMP_1
         }).register(plugin);
         //魔法银锭
         new UnplaceableBlock(magicexpansionresource, MagicExpansionItems.SILVER_INGOT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.IRON_DUST, SlimefunItems.MAGIC_LUMP_1,
-                SlimefunItems.IRON_DUST, SlimefunItems.SILVER_INGOT,SlimefunItems.IRON_DUST,
-                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.IRON_DUST,SlimefunItems.MAGIC_LUMP_1
+                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.SILVER_DUST, SlimefunItems.MAGIC_LUMP_1,
+                SlimefunItems.SILVER_DUST, SlimefunItems.SILVER_INGOT,SlimefunItems.SILVER_DUST,
+                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.SILVER_DUST,SlimefunItems.MAGIC_LUMP_1
         }).register(plugin);
         //魔法铅锭
         new UnplaceableBlock(magicexpansionresource, MagicExpansionItems.LEAD_INGOT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.IRON_DUST, SlimefunItems.MAGIC_LUMP_1,
-                SlimefunItems.IRON_DUST, SlimefunItems.LEAD_INGOT,SlimefunItems.IRON_DUST,
-                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.IRON_DUST,SlimefunItems.MAGIC_LUMP_1
+                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.LEAD_DUST, SlimefunItems.MAGIC_LUMP_1,
+                SlimefunItems.LEAD_DUST, SlimefunItems.LEAD_INGOT,SlimefunItems.LEAD_DUST,
+                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.LEAD_DUST,SlimefunItems.MAGIC_LUMP_1
         }).register(plugin);
         //魔法铝锭
         new UnplaceableBlock(magicexpansionresource, MagicExpansionItems.ALUMINUM_INGOT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.IRON_DUST, SlimefunItems.MAGIC_LUMP_1,
-                SlimefunItems.IRON_DUST, SlimefunItems.ALUMINUM_INGOT,SlimefunItems.IRON_DUST,
-                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.IRON_DUST,SlimefunItems.MAGIC_LUMP_1
+                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.ALUMINUM_DUST, SlimefunItems.MAGIC_LUMP_1,
+                SlimefunItems.ALUMINUM_DUST, SlimefunItems.ALUMINUM_INGOT,SlimefunItems.ALUMINUM_DUST,
+                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.ALUMINUM_DUST,SlimefunItems.MAGIC_LUMP_1
         }).register(plugin);
         //魔法锌锭
         new UnplaceableBlock(magicexpansionresource, MagicExpansionItems.ZINC_INGOT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.IRON_DUST, SlimefunItems.MAGIC_LUMP_1,
-                SlimefunItems.IRON_DUST, SlimefunItems.ZINC_INGOT,SlimefunItems.IRON_DUST,
-                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.IRON_DUST,SlimefunItems.MAGIC_LUMP_1
+                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.ZINC_DUST, SlimefunItems.MAGIC_LUMP_1,
+                SlimefunItems.ZINC_DUST, SlimefunItems.ZINC_INGOT,SlimefunItems.ZINC_DUST,
+                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.ZINC_DUST,SlimefunItems.MAGIC_LUMP_1
         }).register(plugin);
         //魔法镁锭
         new UnplaceableBlock(magicexpansionresource, MagicExpansionItems.MAGNESIUM_INGOT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.IRON_DUST, SlimefunItems.MAGIC_LUMP_1,
-                SlimefunItems.IRON_DUST, SlimefunItems.MAGNESIUM_INGOT,SlimefunItems.IRON_DUST,
-                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.IRON_DUST,SlimefunItems.MAGIC_LUMP_1
+                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.MAGNESIUM_DUST, SlimefunItems.MAGIC_LUMP_1,
+                SlimefunItems.MAGNESIUM_DUST, SlimefunItems.MAGNESIUM_INGOT,SlimefunItems.MAGNESIUM_DUST,
+                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.MAGNESIUM_DUST,SlimefunItems.MAGIC_LUMP_1
         }).register(plugin);
         //元素锭
         new UnplaceableBlock(magicexpansionresource, MagicExpansionItems.ELEMENT_INGOT, RecipeType.SMELTERY, new ItemStack[] {
@@ -500,6 +522,7 @@ public final class MagicExpansionItemSetup {
         registerVanResource(plugin,MagicExpansionItems.STICK, new ItemStack(Material.STICK));
         registerVanResource(plugin,MagicExpansionItems.COBBLESTONE, new ItemStack(Material.NETHERITE_INGOT));
         registerVanResource(plugin,MagicExpansionItems.DIRT, new ItemStack(Material.DIRT));
+        registerVanResource(plugin,MagicExpansionItems.GLOWSTONE_DUST, new ItemStack(Material.GLOWSTONE_DUST));
 
         // 魔法橡木木板
         new UnplaceableBlock(magicexpansionresource, MagicExpansionItems.OAK_PLANKS, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
@@ -548,6 +571,33 @@ public final class MagicExpansionItemSetup {
                 MagicExpansionItems.COBBLESTONE, SlimefunItems.MAGICAL_GLASS,MagicExpansionItems.ELEMENT_INGOT
         }).register(plugin);
 
+        //光之核心
+        new UnplaceableBlock(magicexpansionresource, MagicExpansionItems.LIGHT_CORE, RecipeType.SMELTERY, new ItemStack[] {
+                MagicExpansionItems.IRON_INGOT, MagicExpansionItems.GOLD_INGOT, MagicExpansionItems.COPPER_INGOT,
+                MagicExpansionItems.TIN_INGOT, new ItemStack(Material.GLOWSTONE_DUST), MagicExpansionItems.LEAD_INGOT,
+                MagicExpansionItems.ALUMINUM_INGOT, MagicExpansionItems.ZINC_INGOT, MagicExpansionItems.MAGNESIUM_INGOT
+        }).register(plugin);
+
+        //光能α
+        new UnplaceableBlock(magicexpansionresource, MagicExpansionItems.LIGHT_ENERGY_ALPHA, LIGHT_TRANSFORM_BASIC, new ItemStack[] {
+                new ItemStack(Material.LIGHT,32),MagicExpansionItems.MAGNESIUM_INGOT, null,
+                null,null,null,
+                null,null,null,
+        }).register(plugin);
+
+        //石英核心
+        new UnplaceableBlock(magicexpansionresource, MagicExpansionItems.QUARTZ_CORE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.ELEMENT_INGOT, MagicExpansionItems.ELEMENT_INGOT,
+                MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.QUARTZ,MagicExpansionItems.ELEMENT_INGOT,
+                MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.ELEMENT_INGOT,
+        }).register(plugin);
+
+        //无尽打火石
+        new InfiniteFlintAndSteel(magicexpansionresource, MagicExpansionItems.INFINITY_FLINT_AND_STEEL, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MagicExpansionItems.IRON_INGOT,MagicExpansionItems.IRON_INGOT, MagicExpansionItems.IRON_INGOT,
+                MagicExpansionItems.IRON_INGOT,new ItemStack(Material.FLINT),MagicExpansionItems.IRON_INGOT,
+                MagicExpansionItems.IRON_INGOT,MagicExpansionItems.IRON_INGOT,MagicExpansionItems.IRON_INGOT
+        }).register(plugin);
 
 
 
@@ -555,6 +605,7 @@ public final class MagicExpansionItemSetup {
 
 
 
+        //木头发生器
         new ResourceMachine(magicexpansionresourcegenerator, MagicExpansionItems.RESOURCE_MACHINE_WOOD_BASIC, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 MagicExpansionItems.ELEMENT_INGOT,SlimefunItems.BIG_CAPACITOR,MagicExpansionItems.REDSTONE,
                 MagicExpansionItems.ZINC_INGOT,MagicExpansionItems.LOG_MIX,MagicExpansionItems.ZINC_INGOT,
@@ -572,70 +623,234 @@ public final class MagicExpansionItemSetup {
                         new ItemStack(Material.MANGROVE_LEAVES,2),new ItemStack(Material.CHERRY_LEAVES,2)})
                 .register(plugin);
 
-        new RecipeMachine(magicexpansionrecipemachine, MagicExpansionItems.WOOD_TRANSFORM_BASIC, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+
+        //光源发生器
+        new ResourceMachine(magicexpansionresourcegenerator, MagicExpansionItems.LIGHT_GEN_BASIC, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 MagicExpansionItems.ELEMENT_INGOT,SlimefunItems.BIG_CAPACITOR,MagicExpansionItems.AMETHYST_SHARD,
-                MagicExpansionItems.BONE,MagicExpansionItems.LOG_MIX,MagicExpansionItems.BONE_MEAL,
+                MagicExpansionItems.GOLD_INGOT,MagicExpansionItems.LIGHT_CORE,MagicExpansionItems.GOLD_INGOT,
                 MagicExpansionItems.AMETHYST_SHARD,MagicExpansionItems.CORE_ORIGIN,MagicExpansionItems.ELEMENT_INGOT
         })
+                .setCraftSecond(16)
                 .setCapacity(1314)
                 .setConsumption(260)
                 .setProcessingSpeed(1)
-                .addRecipe(4,
-                        new ItemStack[] {new ItemStack(Material.OAK_LOG,16)},
-                        new ItemStack[] {new ItemStack(Material.SPRUCE_LOG,16)})
-                .addRecipe(4,
-                        new ItemStack[] {new ItemStack(Material.SPRUCE_LOG,16)},
-                        new ItemStack[] {new ItemStack(Material.BIRCH_LOG,16)})
-                .addRecipe(4,
-                        new ItemStack[] {new ItemStack(Material.BIRCH_LOG,16)},
-                        new ItemStack[] {new ItemStack(Material.JUNGLE_LOG,16)})
-                .addRecipe(4,
-                        new ItemStack[] {new ItemStack(Material.JUNGLE_LOG,16)},
-                        new ItemStack[] {new ItemStack(Material.ACACIA_LOG,16)})
-                .addRecipe(4,
-                        new ItemStack[] {new ItemStack(Material.ACACIA_LOG,16)},
-                        new ItemStack[] {new ItemStack(Material.DARK_OAK_LOG,16)})
-                .addRecipe(4,
-                        new ItemStack[] {new ItemStack(Material.DARK_OAK_LOG,16)},
-                        new ItemStack[] {new ItemStack(Material.MANGROVE_LOG,16)})
-                .addRecipe(4,
-                        new ItemStack[] {new ItemStack(Material.MANGROVE_LOG,16)},
-                        new ItemStack[] {new ItemStack(Material.CHERRY_LOG,16)})
-                .addRecipe(4,
-                        new ItemStack[] {new ItemStack(Material.CHERRY_LOG,16)},
-                        new ItemStack[] {new ItemStack(Material.OAK_LOG,16)})
-                .addRecipe(4,
-                        new ItemStack[] {new ItemStack(Material.OAK_LEAVES,16)},
-                        new ItemStack[] {new ItemStack(Material.SPRUCE_LEAVES,16)})
-                .addRecipe(4,
-                        new ItemStack[] {new ItemStack(Material.SPRUCE_LEAVES,16)},
-                        new ItemStack[] {new ItemStack(Material.BIRCH_LEAVES,16)})
-                .addRecipe(4,
-                        new ItemStack[] {new ItemStack(Material.BIRCH_LEAVES,16)},
-                        new ItemStack[] {new ItemStack(Material.JUNGLE_LEAVES,16)})
-                .addRecipe(4,
-                        new ItemStack[] {new ItemStack(Material.JUNGLE_LEAVES,16)},
-                        new ItemStack[] {new ItemStack(Material.ACACIA_LEAVES,16)})
-                .addRecipe(4,
-                        new ItemStack[] {new ItemStack(Material.ACACIA_LEAVES,16)},
-                        new ItemStack[] {new ItemStack(Material.DARK_OAK_LEAVES,16)})
-                .addRecipe(4,
-                        new ItemStack[] {new ItemStack(Material.DARK_OAK_LEAVES,16)},
-                        new ItemStack[] {new ItemStack(Material.MANGROVE_LEAVES,16)})
-                .addRecipe(4,
-                        new ItemStack[] {new ItemStack(Material.MANGROVE_LEAVES,16)},
-                        new ItemStack[] {new ItemStack(Material.CHERRY_LEAVES,16)})
-                .addRecipe(4,
-                        new ItemStack[] {new ItemStack(Material.CHERRY_LEAVES,16)},
-                        new ItemStack[] {new ItemStack(Material.OAK_LEAVES,16)})
+                .setItemStackOutputs(new ItemStack[] {new ItemStack(Material.LIGHT,1),new ItemStack(Material.LIGHT,2),new ItemStack(Material.LIGHT,3),
+                        new ItemStack(Material.LIGHT,4),new ItemStack(Material.LIGHT,5),new ItemStack(Material.LIGHT,6),
+                        new ItemStack(Material.LIGHT,7),
+                })
+                .register(plugin);
+
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_QUARTZ_BASIC, MagicExpansionItems.QUARTZ, Material.QUARTZ_BLOCK,1);
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_AMETHYST_SHARD_BASIC, MagicExpansionItems.AMETHYST_SHARD, Material.AMETHYST_SHARD);
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_REDSTONE_BASIC, MagicExpansionItems.REDSTONE, Material.REDSTONE);
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_DIAMOND_BASIC, MagicExpansionItems.DIAMOND, Material.DIAMOND);
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_LAPIS_LAZULI_BASIC, MagicExpansionItems.LAPIS_LAZULI, Material.LAPIS_LAZULI);
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_EMERALD_BASIC, MagicExpansionItems.EMERALD, Material.EMERALD);
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_COAL_BASIC, MagicExpansionItems.COAL, Material.COAL);
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_NETHERITE_SCRAP_BASIC, MagicExpansionItems.COAL, Material.NETHERITE_SCRAP,1);
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_IRON_DUST_BASIC, MagicExpansionItems.IRON_INGOT, SlimefunItems.IRON_DUST);
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_GOLD_DUST_BASIC, MagicExpansionItems.GOLD_INGOT, SlimefunItems.GOLD_DUST);
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_COPPER_DUST_BASIC, MagicExpansionItems.COPPER_INGOT, SlimefunItems.COPPER_DUST);
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_TIN_DUST_BASIC, MagicExpansionItems.TIN_INGOT, SlimefunItems.TIN_DUST);
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_SILVER_DUST_BASIC, MagicExpansionItems.SILVER_INGOT, SlimefunItems.SILVER_DUST);
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_LEAD_DUST_BASIC, MagicExpansionItems.LEAD_INGOT, SlimefunItems.LEAD_DUST);
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_ALUMINUM_DUST_BASIC, MagicExpansionItems.ALUMINUM_INGOT, SlimefunItems.ALUMINUM_DUST);
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_ZINC_DUST_BASIC, MagicExpansionItems.ZINC_INGOT, SlimefunItems.ZINC_DUST);
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_MAGNESIUM_DUST_BASIC, MagicExpansionItems.MAGNESIUM_INGOT, SlimefunItems.MAGNESIUM_DUST);
+
+
+        //矿锭x9
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_IRON_INGOT_BASIC, MagicExpansionItems.MINE_MAN_IRON_DUST_BASIC, Material.IRON_INGOT,1,1,1);
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_GOLD_INGOT_BASIC, MagicExpansionItems.MINE_MAN_GOLD_DUST_BASIC, Material.GOLD_INGOT,1,1,1);
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_COPPER_INGOT_BASIC, MagicExpansionItems.MINE_MAN_COPPER_DUST_BASIC, SlimefunItems.COPPER_INGOT,1,1);
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_TIN_INGOT_BASIC, MagicExpansionItems.MINE_MAN_TIN_DUST_BASIC, SlimefunItems.TIN_INGOT,1,1);
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_SILVER_INGOT_BASIC, MagicExpansionItems.MINE_MAN_SILVER_DUST_BASIC, SlimefunItems.SILVER_INGOT,1,1);
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_LEAD_INGOT_BASIC, MagicExpansionItems.MINE_MAN_LEAD_DUST_BASIC, SlimefunItems.LEAD_INGOT,1,1);
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_ALUMINUM_INGOT_BASIC, MagicExpansionItems.MINE_MAN_ALUMINUM_DUST_BASIC, SlimefunItems.ALUMINUM_INGOT,1,1);
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_ZINC_INGOT_BASIC, MagicExpansionItems.MINE_MAN_ZINC_DUST_BASIC, SlimefunItems.ZINC_INGOT,1,1);
+        registerBasicElectricMan(plugin, MagicExpansionItems.MINE_MAN_MAGNESIUM_INGOT_BASIC, MagicExpansionItems.MINE_MAN_MAGNESIUM_DUST_BASIC, SlimefunItems.MAGNESIUM_INGOT,1,1);
+
+        //下界合金锭
+        new ResourceMachine(magicexpansionelectricbot, MagicExpansionItems.MINE_MAN_NETHERITE_INGOT_BASIC, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MagicExpansionItems.MINE_MAN_GOLD_INGOT_BASIC,new ItemStack(Material.CRAFTING_TABLE),MagicExpansionItems.MINE_MAN_NETHERITE_SCRAP_BASIC,
+                null,null,null,
+                null,null,null
+        })
+                .setCraftSecond(2)
+                .setCapacity(1314)
+                .setConsumption(260)
+                .setProcessingSpeed(1)
+                .setItemStackOutputs(new ItemStack[] {new ItemStack(Material.NETHERITE_INGOT,2),new ItemStack(Material.NETHERRACK,12)
+                        ,new ItemStack(Material.FLINT,2),new ItemStack(Material.BONE),new ItemStack(Material.CLAY,2)})
                 .register(plugin);
 
 
 
 
 
+        //木头转换机
+        new RecipeMachine(magicexpansionrecipemachine, MagicExpansionItems.WOOD_TRANSFORM_BASIC, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MagicExpansionItems.ELEMENT_INGOT,SlimefunItems.BIG_CAPACITOR,MagicExpansionItems.AMETHYST_SHARD,
+                MagicExpansionItems.DIRT,MagicExpansionItems.LOG_MIX,MagicExpansionItems.BONE_MEAL,
+                MagicExpansionItems.AMETHYST_SHARD,MagicExpansionItems.CORE_ORIGIN,MagicExpansionItems.ELEMENT_INGOT
+        })
+                .setCapacity(1314)
+                .setConsumption(26)
+                .setProcessingSpeed(1)
+                .addRecipe(4,
+                        new ItemStack[] {new ItemStack(Material.OAK_LOG,16)},
+                        new ItemStack[] {new ItemStack(Material.SPRUCE_LOG,16)}).addRecipe(4,
+                        new ItemStack[] {new ItemStack(Material.SPRUCE_LOG,16)},
+                        new ItemStack[] {new ItemStack(Material.BIRCH_LOG,16)}).addRecipe(4,
+                        new ItemStack[] {new ItemStack(Material.BIRCH_LOG,16)},
+                        new ItemStack[] {new ItemStack(Material.JUNGLE_LOG,16)}).addRecipe(4,
+                        new ItemStack[] {new ItemStack(Material.JUNGLE_LOG,16)},
+                        new ItemStack[] {new ItemStack(Material.ACACIA_LOG,16)}).addRecipe(4,
+                        new ItemStack[] {new ItemStack(Material.ACACIA_LOG,16)},
+                        new ItemStack[] {new ItemStack(Material.DARK_OAK_LOG,16)}).addRecipe(4,
+                        new ItemStack[] {new ItemStack(Material.DARK_OAK_LOG,16)},
+                        new ItemStack[] {new ItemStack(Material.MANGROVE_LOG,16)}).addRecipe(4,
+                        new ItemStack[] {new ItemStack(Material.MANGROVE_LOG,16)},
+                        new ItemStack[] {new ItemStack(Material.CHERRY_LOG,16)}).addRecipe(4,
+                        new ItemStack[] {new ItemStack(Material.CHERRY_LOG,16)},
+                        new ItemStack[] {new ItemStack(Material.OAK_LOG,16)}).addRecipe(4,
+                        new ItemStack[] {new ItemStack(Material.OAK_LEAVES,16)},
+                        new ItemStack[] {new ItemStack(Material.SPRUCE_LEAVES,16)}).addRecipe(4,
+                        new ItemStack[] {new ItemStack(Material.SPRUCE_LEAVES,16)},
+                        new ItemStack[] {new ItemStack(Material.BIRCH_LEAVES,16)}).addRecipe(4,
+                        new ItemStack[] {new ItemStack(Material.BIRCH_LEAVES,16)},
+                        new ItemStack[] {new ItemStack(Material.JUNGLE_LEAVES,16)}).addRecipe(4,
+                        new ItemStack[] {new ItemStack(Material.JUNGLE_LEAVES,16)},
+                        new ItemStack[] {new ItemStack(Material.ACACIA_LEAVES,16)}).addRecipe(4,
+                        new ItemStack[] {new ItemStack(Material.ACACIA_LEAVES,16)},
+                        new ItemStack[] {new ItemStack(Material.DARK_OAK_LEAVES,16)}).addRecipe(4,
+                        new ItemStack[] {new ItemStack(Material.DARK_OAK_LEAVES,16)},
+                        new ItemStack[] {new ItemStack(Material.MANGROVE_LEAVES,16)}).addRecipe(4,
+                        new ItemStack[] {new ItemStack(Material.MANGROVE_LEAVES,16)},
+                        new ItemStack[] {new ItemStack(Material.CHERRY_LEAVES,16)}).addRecipe(4,
+                        new ItemStack[] {new ItemStack(Material.CHERRY_LEAVES,16)},
+                        new ItemStack[] {new ItemStack(Material.OAK_LEAVES,16)})
+                .register(plugin);
+
+        //光能激发器
+        new RecipeMachine(magicexpansionrecipemachine, MagicExpansionItems.LIGHT_TRANSFORM_BASIC, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MagicExpansionItems.ELEMENT_INGOT,SlimefunItems.BIG_CAPACITOR,MagicExpansionItems.QUARTZ,
+                MagicExpansionItems.ALUMINUM_INGOT,MagicExpansionItems.LIGHT_CORE,MagicExpansionItems.LEAD_INGOT,
+                MagicExpansionItems.QUARTZ,MagicExpansionItems.CORE_ORIGIN,MagicExpansionItems.ELEMENT_INGOT
+        })
+                .setCapacity(1314)
+                .setConsumption(26)
+                .setProcessingSpeed(1)
+                .addRecipe(5, new ItemStack[] {new ItemStack(Material.LIGHT,32),MagicExpansionItems.MAGNESIUM_INGOT},
+                        new ItemStack[] {MagicExpansionItems.LIGHT_ENERGY_ALPHA})
+                .register(plugin);
+
+        //光能溯源器
+        new RecipeMachine(magicexpansionrecipemachine, MagicExpansionItems.LIGHT_EXTRACT_BASIC, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MagicExpansionItems.OAK_PLANKS,SlimefunItems.BIG_CAPACITOR,MagicExpansionItems.OAK_PLANKS,
+                MagicExpansionItems.GOLD_INGOT,MagicExpansionItems.LIGHT_CORE,MagicExpansionItems.SILVER_INGOT,
+                MagicExpansionItems.OAK_PLANKS,MagicExpansionItems.CORE_ORIGIN,MagicExpansionItems.OAK_PLANKS
+        })
+                .setCapacity(1314)
+                .setConsumption(26)
+                .setProcessingSpeed(1)
+                .addRecipe(4, new ItemStack[] {new ItemStack(Material.GLOWSTONE,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,8)}).addRecipe(1, new ItemStack[] {new ItemStack(Material.SEA_LANTERN,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,12)}).addRecipe(4, new ItemStack[] {new ItemStack(Material.REDSTONE_LAMP,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,10)}).addRecipe(4, new ItemStack[] {new ItemStack(Material.END_ROD,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,4)}).addRecipe(5, new ItemStack[] {new ItemStack(Material.SOUL_LANTERN,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,3)}).addRecipe(5, new ItemStack[] {new ItemStack(Material.LANTERN,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,2)}).addRecipe(8, new ItemStack[] {new ItemStack(Material.REDSTONE_TORCH,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,1)}).addRecipe(8, new ItemStack[] {new ItemStack(Material.TORCH,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,1)}).addRecipe(8, new ItemStack[] {new ItemStack(Material.SOUL_TORCH,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,2)}).addRecipe(4, new ItemStack[] {new ItemStack(Material.SHROOMLIGHT,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,5)}).addRecipe(5, new ItemStack[] {new ItemStack(Material.OCHRE_FROGLIGHT,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,9)}).addRecipe(5, new ItemStack[] {new ItemStack(Material.VERDANT_FROGLIGHT,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,9)}).addRecipe(5, new ItemStack[] {new ItemStack(Material.PEARLESCENT_FROGLIGHT,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,9)}).addRecipe(5, new ItemStack[] {new ItemStack(Material.CRYING_OBSIDIAN,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,1)}).addRecipe(6, new ItemStack[] {new ItemStack(Material.MAGMA_BLOCK,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,1)}).addRecipe(5, new ItemStack[] {new ItemStack(Material.CAMPFIRE,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,3)}).addRecipe(5, new ItemStack[] {new ItemStack(Material.SOUL_CAMPFIRE,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,6)}).addRecipe(5, new ItemStack[] {new ItemStack(Material.END_CRYSTAL,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,6)}).addRecipe(2, new ItemStack[] {new ItemStack(Material.BEACON,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,9)}).addRecipe(5, new ItemStack[] {new ItemStack(Material.REDSTONE_ORE,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,2)}).addRecipe(5, new ItemStack[] {new ItemStack(Material.DEEPSLATE_REDSTONE_ORE,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,2)}).addRecipe(7, new ItemStack[] {new ItemStack(Material.SMALL_AMETHYST_BUD,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,1)}).addRecipe(7, new ItemStack[] {new ItemStack(Material.MEDIUM_AMETHYST_BUD,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,2)}).addRecipe(6, new ItemStack[] {new ItemStack(Material.LARGE_AMETHYST_BUD,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,3)}).addRecipe(5, new ItemStack[] {new ItemStack(Material.AMETHYST_CLUSTER,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,4)}).addRecipe(7, new ItemStack[] {new ItemStack(Material.TORCHFLOWER,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,2)}).addRecipe(7, new ItemStack[] {new ItemStack(Material.SEA_PICKLE,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,2)}).addRecipe(4, new ItemStack[] {new ItemStack(Material.NETHER_STAR,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,7)}).addRecipe(7, new ItemStack[] {new ItemStack(Material.GLISTERING_MELON_SLICE,1)},
+                        new ItemStack[] {new ItemStack(Material.LIGHT,2)})
+                .register(plugin);
 
 
+        //魔法建筑工坊
+        new RecipeMachine(magicexpansionenergy, MagicExpansionItems.PRE_BUILDINGS_MACHINE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MagicExpansionItems.ELEMENT_INGOT,SlimefunItems.BIG_CAPACITOR,MagicExpansionItems.ELEMENT_INGOT,
+                MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.CORE_ORIGIN,MagicExpansionItems.ELEMENT_INGOT,
+                MagicExpansionItems.OAK_PLANKS,MagicExpansionItems.AMETHYST_SHARD,MagicExpansionItems.OAK_PLANKS
+        })
+                .setCapacity(1314)
+                .setConsumption(26)
+                .setProcessingSpeed(1)
+                .addRecipe(5, new ItemStack[] {new ItemStack(Material.OAK_SAPLING),MagicExpansionItems.BONE_MEAL},
+                        new ItemStack[] {MagicExpansionItems.PRE_BUILDING_OAK_TREE})
+                .addRecipe(5, new ItemStack[] {new ItemStack(Material.SPRUCE_SAPLING),MagicExpansionItems.BONE_MEAL},
+                        new ItemStack[]{MagicExpansionItems.PRE_BUILDING_SPRUCE_TREE})
+                .addRecipe(5, new ItemStack[] {new ItemStack(Material.BIRCH_SAPLING),MagicExpansionItems.BONE_MEAL},
+                        new ItemStack[] {MagicExpansionItems.PRE_BUILDING_BIRCH_TREE})
+                .addRecipe(5, new ItemStack[] {new ItemStack(Material.JUNGLE_SAPLING),MagicExpansionItems.BONE_MEAL},
+                        new ItemStack[] {MagicExpansionItems.PRE_BUILDING_JUNGLE_TREE})
+                .addRecipe(5, new ItemStack[] {new ItemStack(Material.ACACIA_SAPLING),MagicExpansionItems.BONE_MEAL},
+                        new ItemStack[] {MagicExpansionItems.PRE_BUILDING_ACACIA_TREE})
+                .addRecipe(5, new ItemStack[] {new ItemStack(Material.DARK_OAK_SAPLING),MagicExpansionItems.BONE_MEAL},
+                        new ItemStack[] {MagicExpansionItems.PRE_BUILDING_DARK_OAK_TREE})
+                .addRecipe(5, new ItemStack[] {new ItemStack(Material.MANGROVE_PROPAGULE),MagicExpansionItems.BONE_MEAL},
+                        new ItemStack[] {MagicExpansionItems.PRE_BUILDING_MANGROVE_TREE})
+                .addRecipe(5, new ItemStack[] {new ItemStack(Material.CHERRY_SAPLING),MagicExpansionItems.BONE_MEAL},
+                        new ItemStack[] {MagicExpansionItems.PRE_BUILDING_CHERRY_TREE})
+                .register(plugin);
+
+        var sf1 = SlimefunItem.getByItem(SlimefunItems.SILICON);
+        var itemStack1 = new ItemStack(sf1.getItem().getType());
+        itemStack1.setItemMeta(sf1.getItem().getItemMeta());
+        itemStack1.setAmount(2);
+
+        //纯净硅源机
+        new RecipeMachine(magicexpansionrecipemachine, MagicExpansionItems.QUARTZ_PURE_MACHINE_BAISC, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MagicExpansionItems.ELEMENT_INGOT,SlimefunItems.BIG_CAPACITOR,MagicExpansionItems.ELEMENT_INGOT,
+                MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.QUARTZ_CORE,MagicExpansionItems.ELEMENT_INGOT,
+                MagicExpansionItems.AMETHYST_SHARD,MagicExpansionItems.AMETHYST_SHARD,MagicExpansionItems.AMETHYST_SHARD
+        })
+                .setCapacity(1314)
+                .setConsumption(26)
+                .setProcessingSpeed(1)
+                .addRecipe(3, new ItemStack[] {MagicExpansionItems.GOLD_INGOT}, new ItemStack[] {new ItemStack(Material.QUARTZ_BLOCK,2), sfItemAmount(SlimefunItems.SILICON,2)})
+                .addRecipe(3, new ItemStack[] {MagicExpansionItems.IRON_INGOT}, new ItemStack[] {new ItemStack(Material.QUARTZ_BLOCK,2), sfItemAmount(SlimefunItems.SILICON,2)})
+                .addRecipe(3, new ItemStack[] {MagicExpansionItems.COPPER_INGOT}, new ItemStack[] {new ItemStack(Material.QUARTZ_BLOCK,2), sfItemAmount(SlimefunItems.SILICON,2)})
+                .addRecipe(3, new ItemStack[] {MagicExpansionItems.LEAD_INGOT}, new ItemStack[] {new ItemStack(Material.QUARTZ_BLOCK,2), sfItemAmount(SlimefunItems.SILICON,2)})
+                .addRecipe(3, new ItemStack[] {MagicExpansionItems.TIN_INGOT}, new ItemStack[] {new ItemStack(Material.QUARTZ_BLOCK,2), sfItemAmount(SlimefunItems.SILICON,2)})
+                .addRecipe(3, new ItemStack[] {MagicExpansionItems.SILVER_INGOT}, new ItemStack[] {new ItemStack(Material.QUARTZ_BLOCK,2), sfItemAmount(SlimefunItems.SILICON,2)})
+                .addRecipe(3, new ItemStack[] {MagicExpansionItems.ZINC_INGOT}, new ItemStack[] {new ItemStack(Material.QUARTZ_BLOCK,2), sfItemAmount(SlimefunItems.SILICON,2)})
+                .addRecipe(3, new ItemStack[] {MagicExpansionItems.ALUMINUM_INGOT}, new ItemStack[] {new ItemStack(Material.QUARTZ_BLOCK,2), sfItemAmount(SlimefunItems.SILICON,2)})
+                .addRecipe(3, new ItemStack[] {MagicExpansionItems.MAGNESIUM_INGOT}, new ItemStack[] {new ItemStack(Material.QUARTZ_BLOCK,2), sfItemAmount(SlimefunItems.SILICON,2)})
+                .addRecipe(3, new ItemStack[] {MagicExpansionItems.ELEMENT_INGOT}, new ItemStack[] {new ItemStack(Material.QUARTZ_BLOCK,18), sfItemAmount(SlimefunItems.SILICON,18)})
+                .addRecipe(9, new ItemStack[] {SlimefunItems.GOLD_4K},
+                        new ItemStack[] {new ItemStack(Material.QUARTZ_BLOCK)}).addRecipe(9, new ItemStack[] {new ItemStack(Material.GOLD_INGOT)},
+                        new ItemStack[] {new ItemStack(Material.QUARTZ_BLOCK)}).addRecipe(9, new ItemStack[] {new ItemStack(Material.IRON_INGOT)},
+                        new ItemStack[] {new ItemStack(Material.QUARTZ_BLOCK)}).addRecipe(9, new ItemStack[] {new ItemStack(Material.COPPER_INGOT)},
+                        new ItemStack[] {new ItemStack(Material.QUARTZ_BLOCK)}).addRecipe(9, new ItemStack[] {SlimefunItems.COPPER_INGOT},
+                        new ItemStack[] {new ItemStack(Material.QUARTZ_BLOCK)}).addRecipe(9, new ItemStack[] {SlimefunItems.LEAD_INGOT},
+                        new ItemStack[] {new ItemStack(Material.QUARTZ_BLOCK)}).addRecipe(9, new ItemStack[] {SlimefunItems.TIN_INGOT},
+                        new ItemStack[] {new ItemStack(Material.QUARTZ_BLOCK)}).addRecipe(9, new ItemStack[] {SlimefunItems.SILVER_INGOT},
+                        new ItemStack[] {new ItemStack(Material.QUARTZ_BLOCK)}).addRecipe(9, new ItemStack[] {SlimefunItems.ZINC_INGOT},
+                        new ItemStack[] {new ItemStack(Material.QUARTZ_BLOCK)}).addRecipe(9, new ItemStack[] {SlimefunItems.ALUMINUM_INGOT},
+                        new ItemStack[] {new ItemStack(Material.QUARTZ_BLOCK)}).addRecipe(9, new ItemStack[] {SlimefunItems.MAGNESIUM_INGOT},
+                        new ItemStack[] {new ItemStack(Material.QUARTZ_BLOCK)})
+                .register(plugin);
 
 
 
@@ -687,6 +902,152 @@ public final class MagicExpansionItemSetup {
 
     }
 
+    //粘液物品
+    private static void  registerBasicElectricMan(
+            MagicExpansionMachines plugin,
+            SlimefunItemStack item,
+            SlimefunItemStack angle,
+            SlimefunItemStack output
+    ){
+
+
+        //电力矿工-输出
+        new ResourceMachine(
+                magicexpansionelectricbot,
+                item,
+                RecipeType.ENHANCED_CRAFTING_TABLE,
+                new ItemStack[] {
+                        angle,SlimefunItems.PROGRAMMABLE_ANDROID_3,angle,
+                        SlimefunItems.PROGRAMMABLE_ANDROID_MINER,MagicExpansionItems.MAGIC_EXPANSION_MINERAL_CAVE,SlimefunItems.PROGRAMMABLE_ANDROID_MINER,
+                        MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.ELEMENT_INGOT
+        })
+                .setCraftSecond(2)
+                .setCapacity(1314)
+                .setConsumption(260)
+                .setProcessingSpeed(1)
+                .setItemStackOutputs(new ItemStack[] {sfItemAmount(output,8),new ItemStack(Material.COBBLESTONE,6)
+                ,new ItemStack(Material.FLINT,2),new ItemStack(Material.BONE),new ItemStack(Material.CLAY,2)})
+                .register(plugin);
+    }
+    //原版物品
+    private static void  registerBasicElectricMan(
+            MagicExpansionMachines plugin,
+            SlimefunItemStack item,
+            SlimefunItemStack angle,
+            Material output
+    ){
+
+
+        //电力矿工-输出
+        new ResourceMachine(
+                magicexpansionelectricbot,
+                item,
+                RecipeType.ENHANCED_CRAFTING_TABLE,
+                new ItemStack[] {
+                        angle,SlimefunItems.PROGRAMMABLE_ANDROID_3,angle,
+                        SlimefunItems.PROGRAMMABLE_ANDROID_MINER,MagicExpansionItems.MAGIC_EXPANSION_MINERAL_CAVE,SlimefunItems.PROGRAMMABLE_ANDROID_MINER,
+                        MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.ELEMENT_INGOT
+                })
+                .setCraftSecond(2)
+                .setCapacity(1314)
+                .setConsumption(260)
+                .setProcessingSpeed(1)
+                .setItemStackOutputs(new ItemStack[] {new ItemStack(output,6),new ItemStack(Material.COBBLESTONE,6)
+                        ,new ItemStack(Material.FLINT,2),new ItemStack(Material.BONE),new ItemStack(Material.CLAY,2)})
+                .register(plugin);
+    }
+
+    //矿锭-粘液
+    private static void  registerBasicElectricMan(
+            MagicExpansionMachines plugin,
+            SlimefunItemStack item,
+            SlimefunItemStack angle,
+            SlimefunItemStack output,
+            int none,
+            int ingotsf
+    ){
+
+
+        //电力矿工-输出
+        new ResourceMachine(
+                magicexpansionelectricbot,
+                item,
+                RecipeType.ENHANCED_CRAFTING_TABLE,
+                new ItemStack[] {
+                        angle,MagicExpansionItems.INFINITY_FLINT_AND_STEEL,null,
+                        null,null,null,
+                        null,null,null
+                })
+                .setCraftSecond(2)
+                .setCapacity(1314)
+                .setConsumption(260)
+                .setProcessingSpeed(1)
+                .setItemStackOutputs(new ItemStack[] {sfItemAmount(output,8),new ItemStack(Material.COBBLESTONE,6)
+                        ,new ItemStack(Material.FLINT,2),new ItemStack(Material.BONE),new ItemStack(Material.CLAY,2)})
+                .register(plugin);
+    }
+    //矿锭-原版
+    private static void  registerBasicElectricMan(
+            MagicExpansionMachines plugin,
+            SlimefunItemStack item,
+            SlimefunItemStack angle,
+            Material output,
+            int none,
+            int none1,
+            int ingotVanilla
+    ){
+
+
+        //电力矿工-输出
+        new ResourceMachine(
+                magicexpansionelectricbot,
+                item,
+                RecipeType.ENHANCED_CRAFTING_TABLE,
+                new ItemStack[] {
+                        angle,MagicExpansionItems.INFINITY_FLINT_AND_STEEL,null,
+                        null,null,null,
+                        null,null,null
+                })
+                .setCraftSecond(2)
+                .setCapacity(1314)
+                .setConsumption(260)
+                .setProcessingSpeed(1)
+                .setItemStackOutputs(new ItemStack[] {new ItemStack(output,6),new ItemStack(Material.COBBLESTONE,6)
+                        ,new ItemStack(Material.FLINT,2),new ItemStack(Material.BONE),new ItemStack(Material.CLAY,2)})
+                .register(plugin);
+    }
+
+    //下届-原版
+    private static void  registerBasicElectricMan(
+            MagicExpansionMachines plugin,
+            SlimefunItemStack item,
+            SlimefunItemStack angle,
+            Material output,
+            int nether
+    ){
+
+
+        //电力矿工-输出
+        new ResourceMachine(
+                magicexpansionelectricbot,
+                item,
+                RecipeType.ENHANCED_CRAFTING_TABLE,
+                new ItemStack[] {
+                        angle,SlimefunItems.PROGRAMMABLE_ANDROID_3,angle,
+                        SlimefunItems.PROGRAMMABLE_ANDROID_MINER,MagicExpansionItems.MAGIC_EXPANSION_MINERAL_CAVE,SlimefunItems.PROGRAMMABLE_ANDROID_MINER,
+                        MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.ELEMENT_INGOT
+                })
+                .setCraftSecond(2)
+                .setCapacity(1314)
+                .setConsumption(260)
+                .setProcessingSpeed(1)
+                .setItemStackOutputs(new ItemStack[] {new ItemStack(output,6),new ItemStack(Material.NETHERRACK,6)
+                        ,new ItemStack(Material.SOUL_SAND,2),new ItemStack(Material.BONE_BLOCK),new ItemStack(Material.GOLD_NUGGET,2)})
+                .register(plugin);
+    }
+
+
+
     // 注册预制树General
     private static void registerVanResource(
             MagicExpansionMachines plugin,
@@ -716,7 +1077,7 @@ public final class MagicExpansionItemSetup {
         new PreBuildingTree(
                 magicexpansionprebuilding,
                 treeItem,
-                SPECIAL_RECIPE_TYPE,
+                PRE_BUILDINGS_MACHINE,
                 new ItemStack[] {
                         MagicExpansionItems.BONE_MEAL, tree, null,
                         null, null, null,

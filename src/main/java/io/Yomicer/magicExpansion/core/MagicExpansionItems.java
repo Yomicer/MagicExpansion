@@ -2,6 +2,7 @@ package io.Yomicer.magicExpansion.core;
 
 import io.Yomicer.magicExpansion.utils.CustomHeadUtils.CustomHead;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import org.bukkit.Material;
 
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
@@ -24,7 +25,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 2"),
+            getGradientName("Version: Build 5"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -384,6 +385,8 @@ public class MagicExpansionItems {
             get("Resource.COBBLESTONE.Name"),getList("Resource.COBBLESTONE.Lore"));
     public static final SlimefunItemStack DIRT = themed("DIRT",Material.DIRT,
             get("Resource.DIRT.Name"),getList("Resource.DIRT.Lore"));
+    public static final SlimefunItemStack GLOWSTONE_DUST = themed("GLOWSTONE_DUST",Material.GLOWSTONE_DUST,
+            get("Resource.GLOWSTONE_DUST.Name"),getList("Resource.GLOWSTONE_DUST.Lore"));
     public static final SlimefunItemStack LEVER = themed("LEVER",Material.LEVER,
             get("Resource.LEVER.Name"),getList("Resource.LEVER.Lore"));
     public static final SlimefunItemStack BUTTON = themed("BUTTON",Material.STONE_BUTTON,
@@ -396,17 +399,104 @@ public class MagicExpansionItems {
             get("Resource.CORE_ORIGIN.Name"),getList("Resource.CORE_ORIGIN.Lore"));
     public static final SlimefunItemStack LOG_MIX = themed("LOG_MIX",Material.GREEN_GLAZED_TERRACOTTA,
             get("Resource.LOG_MIX.Name"),getList("Resource.LOG_MIX.Lore"));
+    public static final SlimefunItemStack LIGHT_CORE = themed("LIGHT_CORE",Material.LIGHT,
+            get("Resource.LIGHT_CORE.Name"),getList("Resource.LIGHT_CORE.Lore"));
+    public static final SlimefunItemStack LIGHT_ENERGY_ALPHA = themed("LIGHT_ENERGY_ALPHA",Material.LIGHT,
+            get("Resource.LIGHT_ENERGY_ALPHA.Name"),getList("Resource.LIGHT_ENERGY_ALPHA.Lore"));
+    public static final SlimefunItemStack QUARTZ_CORE = themed("QUARTZ_CORE",Material.QUARTZ_BLOCK,
+            get("Resource.QUARTZ_CORE.Name"),getList("Resource.QUARTZ_CORE.Lore"));
+    public static final SlimefunItemStack INFINITY_FLINT_AND_STEEL = themed("INFINITY_FLINT_AND_STEEL",Material.FLINT_AND_STEEL,
+            get("Resource.INFINITY_FLINT_AND_STEEL.Name"),getList("Resource.INFINITY_FLINT_AND_STEEL.Lore"));
 
 
 
     //资源生成器
     public static final SlimefunItemStack RESOURCE_MACHINE_WOOD_BASIC = themed("RESOURCE_MACHINE_WOOD_BASIC",Material.BAMBOO_BLOCK,
             get("GENERATOR.RESOURCE_MACHINE_WOOD_BASIC.Name"),getList("GENERATOR.RESOURCE_MACHINE_WOOD_BASIC.Lore"));
+    //光源发生器
+    public static final SlimefunItemStack LIGHT_GEN_BASIC = themed("LIGHT_GEN_BASIC",Material.GLOWSTONE,
+            get("GENERATOR.LIGHT_GEN_BASIC.Name"),getList("GENERATOR.LIGHT_GEN_BASIC.Lore"));
+    //电力矿工机器人-石英
+    public static final SlimefunItemStack MINE_MAN_QUARTZ_BASIC = themed("MINE_MAN_QUARTZ_BASIC", CustomHead.BOT_GREEN.getItem(),
+            get("GENERATOR.MINE_MAN_QUARTZ_BASIC.Name"),getList("GENERATOR.MINE_MAN_QUARTZ_BASIC.Lore"));
+    public static final SlimefunItemStack MINE_MAN_AMETHYST_SHARD_BASIC = themed("MINE_MAN_AMETHYST_SHARD_BASIC", CustomHead.BOT_GREEN.getItem(),
+            get("GENERATOR.MINE_MAN_AMETHYST_SHARD_BASIC.Name"),getList("GENERATOR.MINE_MAN_AMETHYST_SHARD_BASIC.Lore"));
+    public static final SlimefunItemStack MINE_MAN_REDSTONE_BASIC = themed("MINE_MAN_REDSTONE_BASIC", CustomHead.BOT_GREEN.getItem(),
+            get("GENERATOR.MINE_MAN_REDSTONE_BASIC.Name"),getList("GENERATOR.MINE_MAN_REDSTONE_BASIC.Lore"));
+    public static final SlimefunItemStack MINE_MAN_DIAMOND_BASIC = themed("MINE_MAN_DIAMOND_BASIC", CustomHead.BOT_GREEN.getItem(),
+            get("GENERATOR.MINE_MAN_DIAMOND_BASIC.Name"),getList("GENERATOR.MINE_MAN_DIAMOND_BASIC.Lore"));
+    public static final SlimefunItemStack MINE_MAN_LAPIS_LAZULI_BASIC = themed("MINE_MAN_LAPIS_LAZULI_BASIC", CustomHead.BOT_GREEN.getItem(),
+            get("GENERATOR.MINE_MAN_LAPIS_LAZULI_BASIC.Name"),getList("GENERATOR.MINE_MAN_LAPIS_LAZULI_BASIC.Lore"));
+    public static final SlimefunItemStack MINE_MAN_EMERALD_BASIC = themed("MINE_MAN_EMERALD_BASIC", CustomHead.BOT_GREEN.getItem(),
+            get("GENERATOR.MINE_MAN_EMERALD_BASIC.Name"),getList("GENERATOR.MINE_MAN_EMERALD_BASIC.Lore"));
+    public static final SlimefunItemStack MINE_MAN_COAL_BASIC = themed("MINE_MAN_COAL_BASIC", CustomHead.BOT_GREEN.getItem(),
+            get("GENERATOR.MINE_MAN_COAL_BASIC.Name"),getList("GENERATOR.MINE_MAN_COAL_BASIC.Lore"));
+    public static final SlimefunItemStack MINE_MAN_NETHERITE_SCRAP_BASIC = themed("MINE_MAN_NETHERITE_SCRAP_BASIC", CustomHead.BOT_GREEN.getItem(),
+            get("GENERATOR.MINE_MAN_NETHERITE_SCRAP_BASIC.Name"),getList("GENERATOR.MINE_MAN_NETHERITE_SCRAP_BASIC.Lore"));
+    public static final SlimefunItemStack MINE_MAN_IRON_DUST_BASIC = themed("MINE_MAN_IRON_DUST_BASIC", CustomHead.BOT_GREEN.getItem(),
+            get("GENERATOR.MINE_MAN_IRON_DUST_BASIC.Name"),getList("GENERATOR.MINE_MAN_IRON_DUST_BASIC.Lore"));
+    public static final SlimefunItemStack MINE_MAN_GOLD_DUST_BASIC = themed("MINE_MAN_GOLD_DUST_BASIC", CustomHead.BOT_GREEN.getItem(),
+            get("GENERATOR.MINE_MAN_GOLD_DUST_BASIC.Name"),getList("GENERATOR.MINE_MAN_GOLD_DUST_BASIC.Lore"));
+    public static final SlimefunItemStack MINE_MAN_COPPER_DUST_BASIC = themed("MINE_MAN_COPPER_DUST_BASIC", CustomHead.BOT_GREEN.getItem(),
+            get("GENERATOR.MINE_MAN_COPPER_DUST_BASIC.Name"),getList("GENERATOR.MINE_MAN_COPPER_DUST_BASIC.Lore"));
+    public static final SlimefunItemStack MINE_MAN_TIN_DUST_BASIC = themed("MINE_MAN_TIN_DUST_BASIC", CustomHead.BOT_GREEN.getItem(),
+            get("GENERATOR.MINE_MAN_TIN_DUST_BASIC.Name"),getList("GENERATOR.MINE_MAN_TIN_DUST_BASIC.Lore"));
+    public static final SlimefunItemStack MINE_MAN_SILVER_DUST_BASIC = themed("MINE_MAN_SILVER_DUST_BASIC", CustomHead.BOT_GREEN.getItem(),
+            get("GENERATOR.MINE_MAN_SILVER_DUST_BASIC.Name"),getList("GENERATOR.MINE_MAN_SILVER_DUST_BASIC.Lore"));
+    public static final SlimefunItemStack MINE_MAN_LEAD_DUST_BASIC = themed("MINE_MAN_LEAD_DUST_BASIC", CustomHead.BOT_GREEN.getItem(),
+            get("GENERATOR.MINE_MAN_LEAD_DUST_BASIC.Name"),getList("GENERATOR.MINE_MAN_LEAD_DUST_BASIC.Lore"));
+    public static final SlimefunItemStack MINE_MAN_ALUMINUM_DUST_BASIC = themed("MINE_MAN_ALUMINUM_DUST_BASIC", CustomHead.BOT_GREEN.getItem(),
+            get("GENERATOR.MINE_MAN_ALUMINUM_DUST_BASIC.Name"),getList("GENERATOR.MINE_MAN_ALUMINUM_DUST_BASIC.Lore"));
+    public static final SlimefunItemStack MINE_MAN_ZINC_DUST_BASIC = themed("MINE_MAN_ZINC_DUST_BASIC", CustomHead.BOT_GREEN.getItem(),
+            get("GENERATOR.MINE_MAN_ZINC_DUST_BASIC.Name"),getList("GENERATOR.MINE_MAN_ZINC_DUST_BASIC.Lore"));
+    public static final SlimefunItemStack MINE_MAN_MAGNESIUM_DUST_BASIC = themed("MINE_MAN_MAGNESIUM_DUST_BASIC", CustomHead.BOT_GREEN.getItem(),
+            get("GENERATOR.MINE_MAN_MAGNESIUM_DUST_BASIC.Name"),getList("GENERATOR.MINE_MAN_MAGNESIUM_DUST_BASIC.Lore"));
+
+    //矿锭
+    public static final SlimefunItemStack MINE_MAN_IRON_INGOT_BASIC = themed("MINE_MAN_IRON_INGOT_BASIC", CustomHead.BOT_ORANGE.getItem(),
+            get("GENERATOR.MINE_MAN_IRON_INGOT_BASIC.Name"),getList("GENERATOR.MINE_MAN_IRON_INGOT_BASIC.Lore"));
+    public static final SlimefunItemStack MINE_MAN_GOLD_INGOT_BASIC = themed("MINE_MAN_GOLD_INGOT_BASIC", CustomHead.BOT_ORANGE.getItem(),
+            get("GENERATOR.MINE_MAN_GOLD_INGOT_BASIC.Name"),getList("GENERATOR.MINE_MAN_GOLD_INGOT_BASIC.Lore"));
+    public static final SlimefunItemStack MINE_MAN_COPPER_INGOT_BASIC = themed("MINE_MAN_COPPER_INGOT_BASIC", CustomHead.BOT_ORANGE.getItem(),
+            get("GENERATOR.MINE_MAN_COPPER_INGOT_BASIC.Name"),getList("GENERATOR.MINE_MAN_COPPER_INGOT_BASIC.Lore"));
+    public static final SlimefunItemStack MINE_MAN_TIN_INGOT_BASIC = themed("MINE_MAN_TIN_INGOT_BASIC", CustomHead.BOT_ORANGE.getItem(),
+            get("GENERATOR.MINE_MAN_TIN_INGOT_BASIC.Name"),getList("GENERATOR.MINE_MAN_TIN_INGOT_BASIC.Lore"));
+    public static final SlimefunItemStack MINE_MAN_SILVER_INGOT_BASIC = themed("MINE_MAN_SILVER_INGOT_BASIC", CustomHead.BOT_ORANGE.getItem(),
+            get("GENERATOR.MINE_MAN_SILVER_INGOT_BASIC.Name"),getList("GENERATOR.MINE_MAN_SILVER_INGOT_BASIC.Lore"));
+    public static final SlimefunItemStack MINE_MAN_LEAD_INGOT_BASIC = themed("MINE_MAN_LEAD_INGOT_BASIC", CustomHead.BOT_ORANGE.getItem(),
+            get("GENERATOR.MINE_MAN_LEAD_INGOT_BASIC.Name"),getList("GENERATOR.MINE_MAN_LEAD_INGOT_BASIC.Lore"));
+    public static final SlimefunItemStack MINE_MAN_ALUMINUM_INGOT_BASIC = themed("MINE_MAN_ALUMINUM_INGOT_BASIC", CustomHead.BOT_ORANGE.getItem(),
+            get("GENERATOR.MINE_MAN_ALUMINUM_INGOT_BASIC.Name"),getList("GENERATOR.MINE_MAN_ALUMINUM_INGOT_BASIC.Lore"));
+    public static final SlimefunItemStack MINE_MAN_ZINC_INGOT_BASIC = themed("MINE_MAN_ZINC_INGOT_BASIC", CustomHead.BOT_ORANGE.getItem(),
+            get("GENERATOR.MINE_MAN_ZINC_INGOT_BASIC.Name"),getList("GENERATOR.MINE_MAN_ZINC_INGOT_BASIC.Lore"));
+    public static final SlimefunItemStack MINE_MAN_MAGNESIUM_INGOT_BASIC = themed("MINE_MAN_MAGNESIUM_INGOT_BASIC", CustomHead.BOT_ORANGE.getItem(),
+            get("GENERATOR.MINE_MAN_MAGNESIUM_INGOT_BASIC.Name"),getList("GENERATOR.MINE_MAN_MAGNESIUM_INGOT_BASIC.Lore"));
+
+    //合成，下界合金锭
+    public static final SlimefunItemStack MINE_MAN_NETHERITE_INGOT_BASIC = themed("MINE_MAN_NETHERITE_INGOT_BASIC", CustomHead.BOT_ORANGE.getItem(),
+            get("GENERATOR.MINE_MAN_NETHERITE_INGOT_BASIC.Name"),getList("GENERATOR.MINE_MAN_NETHERITE_INGOT_BASIC.Lore"));
+
+
 
 
     //配方机器
     public static final SlimefunItemStack WOOD_TRANSFORM_BASIC = themed("WOOD_TRANSFORM_BASIC",Material.STRIPPED_BAMBOO_BLOCK,
             get("RECIPE_MACHINE.WOOD_TRANSFORM_BASIC.Name"),getList("RECIPE_MACHINE.WOOD_TRANSFORM_BASIC.Lore"));
+
+    public static final SlimefunItemStack LIGHT_TRANSFORM_BASIC = themed("LIGHT_TRANSFORM_BASIC",Material.PINK_GLAZED_TERRACOTTA,
+            get("RECIPE_MACHINE.LIGHT_TRANSFORM_BASIC.Name"),getList("RECIPE_MACHINE.LIGHT_TRANSFORM_BASIC.Lore"));
+    //光源提取器
+    public static final SlimefunItemStack LIGHT_EXTRACT_BASIC = themed("LIGHT_EXTRACT_BASIC",Material.TINTED_GLASS,
+            get("RECIPE_MACHINE.LIGHT_EXTRACT_BASIC.Name"),getList("RECIPE_MACHINE.LIGHT_EXTRACT_BASIC.Lore"));
+
+    //光源提取器
+    public static final SlimefunItemStack QUARTZ_PURE_MACHINE_BAISC = themed("QUARTZ_PURE_MACHINE_BAISC",Material.QUARTZ_PILLAR,
+            get("RECIPE_MACHINE.QUARTZ_PURE_MACHINE_BAISC.Name"),getList("RECIPE_MACHINE.QUARTZ_PURE_MACHINE_BAISC.Lore"));
+
+
+    //预制建筑工坊
+    public static final SlimefunItemStack PRE_BUILDINGS_MACHINE = themed("PRE_BUILDINGS_MACHINE",Material.AMETHYST_BLOCK,
+            get("RECIPE_MACHINE.PRE_BUILDINGS_MACHINE.Name"),getList("RECIPE_MACHINE.PRE_BUILDINGS_MACHINE.Lore"));
 
 
 
