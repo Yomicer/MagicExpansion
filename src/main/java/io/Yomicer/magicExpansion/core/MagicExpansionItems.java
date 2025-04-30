@@ -25,7 +25,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 5"),
+            getGradientName("Version: Build 6"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -499,11 +499,30 @@ public class MagicExpansionItems {
             get("RECIPE_MACHINE.PRE_BUILDINGS_MACHINE.Name"),getList("RECIPE_MACHINE.PRE_BUILDINGS_MACHINE.Lore"));
 
 
+    //普通机器
+    public static final SlimefunItemStack PHANTON_SUPPRESSION = createDefaultMachine("PHANTON_SUPPRESSION",Material.LIGHT_BLUE_GLAZED_TERRACOTTA);
 
 
 
 
 
+    public static SlimefunItemStack createDefaultItem(String id,Material material) {
+        return themed(
+                id,
+                material,
+                get("Items." + id + ".Name"),
+                getList("Items." + id + ".Lore")
+        );
+    }
+
+    public static SlimefunItemStack createDefaultMachine(String id,Material material) {
+        return themed(
+                id,
+                material,
+                get("MACHINE." + id + ".Name"),
+                getList("MACHINE." + id + ".Lore")
+        );
+    }
 
 
 

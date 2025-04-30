@@ -8,10 +8,12 @@ import io.github.thebusybiscuit.slimefun4.core.handlers.ItemUseHandler;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
+import net.guizhanss.guizhanlib.minecraft.helper.inventory.ItemStackHelper;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -65,11 +67,15 @@ public class MagicExpansionMineralCave extends SimpleSlimefunItem<ItemUseHandler
                 }
                 // 玩家点击后，将该槽位替换为普通圆石
                 ItemStack randomItem = getRandomItem(random);
-                menu.replaceExistingItem(slot, randomItem);
+                ItemStack treasureItem = randomItem.clone();
+                ItemMeta meta = treasureItem.getItemMeta();
+                meta.setDisplayName("§e宝藏：§b" + ItemStackHelper.getDisplayName(treasureItem));
+                treasureItem.setItemMeta(meta);
+                menu.replaceExistingItem(slot, treasureItem);
                 GiveItem.giveOrDropItem(player1, randomItem);
                 // 将槽位标记为已点击
                 clickedSlots.add(slot);
-                player1.sendMessage("你挖取了坐标为 " + slot+" 的石头！");
+                player1.sendMessage("你挖掘了坐标为 " + slot+" 的石头！");
                 return false; // 返回 false 表示不消耗物品
             });
         }

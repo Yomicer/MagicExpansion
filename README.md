@@ -42,6 +42,8 @@ This is Yomicer‘s first Slimefun addon project
 - 加热压力舱
 ```
 
+**partial content display(以下只是部分内容展示)**
+
 - **Special Item（特殊道具）**
   - Random Entity Spawn（随机实体蛋）
   - Better Hoe（更好的镰刀）

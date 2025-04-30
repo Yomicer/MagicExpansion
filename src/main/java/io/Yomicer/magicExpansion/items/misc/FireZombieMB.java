@@ -47,9 +47,9 @@ public class FireZombieMB extends MultiBlockMachine {
 
         if(!StorageCacheUtils.isBlock(locationUp, "MAGIC_EXPANSION_FIREZOMBIE_HEAD") || !StorageCacheUtils.isBlock(location, "MAGIC_EXPANSION_FIREZOMBIE_BODY") || !StorageCacheUtils.isBlock(locationDown, "MAGIC_EXPANSION_FIREZOMBIE_BODY")) {
 
-            p.sendMessage(ColorGradient.getGradientName("[魔法·BOSS搭建]你需要使用正确的搭建方式"));
-            p.sendMessage(ColorGradient.getGradientName("[魔法·BOSS搭建]请检查你放置的方块"));
-            p.sendMessage(ColorGradient.getGradientName("[魔法·BOSS搭建]他可能是一个粘液物品"));
+            p.sendMessage(ColorGradient.getGradientName("[魔法·BOSS召唤]你需要使用正确的搭建方式"));
+            p.sendMessage(ColorGradient.getGradientName("[魔法·BOSS召唤]请检查你放置的方块"));
+            p.sendMessage(ColorGradient.getGradientName("[魔法·BOSS召唤]他可能是一个粘液物品"));
             return;
         }
 
