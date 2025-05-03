@@ -1,10 +1,12 @@
 package io.Yomicer.magicExpansion.specialActions.Command;
 
 import io.Yomicer.magicExpansion.Listener.worldListener.Events;
-import io.Yomicer.magicExpansion.MagicExpansionMachines;
+import io.Yomicer.magicExpansion.MagicExpansion;
 import io.Yomicer.magicExpansion.utils.MapUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -12,8 +14,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.util.BlockIterator;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -22,9 +22,9 @@ import java.util.List;
 
 public class WorldCommand implements CommandExecutor, TabCompleter {
 
-    private final MagicExpansionMachines plugin;
+    private final MagicExpansion plugin;
 
-    public WorldCommand(MagicExpansionMachines plugin) {
+    public WorldCommand(MagicExpansion plugin) {
         this.plugin = plugin;
     }
 
@@ -38,7 +38,7 @@ public class WorldCommand implements CommandExecutor, TabCompleter {
         Player player = (Player) sender;
 
         // 权限检查
-        if (!player.isOp() && !player.hasPermission("MagicExpansionMachines.use")) {
+        if (!player.isOp() && !player.hasPermission("MagicExpansion.use")) {
             player.sendMessage("§cYou do not have permission to use this command!");
             return true;
         }
@@ -146,7 +146,18 @@ public class WorldCommand implements CommandExecutor, TabCompleter {
                     pasteLocation.getBlockY() + blockData.y,
                     pasteLocation.getBlockZ() + blockData.z
             );
-            location.getBlock().setType(org.bukkit.Material.valueOf(blockData.type));
+
+            if (blockData.blockState != null && !blockData.blockState.isEmpty()) {
+                // 如果有 blockState，则使用它来设置方块数据
+                try {
+                    location.getBlock().setBlockData(Bukkit.createBlockData(blockData.blockState));
+                } catch (IllegalArgumentException e) {
+                    player.sendMessage("§cError setting block data: " + e.getMessage());
+                }
+            } else {
+                // 如果没有 blockState，则仅设置方块类型
+                location.getBlock().setType(Material.valueOf(blockData.type));
+            }
         }
 
         player.sendMessage("§aPasted the selected area above the target block.");

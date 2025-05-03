@@ -1,18 +1,11 @@
 package io.Yomicer.magicExpansion.core;
 
-import io.Yomicer.magicExpansion.MagicExpansionMachines;
-import io.Yomicer.magicExpansion.items.preBuildings.PreBuildingTree;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
-import org.bukkit.inventory.ItemStack;
-
-import static io.Yomicer.magicExpansion.MagicExpansionItemSetup.SPECIAL_RECIPE_TYPE;
-
 public class PreBuildingTreeItems {
 
 
 //    // 注册预制树的通用方法
 //    private static void registerPreBuildingTree(
-//            MagicExpansionMachines plugin,
+//            MagicExpansion plugin,
 //            SlimefunItemStack treeItem,
 //            String baseTreeKey,
 //            String baseTreeType,
@@ -35,7 +28,7 @@ public class PreBuildingTreeItems {
 //    }
 //
 //    // 批量注册所有预制树
-//    public static void registerAllPreBuildingTrees(MagicExpansionMachines plugin) {
+//    public static void registerAllPreBuildingTrees(MagicExpansion plugin) {
 //        registerPreBuildingTree(plugin, MagicExpansionItems.PRE_BUILDING_OAK_TREE, "oak_tree", "OAK", "OAK");
 //        registerPreBuildingTree(plugin, MagicExpansionItems.PRE_BUILDING_SPRUCE_TREE, "oak_tree", "OAK", "SPRUCE");
 //        registerPreBuildingTree(plugin, MagicExpansionItems.PRE_BUILDING_BIRCH_TREE, "oak_tree", "OAK", "BIRCH");

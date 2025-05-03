@@ -2,7 +2,7 @@ name: magicexpansion
 ## CHANGE this to your username.
 author: Yomicer
 version: ${project.version}
-main: io.Yomicer.magicExpansion.MagicExpansionMachines
+main: io.Yomicer.magicExpansion.MagicExpansion
 api-version: '1.20'
 depend: [Slimefun]
 ## CHANGE this to a meaninful but short description of your plugin.

@@ -33,6 +33,7 @@ import org.bukkit.inventory.ItemStack;
 import javax.annotation.Nonnull;
 
 import static io.Yomicer.magicExpansion.core.MagicExpansionItems.MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC;
+import static io.Yomicer.magicExpansion.core.MagicExpansionItems.PRE_BUILDINGS_MACHINE_ADVANCED;
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
 import static io.Yomicer.magicExpansion.utils.ConvertItem.AdvancedCreateItem;
 import static io.Yomicer.magicExpansion.utils.ConvertItem.BasicCreateItem;
@@ -47,94 +48,116 @@ public final class MagicExpansionItemSetup {
 
     // ItemGroups
     private static final NestedItemGroup magicexpansion = new NestedItemGroup(
-            new NamespacedKey(MagicExpansionMachines.getInstance(), "magicexpansion"),
+            new NamespacedKey(MagicExpansion.getInstance(), "magicexpansion"),
             new CustomItemStack(doGlow(Material.LIGHT),"§x§F§D§B§7§D§4§kll§x§F§D§B§7§D§4魔§x§F§A§7§E§B§3法§x§F§F§6§9§B§4拓§x§F§F§6§9§B§4展§x§F§D§B§7§D§4§kll"),0
     );
 
     private static final ItemGroup magicexpansioncontribution = new SubItemGroup(
-            new NamespacedKey(MagicExpansionMachines.getInstance(), "contribution"), magicexpansion,
+            new NamespacedKey(MagicExpansion.getInstance(), "contribution"), magicexpansion,
             new CustomItemStack(doGlow(Material.COMMAND_BLOCK), "§x§F§D§B§7§D§4§kll§x§F§A§7§E§B§3贡§x§F§F§6§9§B§4献§x§F§F§6§9§B§4§kll"), 0
     );
 
     private static final ItemGroup magicexpansionresource = new SubItemGroup(
-            new NamespacedKey(MagicExpansionMachines.getInstance(), "resource"), magicexpansion,
+            new NamespacedKey(MagicExpansion.getInstance(), "resource"), magicexpansion,
             new CustomItemStack(doGlow(Material.SNOWBALL), ColorGradient.getGradientName("魔法-资源")), 1
     );
 
     private static final ItemGroup magicexpansionresourcedlc = new SubItemGroup(
-            new NamespacedKey(MagicExpansionMachines.getInstance(), "resourcedlc"), magicexpansion,
+            new NamespacedKey(MagicExpansion.getInstance(), "resourcedlc"), magicexpansion,
             new CustomItemStack(doGlow(Material.TOTEM_OF_UNDYING), "§x§F§D§B§7§D§4补§x§F§A§7§E§B§3丁§x§F§F§6§9§B§4材§x§F§F§6§9§B§4料"), 2
     );
 
     private static final ItemGroup magicexpansionspecialitem = new SubItemGroup(
-            new NamespacedKey(MagicExpansionMachines.getInstance(), "specialitem"), magicexpansion,
+            new NamespacedKey(MagicExpansion.getInstance(), "specialitem"), magicexpansion,
             new CustomItemStack(doGlow(Material.SHEARS), "§x§F§D§B§7§D§4特§x§F§A§7§E§B§3殊§x§F§F§6§9§B§4道§x§F§F§6§9§B§4具"), 3
     );
 
     private static final ItemGroup magicexpansionquickmachine = new SubItemGroup(
-            new NamespacedKey(MagicExpansionMachines.getInstance(), "quickmachine"), magicexpansion,
+            new NamespacedKey(MagicExpansion.getInstance(), "quickmachine"), magicexpansion,
             new CustomItemStack(doGlow(Material.MAGENTA_GLAZED_TERRACOTTA), "§x§F§D§B§7§D§4快§x§F§A§7§E§B§3捷§x§F§F§6§9§B§4机§x§F§F§6§9§B§4器"), 4
     );
 
     private static final ItemGroup magicexpansionresourcegenerator = new SubItemGroup(
-            new NamespacedKey(MagicExpansionMachines.getInstance(), "resourcegenerator"), magicexpansion,
+            new NamespacedKey(MagicExpansion.getInstance(), "resourcegenerator"), magicexpansion,
             new CustomItemStack(doGlow(Material.LANTERN), ColorGradient.getGradientName("魔法-资源生成器")), 5
     );
     private static final ItemGroup magicexpansionrecipemachine = new SubItemGroup(
-            new NamespacedKey(MagicExpansionMachines.getInstance(), "recipemachine"), magicexpansion,
+            new NamespacedKey(MagicExpansion.getInstance(), "recipemachine"), magicexpansion,
             new CustomItemStack(doGlow(Material.SOUL_CAMPFIRE), ColorGradient.getGradientName("魔法-消耗型生产机器")), 5
     );
 
-    private static final ItemGroup magicexpansionenergy = new SubItemGroup(
-            new NamespacedKey(MagicExpansionMachines.getInstance(), "energy"), magicexpansion,
+    public static final ItemGroup magicexpansionenergy = new SubItemGroup(
+            new NamespacedKey(MagicExpansion.getInstance(), "energy"), magicexpansion,
             new CustomItemStack(doGlow(Material.SOUL_LANTERN), ColorGradient.getGradientName("魔法-特殊机器")), 6
     );
 
     private static final ItemGroup magicexpansionelectricbot = new SubItemGroup(
-            new NamespacedKey(MagicExpansionMachines.getInstance(), "electric_bot"), magicexpansion,
+            new NamespacedKey(MagicExpansion.getInstance(), "electric_bot"), magicexpansion,
             new CustomItemStack(CustomHead.BOT_PINK.getItem(), ColorGradient.getGradientName("魔法-电力机器人")), 6
     );
 
     private static final ItemGroup magicexpansionboss = new SubItemGroup(
-            new NamespacedKey(MagicExpansionMachines.getInstance(), "boss"), magicexpansion,
+            new NamespacedKey(MagicExpansion.getInstance(), "boss"), magicexpansion,
             new CustomItemStack(doGlow(Material.ENDER_DRAGON_SPAWN_EGG), ColorGradient.getGradientName("魔法BOSS")), 7
     );
 
     private static final ItemGroup magicexpansionforge = new SubItemGroup(
-            new NamespacedKey(MagicExpansionMachines.getInstance(), "forge"), magicexpansion,
+            new NamespacedKey(MagicExpansion.getInstance(), "forge"), magicexpansion,
             new CustomItemStack(doGlow(Material.ANVIL), ColorGradient.getGradientName("魔法锻造")), 8
     );
 
+    private static final ItemGroup magicexpansionprebuildingresource = new SubItemGroup(
+            new NamespacedKey(MagicExpansion.getInstance(), "prebuildingresource"), magicexpansion,
+            new CustomItemStack(doGlow(Material.PRISMARINE_CRYSTALS), ColorGradient.getGradientName("魔法-建筑材料")), 9
+    );
+
     private static final ItemGroup magicexpansionprebuilding = new SubItemGroup(
-            new NamespacedKey(MagicExpansionMachines.getInstance(), "prebuilding"), magicexpansion,
+            new NamespacedKey(MagicExpansion.getInstance(), "prebuilding"), magicexpansion,
             new CustomItemStack(doGlow(Material.BRICKS), ColorGradient.getGradientName("魔法-预制菜（建筑）")), 9
     );
 
 
     // 定义一个新的配方类型
     public static final RecipeType SPECIAL_RECIPE_TYPE = new RecipeType(
-            new NamespacedKey(MagicExpansionMachines.getInstance(), "magicexpansion_special_recipe_type"),
+            new NamespacedKey(MagicExpansion.getInstance(), "magicexpansion_special_recipe_type"),
             new CustomItemStack(Material.TOTEM_OF_UNDYING,"§x§F§D§B§7§D§4无§x§F§A§7§E§B§3法§x§F§F§6§9§B§4合§x§F§F§6§9§B§4成",getGradientName("痴情的人啊"),getGradientName("请再等一世吧")), // 图标
             (input, output) -> {});
 
     // 光能激发器
     public static final RecipeType LIGHT_TRANSFORM_BASIC = new RecipeType(
-            new NamespacedKey(MagicExpansionMachines.getInstance(), "magicexpansion_light_transform_basic"),
+            new NamespacedKey(MagicExpansion.getInstance(), "magicexpansion_light_transform_basic"),
             new CustomItemStack(Material.AMETHYST_BLOCK,getGradientName("光能激发器"),getGradientName("散发着幽异的光芒。"),"",getGradientName("功能: 使用电力激发光能"),
                     getGradientName("能源需求: 每秒钟消耗少量电力从光源中提取光能"),getGradientName(""),getGradientName("“有限光源，有限的能源...”")),
             (input, output) -> {});
 
     // 魔法建筑工坊
     public static final RecipeType PRE_BUILDINGS_MACHINE = new RecipeType(
-            new NamespacedKey(MagicExpansionMachines.getInstance(), "magicexpansion_pre_buildings_machine"),
+            new NamespacedKey(MagicExpansion.getInstance(), "magicexpansion_pre_buildings_machine"),
             new CustomItemStack(Material.PINK_GLAZED_TERRACOTTA,getGradientName("魔法建筑工坊"),getGradientName("一座神秘的工坊，里面藏有许多图纸。"),"",getGradientName("只要你能提供材料，他就能给你建造出来。"),
                     getGradientName(""),getGradientName("功能: 制作预制建筑"),getGradientName("能源需求: 每秒钟消耗少量电力")
                     ,getGradientName(""),getGradientName("是魔法之力？还是远古工匠的智慧结晶？"),getGradientName("无论如何，这座工坊流传着一些未知的秘密。")),
             (input, output) -> {});
 
+    // 魔法建筑工坊
+    public static final RecipeType PRE_BUILDINGS_MACHINE_RESOURCE_ADVANCED = new RecipeType(
+            new NamespacedKey(MagicExpansion.getInstance(), "magicexpansion_pre_buildings_resource_machine"),
+            new CustomItemStack(Material.SEA_LANTERN,getGradientName("魔法材料工坊"),getGradientName("一座神秘的工坊，里面藏有许多高精密仪器。"),"",getGradientName("只要你能提供材料，他就能给你压缩材料。"),
+                    getGradientName(""),getGradientName("功能: 制作预制建筑"),getGradientName("能源需求: 每秒钟消耗大量电力")
+                    ,getGradientName(""),getGradientName("是魔法之力？还是远古工匠的智慧结晶？"),getGradientName("无论如何，这座工坊流传着一些未知的秘密。")),
+            (input, output) -> {});
+
+    // 终极魔法建筑工坊
+    public static final RecipeType PRE_BUILDINGS_MACHINE_ADVANCED = new RecipeType(
+            new NamespacedKey(MagicExpansion.getInstance(), "magicexpansion_pre_buildings_machine_advance"),
+            new CustomItemStack(Material.CARTOGRAPHY_TABLE,getGradientName("终极魔法建筑工坊"),getGradientName("一座神秘的工坊，里面藏有许多图纸。"),"",getGradientName("只要你能提供材料，他就能给你建造出来。"),
+                    getGradientName(""),getGradientName("功能: 制作预制建筑"),getGradientName("能源需求: 每秒钟消耗大量电力")
+                    ,getGradientName(""),getGradientName("是魔法之力？还是远古工匠的智慧结晶？"),getGradientName("无论如何，这座工坊流传着一些未知的秘密。")),
+            (input, output) -> {});
+
+
     //  掉落物
     public static final RecipeType MAGICEXPANSION_MOB_DROP = new RecipeType(
-            new NamespacedKey(MagicExpansionMachines.getInstance(), "magicexpansion_mob_drop"),
+            new NamespacedKey(MagicExpansion.getInstance(), "magicexpansion_mob_drop"),
             new CustomItemStack(Material.TOTEM_OF_UNDYING,ColorGradient.getGradientName("魔法生物掉落"),getGradientName("通过召唤魔法生物"),getGradientName("并将其击败"),getGradientName("有概率获取")), // 图标
             (input, output) -> {});
 
@@ -142,7 +165,7 @@ public final class MagicExpansionItemSetup {
     }
 
 
-    public static void setup(@Nonnull MagicExpansionMachines plugin) {
+    public static void setup(@Nonnull MagicExpansion plugin) {
 
 
         //版本信息
@@ -182,7 +205,7 @@ public final class MagicExpansionItemSetup {
 
 
         //魔法交互核心
-        new UnplaceableBlock(magicexpansionresourcedlc, MagicExpansionItems.MAGIC_EXPANSION_INTERACTIVE_CORE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+        new UnplaceableBlock(magicexpansionresource, MagicExpansionItems.MAGIC_EXPANSION_INTERACTIVE_CORE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 SlimefunItems.WITHER_PROOF_GLASS, SlimefunItems.POWER_CRYSTAL, SlimefunItems.WITHER_PROOF_GLASS,
                 SlimefunItems.ADVANCED_CIRCUIT_BOARD, SlimefunItems.CARGO_MANAGER, SlimefunItems.ADVANCED_CIRCUIT_BOARD,
                 SlimefunItems.WITHER_PROOF_GLASS, SlimefunItems.ANDROID_INTERFACE_ITEMS, SlimefunItems.WITHER_PROOF_GLASS
@@ -601,6 +624,99 @@ public final class MagicExpansionItemSetup {
                 MagicExpansionItems.IRON_INGOT,MagicExpansionItems.IRON_INGOT,MagicExpansionItems.IRON_INGOT
         }).register(plugin);
 
+        //无尽空间魔法
+        new UnplaceableBlock(magicexpansionprebuildingresource, MagicExpansionItems.SPACE_INFINITY_MAGIC, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MagicExpansionItems.AMETHYST_SHARD,MagicExpansionItems.LIGHT_CORE, MagicExpansionItems.AMETHYST_SHARD,
+                MagicExpansionItems.LIGHT_CORE,MagicExpansionItems.MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC,MagicExpansionItems.LIGHT_CORE,
+                MagicExpansionItems.AMETHYST_SHARD,MagicExpansionItems.LIGHT_CORE,MagicExpansionItems.AMETHYST_SHARD,
+        }).register(plugin);
+
+        registerBuildingsResource(plugin,MagicExpansionItems.COBBLESTONE_1, Material.COBBLESTONE);
+        registerBuildingsResourceSf(plugin,MagicExpansionItems.COBBLESTONE_2, MagicExpansionItems.COBBLESTONE_1);
+        registerBuildingsResource(plugin,MagicExpansionItems.STONE_1, Material.STONE);
+        registerBuildingsResourceSf(plugin,MagicExpansionItems.STONE_2, MagicExpansionItems.STONE_1);
+        registerBuildingsResource(plugin,MagicExpansionItems.OAK_LOG_1, Material.OAK_LOG);
+        registerBuildingsResourceSf(plugin,MagicExpansionItems.OAK_LOG_2, MagicExpansionItems.OAK_LOG_1);
+        registerBuildingsResource(plugin,MagicExpansionItems.STONE_BRICKS_1, Material.STONE_BRICKS);
+        registerBuildingsResourceSf(plugin,MagicExpansionItems.STONE_BRICKS_2, MagicExpansionItems.STONE_BRICKS_1);
+        registerBuildingsResource(plugin,MagicExpansionItems.BRICKS_1, Material.BRICKS);
+        registerBuildingsResourceSf(plugin,MagicExpansionItems.BRICKS_2, MagicExpansionItems.BRICKS_1);
+        registerBuildingsResource(plugin,MagicExpansionItems.REDSTONE_1, Material.REDSTONE);
+        registerBuildingsResourceSf(plugin,MagicExpansionItems.REDSTONE_2, MagicExpansionItems.REDSTONE_1);
+        registerBuildingsResource(plugin,MagicExpansionItems.REDSTONE_TORCH_1, Material.REDSTONE_TORCH);
+        registerBuildingsResourceSf(plugin,MagicExpansionItems.REDSTONE_TORCH_2, MagicExpansionItems.REDSTONE_TORCH_1);
+        registerBuildingsResource(plugin,MagicExpansionItems.REPEATER_1, Material.REPEATER);
+        registerBuildingsResourceSf(plugin,MagicExpansionItems.REPEATER_2, MagicExpansionItems.REPEATER_1);
+        registerBuildingsResource(plugin,MagicExpansionItems.COMPARATOR_1, Material.COMPARATOR);
+        registerBuildingsResourceSf(plugin,MagicExpansionItems.COMPARATOR_2, MagicExpansionItems.COMPARATOR_1);
+        registerBuildingsResource(plugin,MagicExpansionItems.HOPPER_1, Material.HOPPER);
+        registerBuildingsResourceSf(plugin,MagicExpansionItems.HOPPER_2, MagicExpansionItems.HOPPER_1);
+        registerBuildingsResource(plugin,MagicExpansionItems.STRING_1, Material.STRING);
+        registerBuildingsResourceSf(plugin,MagicExpansionItems.STRING_2, MagicExpansionItems.STRING_1);
+        registerBuildingsResource(plugin,MagicExpansionItems.TRIPWIRE_HOOK_1, Material.TRIPWIRE_HOOK);
+        registerBuildingsResourceSf(plugin,MagicExpansionItems.TRIPWIRE_HOOK_2, MagicExpansionItems.TRIPWIRE_HOOK_1);
+        registerBuildingsResource(plugin,MagicExpansionItems.FURNACE_1, Material.FURNACE);
+        registerBuildingsResourceSf(plugin,MagicExpansionItems.FURNACE_2, MagicExpansionItems.FURNACE_1);
+        registerBuildingsResource(plugin,MagicExpansionItems.IRON_INGOT_1, Material.IRON_INGOT);
+        registerBuildingsResourceSf(plugin,MagicExpansionItems.IRON_INGOT_2, MagicExpansionItems.IRON_INGOT_1);
+        registerBuildingsResourceSf(plugin,MagicExpansionItems.IRON_INGOT_3, MagicExpansionItems.IRON_INGOT_2);
+        registerBuildingsResource(plugin,MagicExpansionItems.GLASS_1, Material.GLASS);
+        registerBuildingsResourceSf(plugin,MagicExpansionItems.GLASS_2, MagicExpansionItems.GLASS_1);
+        registerBuildingsResource(plugin,MagicExpansionItems.LIGHT_1, Material.LIGHT);
+        registerBuildingsResourceSf(plugin,MagicExpansionItems.LIGHT_2, MagicExpansionItems.LIGHT_1);
+        registerBuildingsResource(plugin,MagicExpansionItems.QUARTZ_BLOCK_1, Material.QUARTZ_BLOCK);
+        registerBuildingsResourceSf(plugin,MagicExpansionItems.QUARTZ_BLOCK_2, MagicExpansionItems.QUARTZ_BLOCK_1);
+        new UnplaceableBlock(
+                magicexpansionprebuildingresource,
+                MagicExpansionItems.COLOR_WOOL_1,
+                PRE_BUILDINGS_MACHINE_RESOURCE_ADVANCED,
+                new ItemStack[] {
+                        null, new ItemStack(Material.WHITE_DYE,64), null,
+                        new ItemStack(Material.RED_DYE,64), new ItemStack(Material.WHITE_WOOL,64), new ItemStack(Material.YELLOW_DYE,64),
+                        null, new ItemStack(Material.BLUE_DYE,64), null
+                }
+        ).register(plugin);
+        registerBuildingsResourceSf(plugin,MagicExpansionItems.COLOR_WOOL_2, MagicExpansionItems.COLOR_WOOL_1);
+
+        new UnplaceableBlock(
+                magicexpansionprebuildingresource,
+                MagicExpansionItems.COLOR_TERRACOTTA_1,
+                PRE_BUILDINGS_MACHINE_RESOURCE_ADVANCED,
+                new ItemStack[] {
+                        null, new ItemStack(Material.WHITE_DYE,64), null,
+                        new ItemStack(Material.RED_DYE,64), new ItemStack(Material.WHITE_TERRACOTTA,64), new ItemStack(Material.YELLOW_DYE,64),
+                        null, new ItemStack(Material.BLUE_DYE,64), null
+                }
+        ).register(plugin);
+        registerBuildingsResourceSf(plugin,MagicExpansionItems.COLOR_TERRACOTTA_2, MagicExpansionItems.COLOR_TERRACOTTA_1);
+
+        new UnplaceableBlock(
+                magicexpansionprebuildingresource,
+                MagicExpansionItems.COLOR_CONCRETE_1,
+                PRE_BUILDINGS_MACHINE_RESOURCE_ADVANCED,
+                new ItemStack[] {
+                        null, new ItemStack(Material.WHITE_DYE,64), null,
+                        new ItemStack(Material.RED_DYE,64), new ItemStack(Material.WHITE_CONCRETE,64), new ItemStack(Material.YELLOW_DYE,64),
+                        null, new ItemStack(Material.BLUE_DYE,64), null
+                }
+        ).register(plugin);
+        registerBuildingsResourceSf(plugin,MagicExpansionItems.COLOR_CONCRETE_2, MagicExpansionItems.COLOR_CONCRETE_1);
+
+        new UnplaceableBlock(
+                magicexpansionprebuildingresource,
+                MagicExpansionItems.COLOR_GLAZED_TERRACOTTA_1,
+                PRE_BUILDINGS_MACHINE_RESOURCE_ADVANCED,
+                new ItemStack[] {
+                        null, new ItemStack(Material.WHITE_DYE,64), null,
+                        new ItemStack(Material.RED_DYE,64), new ItemStack(Material.WHITE_GLAZED_TERRACOTTA,64), new ItemStack(Material.YELLOW_DYE,64),
+                        null, new ItemStack(Material.BLUE_DYE,64), null
+                }
+        ).register(plugin);
+        registerBuildingsResourceSf(plugin,MagicExpansionItems.COLOR_GLAZED_TERRACOTTA_2, MagicExpansionItems.COLOR_GLAZED_TERRACOTTA_1);
+
+
+
+
 
         //幻翼抑制器
         new EntityKillMachine(magicexpansionenergy, MagicExpansionItems.PHANTON_SUPPRESSION, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
@@ -823,12 +939,17 @@ public final class MagicExpansionItemSetup {
                         new ItemStack[] {MagicExpansionItems.PRE_BUILDING_MANGROVE_TREE})
                 .addRecipe(5, new ItemStack[] {new ItemStack(Material.CHERRY_SAPLING),MagicExpansionItems.BONE_MEAL},
                         new ItemStack[] {MagicExpansionItems.PRE_BUILDING_CHERRY_TREE})
+                .addRecipe(5, new ItemStack[] {MagicExpansionItems.REDSTONE_1,sfItemAmount(MagicExpansionItems.IRON_INGOT_1,2),MagicExpansionItems.OAK_LOG_1,
+                                MagicExpansionItems.LIGHT_1,MagicExpansionItems.COLOR_WOOL_1,MagicExpansionItems.COLOR_CONCRETE_1,
+                                MagicExpansionItems.COLOR_TERRACOTTA_1},
+                        new ItemStack[] {MagicExpansionItems.PRE_BUILDING_TAFEI})
                 .register(plugin);
 
         var sf1 = SlimefunItem.getByItem(SlimefunItems.SILICON);
         var itemStack1 = new ItemStack(sf1.getItem().getType());
         itemStack1.setItemMeta(sf1.getItem().getItemMeta());
         itemStack1.setAmount(2);
+
 
         //纯净硅源机
         new RecipeMachine(magicexpansionrecipemachine, MagicExpansionItems.QUARTZ_PURE_MACHINE_BAISC, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
@@ -876,14 +997,36 @@ public final class MagicExpansionItemSetup {
                 null,null,null
         }).register(plugin);
 
-        registerPreBuildingTree(plugin, MagicExpansionItems.PRE_BUILDING_OAK_TREE, "oak_tree", "OAK", "OAK", new ItemStack(Material.OAK_SAPLING));
-        registerPreBuildingTree(plugin, MagicExpansionItems.PRE_BUILDING_SPRUCE_TREE, "oak_tree", "OAK", "SPRUCE", new ItemStack(Material.SPRUCE_SAPLING));
-        registerPreBuildingTree(plugin, MagicExpansionItems.PRE_BUILDING_BIRCH_TREE, "oak_tree", "OAK", "BIRCH", new ItemStack(Material.BIRCH_SAPLING));
-        registerPreBuildingTree(plugin, MagicExpansionItems.PRE_BUILDING_JUNGLE_TREE, "oak_tree", "OAK", "JUNGLE", new ItemStack(Material.JUNGLE_SAPLING));
-        registerPreBuildingTree(plugin, MagicExpansionItems.PRE_BUILDING_ACACIA_TREE, "oak_tree", "OAK", "ACACIA", new ItemStack(Material.ACACIA_SAPLING));
-        registerPreBuildingTree(plugin, MagicExpansionItems.PRE_BUILDING_DARK_OAK_TREE, "oak_tree", "OAK", "DARK_OAK", new ItemStack(Material.DARK_OAK_SAPLING));
-        registerPreBuildingTree(plugin, MagicExpansionItems.PRE_BUILDING_MANGROVE_TREE, "oak_tree", "OAK", "MANGROVE", new ItemStack(Material.MANGROVE_PROPAGULE));
-        registerPreBuildingTree(plugin, MagicExpansionItems.PRE_BUILDING_CHERRY_TREE, "oak_tree", "CHERRY", "CHERRY", new ItemStack(Material.CHERRY_SAPLING));
+        registerPreBuildingTree(plugin, MagicExpansionItems.PRE_BUILDING_OAK_TREE, "oak_tree", "OAK", "OAK",1, new ItemStack(Material.OAK_SAPLING));
+        registerPreBuildingTree(plugin, MagicExpansionItems.PRE_BUILDING_SPRUCE_TREE, "oak_tree", "OAK", "SPRUCE", 1, new ItemStack(Material.SPRUCE_SAPLING));
+        registerPreBuildingTree(plugin, MagicExpansionItems.PRE_BUILDING_BIRCH_TREE, "oak_tree", "OAK", "BIRCH", 1, new ItemStack(Material.BIRCH_SAPLING));
+        registerPreBuildingTree(plugin, MagicExpansionItems.PRE_BUILDING_JUNGLE_TREE, "oak_tree", "OAK", "JUNGLE", 1, new ItemStack(Material.JUNGLE_SAPLING));
+        registerPreBuildingTree(plugin, MagicExpansionItems.PRE_BUILDING_ACACIA_TREE, "oak_tree", "OAK", "ACACIA", 1, new ItemStack(Material.ACACIA_SAPLING));
+        registerPreBuildingTree(plugin, MagicExpansionItems.PRE_BUILDING_DARK_OAK_TREE, "oak_tree", "OAK", "DARK_OAK", 1, new ItemStack(Material.DARK_OAK_SAPLING));
+        registerPreBuildingTree(plugin, MagicExpansionItems.PRE_BUILDING_MANGROVE_TREE, "oak_tree", "OAK", "MANGROVE", 1, new ItemStack(Material.MANGROVE_PROPAGULE));
+        registerPreBuildingTree(plugin, MagicExpansionItems.PRE_BUILDING_CHERRY_TREE, "oak_tree", "OAK", "CHERRY", 1, new ItemStack(Material.CHERRY_SAPLING));
+
+        // 预制建筑-村民爱与交易所
+        new PreBuildingTree(magicexpansionprebuilding, MagicExpansionItems.PRE_BUILDING_TAFEI, PRE_BUILDINGS_MACHINE, new ItemStack[] {
+                MagicExpansionItems.REDSTONE_1,sfItemAmount(MagicExpansionItems.IRON_INGOT_1,2),MagicExpansionItems.OAK_LOG_1,
+                MagicExpansionItems.LIGHT_1,MagicExpansionItems.COLOR_WOOL_1,MagicExpansionItems.COLOR_CONCRETE_1,
+                MagicExpansionItems.COLOR_TERRACOTTA_1,null,new CustomItemStack(CustomHead.getHead("a92974681687689da7dda3f19b7e4a53fe0dd09befd7fa8838744384c9d1ac71"),getGradientName("此配方为无序配方"))
+        },"tafei",60).register(plugin);
+
+
+
+        // 预制建筑-村民爱与交易所
+        new PreBuildingTree(magicexpansionprebuilding, MagicExpansionItems.PRE_BUILDING_VILLAGE_LOVE_AND_TRADE_HOUSE, PRE_BUILDINGS_MACHINE_ADVANCED, new ItemStack[] {
+                MagicExpansionItems.STONE_2,MagicExpansionItems.IRON_INGOT_2,sfItemAmount(MagicExpansionItems.OAK_LOG_1,16),
+                sfItemAmount(MagicExpansionItems.REDSTONE_1,5),MagicExpansionItems.GLASS_1,MagicExpansionItems.COLOR_WOOL_1
+                ,MagicExpansionItems.SPACE_INFINITY_MAGIC,null,new CustomItemStack(CustomHead.getHead("a92974681687689da7dda3f19b7e4a53fe0dd09befd7fa8838744384c9d1ac71"),getGradientName("此配方为无序配方"))
+        },"village_love_trade_house",60*60*12).register(plugin);
+        // 预制建筑-潜影贝农场
+        new PreBuildingTree(magicexpansionprebuilding, MagicExpansionItems.PRE_BUILDING_SHULKER_FARM, PRE_BUILDINGS_MACHINE_ADVANCED, new ItemStack[] {
+                MagicExpansionItems.STONE_2,MagicExpansionItems.IRON_INGOT_1,sfItemAmount(MagicExpansionItems.OAK_LOG_1,16),
+                MagicExpansionItems.REDSTONE_1,MagicExpansionItems.COBBLESTONE_1,MagicExpansionItems.HOPPER_1,
+                new ItemStack(Material.STRING,15),MagicExpansionItems.SPACE_INFINITY_MAGIC,new CustomItemStack(CustomHead.getHead("a92974681687689da7dda3f19b7e4a53fe0dd09befd7fa8838744384c9d1ac71"),getGradientName("此配方为无序配方"))
+        },"shulker_farm",60*60*12).register(plugin);
 
 //        // 预制树-橡木树
 //        new PreBuildingTree(magicexpansionprebuilding, MagicExpansionItems.PRE_BUILDING_OAK_TREE, SPECIAL_RECIPE_TYPE, new ItemStack[] {
@@ -915,7 +1058,7 @@ public final class MagicExpansionItemSetup {
 
     //粘液物品
     private static void  registerBasicElectricMan(
-            MagicExpansionMachines plugin,
+            MagicExpansion plugin,
             SlimefunItemStack item,
             SlimefunItemStack angle,
             SlimefunItemStack output
@@ -942,7 +1085,7 @@ public final class MagicExpansionItemSetup {
     }
     //原版物品
     private static void  registerBasicElectricMan(
-            MagicExpansionMachines plugin,
+            MagicExpansion plugin,
             SlimefunItemStack item,
             SlimefunItemStack angle,
             Material output
@@ -970,7 +1113,7 @@ public final class MagicExpansionItemSetup {
 
     //矿锭-粘液
     private static void  registerBasicElectricMan(
-            MagicExpansionMachines plugin,
+            MagicExpansion plugin,
             SlimefunItemStack item,
             SlimefunItemStack angle,
             SlimefunItemStack output,
@@ -999,7 +1142,7 @@ public final class MagicExpansionItemSetup {
     }
     //矿锭-原版
     private static void  registerBasicElectricMan(
-            MagicExpansionMachines plugin,
+            MagicExpansion plugin,
             SlimefunItemStack item,
             SlimefunItemStack angle,
             Material output,
@@ -1030,7 +1173,7 @@ public final class MagicExpansionItemSetup {
 
     //下届-原版
     private static void  registerBasicElectricMan(
-            MagicExpansionMachines plugin,
+            MagicExpansion plugin,
             SlimefunItemStack item,
             SlimefunItemStack angle,
             Material output,
@@ -1061,7 +1204,7 @@ public final class MagicExpansionItemSetup {
 
     // 注册预制树General
     private static void registerVanResource(
-            MagicExpansionMachines plugin,
+            MagicExpansion plugin,
             SlimefunItemStack item,
             ItemStack miditem) {
 
@@ -1078,11 +1221,12 @@ public final class MagicExpansionItemSetup {
 
     // 注册预制树General
     private static void registerPreBuildingTree(
-            MagicExpansionMachines plugin,
+            MagicExpansion plugin,
             SlimefunItemStack treeItem,
             String baseTreeKey,
             String baseTreeType,
             String treeType,
+            long timeCd,
             ItemStack tree) {
 
         new PreBuildingTree(
@@ -1096,7 +1240,42 @@ public final class MagicExpansionItemSetup {
                 },
                 baseTreeKey,
                 baseTreeType,
-                treeType.toUpperCase()
+                treeType.toUpperCase(),
+                timeCd
+        ).register(plugin);
+    }
+
+
+    private static void registerBuildingsResource(
+            MagicExpansion plugin,
+            SlimefunItemStack item,
+            Material material
+    ){
+        new UnplaceableBlock(
+                magicexpansionprebuildingresource,
+                item,
+                PRE_BUILDINGS_MACHINE_RESOURCE_ADVANCED,
+                new ItemStack[] {
+                        new ItemStack(material,64), null, null,
+                        null, null, null,
+                        null, null, null
+                }
+        ).register(plugin);
+    }
+    private static void registerBuildingsResourceSf(
+            MagicExpansion plugin,
+            SlimefunItemStack item,
+            SlimefunItemStack itemInput
+    ){
+        new UnplaceableBlock(
+                magicexpansionprebuildingresource,
+                item,
+                PRE_BUILDINGS_MACHINE_RESOURCE_ADVANCED,
+                new ItemStack[] {
+                        new SlimefunItemStack(itemInput,64), null, null,
+                        null, null, null,
+                        null, null, null
+                }
         ).register(plugin);
     }
 

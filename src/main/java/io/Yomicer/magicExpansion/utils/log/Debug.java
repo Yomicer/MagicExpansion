@@ -1,10 +1,10 @@
 package io.Yomicer.magicExpansion.utils.log;
 
-import io.Yomicer.magicExpansion.MagicExpansionMachines;
+import io.Yomicer.magicExpansion.MagicExpansion;
 
 public class Debug {
 
-    public static final java.util.logging.Logger logger = MagicExpansionMachines.getInstance().getLogger();
+    public static final java.util.logging.Logger logger = MagicExpansion.getInstance().getLogger();
 
     public static void logInfo(String msg){
             logger.info(msg);

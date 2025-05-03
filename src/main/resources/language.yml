@@ -150,11 +150,13 @@ zh_CN:
       Lore:
         - '是腐朽也是新生'
     PRE_BUILDING_TREE_INFO:
-      Name: '预制树·信息'
+      Name: '预制菜·信息'
       Lore:
         - '可以把他当成一个道具'
         - '也可以当成一个生成器'
         - '每棵树的数据都是固定的'
+        - '只有树是从中心下方生成'
+        - '其他建筑都是从相对零点(0,0,0)生成到(+x,+y,+z)'
     PRE_BUILDING_OAK_TREE:
       Name: '预制树·橡木树'
       Lore:
@@ -243,6 +245,36 @@ zh_CN:
         - '并以惊人的速度成长为一棵枝繁叶茂的樱花树'
         - '无论是装饰你的建筑还是扩展你的家园'
         - '只需轻轻一点，即可省去种植与等待成长的时间'
+    PRE_BUILDING_TAFEI:
+      Name: '预制雕像·糖厂塔菲'
+      Lore:
+        - '这是一座封印于魔法空间中的糖厂塔菲建筑'
+        - '选择一处桃源，将他放置下来'
+        - '糖厂塔菲在这里生产糖'
+        - '塔菲永远朝向日落的地方'
+    PRE_BUILDING_VILLAGE_LOVE_AND_TRADE_HOUSE:
+      Name: '预制生电·村民-爱与交易所'
+      Lore:
+        - '这是一座封印于魔法空间中的村民-爱与交易所建筑'
+        - '选择一处桃源，将他放置下来'
+        - '村民繁殖与交易一体化场所'
+        - '采用船吸固定村民'
+        - '请自助在需要的点位放置船只'
+        - '左下角为村民繁殖场所'
+        - '中间与右边为两处村民交易聚集地'
+        - '周围配备了完善的铁路设施运输村民'
+    PRE_BUILDING_SHULKER_FARM:
+      Name: '预制生电·潜影贝农场'
+      Lore:
+        - '这是一座封印于魔法空间中的潜影贝农场'
+        - '选择一处空旷的地方，将他放置下来'
+        - '潜影贝在这里分裂出大量潜影贝'
+        - '请自助吸引潜影贝'
+        - '请自助放置雪傀儡'
+        - '中心为农场'
+        - '下方为收集装置'
+
+
 
   Resource:
     IRON_INGOT:
@@ -419,6 +451,195 @@ zh_CN:
       Lore:
         - '这究竟是怎样的玩意？'
         - '用不完，根本用不完'
+
+    SPACE_INFINITY_MAGIC:
+      Name: '无尽空间魔法'
+      Lore:
+          - '存储大型预制建筑的容器'
+          - '什么都能装下'
+
+    COBBLESTONE_1:
+      Name: '封印·圆石x64'
+      Lore:
+          - '64个圆石'
+    COBBLESTONE_2:
+      Name: '封印·圆石x4096'
+      Lore:
+          - '4096个圆石'
+    STONE_1:
+      Name: '封印·石头x64'
+      Lore:
+          - '64个石头'
+    STONE_2:
+      Name: '封印·石头x4096'
+      Lore:
+          - '4096个石头'
+    OAK_LOG_1:
+      Name: '封印·橡木x64'
+      Lore:
+          - '64个橡木'
+    OAK_LOG_2:
+      Name: '封印·橡木x4096'
+      Lore:
+          - '4096个橡木'
+    STONE_BRICKS_1:
+      Name: '封印·石砖x64'
+      Lore:
+          - '64个石砖'
+    STONE_BRICKS_2:
+      Name: '封印·石砖x4096'
+      Lore:
+          - '4096个石砖'
+    BRICKS_1:
+      Name: '封印·红砖块x64'
+      Lore:
+          - '64个红砖块'
+    BRICKS_2:
+      Name: '封印·红砖块x4096'
+      Lore:
+          - '4096个红砖块'
+    REDSTONE_1:
+      Name: '封印·红石x64'
+      Lore:
+          - '64个红石'
+    REDSTONE_2:
+      Name: '封印·红石x4096'
+      Lore:
+          - '4096个红石'
+    REDSTONE_TORCH_1:
+      Name: '封印·红石火把x64'
+      Lore:
+          - '64个红石火把'
+    REDSTONE_TORCH_2:
+      Name: '封印·红石火把x4096'
+      Lore:
+          - '4096个红石火把'
+    REPEATER_1:
+      Name: '封印·红石中继器x64'
+      Lore:
+          - '64个红石中继器'
+    REPEATER_2:
+      Name: '封印·红石中继器x4096'
+      Lore:
+        - '4096个红石中继器'
+    COMPARATOR_1:
+      Name: '封印·红石比较器x64'
+      Lore:
+          - '64个红石比较器'
+    COMPARATOR_2:
+      Name: '封印·红石比较器x4096'
+      Lore:
+          - '4096个红石比较器'
+    HOPPER_1:
+      Name: '封印·漏斗x64'
+      Lore:
+          - '64个漏斗'
+    HOPPER_2:
+      Name: '封印·漏斗x4096'
+      Lore:
+          - '4096个漏斗'
+    STRING_1:
+      Name: '封印·线x64'
+      Lore:
+          - '64条线'
+    STRING_2:
+      Name: '封印·线x4096'
+      Lore:
+          - '4096条线'
+    TRIPWIRE_HOOK_1:
+      Name: '封印·绊线钩x64'
+      Lore:
+          - '64个绊线钩'
+    TRIPWIRE_HOOK_2:
+      Name: '封印·绊线钩x4096'
+      Lore:
+          - '4096个绊线钩'
+    FURNACE_1:
+      Name: '封印·熔炉x64'
+      Lore:
+          - '64个熔炉'
+    FURNACE_2:
+      Name: '封印·熔炉x4096'
+      Lore:
+          - '4096个熔炉'
+    IRON_INGOT_1:
+      Name: '封印·铁锭x64'
+      Lore:
+          - '64个铁锭'
+    IRON_INGOT_2:
+      Name: '封印·铁锭x4096'
+      Lore:
+          - '4096个铁锭'
+    IRON_INGOT_3:
+      Name: '封印·铁锭x262144'
+      Lore:
+          - '262144个铁锭'
+    GLASS_1:
+      Name: '封印·玻璃x64'
+      Lore:
+          - '64个玻璃'
+    GLASS_2:
+      Name: '封印·玻璃x4096'
+      Lore:
+          - '4096个玻璃'
+    LIGHT_1:
+      Name: '封印·光x64'
+      Lore:
+          - '64个光'
+    LIGHT_2:
+      Name: '封印·光x4096'
+      Lore:
+          - '4096个光'
+    QUARTZ_BLOCK_1:
+      Name: '封印·石英块x64'
+      Lore:
+        - '64个石英块'
+    QUARTZ_BLOCK_2:
+      Name: '封印·石英块x4096'
+      Lore:
+        - '4096个石英块'
+    COLOR_WOOL_1:
+      Name: '封印·彩色羊毛x64'
+      Lore:
+        - '64个彩色羊毛'
+    COLOR_WOOL_2:
+      Name: '封印·彩色羊毛x4096'
+      Lore:
+        - '4096个彩色羊毛'
+    COLOR_TERRACOTTA_1:
+      Name: '封印·彩色陶瓦x64'
+      Lore:
+        - '64个彩色陶瓦'
+    COLOR_TERRACOTTA_2:
+      Name: '封印·彩色陶瓦x4096'
+      Lore:
+        - '4096个彩色陶瓦'
+    COLOR_CONCRETE_1:
+      Name: '封印·彩色混凝土x64'
+      Lore:
+        - '64个彩色混凝土'
+    COLOR_CONCRETE_2:
+      Name: '封印·彩色混凝土x4096'
+      Lore:
+        - '4096个彩色混凝土'
+    COLOR_GLAZED_TERRACOTTA_1:
+      Name: '封印·彩色带釉陶瓦x64'
+      Lore:
+        - '64个彩色带釉陶瓦'
+    COLOR_GLAZED_TERRACOTTA_2:
+      Name: '封印·彩色带釉陶瓦x4096'
+      Lore:
+        - '4096个彩色带釉陶瓦'
+
+
+
+
+
+
+
+
+
+
 
   GENERATOR:
     RESOURCE_MACHINE_WOOD_BASIC:
@@ -795,7 +1016,7 @@ zh_CN:
         - '一座神秘的工坊，里面藏有许多图纸。'
         - '只要你能提供材料，他就能给你建造出来。'
         - ''
-        - '功能: 制作预制建筑'
+        - '功能: 制作一些简单的预制建筑'
         - '能源需求: 每秒钟消耗少量电力'
         - ''
         - '是魔法之力？还是远古工匠的智慧结晶？'
@@ -803,6 +1024,34 @@ zh_CN:
         - '⇨ ⚙ ？ s'
         - '⇨ ⚡ 52.0 J/s'
         - '⇨ ⚡ 1314 J 可存储'
+    PRE_BUILDINGS_MACHINE_ADVANCED:
+      Name: '终极魔法建筑工坊'
+      Lore:
+        - '一座神秘的工坊，里面藏有许多图纸。'
+        - '只要你能提供材料，他就能给你建造出来。'
+        - ''
+        - '功能: 制作大型预制建筑'
+        - '能源需求: 每秒钟消耗大量电力'
+        - ''
+        - '是魔法之力？还是远古工匠的智慧结晶？'
+        - '无论如何，这座工坊流传着一些未知的秘密。'
+        - '⇨ ⚙ ？ s'
+        - '⇨ ⚡ 520 J/s'
+        - '⇨ ⚡ 131452.0 J 可存储'
+    PRE_BUILDINGS_MACHINE_RESOURCE_ADVANCED:
+      Name: '魔法材料工坊'
+      Lore:
+        - '一座神秘的工坊，里面藏有许多高精密仪器。'
+        - '只要你能提供材料，他就能给你压缩材料，也可以解压材料。'
+        - ''
+        - '功能: 制作预制魔法压缩材料'
+        - '能源需求: 每秒钟消耗大量电力'
+        - ''
+        - '是魔法之力？还是远古工匠的智慧结晶？'
+        - '无论如何，这座工坊流传着一些未知的秘密。'
+        - '⇨ ⚙ ？ s'
+        - '⇨ ⚡ 520 J/s'
+        - '⇨ ⚡ 131452.0 J 可存储'
     WOOD_TRANSFORM_BASIC:
       Name: '翠木转换机'
       Lore:

@@ -1,7 +1,6 @@
 package io.Yomicer.magicExpansion.Listener.weaponApply;
 
-import io.Yomicer.magicExpansion.MagicExpansionMachines;
-import io.Yomicer.magicExpansion.utils.log.Debug;
+import io.Yomicer.magicExpansion.MagicExpansion;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.attribute.AttributeModifier;
@@ -9,7 +8,6 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -68,7 +66,7 @@ public class SlownessManager {
             public void run() {
                 removeSlowness(livingTarget);
             }
-        }.runTaskLater(MagicExpansionMachines.getInstance(), durationTicks*3);
+        }.runTaskLater(MagicExpansion.getInstance(), durationTicks*3);
     }
 
     /**

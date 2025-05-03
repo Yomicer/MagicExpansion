@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class ConfigLoader {
 
 
-    public static boolean TESTMODE = MagicExpansionMachines.testmode();
+    public static boolean TESTMODE = MagicExpansion.testmode();
 
     public static void load(Plugin plugin) {
         ConfigLoader.plugin=plugin;
@@ -26,12 +26,12 @@ public class ConfigLoader {
         CONFIG=loadExternalConfig("config");
         INNERCONFIG=loadInternalConfig("config");
         if(INNERCONFIG.getBoolean("options.test")) {
-            MagicExpansionMachines.testmod=true;
+            MagicExpansion.testmod=true;
             TESTMODE=true;
             Logger.getLogger("Addon is running on TEST MODE");
         }
         if(INNERCONFIG.getBoolean("options.clear-old-config")) {
-            MagicExpansionMachines.testmod=true;
+            MagicExpansion.testmod=true;
         }
         LANGUAGE=loadInternalConfig("language");   //new Config(plugin,"language.yml");
 
@@ -45,7 +45,7 @@ public class ConfigLoader {
         SERVER_CONFIG=new Config(plugin);
     }
     public static void copyFile(File file, String name) {
-        if(MagicExpansionMachines.clearConfig){
+        if(MagicExpansion.clearConfig){
 
             try{
                 Files.delete(file.toPath());

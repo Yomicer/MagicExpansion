@@ -19,13 +19,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.File;
 
-public class MagicExpansionMachines extends JavaPlugin implements SlimefunAddon {
+public class MagicExpansion extends JavaPlugin implements SlimefunAddon {
     public static boolean testmod=false;
     public static boolean clearConfig=false;
     public static boolean testmode(){
         return testmod;
     }
-    private static MagicExpansionMachines instance;
+    private static MagicExpansion instance;
 
 
 
@@ -53,6 +53,7 @@ public class MagicExpansionMachines extends JavaPlugin implements SlimefunAddon 
 
         // Registering Items
         MagicExpansionItemSetup.setup(this);
+        MagicExpansionRecipeMachineSetup.setup(this);
         getLogger().info("§b物品注册完毕！");
 
 
@@ -108,7 +109,7 @@ public class MagicExpansionMachines extends JavaPlugin implements SlimefunAddon 
         return "";
     }
 
-    public static MagicExpansionMachines getInstance() {
+    public static MagicExpansion getInstance() {
         return instance;
     }
 }

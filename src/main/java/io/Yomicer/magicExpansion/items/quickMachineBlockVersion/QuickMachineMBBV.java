@@ -1,7 +1,7 @@
 package io.Yomicer.magicExpansion.items.quickMachineBlockVersion;
 
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
-import io.Yomicer.magicExpansion.MagicExpansionMachines;
+import io.Yomicer.magicExpansion.MagicExpansion;
 import io.Yomicer.magicExpansion.utils.ColorGradient;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
@@ -175,7 +175,7 @@ public class QuickMachineMBBV extends SlimefunItem implements EnergyNetComponent
                         if (e.getAction() != InventoryAction.NOTHING){
                         Block block = ((BlockMenu) e.getInventory().getHolder()).getBlock();
                         if (block != null) {
-                            Bukkit.getScheduler().runTaskLater(MagicExpansionMachines.getInstance(), () -> {
+                            Bukkit.getScheduler().runTaskLater(MagicExpansion.getInstance(), () -> {
                                 BlockMenu menu = StorageCacheUtils.getMenu(block.getLocation());
                                 if (menu != null) {
                                     addAvailableRecipesToMenu(menu, receivedMBRecipes);

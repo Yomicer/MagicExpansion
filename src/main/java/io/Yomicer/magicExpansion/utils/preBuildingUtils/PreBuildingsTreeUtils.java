@@ -2,6 +2,7 @@ package io.Yomicer.magicExpansion.utils.preBuildingUtils;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -44,7 +45,7 @@ public class PreBuildingsTreeUtils {
             Type listType = new TypeToken<List<BlockData>>() {}.getType();
             List<BlockData> blocks = gson.fromJson(reader, listType);
 
-            if(!(originName==null)||!(replaceName==null)) {
+            if (!(originName == null) && !(replaceName == null)) {
                 // 替换 "OAK" 为 "CHERRY"
                 for (BlockData blockData : blocks) {
                     if (blockData.type != null && blockData.type.contains(originName)) {
@@ -67,7 +68,12 @@ public class PreBuildingsTreeUtils {
                         pasteLocation.getBlockY() + blockData.y,
                         pasteLocation.getBlockZ() + blockData.z
                 );
-                location.getBlock().setType(Material.valueOf(blockData.type));
+
+                if (blockData.blockState != null && !blockData.blockState.isEmpty()) {
+                    location.getBlock().setBlockData(Bukkit.createBlockData(blockData.blockState));
+                } else {
+                    location.getBlock().setType(Material.valueOf(blockData.type));
+                }
             }
 
             player.sendMessage("§a预制菜启动！");
@@ -79,6 +85,9 @@ public class PreBuildingsTreeUtils {
         }
     }
 
+    public static boolean pasteMap(Player player, String fileName) {
+        return pasteMap(player, fileName, null, null);
+    }
 
     /**
      * 检查是否有冲突
@@ -122,8 +131,20 @@ public class PreBuildingsTreeUtils {
         public int y;
         public int z;
         public String type;
-    }
+        public String blockState; // 新增字段，用于保存方块状态
 
+        // 默认构造函数
+        public BlockData() {}
+
+        // 如果需要的话，可以添加带参数的构造函数
+        public BlockData(int x, int y, int z, String type, String blockState) {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+            this.type = type;
+            this.blockState = blockState;
+        }
+    }
 
 
 

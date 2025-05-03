@@ -3,6 +3,7 @@ package io.Yomicer.magicExpansion.utils;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import io.Yomicer.magicExpansion.Listener.worldListener.Events;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -47,18 +48,16 @@ public class MapUtils {
         File file = new File(player.getServer().getPluginManager().getPlugin("MagicExpansion").getDataFolder(), "maps/" + fileName + ".json");
 
         if (!file.exists()) {
-            player.sendMessage("§cFile not found!");
+            player.sendMessage(ChatColor.RED + "File not found!");
             return;
         }
 
-        // 获取玩家注视的目标方块
         Block targetBlock = getTargetBlock(player);
         if (targetBlock == null) {
-            player.sendMessage("§cYou need to look at a block!");
+            player.sendMessage(ChatColor.RED + "You need to look at a block!");
             return;
         }
 
-        // 粘贴位置为目标方块上方 1 格
         Location pasteLocation = targetBlock.getLocation().add(0, 1, 0);
 
         try (FileReader reader = new FileReader(file)) {
@@ -72,28 +71,25 @@ public class MapUtils {
                         pasteLocation.getBlockY() + blockData.y,
                         pasteLocation.getBlockZ() + blockData.z
                 );
-                location.getBlock().setType(Material.valueOf(blockData.type));
+                location.getBlock().setBlockData(Bukkit.createBlockData(blockData.blockState));
             }
 
-            player.sendMessage("§aMap pasted successfully above the target block!");
+            player.sendMessage(ChatColor.GREEN + "Map pasted successfully above the target block!");
         } catch (IOException e) {
-            player.sendMessage("§cFailed to paste map: " + e.getMessage());
+            player.sendMessage(ChatColor.RED + "Failed to paste map: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    /**
-     * 获取玩家注视的目标方块
-     */
     private static Block getTargetBlock(Player player) {
-        BlockIterator iterator = new BlockIterator(player, 10); // 最远检测 5 格
+        BlockIterator iterator = new BlockIterator(player, 10);
         while (iterator.hasNext()) {
             Block block = iterator.next();
             if (!block.getType().isAir()) {
                 return block;
             }
         }
-        return null; // 如果没有找到非空气方块，返回 null
+        return null;
     }
 
     public static List<BlockData> getBlocksInRegion(Location p1, Location p2) {
@@ -110,17 +106,17 @@ public class MapUtils {
                 for (int z = minZ; z <= maxZ; z++) {
                     Block block = p1.getWorld().getBlockAt(x, y, z);
 
-                    // 跳过空气方块
                     if (block.getType() == Material.AIR) {
                         continue;
                     }
 
-                    // 添加非空气方块到列表
+                    String blockState = block.getBlockData().getAsString();
                     blocks.add(new BlockData(
                             x - minX,
                             y - minY,
                             z - minZ,
-                            block.getType().name()
+                            block.getType().name(),
+                            blockState
                     ));
                 }
             }
@@ -131,12 +127,17 @@ public class MapUtils {
     public static class BlockData {
         public int x, y, z;
         public String type;
+        public String blockState;
 
-        public BlockData(int x, int y, int z, String type) {
+        public BlockData(int x, int y, int z, String type, String blockState) {
             this.x = x;
             this.y = y;
             this.z = z;
             this.type = type;
+            this.blockState = blockState;
         }
+
+        // 默认构造函数
+        public BlockData() {}
     }
 }

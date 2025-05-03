@@ -1,10 +1,9 @@
 package io.Yomicer.magicExpansion.items.misc;
 
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
-import io.Yomicer.magicExpansion.MagicExpansionMachines;
+import io.Yomicer.magicExpansion.MagicExpansion;
 import io.Yomicer.magicExpansion.core.MagicExpansionItems;
 import io.Yomicer.magicExpansion.utils.ColorGradient;
-import io.Yomicer.magicExpansion.utils.itemUtils.newItem;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.core.multiblocks.MultiBlockMachine;
@@ -27,8 +26,6 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import static io.Yomicer.magicExpansion.items.summonBossItem.bossSkill.FireZombieSkill.*;
-import static io.Yomicer.magicExpansion.utils.Language.get;
-import static io.Yomicer.magicExpansion.utils.Language.getList;
 import static io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils.isItemSimilar;
 
 public class FireZombieMB extends MultiBlockMachine {
@@ -77,8 +74,8 @@ public class FireZombieMB extends MultiBlockMachine {
         mob.setCustomName(zombieName);
         mob.setCustomNameVisible(true);
         // 设置自定义元数据：用于标识这是烈火僵尸
-        mob.setMetadata("magicMobType", new FixedMetadataValue(MagicExpansionMachines.getInstance(), "FireZombie"));
-        mob.setMetadata("isInvincibleFireZombie", new FixedMetadataValue(MagicExpansionMachines.getInstance(), false)); // 设置无敌元数据
+        mob.setMetadata("magicMobType", new FixedMetadataValue(MagicExpansion.getInstance(), "FireZombie"));
+        mob.setMetadata("isInvincibleFireZombie", new FixedMetadataValue(MagicExpansion.getInstance(), false)); // 设置无敌元数据
         // 调整最大生命值并设置初始血量
         double maxHealth = 200.0; // 自定义最大生命值
         mob.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(maxHealth);
@@ -106,7 +103,7 @@ public class FireZombieMB extends MultiBlockMachine {
                     return;
                 }
                 // 修改名称，添加“无法选中·”前缀
-                mob.setMetadata("isInvincibleFireZombie", new FixedMetadataValue(MagicExpansionMachines.getInstance(), true));
+                mob.setMetadata("isInvincibleFireZombie", new FixedMetadataValue(MagicExpansion.getInstance(), true));
                 mob.setCustomName(zombieName + "§e§l[霸体]");
                 mob.setCustomNameVisible(true);
 
@@ -114,17 +111,17 @@ public class FireZombieMB extends MultiBlockMachine {
                     @Override
                     public void run() {
                         // 恢复原始名称
-                        mob.setMetadata("isInvincibleFireZombie", new FixedMetadataValue(MagicExpansionMachines.getInstance(), false));
+                        mob.setMetadata("isInvincibleFireZombie", new FixedMetadataValue(MagicExpansion.getInstance(), false));
                         mob.setCustomName(zombieName);
                         mob.setCustomNameVisible(true);
                     }
-                }.runTaskLater(MagicExpansionMachines.getInstance(), 50L); // 2.5秒后恢复
+                }.runTaskLater(MagicExpansion.getInstance(), 50L); // 2.5秒后恢复
 
                 // 随机选择一个技能释放
                 int randomIndex = new Random().nextInt(skills.length);
                 skills[randomIndex].run();
             }
-        }.runTaskTimer(MagicExpansionMachines.getInstance(), 0L, 80L + new Random().nextInt(81)); // 每4-8秒执行一次
+        }.runTaskTimer(MagicExpansion.getInstance(), 0L, 80L + new Random().nextInt(81)); // 每4-8秒执行一次
 
         // 添加：每隔3秒进行一次传送
         new BukkitRunnable() {
@@ -165,7 +162,7 @@ public class FireZombieMB extends MultiBlockMachine {
                 // 传送怪物到新位置
                 mob.teleport(newLocation);
             }
-        }.runTaskTimer(MagicExpansionMachines.getInstance(), 0L, 200L); // 每3秒执行一次
+        }.runTaskTimer(MagicExpansion.getInstance(), 0L, 200L); // 每3秒执行一次
 
 
 

@@ -2,7 +2,6 @@ package io.Yomicer.magicExpansion.core;
 
 import io.Yomicer.magicExpansion.utils.CustomHeadUtils.CustomHead;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
-import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import org.bukkit.Material;
 
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
@@ -51,7 +50,7 @@ public class MagicExpansionItems {
 
     //材料
     public static final SlimefunItemStack MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC = new SlimefunItemStack(
-            "MAGIC_EXPANSION_TO_MAGIC_ITEM_ITEM_BASIC",
+            "MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC",
             Material.BARRIER,
             getGradientName("初级万能魔法合成材料"),
             "",
@@ -408,6 +407,64 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack INFINITY_FLINT_AND_STEEL = themed("INFINITY_FLINT_AND_STEEL",Material.FLINT_AND_STEEL,
             get("Resource.INFINITY_FLINT_AND_STEEL.Name"),getList("Resource.INFINITY_FLINT_AND_STEEL.Lore"));
 
+    //建筑材料
+    public static final SlimefunItemStack SPACE_INFINITY_MAGIC = createDefaultResourceGlow("SPACE_INFINITY_MAGIC",Material.NETHER_STAR);
+
+
+    public static final SlimefunItemStack COBBLESTONE_1 = createDefaultResourceGlow("COBBLESTONE_1",Material.COBBLESTONE);
+    public static final SlimefunItemStack COBBLESTONE_2 = createDefaultResourceGlow("COBBLESTONE_2",Material.COBBLESTONE);
+    public static final SlimefunItemStack STONE_1 = createDefaultResourceGlow("STONE_1",Material.STONE);
+    public static final SlimefunItemStack STONE_2 = createDefaultResourceGlow("STONE_2",Material.STONE);
+    public static final SlimefunItemStack OAK_LOG_1 = createDefaultResourceGlow("OAK_LOG_1",Material.OAK_LOG);
+    public static final SlimefunItemStack OAK_LOG_2 = createDefaultResourceGlow("OAK_LOG_2",Material.OAK_LOG);
+    public static final SlimefunItemStack STONE_BRICKS_1 = createDefaultResourceGlow("STONE_BRICKS_1",Material.STONE_BRICKS);
+    public static final SlimefunItemStack STONE_BRICKS_2 = createDefaultResourceGlow("STONE_BRICKS_2",Material.STONE_BRICKS);
+    public static final SlimefunItemStack BRICKS_1 = createDefaultResourceGlow("BRICKS_1",Material.BRICKS);
+    public static final SlimefunItemStack BRICKS_2 = createDefaultResourceGlow("BRICKS_2",Material.BRICKS);
+    public static final SlimefunItemStack REDSTONE_1 = createDefaultResourceGlow("REDSTONE_1",Material.REDSTONE);
+    public static final SlimefunItemStack REDSTONE_2 = createDefaultResourceGlow("REDSTONE_2",Material.REDSTONE);
+    public static final SlimefunItemStack REDSTONE_TORCH_1 = createDefaultResourceGlow("REDSTONE_TORCH_1",Material.REDSTONE_TORCH);
+    public static final SlimefunItemStack REDSTONE_TORCH_2 = createDefaultResourceGlow("REDSTONE_TORCH_2",Material.REDSTONE_TORCH);
+    public static final SlimefunItemStack REPEATER_1 = createDefaultResourceGlow("REPEATER_1",Material.REPEATER);
+    public static final SlimefunItemStack REPEATER_2 = createDefaultResourceGlow("REPEATER_2",Material.REPEATER);
+    public static final SlimefunItemStack COMPARATOR_1 = createDefaultResourceGlow("COMPARATOR_1",Material.COMPARATOR);
+    public static final SlimefunItemStack COMPARATOR_2 = createDefaultResourceGlow("COMPARATOR_2",Material.COMPARATOR);
+    public static final SlimefunItemStack HOPPER_1 = createDefaultResourceGlow("HOPPER_1",Material.HOPPER);
+    public static final SlimefunItemStack HOPPER_2 = createDefaultResourceGlow("HOPPER_2",Material.HOPPER);
+    public static final SlimefunItemStack STRING_1 = createDefaultResourceGlow("STRING_1",Material.STRING);
+    public static final SlimefunItemStack STRING_2 = createDefaultResourceGlow("STRING_2",Material.STRING);
+    public static final SlimefunItemStack TRIPWIRE_HOOK_1 = createDefaultResourceGlow("TRIPWIRE_HOOK_1",Material.TRIPWIRE_HOOK);
+    public static final SlimefunItemStack TRIPWIRE_HOOK_2 = createDefaultResourceGlow("TRIPWIRE_HOOK_2",Material.TRIPWIRE_HOOK);
+    public static final SlimefunItemStack FURNACE_1 = createDefaultResourceGlow("FURNACE_1",Material.FURNACE);
+    public static final SlimefunItemStack FURNACE_2 = createDefaultResourceGlow("FURNACE_2",Material.FURNACE);
+    public static final SlimefunItemStack IRON_INGOT_1 = createDefaultResourceGlow("IRON_INGOT_1",Material.IRON_INGOT);
+    public static final SlimefunItemStack IRON_INGOT_2 = createDefaultResourceGlow("IRON_INGOT_2",Material.IRON_INGOT);
+    public static final SlimefunItemStack IRON_INGOT_3 = createDefaultResourceGlow("IRON_INGOT_3",Material.IRON_INGOT);
+    public static final SlimefunItemStack GLASS_1 = createDefaultResourceGlow("GLASS_1",Material.GLASS);
+    public static final SlimefunItemStack GLASS_2 = createDefaultResourceGlow("GLASS_2",Material.GLASS);
+    public static final SlimefunItemStack LIGHT_1 = createDefaultResourceGlow("LIGHT_1",Material.LIGHT);
+    public static final SlimefunItemStack LIGHT_2 = createDefaultResourceGlow("LIGHT_2",Material.LIGHT);
+    public static final SlimefunItemStack QUARTZ_BLOCK_1 = createDefaultResourceGlow("QUARTZ_BLOCK_1",Material.QUARTZ_BLOCK);
+    public static final SlimefunItemStack QUARTZ_BLOCK_2 = createDefaultResourceGlow("QUARTZ_BLOCK_2",Material.QUARTZ_BLOCK);
+    public static final SlimefunItemStack COLOR_WOOL_1 = createDefaultResourceGlow("COLOR_WOOL_1",Material.PINK_WOOL);
+    public static final SlimefunItemStack COLOR_WOOL_2 = createDefaultResourceGlow("COLOR_WOOL_2",Material.PINK_WOOL);
+    public static final SlimefunItemStack COLOR_TERRACOTTA_1 = createDefaultResourceGlow("COLOR_TERRACOTTA_1",Material.PINK_TERRACOTTA);
+    public static final SlimefunItemStack COLOR_TERRACOTTA_2 = createDefaultResourceGlow("COLOR_TERRACOTTA_2",Material.PINK_TERRACOTTA);
+    public static final SlimefunItemStack COLOR_CONCRETE_1 = createDefaultResourceGlow("COLOR_CONCRETE_1",Material.PINK_CONCRETE);
+    public static final SlimefunItemStack COLOR_CONCRETE_2 = createDefaultResourceGlow("COLOR_CONCRETE_2",Material.PINK_CONCRETE);
+    public static final SlimefunItemStack COLOR_GLAZED_TERRACOTTA_1 = createDefaultResourceGlow("COLOR_GLAZED_TERRACOTTA_1",Material.PINK_GLAZED_TERRACOTTA);
+    public static final SlimefunItemStack COLOR_GLAZED_TERRACOTTA_2 = createDefaultResourceGlow("COLOR_GLAZED_TERRACOTTA_2",Material.PINK_GLAZED_TERRACOTTA);
+
+
+    public static final SlimefunItemStack PRE_BUILDING_TAFEI = createDefaultItemGlow("PRE_BUILDING_TAFEI",Material.PINK_WOOL);
+
+
+    public static final SlimefunItemStack PRE_BUILDING_VILLAGE_LOVE_AND_TRADE_HOUSE = createDefaultItemGlow("PRE_BUILDING_VILLAGE_LOVE_AND_TRADE_HOUSE",Material.BARREL);
+    public static final SlimefunItemStack PRE_BUILDING_SHULKER_FARM = createDefaultItemGlow("PRE_BUILDING_SHULKER_FARM",Material.SHULKER_BOX);
+
+
+
+
 
 
     //资源生成器
@@ -499,9 +556,15 @@ public class MagicExpansionItems {
             get("RECIPE_MACHINE.PRE_BUILDINGS_MACHINE.Name"),getList("RECIPE_MACHINE.PRE_BUILDINGS_MACHINE.Lore"));
 
 
+    //终极魔法建筑工坊
+    public static final SlimefunItemStack PRE_BUILDINGS_MACHINE_ADVANCED = createDefaultRecipeMachine("PRE_BUILDINGS_MACHINE_ADVANCED",Material.CARTOGRAPHY_TABLE);
+    //材料工坊
+    public static final SlimefunItemStack PRE_BUILDINGS_MACHINE_RESOURCE_ADVANCED = createDefaultRecipeMachine("PRE_BUILDINGS_MACHINE_RESOURCE_ADVANCED",Material.SEA_LANTERN);
+
+
+
     //普通机器
     public static final SlimefunItemStack PHANTON_SUPPRESSION = createDefaultMachine("PHANTON_SUPPRESSION",Material.LIGHT_BLUE_GLAZED_TERRACOTTA);
-
 
 
 
@@ -514,6 +577,23 @@ public class MagicExpansionItems {
                 getList("Items." + id + ".Lore")
         );
     }
+    public static SlimefunItemStack createDefaultItemGlow(String id,Material material) {
+        return themed(
+                id,
+                doGlow(material),
+                get("Items." + id + ".Name"),
+                getList("Items." + id + ".Lore")
+        );
+    }
+
+    public static SlimefunItemStack createDefaultResourceGlow(String id, Material material) {
+        return themed(
+                id,
+                doGlow(material),
+                get("Resource." + id + ".Name"),
+                getList("Resource." + id + ".Lore")
+        );
+    }
 
     public static SlimefunItemStack createDefaultMachine(String id,Material material) {
         return themed(
@@ -521,6 +601,14 @@ public class MagicExpansionItems {
                 material,
                 get("MACHINE." + id + ".Name"),
                 getList("MACHINE." + id + ".Lore")
+        );
+    }
+    public static SlimefunItemStack createDefaultRecipeMachine(String id,Material material) {
+        return themed(
+                id,
+                material,
+                get("RECIPE_MACHINE." + id + ".Name"),
+                getList("RECIPE_MACHINE." + id + ".Lore")
         );
     }
 
