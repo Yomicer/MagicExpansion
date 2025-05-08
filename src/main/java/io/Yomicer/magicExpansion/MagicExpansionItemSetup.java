@@ -24,6 +24,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.groups.SubItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.implementation.items.blocks.UnplaceableBlock;
+import io.github.thebusybiscuit.slimefun4.implementation.items.electric.Capacitor;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -89,6 +90,11 @@ public final class MagicExpansionItemSetup {
     public static final ItemGroup magicexpansionenergy = new SubItemGroup(
             new NamespacedKey(MagicExpansion.getInstance(), "energy"), magicexpansion,
             new CustomItemStack(doGlow(Material.SOUL_LANTERN), ColorGradient.getGradientName("魔法-特殊机器")), 6
+    );
+
+    public static final ItemGroup magicexpansionpower = new SubItemGroup(
+            new NamespacedKey(MagicExpansion.getInstance(), "power"), magicexpansion,
+            new CustomItemStack(CustomHead.getHead("24378b986e358555ee73f09b210d49ec13719de5ea88d75523770d31163f3aef"), ColorGradient.getGradientName("魔法-发电机")), 6
     );
 
     private static final ItemGroup magicexpansionelectricbot = new SubItemGroup(
@@ -198,9 +204,9 @@ public final class MagicExpansionItemSetup {
 
         //进阶万能魔法合成材料
         new UnplaceableBlock(magicexpansionresourcedlc, MagicExpansionItems.MAGIC_EXPANSION_TO_MAGIC_ITEM_ADVANCED, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC, MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC, MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC,
-                MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC, MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC, MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC,
-                MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC, MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC, MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC
+                MagicExpansionItems.AMETHYST_SHARD, MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC, MagicExpansionItems.QUARTZ,
+                MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC, MagicExpansionItems.ELEMENT_INGOT, MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC,
+                MagicExpansionItems.NETHERITE_INGOT, MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC, MagicExpansionItems.EMERALD
         }).register(plugin);
 
 
@@ -616,6 +622,15 @@ public final class MagicExpansionItemSetup {
                 MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.QUARTZ,MagicExpansionItems.ELEMENT_INGOT,
                 MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.ELEMENT_INGOT,
         }).register(plugin);
+
+
+        //紊乱的发电机核心
+        new Capacitor(magicexpansionresource,131452, MagicExpansionItems.POWER_CORE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MagicExpansionItems.ELEMENT_INGOT,SlimefunItems.ENERGIZED_CAPACITOR, MagicExpansionItems.ELEMENT_INGOT,
+                MagicExpansionItems.COPPER_INGOT,MagicExpansionItems.MAGIC_EXPANSION_TO_MAGIC_ITEM_ADVANCED,MagicExpansionItems.ZINC_INGOT,
+                MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.AMETHYST_SHARD,MagicExpansionItems.ELEMENT_INGOT,
+        }).register(plugin);
+
 
         //无尽打火石
         new InfiniteFlintAndSteel(magicexpansionresource, MagicExpansionItems.INFINITY_FLINT_AND_STEEL, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {

@@ -76,19 +76,21 @@ public class EntityKillMachine extends SlimefunItem implements EnergyNetComponen
     protected void tick(Block block) {
 
         BlockMenu menu = StorageCacheUtils.getMenu(block.getLocation());
+        if(menu != null && menu.hasViewer()) {
         if (getCharge(block.getLocation()) < getEnergyConsumption()) {
             //电量不足
             menu.addItem(13, new CustomItemStack(new ItemStack (Material.GHAST_TEAR), "§c电量不足"),
                     (p, slot, item, action) -> false);
             return;
         }
-        //电量不足
-        menu.addItem(13, new CustomItemStack(new ItemStack (Material.BLUE_BED), "§b抑制中",
-                        "§b类型：§e"+ name,
-                        "§b耗电速度：§e"+ getEnergyConsumption()*2 + " J/s",
-                        "§b电量存储：§e"+getCharge(block.getLocation()) + " J"),
-                (p, slot, item, action) -> false);
+            //电量不足
+            menu.addItem(13, new CustomItemStack(new ItemStack(Material.BLUE_BED), "§b抑制中",
+                            "§b类型：§e" + name,
+                            "§b耗电速度：§e" + getEnergyConsumption() * 2 + " J/s",
+                            "§b电量存储：§e" + getCharge(block.getLocation()) + " J"),
+                    (p, slot, item, action) -> false);
 
+        }
         Location center = block.getLocation();
         int radius = 19;
         for (Entity entity : center.getWorld().getNearbyEntities(center, radius, radius, radius)) {

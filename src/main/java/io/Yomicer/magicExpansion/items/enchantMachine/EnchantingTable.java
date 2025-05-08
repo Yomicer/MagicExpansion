@@ -150,16 +150,18 @@ public class EnchantingTable extends SimpleSlimefunItem<ItemUseHandler> implemen
     protected void tick(Block block) {
         BlockMenu menu = StorageCacheUtils.getMenu(block.getLocation());
 
-        if (getCharge(block.getLocation()) < getEnergyConsumption()) {
-            menu.addItem(18, new CustomItemStack(doGlow(Material.NETHER_STAR),"§x§F§D§B§7§D§4⚡电力不足⚡",
-                            getGradientName("每次赋能需要消耗1w电力")),
+        if(menu != null && menu.hasViewer()) {
+            if (getCharge(block.getLocation()) < getEnergyConsumption()) {
+                menu.addItem(18, new CustomItemStack(doGlow(Material.NETHER_STAR), "§x§F§D§B§7§D§4⚡电力不足⚡",
+                                getGradientName("每次赋能需要消耗1w电力")),
+                        (player1, slot, item, action) -> false);
+                return;
+            }
+            menu.addItem(18, new CustomItemStack(doGlow(Material.PINK_STAINED_GLASS_PANE), ""),
                     (player1, slot, item, action) -> false);
-            return;
-        }
-        menu.addItem(18, new CustomItemStack(doGlow(Material.PINK_STAINED_GLASS_PANE),""),
-                (player1, slot, item, action) -> false);
 
-        craftIfValid(block);
+            craftIfValid(block);
+        }
     }
 
     /**

@@ -2,6 +2,7 @@ package io.Yomicer.magicExpansion.core;
 
 import io.Yomicer.magicExpansion.utils.CustomHeadUtils.CustomHead;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import org.bukkit.Material;
 
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
@@ -24,7 +25,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 8"),
+            getGradientName("Version: Build 9"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -456,6 +457,11 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack COLOR_GLAZED_TERRACOTTA_2 = createDefaultResourceGlow("COLOR_GLAZED_TERRACOTTA_2",Material.PINK_GLAZED_TERRACOTTA);
 
 
+
+    public static final SlimefunItemStack POWER_CORE = themed("POWER_CORE",new CustomItemStack(CustomHead.getHead("96e0c954d5cab4b9714b8a7eaf9742eeaab7dda7fc2effefb1530099ae1309ac")),
+            get("Resource.POWER_CORE.Name"),getList("Resource.POWER_CORE.Lore"));
+
+
     public static final SlimefunItemStack PRE_BUILDING_TAFEI = createDefaultItemGlow("PRE_BUILDING_TAFEI",Material.PINK_WOOL);
 
 
@@ -568,6 +574,16 @@ public class MagicExpansionItems {
 
 
 
+    //发电机列表
+    //不稳定的火力发电机
+    public static final SlimefunItemStack POWER_FIRE_UNSTABLE = createDefaultPowerMachine("POWER_FIRE_UNSTABLE",Material.CAMPFIRE);
+
+
+
+
+
+
+
 
     public static SlimefunItemStack createDefaultItem(String id,Material material) {
         return themed(
@@ -594,6 +610,14 @@ public class MagicExpansionItems {
                 getList("Resource." + id + ".Lore")
         );
     }
+    public static SlimefunItemStack createDefaultResource(String id, Material material) {
+        return themed(
+                id,
+                material,
+                get("Resource." + id + ".Name"),
+                getList("Resource." + id + ".Lore")
+        );
+    }
 
     public static SlimefunItemStack createDefaultMachine(String id,Material material) {
         return themed(
@@ -609,6 +633,15 @@ public class MagicExpansionItems {
                 material,
                 get("RECIPE_MACHINE." + id + ".Name"),
                 getList("RECIPE_MACHINE." + id + ".Lore")
+        );
+    }
+
+    public static SlimefunItemStack createDefaultPowerMachine(String id,Material material) {
+        return themed(
+                id,
+                material,
+                get("POWER_MACHINE." + id + ".Name"),
+                getList("POWER_MACHINE." + id + ".Lore")
         );
     }
 
