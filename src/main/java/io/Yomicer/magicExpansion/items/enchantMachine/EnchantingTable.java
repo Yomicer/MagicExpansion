@@ -174,9 +174,17 @@ public class EnchantingTable extends SimpleSlimefunItem<ItemUseHandler> implemen
      */
     public static ItemStack randomizeAttributes(ItemStack item, int resourceLevel, Map<String, Integer> POOL, int num) {
         // 计算抽取范围
-        int minAttributes = num;
-        int maxAttributes = num + 2;
-
+        int minAttributes = 1;
+        int maxAttributes = 1;
+        if(num == 1){
+        }
+        else if(num == 2){
+            minAttributes = num;
+            maxAttributes = num + 1;
+        }else if(num == 3){
+            minAttributes = num;
+            maxAttributes = num + 2;
+        }
         Random random = new Random();
         int attributeCount = random.nextInt(maxAttributes - minAttributes + 1) + minAttributes;
 

@@ -101,9 +101,9 @@ public class RecipeMachinePreBuilding extends AbstractElectricRecipeMachine {
 	protected void setupMenu(BlockMenuPreset preset) {
 
         preset.drawBackground(new CustomItemStack(Material.PINK_STAINED_GLASS_PANE," "), BACKGROUND_SLOTS);
-        preset.drawBackground(new CustomItemStack(Material.LIGHT_BLUE_STAINED_GLASS_PANE,"↑材料输入槽"), INPUT_BORDER_SLOTS);
-        preset.drawBackground(new CustomItemStack(Material.LIME_STAINED_GLASS_PANE,"产物输出槽→"), OUTPUT_BORDER_SLOTS1);
-        preset.drawBackground(new CustomItemStack(Material.LIME_STAINED_GLASS_PANE,"←产物输出槽"), OUTPUT_BORDER_SLOTS2);
+        preset.drawBackground(new CustomItemStack(Material.LIGHT_BLUE_STAINED_GLASS_PANE,getGradientName("↑材料输入槽")), INPUT_BORDER_SLOTS);
+        preset.drawBackground(new CustomItemStack(Material.LIME_STAINED_GLASS_PANE,getGradientName("产物输出槽→")), OUTPUT_BORDER_SLOTS1);
+        preset.drawBackground(new CustomItemStack(Material.LIME_STAINED_GLASS_PANE,getGradientName("←产物输出槽")), OUTPUT_BORDER_SLOTS2);
 
         preset.addItem(getProgressSlot(), new CustomItemStack(Material.PINK_STAINED_GLASS_PANE, " "), ChestMenuUtils.getEmptyClickHandler());
 

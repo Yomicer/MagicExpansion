@@ -1,15 +1,14 @@
 package io.Yomicer.magicExpansion;
 
-import io.Yomicer.magicExpansion.Listener.SlimefunRegistryFinalized;
 import io.Yomicer.magicExpansion.items.electric.entitykillMachinee.EntityKillMachine;
+import io.Yomicer.magicExpansion.items.electric.geoMachine.FiveElementsMiner;
 import io.Yomicer.magicExpansion.items.electric.recipeMachine.RecipeMachine;
 import io.Yomicer.magicExpansion.items.electric.resourceGenerator.ResourceMachine;
 import io.Yomicer.magicExpansion.items.enchantMachine.EnchantingTable;
 import io.Yomicer.magicExpansion.items.misc.FireZombieMB;
+import io.Yomicer.magicExpansion.items.misc.MagicGeoResourceDefault;
 import io.Yomicer.magicExpansion.items.preBuildings.PreBuildingTree;
 import io.Yomicer.magicExpansion.items.quickMachine.*;
-import io.Yomicer.magicExpansion.items.quickMachineBlockVersion.QuickMachineBV;
-import io.Yomicer.magicExpansion.items.quickMachineBlockVersion.QuickMachineMBBV;
 import io.Yomicer.magicExpansion.items.summonBossItem.FireZombie;
 import io.Yomicer.magicExpansion.items.tools.*;
 import io.Yomicer.magicExpansion.core.MagicExpansionItems;
@@ -25,6 +24,7 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.implementation.items.blocks.UnplaceableBlock;
 import io.github.thebusybiscuit.slimefun4.implementation.items.electric.Capacitor;
+import io.github.thebusybiscuit.slimefun4.implementation.items.geo.GEOMiner;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -34,7 +34,6 @@ import org.bukkit.inventory.ItemStack;
 import javax.annotation.Nonnull;
 
 import static io.Yomicer.magicExpansion.core.MagicExpansionItems.MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC;
-import static io.Yomicer.magicExpansion.core.MagicExpansionItems.PRE_BUILDINGS_MACHINE_ADVANCED;
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
 import static io.Yomicer.magicExpansion.utils.ConvertItem.AdvancedCreateItem;
 import static io.Yomicer.magicExpansion.utils.ConvertItem.BasicCreateItem;
@@ -73,7 +72,7 @@ public final class MagicExpansionItemSetup {
             new CustomItemStack(doGlow(Material.SHEARS), "§x§F§D§B§7§D§4特§x§F§A§7§E§B§3殊§x§F§F§6§9§B§4道§x§F§F§6§9§B§4具"), 3
     );
 
-    private static final ItemGroup magicexpansionquickmachine = new SubItemGroup(
+    public static final ItemGroup magicexpansionquickmachine = new SubItemGroup(
             new NamespacedKey(MagicExpansion.getInstance(), "quickmachine"), magicexpansion,
             new CustomItemStack(doGlow(Material.MAGENTA_GLAZED_TERRACOTTA), "§x§F§D§B§7§D§4快§x§F§A§7§E§B§3捷§x§F§F§6§9§B§4机§x§F§F§6§9§B§4器"), 4
     );
@@ -82,7 +81,7 @@ public final class MagicExpansionItemSetup {
             new NamespacedKey(MagicExpansion.getInstance(), "resourcegenerator"), magicexpansion,
             new CustomItemStack(doGlow(Material.LANTERN), ColorGradient.getGradientName("魔法-资源生成器")), 5
     );
-    private static final ItemGroup magicexpansionrecipemachine = new SubItemGroup(
+    public static final ItemGroup magicexpansionrecipemachine = new SubItemGroup(
             new NamespacedKey(MagicExpansion.getInstance(), "recipemachine"), magicexpansion,
             new CustomItemStack(doGlow(Material.SOUL_CAMPFIRE), ColorGradient.getGradientName("魔法-消耗型生产机器")), 5
     );
@@ -119,7 +118,12 @@ public final class MagicExpansionItemSetup {
 
     private static final ItemGroup magicexpansionprebuilding = new SubItemGroup(
             new NamespacedKey(MagicExpansion.getInstance(), "prebuilding"), magicexpansion,
-            new CustomItemStack(doGlow(Material.BRICKS), ColorGradient.getGradientName("魔法-预制菜（建筑）")), 9
+            new CustomItemStack(doGlow(Material.BRICKS), ColorGradient.getGradientName("魔法-预制菜（建筑）")), 10
+    );
+
+    private static final ItemGroup magicexpansionupdateinfo = new SubItemGroup(
+            new NamespacedKey(MagicExpansion.getInstance(), "updateinfo"), magicexpansion,
+            new CustomItemStack(doGlow(Material.PAPER), ColorGradient.getGradientName("魔法-更新日志")), 11
     );
 
 
@@ -160,6 +164,14 @@ public final class MagicExpansionItemSetup {
                     ,getGradientName(""),getGradientName("是魔法之力？还是远古工匠的智慧结晶？"),getGradientName("无论如何，这座工坊流传着一些未知的秘密。")),
             (input, output) -> {});
 
+    // 五行资源采集器
+    public static final RecipeType FIVE_ELEMENT_MINER = new RecipeType(
+            new NamespacedKey(MagicExpansion.getInstance(), "magicexpansion_five_element_miner"),
+            new CustomItemStack(new CustomItemStack(CustomHead.getHead("846472b7bd8de52a101584ea2dd7db190d417ca548bb6568379acebdd02b1799"),
+                    getGradientName("五行元素资源开采机"),getGradientName(" "),getGradientName("一种特殊的资源开采机"),
+                    getGradientName("从区块中开采出五行资源"),getGradientName("可以开采出不能被矿镐挖出的资源"),getGradientName(" ")
+                    ,getGradientName("确保你已经进行了 GEO 地形扫描"))),
+            (input, output) -> {});
 
     //  掉落物
     public static final RecipeType MAGICEXPANSION_MOB_DROP = new RecipeType(
@@ -187,6 +199,20 @@ public final class MagicExpansionItemSetup {
                 null, null, null,
                 null, null, null
         }).register(plugin);
+
+
+
+
+        //更新日志
+        new UnplaceableBlock(magicexpansionupdateinfo, MagicExpansionItems.UPDATE_LOG_2025_06_23, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
+
+
+
+
 
         //快捷机器提示
         new UnplaceableBlock(magicexpansionquickmachine, MagicExpansionItems.MAGIC_EXPANSION_QUICK_MACHINE_INFO, SPECIAL_RECIPE_TYPE, new ItemStack[] {
@@ -232,98 +258,6 @@ public final class MagicExpansionItemSetup {
                 SlimefunItems.MAGIC_LUMP_3, SlimefunItems.ENDER_LUMP_3, SlimefunItems.MAGIC_LUMP_3
         }).register(plugin);
 
-        //Quick Machine
-        // 魔法矿洞
-        new MagicExpansionMineralCave(magicexpansionquickmachine, MagicExpansionItems.MAGIC_EXPANSION_MINERAL_CAVE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                AdvancedCreateItem("MAGIC_COSMIC_DUST"), MagicExpansionItems.MAGIC_EXPANSION_INTERACTIVE_CORE, AdvancedCreateItem("MAGIC_COSMIC_DUST"),
-                BasicCreateItem("MAGIC_REDSTONE"), new ItemStack(Material.SMOOTH_STONE), BasicCreateItem("MAGIC_REDSTONE"),
-                AdvancedCreateItem("MAGIC_COSMIC_DUST"), BasicCreateItem("MAGIC_REDSTONE"), AdvancedCreateItem("MAGIC_COSMIC_DUST")
-        }).register(plugin);
-
-        // 魔法工作台
-        new MagicExpansionQuickEnhancedCraftingTable(magicexpansionquickmachine, MagicExpansionItems.MAGIC_EXPANSION_QUICK_ENHANCED_CRAFTING_TABLE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                new ItemStack(Material.ENDER_EYE), MagicExpansionItems.MAGIC_EXPANSION_INTERACTIVE_CORE, new ItemStack(Material.ENDER_EYE),
-                AdvancedCreateItem("MAGIC_COSMIC_DUST"), new ItemStack(Material.CRAFTING_TABLE), AdvancedCreateItem("MAGIC_COSMIC_DUST"),
-                new ItemStack(Material.ENDER_EYE), BasicCreateItem("MAGIC_REDSTONE"), new ItemStack(Material.ENDER_EYE)
-        }).register(plugin);
-        // 魔法冶炼炉
-        new MagicExpansionQuickSmeltery(magicexpansionquickmachine, MagicExpansionItems.MAGIC_EXPANSION_QUICK_SMELTERY, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                new ItemStack(Material.ENDER_EYE), MagicExpansionItems.MAGIC_EXPANSION_INTERACTIVE_CORE, new ItemStack(Material.ENDER_EYE),
-                AdvancedCreateItem("MAGIC_COSMIC_DUST"), new ItemStack(Material.FURNACE), AdvancedCreateItem("MAGIC_COSMIC_DUST"),
-                new ItemStack(Material.ENDER_EYE), BasicCreateItem("MAGIC_COSMIC_DUST"), new ItemStack(Material.ENDER_EYE)
-        }).register(plugin);
-        /*
-        // 魔法冶炼炉2
-        new UnplaceableBlock(quickmachine, MagicExpansionItems.MAGIC_EXPANSION_QUICK_SMELTERY2, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                BasicCreateItem("MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC"), AdvancedCreateItem("MAGIC_EXPANSION_TO_MAGIC_ITEM_ADVANCED"), BasicCreateItem("MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC"),
-                AdvancedCreateItem("MAGIC_EXPANSION_TO_MAGIC_ITEM_ADVANCED"), new ItemStack(Material.FURNACE), AdvancedCreateItem("MAGIC_EXPANSION_TO_MAGIC_ITEM_ADVANCED"),
-                BasicCreateItem("MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC"), AdvancedCreateItem("MAGIC_EXPANSION_TO_MAGIC_ITEM_ADVANCED"), BasicCreateItem("MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC")
-        },MagicExpansionItems.MAGIC_EXPANSION_QUICK_SMELTERY).register(plugin);
-        */
-        // 魔法磨石
-        new MagicExpansionQuickGrindStone(magicexpansionquickmachine, MagicExpansionItems.MAGIC_EXPANSION_QUICK_GRIND_STONE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                new ItemStack(Material.ENDER_EYE), MagicExpansionItems.MAGIC_EXPANSION_INTERACTIVE_CORE, new ItemStack(Material.ENDER_EYE),
-                AdvancedCreateItem("MAGIC_COSMIC_DUST"), new ItemStack(Material.DISPENSER), AdvancedCreateItem("MAGIC_COSMIC_DUST"),
-                new ItemStack(Material.ENDER_EYE), BasicCreateItem("MAGIC_REDSTONE"), new ItemStack(Material.ENDER_EYE)
-        }).register(plugin);
-        // 魔法粉碎机
-        new MagicExpansionQuickOreCrusher(magicexpansionquickmachine, MagicExpansionItems.MAGIC_EXPANSION_QUICK_ORE_CRUSHER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                new ItemStack(Material.ENDER_EYE), MagicExpansionItems.MAGIC_EXPANSION_INTERACTIVE_CORE, new ItemStack(Material.ENDER_EYE),
-                AdvancedCreateItem("MAGIC_COSMIC_DUST"), new ItemStack(Material.IRON_BARS), AdvancedCreateItem("MAGIC_COSMIC_DUST"),
-                new ItemStack(Material.ENDER_EYE), BasicCreateItem("MAGIC_REDSTONE"), new ItemStack(Material.ENDER_EYE)
-        }).register(plugin);
-
-        // 魔法盔甲锻造台
-        new MagicExpansionQuickArmorForge(magicexpansionquickmachine, MagicExpansionItems.MAGIC_EXPANSION_QUICK_ARMOR_FORGE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                new ItemStack(Material.ENDER_EYE), MagicExpansionItems.MAGIC_EXPANSION_INTERACTIVE_CORE, new ItemStack(Material.ENDER_EYE),
-                AdvancedCreateItem("MAGIC_COSMIC_DUST"), new ItemStack(Material.ANVIL), AdvancedCreateItem("MAGIC_COSMIC_DUST"),
-                new ItemStack(Material.ENDER_EYE), BasicCreateItem("MAGIC_REDSTONE"), new ItemStack(Material.ENDER_EYE)
-        }).register(plugin);
-        // 魔法压缩机
-        new MagicExpansionQuickCompressor(magicexpansionquickmachine, MagicExpansionItems.MAGIC_EXPANSION_QUICK_COMPRESSOR, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                new ItemStack(Material.ENDER_EYE), MagicExpansionItems.MAGIC_EXPANSION_INTERACTIVE_CORE, new ItemStack(Material.ENDER_EYE),
-                AdvancedCreateItem("MAGIC_COSMIC_DUST"), new ItemStack(Material.PISTON), AdvancedCreateItem("MAGIC_COSMIC_DUST"),
-                new ItemStack(Material.ENDER_EYE), BasicCreateItem("MAGIC_REDSTONE"), new ItemStack(Material.ENDER_EYE)
-        }).register(plugin);
-        // 魔法压力机
-        new MagicExpansionQuickPressureChamber(magicexpansionquickmachine, MagicExpansionItems.MAGIC_EXPANSION_QUICK_PRESSURE_CHAMBER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                new ItemStack(Material.ENDER_EYE), MagicExpansionItems.MAGIC_EXPANSION_INTERACTIVE_CORE, new ItemStack(Material.ENDER_EYE),
-                AdvancedCreateItem("MAGIC_COSMIC_DUST"), new ItemStack(Material.GLASS), AdvancedCreateItem("MAGIC_COSMIC_DUST"),
-                new ItemStack(Material.ENDER_EYE), BasicCreateItem("MAGIC_REDSTONE"), new ItemStack(Material.ENDER_EYE)
-        }).register(plugin);
-        // 魔法工作台
-        new MagicExpansionQuickMagicWorkbench(magicexpansionquickmachine, MagicExpansionItems.MAGIC_EXPANSION_QUICK_MAGIC_WORKBENCH, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                new ItemStack(Material.ENDER_EYE), MagicExpansionItems.MAGIC_EXPANSION_INTERACTIVE_CORE, new ItemStack(Material.ENDER_EYE),
-                AdvancedCreateItem("MAGIC_COSMIC_DUST"), new ItemStack(Material.BOOKSHELF), AdvancedCreateItem("MAGIC_COSMIC_DUST"),
-                new ItemStack(Material.ENDER_EYE), BasicCreateItem("MAGIC_REDSTONE"), new ItemStack(Material.ENDER_EYE)
-        }).register(plugin);
-        // 魔法淘金机
-        new MagicExpansionQuickAutomatedPanningMachine(magicexpansionquickmachine, MagicExpansionItems.MAGIC_EXPANSION_QUICK_AUTOMATED_PANNING_MACHINE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                new ItemStack(Material.ENDER_EYE), MagicExpansionItems.MAGIC_EXPANSION_INTERACTIVE_CORE, new ItemStack(Material.ENDER_EYE),
-                AdvancedCreateItem("MAGIC_COSMIC_DUST"), SlimefunItems.GOLD_PAN, AdvancedCreateItem("MAGIC_COSMIC_DUST"),
-                new ItemStack(Material.ENDER_EYE), BasicCreateItem("MAGIC_REDSTONE"), new ItemStack(Material.ENDER_EYE)
-        }).register(plugin);
-        // 魔法远古祭坛
-        new MagicExpansionQuickAncientAltar(magicexpansionquickmachine, MagicExpansionItems.MAGIC_EXPANSION_QUICK_AUTOMATED_ANCIENT_ALTAR, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                SlimefunItems.ANCIENT_ALTAR, MagicExpansionItems.MAGIC_EXPANSION_INTERACTIVE_CORE, SlimefunItems.ANCIENT_ALTAR,
-                AdvancedCreateItem("MAGIC_COSMIC_DUST"), new ItemStack(Material.ENCHANTING_TABLE), AdvancedCreateItem("MAGIC_COSMIC_DUST"),
-                SlimefunItems.ANCIENT_ALTAR, BasicCreateItem("MAGIC_REDSTONE"), SlimefunItems.ANCIENT_ALTAR
-        }).register(plugin);
-        // 破损的魔法碎矿机
-        new MagicExpansionQuickOreGrinder(magicexpansionquickmachine, MagicExpansionItems.MAGIC_EXPANSION_QUICK_ELECTRIC_ORE_GRINDER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                new ItemStack(Material.ENDER_EYE), MagicExpansionItems.MAGIC_EXPANSION_INTERACTIVE_CORE, new ItemStack(Material.ENDER_EYE),
-                AdvancedCreateItem("MAGIC_COSMIC_DUST"), new ItemStack(Material.OBSERVER), AdvancedCreateItem("MAGIC_COSMIC_DUST"),
-                new ItemStack(Material.ENDER_EYE), BasicCreateItem("MAGIC_REDSTONE"), new ItemStack(Material.ENDER_EYE)
-        }).register(plugin);
-        // 魔法压力舱
-        new MagicExpansionQuickHeatedPressureChamber(magicexpansionquickmachine, MagicExpansionItems.MAGIC_EXPANSION_QUICK_HEATED_PRESSURE_CHAMBER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                new ItemStack(Material.ENDER_EYE), MagicExpansionItems.MAGIC_EXPANSION_INTERACTIVE_CORE, new ItemStack(Material.ENDER_EYE),
-                AdvancedCreateItem("MAGIC_COSMIC_DUST"), new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS), AdvancedCreateItem("MAGIC_COSMIC_DUST"),
-                new ItemStack(Material.ENDER_EYE), BasicCreateItem("MAGIC_REDSTONE"), new ItemStack(Material.ENDER_EYE)
-        }).register(plugin);
-
-
-
 
 
         // 附魔信息
@@ -346,97 +280,6 @@ public final class MagicExpansionItemSetup {
                 AdvancedCreateItem("MAGIC_COSMIC_DUST"), new ItemStack(Material.ENCHANTING_TABLE), AdvancedCreateItem("MAGIC_COSMIC_DUST"),
                 new ItemStack(Material.ENDER_EYE), AdvancedCreateItem("MAGIC_COSMIC_DUST"), new ItemStack(Material.ENDER_EYE)
         }, getGradientName( "魔法附魔台"),getGradientName("魔法附魔台")).register(plugin);
-
-
-
-
-
-
-
-        //快捷机器放置版
-        new UnplaceableBlock(magicexpansionquickmachine, MagicExpansionItems.QUICK_MACHINE_BV_INFO, SPECIAL_RECIPE_TYPE, new ItemStack[] {
-                null, null, null,
-                null, null, null,
-                null, null,null
-        }).register(plugin);
-
-        // 魔法增强型工作台 放置版
-        new QuickMachineBV(magicexpansionquickmachine, MagicExpansionItems.QUICK_ENHANCED_CRAFTING_TABLE_BV, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS),
-                new ItemStack(Material.OAK_PLANKS), MagicExpansionItems.MAGIC_EXPANSION_QUICK_ENHANCED_CRAFTING_TABLE,new ItemStack(Material.OAK_PLANKS),
-                new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS) ,new ItemStack(Material.OAK_PLANKS)
-        },"魔法工作台（增强型工作台）", MagicExpansionQuickEnhancedCraftingTable.ENHANCED_CRAFTING_TABLE_RECIPES,RecipeType.ENHANCED_CRAFTING_TABLE).register(plugin);
-        // 魔法冶炼炉 放置版
-        new QuickMachineMBBV(magicexpansionquickmachine, MagicExpansionItems.QUICK_SMELTERY_BV, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS),
-                new ItemStack(Material.OAK_PLANKS), MagicExpansionItems.MAGIC_EXPANSION_QUICK_SMELTERY,new ItemStack(Material.OAK_PLANKS),
-                new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS) ,new ItemStack(Material.OAK_PLANKS)
-        },"魔法冶炼炉", SlimefunRegistryFinalized.SMELTERY_RECIPES).register(plugin);
-        // 魔法磨石 放置版
-        new QuickMachineMBBV(magicexpansionquickmachine, MagicExpansionItems.QUICK_GRIND_STONE_BV, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS),
-                new ItemStack(Material.OAK_PLANKS), MagicExpansionItems.MAGIC_EXPANSION_QUICK_GRIND_STONE,new ItemStack(Material.OAK_PLANKS),
-                new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS) ,new ItemStack(Material.OAK_PLANKS)
-        },"魔法磨石", SlimefunRegistryFinalized.GRIND_STONE_RECIPES).register(plugin);
-        // 魔法粉碎机 放置版
-        new QuickMachineMBBV(magicexpansionquickmachine, MagicExpansionItems.QUICK_ORE_CRUSHER_BV, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS),
-                new ItemStack(Material.OAK_PLANKS), MagicExpansionItems.MAGIC_EXPANSION_QUICK_ORE_CRUSHER,new ItemStack(Material.OAK_PLANKS),
-                new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS) ,new ItemStack(Material.OAK_PLANKS)
-        },"魔法碎矿机", SlimefunRegistryFinalized.ORE_CRUSHER_RECIPES).register(plugin);
-        // 魔法锻造台 放置版
-        new QuickMachineBV(magicexpansionquickmachine, MagicExpansionItems.QUICK_ARMOR_FORGE_BV, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS),
-                new ItemStack(Material.OAK_PLANKS), MagicExpansionItems.MAGIC_EXPANSION_QUICK_ARMOR_FORGE,new ItemStack(Material.OAK_PLANKS),
-                new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS) ,new ItemStack(Material.OAK_PLANKS)
-        },"魔法锻造台", MagicExpansionQuickArmorForge.ARMOR_FORGE_RECIPES,RecipeType.ARMOR_FORGE).register(plugin);
-        // 魔法压缩机 放置版
-        new QuickMachineMBBV(magicexpansionquickmachine, MagicExpansionItems.QUICK_COMPRESSOR_BV, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS),
-                new ItemStack(Material.OAK_PLANKS), MagicExpansionItems.MAGIC_EXPANSION_QUICK_COMPRESSOR,new ItemStack(Material.OAK_PLANKS),
-                new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS) ,new ItemStack(Material.OAK_PLANKS)
-        },"魔法压缩机", SlimefunRegistryFinalized.COMPRESSOR_RECIPES).register(plugin);
-        // 魔法压力机 放置版
-        new QuickMachineMBBV(magicexpansionquickmachine, MagicExpansionItems.QUICK_PRESSURE_CHAMBER_BV, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS),
-                new ItemStack(Material.OAK_PLANKS), MagicExpansionItems.MAGIC_EXPANSION_QUICK_PRESSURE_CHAMBER,new ItemStack(Material.OAK_PLANKS),
-                new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS) ,new ItemStack(Material.OAK_PLANKS)
-        },"魔法压力机", SlimefunRegistryFinalized.PRESSURE_CHAMBER_RECIPES).register(plugin);
-        // 魔法工作台[魔法工作台] 放置版
-        new QuickMachineBV(magicexpansionquickmachine, MagicExpansionItems.QUICK_MAGIC_WORKBENCH_BV, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS),
-                new ItemStack(Material.OAK_PLANKS), MagicExpansionItems.MAGIC_EXPANSION_QUICK_MAGIC_WORKBENCH,new ItemStack(Material.OAK_PLANKS),
-                new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS) ,new ItemStack(Material.OAK_PLANKS)
-        },"魔法工作台（魔法工作台）", MagicExpansionQuickMagicWorkbench.MAGIC_WORKBENCH_RECIPES,RecipeType.MAGIC_WORKBENCH).register(plugin);
-        // 魔法淘金机 放置版
-        new QuickMachineBV(magicexpansionquickmachine, MagicExpansionItems.QUICK_AUTOMATED_PANNING_MACHINE_BV, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS),
-                new ItemStack(Material.OAK_PLANKS), MagicExpansionItems.MAGIC_EXPANSION_QUICK_AUTOMATED_PANNING_MACHINE,new ItemStack(Material.OAK_PLANKS),
-                new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS) ,new ItemStack(Material.OAK_PLANKS)
-        },"魔法淘金机", MagicExpansionQuickAutomatedPanningMachine.GOLD_PAN_RECIPES,RecipeType.GOLD_PAN).register(plugin);
-        // 魔法远古祭坛 放置版
-        new QuickMachineBV(magicexpansionquickmachine, MagicExpansionItems.QUICK_AUTOMATED_ANCIENT_ALTAR_BV, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS),
-                new ItemStack(Material.OAK_PLANKS), MagicExpansionItems.MAGIC_EXPANSION_QUICK_AUTOMATED_ANCIENT_ALTAR,new ItemStack(Material.OAK_PLANKS),
-                new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS) ,new ItemStack(Material.OAK_PLANKS)
-        },"魔法远古祭坛", MagicExpansionQuickAncientAltar.ANCIENT_ALTAR_RECIPES,RecipeType.ANCIENT_ALTAR).register(plugin);
-        // 魔法远古祭坛 放置版
-        new QuickMachineBV(magicexpansionquickmachine, MagicExpansionItems.QUICK_ELECTRIC_ORE_GRINDER_BV, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS),
-                new ItemStack(Material.OAK_PLANKS), MagicExpansionItems.MAGIC_EXPANSION_QUICK_ELECTRIC_ORE_GRINDER,new ItemStack(Material.OAK_PLANKS),
-                new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS) ,new ItemStack(Material.OAK_PLANKS)
-        },"破损的魔法碎矿机", MagicExpansionQuickOreGrinder.ORE_CRUSHER_RECIPES,RecipeType.ORE_CRUSHER).register(plugin);
-        // 魔法远古祭坛 放置版
-        new QuickMachineBV(magicexpansionquickmachine, MagicExpansionItems.QUICK_HEATED_PRESSURE_CHAMBER_BV, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS),
-                new ItemStack(Material.OAK_PLANKS), MagicExpansionItems.MAGIC_EXPANSION_QUICK_HEATED_PRESSURE_CHAMBER,new ItemStack(Material.OAK_PLANKS),
-                new ItemStack(Material.OAK_PLANKS), new ItemStack(Material.OAK_PLANKS) ,new ItemStack(Material.OAK_PLANKS)
-        },"魔法压力舱", MagicExpansionQuickHeatedPressureChamber.HEATED_PRESSURE_CHAMBER_RECIPES,RecipeType.HEATED_PRESSURE_CHAMBER).register(plugin);
-
-
-
-
-
 
 
 
@@ -551,7 +394,7 @@ public final class MagicExpansionItemSetup {
         registerVanResource(plugin,MagicExpansionItems.BONE, new ItemStack(Material.BONE));
         registerVanResource(plugin,MagicExpansionItems.BONE_MEAL, new ItemStack(Material.BONE_MEAL));
         registerVanResource(plugin,MagicExpansionItems.STICK, new ItemStack(Material.STICK));
-        registerVanResource(plugin,MagicExpansionItems.COBBLESTONE, new ItemStack(Material.NETHERITE_INGOT));
+        registerVanResource(plugin,MagicExpansionItems.COBBLESTONE, new ItemStack(Material.COBBLESTONE));
         registerVanResource(plugin,MagicExpansionItems.DIRT, new ItemStack(Material.DIRT));
         registerVanResource(plugin,MagicExpansionItems.GLOWSTONE_DUST, new ItemStack(Material.GLOWSTONE_DUST));
 
@@ -616,6 +459,12 @@ public final class MagicExpansionItemSetup {
                 null,null,null,
         }).register(plugin);
 
+        new UnplaceableBlock(magicexpansionresource, MagicExpansionItems.JIN_KE_LA, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                new ItemStack(Material.EGG,1),new ItemStack(Material.APPLE,1), new ItemStack(Material.MELON_SLICE,1),
+                new ItemStack(Material.SWEET_BERRIES,1),MagicExpansionItems.BONE_MEAL,new ItemStack(Material.GLOW_BERRIES,1),
+                new ItemStack(Material.CARROT,1),new ItemStack(Material.WHEAT,1),new ItemStack(Material.ROTTEN_FLESH,1),
+        }).register(plugin);
+
         //石英核心
         new UnplaceableBlock(magicexpansionresource, MagicExpansionItems.QUARTZ_CORE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.ELEMENT_INGOT, MagicExpansionItems.ELEMENT_INGOT,
@@ -625,9 +474,9 @@ public final class MagicExpansionItemSetup {
 
 
         //紊乱的发电机核心
-        new Capacitor(magicexpansionresource,131452, MagicExpansionItems.POWER_CORE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+        new Capacitor(magicexpansionpower,1314520, MagicExpansionItems.POWER_CORE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 MagicExpansionItems.ELEMENT_INGOT,SlimefunItems.ENERGIZED_CAPACITOR, MagicExpansionItems.ELEMENT_INGOT,
-                MagicExpansionItems.COPPER_INGOT,MagicExpansionItems.MAGIC_EXPANSION_TO_MAGIC_ITEM_ADVANCED,MagicExpansionItems.ZINC_INGOT,
+                MagicExpansionItems.COPPER_INGOT,AdvancedCreateItem("MAGIC_COSMIC_DUST"),MagicExpansionItems.ZINC_INGOT,
                 MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.AMETHYST_SHARD,MagicExpansionItems.ELEMENT_INGOT,
         }).register(plugin);
 
@@ -642,7 +491,7 @@ public final class MagicExpansionItemSetup {
         //无尽空间魔法
         new UnplaceableBlock(magicexpansionprebuildingresource, MagicExpansionItems.SPACE_INFINITY_MAGIC, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 MagicExpansionItems.AMETHYST_SHARD,MagicExpansionItems.LIGHT_CORE, MagicExpansionItems.AMETHYST_SHARD,
-                MagicExpansionItems.LIGHT_CORE,MagicExpansionItems.MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC,MagicExpansionItems.LIGHT_CORE,
+                MagicExpansionItems.LIGHT_CORE,BasicCreateItem("MAGIC_REDSTONE"),MagicExpansionItems.LIGHT_CORE,
                 MagicExpansionItems.AMETHYST_SHARD,MagicExpansionItems.LIGHT_CORE,MagicExpansionItems.AMETHYST_SHARD,
         }).register(plugin);
 
@@ -1065,6 +914,72 @@ public final class MagicExpansionItemSetup {
 
 
 
+        //GEO资源
+
+        new MagicGeoResourceDefault(magicexpansionresource, MagicExpansionItems.GOLD_ELEMENT, FIVE_ELEMENT_MINER, new ItemStack[] {
+                null,null,null,
+                null,new CustomItemStack(new ItemStack(Material.NETHER_STAR), "&c&l注意：&c&l原版资源采集器无法开采此资源","需要使用五行资源开采机"),null,
+                null,null,null
+        },"金元素",false,1314,520)
+                .register(plugin);
+
+        new MagicGeoResourceDefault(magicexpansionresource, MagicExpansionItems.WOOD_ELEMENT, FIVE_ELEMENT_MINER, new ItemStack[] {
+                null,null,null,
+                null,new CustomItemStack(new ItemStack(Material.NETHER_STAR), "&c&l注意：&c&l原版资源采集器无法开采此资源","需要使用五行资源开采机"),null,
+                null,null,null
+        },"木元素",false,1314,520)
+                .register(plugin);
+
+        new MagicGeoResourceDefault(magicexpansionresource, MagicExpansionItems.WATER_ELEMENT, FIVE_ELEMENT_MINER, new ItemStack[] {
+                null,null,null,
+                null,new CustomItemStack(new ItemStack(Material.NETHER_STAR), "&c&l注意：&c&l原版资源采集器无法开采此资源","需要使用五行资源开采机"),null,
+                null,null,null
+        },"水元素",false,1314,520)
+                .register(plugin);
+
+        new MagicGeoResourceDefault(magicexpansionresource, MagicExpansionItems.FIRE_ELEMENT, FIVE_ELEMENT_MINER, new ItemStack[] {
+                null,null,null,
+                null,new CustomItemStack(new ItemStack(Material.NETHER_STAR), "&c&l注意：&c&l原版资源采集器无法开采此资源","需要使用五行资源开采机"),null,
+                null,null,null
+        },"火元素",false,1314,520)
+                .register(plugin);
+
+        new MagicGeoResourceDefault(magicexpansionresource, MagicExpansionItems.EARTH_ELEMENT, FIVE_ELEMENT_MINER, new ItemStack[] {
+                null,null,null,
+                null,new CustomItemStack(new ItemStack(Material.NETHER_STAR), "&c&l注意：&c&l原版资源采集器无法开采此资源","需要使用五行资源开采机"),null,
+                null,null,null
+        },"土元素",false,1314,520)
+                .register(plugin);
+
+
+
+
+
+
+
+
+        //GEO资源挖掘机，要放在GEO资源下面
+
+        new GEOMiner(magicexpansionenergy, MagicExpansionItems.GEO_MINER_PLUS, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MagicExpansionItems.ELEMENT_INGOT, SlimefunItems.GEO_MINER, MagicExpansionItems.ELEMENT_INGOT,
+                SlimefunItems.GEO_MINER, AdvancedCreateItem("MAGIC_COSMIC_DUST"), SlimefunItems.GEO_MINER,
+                SlimefunItems.GPS_TRANSMITTER_4, SlimefunItems.GEO_MINER, SlimefunItems.GPS_TRANSMITTER_4
+        })
+                .setCapacity(1314)
+                .setEnergyConsumption(260)
+                .setProcessingSpeed(1314)
+                .register(plugin);
+
+
+        new FiveElementsMiner(magicexpansionenergy, MagicExpansionItems.FIVE_ELEMENT_MINER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MagicExpansionItems.ELEMENT_INGOT, SlimefunItems.PORTABLE_GEO_SCANNER, MagicExpansionItems.ELEMENT_INGOT,
+                SlimefunItems.GPS_TELEPORTER_PYLON, AdvancedCreateItem("MAGIC_COSMIC_DUST"), SlimefunItems.GPS_TELEPORTER_PYLON,
+                MagicExpansionItems.AMETHYST_SHARD, SlimefunItems.GEO_MINER, MagicExpansionItems.NETHERITE_INGOT
+        })
+                .setCapacity(1314)
+                .setEnergyConsumption(260)
+                .setProcessingSpeed(1)
+                .register(plugin);
 
 
 

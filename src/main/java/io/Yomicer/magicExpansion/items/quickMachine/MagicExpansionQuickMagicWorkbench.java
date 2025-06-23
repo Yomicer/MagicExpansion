@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static io.Yomicer.magicExpansion.Listener.SlimefunRegistryListener.MAGIC_WORKBENCH_RECIPES;
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
 import static io.Yomicer.magicExpansion.utils.quickMachine.QuickMachineUtils.addAvailableRecipesToMenu;
 
@@ -29,48 +30,6 @@ public class MagicExpansionQuickMagicWorkbench extends SimpleSlimefunItem<ItemUs
         super(category, item, recipeType, recipe);
     }
 
-
-    // 预加载的 增强型合成台 配方列表（静态常量）
-    public static final List<Map<String, Integer>> MAGIC_WORKBENCH_RECIPES = new ArrayList<>();
-
-    static {
-        // 在类加载时预加载所有 SMELTERY 类型的配方
-        List<SlimefunItem> smelteryItems = Slimefun.getRegistry().getAllSlimefunItems().stream()
-                .filter(item -> item.getRecipeType() == RecipeType.MAGIC_WORKBENCH)
-                .toList();
-
-        for (SlimefunItem item : smelteryItems) {
-            ItemStack[] recipe = item.getRecipe();
-            Map<String, Integer> recipeMap = new HashMap<>();
-
-            // 遍历配方中的每个物品
-            for (ItemStack requiredItem : recipe) {
-                if (requiredItem == null || requiredItem.getType() == Material.AIR) {
-                    continue; // 忽略空槽位
-                }
-
-                int requiredAmount = requiredItem.getAmount();
-
-                // 判断是否为 SlimefunItem
-                String itemKey;
-                SlimefunItem slimefunItem = SlimefunItem.getByItem(requiredItem);
-                if (slimefunItem != null) {
-                    // 如果是 SlimefunItem，使用其 ID 作为键
-                    itemKey = "sf:" + slimefunItem.getId();
-                } else {
-                    // 如果不是 SlimefunItem，则默认为原版物品
-                    itemKey = "mc:" + requiredItem.getType().name();
-                }
-
-                // 整合相同物品的数量
-                recipeMap.put(itemKey, recipeMap.getOrDefault(itemKey, 0) + requiredAmount);
-            }
-
-            // 将整合后的配方存入列表
-            MAGIC_WORKBENCH_RECIPES.add(recipeMap);
-        }
-//        System.out.println("预加载的配方数量MAGIC_WORKBENCH_RECIPES：" + MAGIC_WORKBENCH_RECIPES.size());
-    }
 
     @Nonnull
     @Override

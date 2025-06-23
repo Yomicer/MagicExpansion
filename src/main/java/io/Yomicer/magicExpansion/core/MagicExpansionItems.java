@@ -25,7 +25,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 9"),
+            getGradientName("Version: Build 10"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -456,6 +456,8 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack COLOR_GLAZED_TERRACOTTA_1 = createDefaultResourceGlow("COLOR_GLAZED_TERRACOTTA_1",Material.PINK_GLAZED_TERRACOTTA);
     public static final SlimefunItemStack COLOR_GLAZED_TERRACOTTA_2 = createDefaultResourceGlow("COLOR_GLAZED_TERRACOTTA_2",Material.PINK_GLAZED_TERRACOTTA);
 
+    public static final SlimefunItemStack JIN_KE_LA = createDefaultResourceGlow("JIN_KE_LA",Material.BONE_MEAL);
+
 
 
     public static final SlimefunItemStack POWER_CORE = themed("POWER_CORE",new CustomItemStack(CustomHead.getHead("96e0c954d5cab4b9714b8a7eaf9742eeaab7dda7fc2effefb1530099ae1309ac")),
@@ -468,6 +470,9 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack PRE_BUILDING_VILLAGE_LOVE_AND_TRADE_HOUSE = createDefaultItemGlow("PRE_BUILDING_VILLAGE_LOVE_AND_TRADE_HOUSE",Material.BARREL);
     public static final SlimefunItemStack PRE_BUILDING_SHULKER_FARM = createDefaultItemGlow("PRE_BUILDING_SHULKER_FARM",Material.SHULKER_BOX);
 
+
+    //更新日志
+    public static final SlimefunItemStack UPDATE_LOG_2025_06_23 = createDefaultItemGlow("UPDATE_LOG_2025_06_23",Material.PAPER);
 
 
 
@@ -574,9 +579,31 @@ public class MagicExpansionItems {
 
 
 
+    //魔法泥土园
+    public static final SlimefunItemStack DIRT_MEAL_MACHINE = createDefaultTemplateMachine("DIRT_MEAL_MACHINE",Material.VERDANT_FROGLIGHT);
+    //魔法捕鱼场
+    public static final SlimefunItemStack FISHING_MACHINE = createDefaultTemplateMachine("FISHING_MACHINE",Material.ORANGE_GLAZED_TERRACOTTA);
+
+
+
+
     //发电机列表
     //不稳定的火力发电机
     public static final SlimefunItemStack POWER_FIRE_UNSTABLE = createDefaultPowerMachine("POWER_FIRE_UNSTABLE",Material.CAMPFIRE);
+
+
+
+    public static final SlimefunItemStack GEO_MINER_PLUS = createDefaultGeoResource("GEO_MINER_PLUS",Material.MAGENTA_GLAZED_TERRACOTTA);
+
+    public static final SlimefunItemStack FIVE_ELEMENT_MINER = themed("FIVE_ELEMENT_MINER",new CustomItemStack(CustomHead.getHead("846472b7bd8de52a101584ea2dd7db190d417ca548bb6568379acebdd02b1799")),
+            get("GEO.FIVE_ELEMENT_MINER.Name"),getList("GEO.FIVE_ELEMENT_MINER.Lore"));
+
+    //GEO资源
+    public static final SlimefunItemStack GOLD_ELEMENT = createDefaultGeoResource("GOLD_ELEMENT",Material.YELLOW_DYE);
+    public static final SlimefunItemStack WOOD_ELEMENT = createDefaultGeoResource("WOOD_ELEMENT",Material.GREEN_DYE);
+    public static final SlimefunItemStack WATER_ELEMENT = createDefaultGeoResource("WATER_ELEMENT",Material.LIGHT_BLUE_DYE);
+    public static final SlimefunItemStack EARTH_ELEMENT = createDefaultGeoResource("EARTH_ELEMENT",Material.BROWN_DYE);
+    public static final SlimefunItemStack FIRE_ELEMENT = createDefaultGeoResource("FIRE_ELEMENT",Material.RED_DYE);
 
 
 
@@ -642,6 +669,24 @@ public class MagicExpansionItems {
                 material,
                 get("POWER_MACHINE." + id + ".Name"),
                 getList("POWER_MACHINE." + id + ".Lore")
+        );
+    }
+
+    public static SlimefunItemStack createDefaultGeoResource(String id,Material material) {
+        return themed(
+                id,
+                material,
+                get("GEO." + id + ".Name"),
+                getList("GEO." + id + ".Lore")
+        );
+    }
+
+    public static SlimefunItemStack createDefaultTemplateMachine(String id,Material material) {
+        return themed(
+                id,
+                material,
+                get("TEMPLATE." + id + ".Name"),
+                getList("TEMPLATE." + id + ".Lore")
         );
     }
 

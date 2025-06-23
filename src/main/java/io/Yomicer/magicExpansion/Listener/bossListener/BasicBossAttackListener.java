@@ -13,21 +13,19 @@ public class BasicBossAttackListener implements Listener {
     public void onEntityDamage(EntityDamageEvent event) {
 
 
-        // 检查是否是我们的雷霆僵尸
         if (event.getEntity() instanceof LivingEntity mob && mob.getType() == EntityType.ZOMBIE) {
 
-            // 检查僵尸是否有无敌元数据
             if (mob.hasMetadata("isInvincibleFireZombie")) {
                 boolean isInvincibleFireZombie = mob.getMetadata("isInvincibleFireZombie").get(0).asBoolean();
 
-                // 如果处于无敌状态，将伤害限制为 0.01
                 if (isInvincibleFireZombie) {
-                    event.setDamage(0.01); // 设置伤害为极小值
+                    event.setDamage(0.01);
                 }else{
-                    // 未处于无敌状态时，判断伤害值
                     double damage = event.getDamage();
-                    if (damage > 10) {
-                        event.setDamage(10); // 将伤害削弱为 5
+                    double maxHealth = mob.getMaxHealth();
+                    double threshold = maxHealth * 0.05;
+                    if (damage > threshold) {
+                        event.setDamage(threshold);
                     }
                 }
 

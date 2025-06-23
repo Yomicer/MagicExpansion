@@ -1,6 +1,7 @@
 package io.Yomicer.magicExpansion;
 
 import io.Yomicer.magicExpansion.Listener.SlimefunRegistryFinalized;
+import io.Yomicer.magicExpansion.Listener.SlimefunRegistryListener;
 import io.Yomicer.magicExpansion.Listener.bossListener.BasicBossAttackListener;
 import io.Yomicer.magicExpansion.Listener.bossListener.BasicBossDropListener;
 import io.Yomicer.magicExpansion.Listener.magicItemEffectManager.ArrowHitLocationListener;
@@ -55,7 +56,10 @@ public class MagicExpansion extends JavaPlugin implements SlimefunAddon {
         MagicExpansionItemSetup.setup(this);
         MagicExpansionRecipeMachineSetup.setup(this);
         MagicExpansionPowerMachineSetup.setup(this);
+        MagicExpansionQuickMachineSetup.setup(this);
         getLogger().info("§b物品注册完毕！");
+
+
 
 
         // Registering Command
@@ -70,6 +74,7 @@ public class MagicExpansion extends JavaPlugin implements SlimefunAddon {
         getLogger().info("§b指令注册完毕");
         // 注册事件监听器
         getServer().getPluginManager().registerEvents(new SlimefunRegistryFinalized(), this);
+        getServer().getPluginManager().registerEvents(new SlimefunRegistryListener(), this);
         getServer().getPluginManager().registerEvents(new ItemEffectAttackListener(), this);
         getServer().getPluginManager().registerEvents(new ItemEffectKillListener(), this);
         getServer().getPluginManager().registerEvents(new ArrowHitLocationListener(), this);

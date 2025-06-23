@@ -3,7 +3,6 @@ package io.Yomicer.magicExpansion;
 import io.Yomicer.magicExpansion.core.MagicExpansionItems;
 import io.Yomicer.magicExpansion.items.generators.TypeEnergyGenerator;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.inventory.ItemStack;

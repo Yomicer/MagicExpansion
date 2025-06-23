@@ -1,5 +1,7 @@
 package io.Yomicer.magicExpansion.Listener;
 
+import io.Yomicer.magicExpansion.MagicExpansion;
+import io.Yomicer.magicExpansion.MagicExpansionQuickMachineSetup;
 import io.Yomicer.magicExpansion.utils.log.Debug;
 import io.github.thebusybiscuit.slimefun4.api.events.SlimefunItemRegistryFinalizedEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
@@ -21,17 +23,17 @@ public class SlimefunRegistryFinalized implements Listener {
 
     public static final List<Map<String, Integer>> ORE_CRUSHER_RECIPES = new ArrayList<>();
 
-    public static final List<Map<String, Integer>> ARMOR_FORGE_RECIPES = new ArrayList<>();
+//    public static final List<Map<String, Integer>> ARMOR_FORGE_RECIPES = new ArrayList<>();
 
     public static final List<Map<String, Integer>> COMPRESSOR_RECIPES = new ArrayList<>();
 
     public static final List<Map<String, Integer>> PRESSURE_CHAMBER_RECIPES = new ArrayList<>();
 
-    public static final List<Map<String, Integer>> MAGIC_WORKBENCH_RECIPES = new ArrayList<>();
+//    public static final List<Map<String, Integer>> MAGIC_WORKBENCH_RECIPES = new ArrayList<>();
 
-    public static final List<Map<String, Integer>> ORE_WASHER_RECIPES = new ArrayList<>();
+//    public static final List<Map<String, Integer>> ORE_WASHER_RECIPES = new ArrayList<>();
 
-    public static final List<Map<String, Integer>> AUTOMATED_PANNING_MACHINE_RECIPES = new ArrayList<>();
+//    public static final List<Map<String, Integer>> AUTOMATED_PANNING_MACHINE_RECIPES = new ArrayList<>();
 
 
 
@@ -58,6 +60,7 @@ public class SlimefunRegistryFinalized implements Listener {
 
     @EventHandler
     public void onSlimefunRegistryFinalized(SlimefunItemRegistryFinalizedEvent event) {
+
 
         loadGrindStoneRecipes(ID1,SMELTERY_RECIPES);
         loadGrindStoneRecipes(ID2,GRIND_STONE_RECIPES);

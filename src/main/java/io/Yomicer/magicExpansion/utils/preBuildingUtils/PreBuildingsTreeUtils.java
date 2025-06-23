@@ -2,6 +2,7 @@ package io.Yomicer.magicExpansion.utils.preBuildingUtils;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
+import io.Yomicer.magicExpansion.utils.ItemPermissionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -54,6 +55,12 @@ public class PreBuildingsTreeUtils {
                 }
             }
 
+            // 检查预期空间是否有权限冲突
+            if (hasPermissionConflicts(blocks, pasteLocation, player.getWorld(),player)) {
+                player.sendMessage("§c有部分区域没有权限，请选择其他地方放置。");
+                return false; // 存在冲突，返回 false
+            }
+
             // 检查是否有冲突
             if (hasConflicts(blocks, pasteLocation, player.getWorld())) {
                 player.sendMessage("§c当前空间大小不足，请选择其他地方放置。");
@@ -76,6 +83,7 @@ public class PreBuildingsTreeUtils {
                 }
             }
 
+
             player.sendMessage("§a预制菜启动！");
             return true; // 成功粘贴，返回 true
         } catch (IOException e) {
@@ -87,6 +95,29 @@ public class PreBuildingsTreeUtils {
 
     public static boolean pasteMap(Player player, String fileName) {
         return pasteMap(player, fileName, null, null);
+    }
+
+    /**
+     * 检查是否有权限冲突
+     */
+    private static boolean hasPermissionConflicts(List<BlockData> blocks, Location pasteLocation, org.bukkit.World world, Player p) {
+        for (BlockData blockData : blocks) {
+            Location location = new Location(
+                    world,
+                    pasteLocation.getBlockX() + blockData.x,
+                    pasteLocation.getBlockY() + blockData.y,
+                    pasteLocation.getBlockZ() + blockData.z
+            );
+            if(!ItemPermissionUtils.hasPermissionPoint(p,location)){
+                return true; //发现冲突
+            }
+
+            Block block = location.getBlock();
+            if (!block.getType().isAir()) {
+                return true; // 发现冲突
+            }
+        }
+        return false; // 没有冲突
     }
 
     /**

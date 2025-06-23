@@ -88,7 +88,10 @@ public class TypeEnergyGenerator extends MenuBlock implements EnergyNetProvider 
             gen = 0;
         }else {
             if (power2 > 0) {
-                gen = new Random().nextInt(power, power2);
+                double r = Math.random();
+                double genDouble = power + (power2 - power) * Math.pow(r, 3);
+                gen = (int) genDouble;
+//                gen = new Random().nextInt(power, power2);
             } else {
                 gen = power;
             }

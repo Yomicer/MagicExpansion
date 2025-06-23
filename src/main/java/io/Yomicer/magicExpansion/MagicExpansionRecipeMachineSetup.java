@@ -2,6 +2,7 @@ package io.Yomicer.magicExpansion;
 
 import io.Yomicer.magicExpansion.core.MagicExpansionItems;
 import io.Yomicer.magicExpansion.items.electric.recipeMachine.RecipeMachinePreBuilding;
+import io.Yomicer.magicExpansion.items.electric.templateMachine.TemplateMachine;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import org.bukkit.Material;
@@ -10,6 +11,8 @@ import org.bukkit.inventory.ItemStack;
 import javax.annotation.Nonnull;
 
 import static io.Yomicer.magicExpansion.MagicExpansionItemSetup.magicexpansionenergy;
+import static io.Yomicer.magicExpansion.MagicExpansionItemSetup.magicexpansionrecipemachine;
+import static io.Yomicer.magicExpansion.utils.ConvertItem.AdvancedCreateItem;
 import static io.Yomicer.magicExpansion.utils.itemUtils.sfItemUtils.sfItemAmount;
 
 public class MagicExpansionRecipeMachineSetup {
@@ -21,7 +24,7 @@ public class MagicExpansionRecipeMachineSetup {
         //魔法材料工坊
         new RecipeMachinePreBuilding(magicexpansionenergy, MagicExpansionItems.PRE_BUILDINGS_MACHINE_RESOURCE_ADVANCED, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 SlimefunItems.ELECTRIC_PRESS_2, SlimefunItems.ENERGIZED_CAPACITOR,SlimefunItems.ELECTRIC_PRESS_2,
-                MagicExpansionItems.MAGIC_EXPANSION_TO_MAGIC_ITEM_ADVANCED,MagicExpansionItems.PRE_BUILDINGS_MACHINE,MagicExpansionItems.ELEMENT_INGOT,
+                AdvancedCreateItem("MAGIC_COSMIC_DUST"),MagicExpansionItems.PRE_BUILDINGS_MACHINE,MagicExpansionItems.ELEMENT_INGOT,
                 SlimefunItems.CARBON_PRESS_3,SlimefunItems.PROGRAMMABLE_ANDROID_3,SlimefunItems.CARBON_PRESS_3
         })
                 .setCapacity(131452)
@@ -137,6 +140,121 @@ public class MagicExpansionRecipeMachineSetup {
                         new ItemStack(Material.STRING,15),MagicExpansionItems.SPACE_INFINITY_MAGIC},
                         new ItemStack[] {MagicExpansionItems.PRE_BUILDING_SHULKER_FARM})
                 .register(plugin);
+
+        //泥土园
+        new TemplateMachine(magicexpansionrecipemachine, MagicExpansionItems.DIRT_MEAL_MACHINE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MagicExpansionItems.DIRT, MagicExpansionItems.CORE_ORIGIN,MagicExpansionItems.DIRT,
+                MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.JIN_KE_LA,MagicExpansionItems.ELEMENT_INGOT,
+                MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.AMETHYST_SHARD,MagicExpansionItems.ELEMENT_INGOT
+        })
+                .setCapacity(1314)
+                .setConsumption(26)
+                .setProcessingSpeed(1)
+                .addRecipe(3,new ItemStack[] {new ItemStack(Material.GRASS_BLOCK),
+                                new ItemStack(Material.DIRT,16),new ItemStack(Material.BONE_MEAL,16)},
+                        new ItemStack[] {new ItemStack(Material.GRASS_BLOCK,16)})
+                .addRecipe(0,new ItemStack[] {new ItemStack(Material.GRASS_BLOCK),
+                                new ItemStack(Material.DIRT,64),MagicExpansionItems.JIN_KE_LA},
+                        new ItemStack[] {new ItemStack(Material.GRASS_BLOCK,64)})
+                .addRecipe(3,new ItemStack[] {new ItemStack(Material.PODZOL),
+                                new ItemStack(Material.DIRT,16),new ItemStack(Material.BONE_MEAL,16)},
+                        new ItemStack[] {new ItemStack(Material.PODZOL,16)})
+                .addRecipe(0,new ItemStack[] {new ItemStack(Material.PODZOL),
+                                new ItemStack(Material.DIRT,64),MagicExpansionItems.JIN_KE_LA},
+                        new ItemStack[] {new ItemStack(Material.PODZOL,64)})
+                .addRecipe(3,new ItemStack[] {new ItemStack(Material.MYCELIUM),
+                                new ItemStack(Material.DIRT,16),new ItemStack(Material.BONE_MEAL,16)},
+                        new ItemStack[] {new ItemStack(Material.MYCELIUM,16)})
+                .addRecipe(0,new ItemStack[] {new ItemStack(Material.MYCELIUM),
+                                new ItemStack(Material.DIRT,64),MagicExpansionItems.JIN_KE_LA},
+                        new ItemStack[] {new ItemStack(Material.MYCELIUM,64)})
+                .addRecipe(3,new ItemStack[] {new ItemStack(Material.DIRT_PATH),
+                                new ItemStack(Material.DIRT,16),new ItemStack(Material.BONE_MEAL,16)},
+                        new ItemStack[] {new ItemStack(Material.DIRT_PATH,16)})
+                .addRecipe(0,new ItemStack[] {new ItemStack(Material.DIRT_PATH),
+                                new ItemStack(Material.DIRT,64),MagicExpansionItems.JIN_KE_LA},
+                        new ItemStack[] {new ItemStack(Material.DIRT_PATH,64)})
+                .addRecipe(3,new ItemStack[] {new ItemStack(Material.COARSE_DIRT),
+                                new ItemStack(Material.DIRT,16),new ItemStack(Material.BONE_MEAL,16)},
+                        new ItemStack[] {new ItemStack(Material.COARSE_DIRT,16)})
+                .addRecipe(0,new ItemStack[] {new ItemStack(Material.COARSE_DIRT),
+                                new ItemStack(Material.DIRT,64),MagicExpansionItems.JIN_KE_LA},
+                        new ItemStack[] {new ItemStack(Material.COARSE_DIRT,64)})
+                .addRecipe(3,new ItemStack[] {new ItemStack(Material.ROOTED_DIRT),
+                                new ItemStack(Material.DIRT,16),new ItemStack(Material.BONE_MEAL,16)},
+                        new ItemStack[] {new ItemStack(Material.ROOTED_DIRT,16)})
+                .addRecipe(0,new ItemStack[] {new ItemStack(Material.ROOTED_DIRT),
+                                new ItemStack(Material.DIRT,64),MagicExpansionItems.JIN_KE_LA},
+                        new ItemStack[] {new ItemStack(Material.ROOTED_DIRT,64)})
+                .addRecipe(3,new ItemStack[] {new ItemStack(Material.FARMLAND),
+                                new ItemStack(Material.DIRT,16),new ItemStack(Material.BONE_MEAL,16)},
+                        new ItemStack[] {new ItemStack(Material.FARMLAND,16)})
+                .addRecipe(0,new ItemStack[] {new ItemStack(Material.FARMLAND),
+                                new ItemStack(Material.DIRT,64),MagicExpansionItems.JIN_KE_LA},
+                        new ItemStack[] {new ItemStack(Material.FARMLAND,64)})
+                .addRecipe(3,new ItemStack[] {new ItemStack(Material.CLAY),
+                                new ItemStack(Material.DIRT,16),new ItemStack(Material.BONE_MEAL,16)},
+                        new ItemStack[] {new ItemStack(Material.CLAY,16)})
+                .addRecipe(0,new ItemStack[] {new ItemStack(Material.CLAY),
+                                new ItemStack(Material.DIRT,64),MagicExpansionItems.JIN_KE_LA},
+                        new ItemStack[] {new ItemStack(Material.CLAY,64)})
+                .addRecipe(3,new ItemStack[] {new ItemStack(Material.WHITE_CONCRETE),
+                                new ItemStack(Material.DIRT,16),new ItemStack(Material.BONE_MEAL,16)},
+                        new ItemStack[] {new ItemStack(Material.WHITE_CONCRETE,16)})
+                .addRecipe(0,new ItemStack[] {new ItemStack(Material.WHITE_CONCRETE),
+                                new ItemStack(Material.DIRT,64),MagicExpansionItems.JIN_KE_LA},
+                        new ItemStack[] {new ItemStack(Material.WHITE_CONCRETE,64)})
+                .addRecipe(3,new ItemStack[] {new ItemStack(Material.CRIMSON_NYLIUM),
+                                new ItemStack(Material.NETHERRACK,16),new ItemStack(Material.BONE_MEAL,16)},
+                        new ItemStack[] {new ItemStack(Material.CRIMSON_NYLIUM,16)})
+                .addRecipe(0,new ItemStack[] {new ItemStack(Material.CRIMSON_NYLIUM),
+                                new ItemStack(Material.NETHERRACK,64),MagicExpansionItems.JIN_KE_LA},
+                        new ItemStack[] {new ItemStack(Material.CRIMSON_NYLIUM,64)})
+                .addRecipe(3,new ItemStack[] {new ItemStack(Material.WARPED_NYLIUM),
+                                new ItemStack(Material.NETHERRACK,16),new ItemStack(Material.BONE_MEAL,16)},
+                        new ItemStack[] {new ItemStack(Material.WARPED_NYLIUM,16)})
+                .addRecipe(0,new ItemStack[] {new ItemStack(Material.WARPED_NYLIUM),
+                                new ItemStack(Material.NETHERRACK,64),MagicExpansionItems.JIN_KE_LA},
+                        new ItemStack[] {new ItemStack(Material.WARPED_NYLIUM,64)})
+                .addRecipe(3,new ItemStack[] {new ItemStack(Material.SOUL_SOIL),
+                                new ItemStack(Material.NETHERRACK,16),new ItemStack(Material.BONE_MEAL,16)},
+                        new ItemStack[] {new ItemStack(Material.SOUL_SOIL,16)})
+                .addRecipe(0,new ItemStack[] {new ItemStack(Material.SOUL_SOIL),
+                                new ItemStack(Material.NETHERRACK,64),MagicExpansionItems.JIN_KE_LA},
+                        new ItemStack[] {new ItemStack(Material.SOUL_SOIL,64)})
+                .register(plugin);
+
+
+        //泥土园
+        new TemplateMachine(magicexpansionrecipemachine, MagicExpansionItems.FISHING_MACHINE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                SlimefunItems.PROGRAMMABLE_ANDROID_FISHERMAN, MagicExpansionItems.CORE_ORIGIN,SlimefunItems.PROGRAMMABLE_ANDROID_FISHERMAN,
+                MagicExpansionItems.ELEMENT_INGOT,new ItemStack(Material.COD),MagicExpansionItems.ELEMENT_INGOT,
+                MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.AMETHYST_SHARD,MagicExpansionItems.ELEMENT_INGOT
+        })
+                .setCapacity(1314)
+                .setConsumption(26)
+                .setProcessingSpeed(1)
+                .addRecipe(16,new ItemStack[] {new ItemStack(Material.FISHING_ROD),
+                                new ItemStack(Material.APPLE,1)},
+                        new ItemStack[] {new ItemStack(Material.COD,16)})
+                .addRecipe(16,new ItemStack[] {new ItemStack(Material.FISHING_ROD),
+                                new ItemStack(Material.CARROT,1)},
+                        new ItemStack[] {new ItemStack(Material.SALMON,16)})
+                .addRecipe(16,new ItemStack[] {new ItemStack(Material.FISHING_ROD),
+                                new ItemStack(Material.SWEET_BERRIES,1)},
+                        new ItemStack[] {new ItemStack(Material.TROPICAL_FISH,16)})
+                .addRecipe(16,new ItemStack[] {new ItemStack(Material.FISHING_ROD),
+                                new ItemStack(Material.SPIDER_EYE,1)},
+                        new ItemStack[] {new ItemStack(Material.PUFFERFISH,16)})
+                .addRecipe(8,new ItemStack[] {new ItemStack(Material.FISHING_ROD),
+                                MagicExpansionItems.JIN_KE_LA},
+                        new ItemStack[] {new ItemStack(Material.COD,8),new ItemStack(Material.SALMON,6),
+                                new ItemStack(Material.TROPICAL_FISH,4),new ItemStack(Material.PUFFERFISH,2),
+                                new ItemStack(Material.INK_SAC,1),new ItemStack(Material.GLOW_INK_SAC,1),
+                                new ItemStack(Material.BONE,1),new ItemStack(Material.ENCHANTED_BOOK,1),
+                                new ItemStack(Material.SPIDER_EYE,1),new ItemStack(Material.BLAZE_ROD,1)})
+                .register(plugin);
+
 
 
 
