@@ -5,6 +5,8 @@ version: ${project.version}
 main: io.Yomicer.magicExpansion.MagicExpansion
 api-version: '1.20'
 depend: [Slimefun]
+softdepend:
+  - RykenSlimeCustomizer
 ## CHANGE this to a meaninful but short description of your plugin.
 description: Have fun
 

@@ -2,10 +2,13 @@ package io.Yomicer.magicExpansion;
 
 import io.Yomicer.magicExpansion.items.electric.entitykillMachinee.EntityKillMachine;
 import io.Yomicer.magicExpansion.items.electric.geoMachine.FiveElementsMiner;
+import io.Yomicer.magicExpansion.items.electric.geoMachine.RSCMagicMiner;
+import io.Yomicer.magicExpansion.items.electric.recipeMachine.RandomBoxMachine;
 import io.Yomicer.magicExpansion.items.electric.recipeMachine.RecipeMachine;
 import io.Yomicer.magicExpansion.items.electric.resourceGenerator.ResourceMachine;
 import io.Yomicer.magicExpansion.items.enchantMachine.EnchantingTable;
 import io.Yomicer.magicExpansion.items.misc.FireZombieMB;
+import io.Yomicer.magicExpansion.items.misc.HonkaiStarRailBox;
 import io.Yomicer.magicExpansion.items.misc.MagicGeoResourceDefault;
 import io.Yomicer.magicExpansion.items.preBuildings.PreBuildingTree;
 import io.Yomicer.magicExpansion.items.quickMachine.*;
@@ -35,8 +38,7 @@ import javax.annotation.Nonnull;
 
 import static io.Yomicer.magicExpansion.core.MagicExpansionItems.MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC;
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
-import static io.Yomicer.magicExpansion.utils.ConvertItem.AdvancedCreateItem;
-import static io.Yomicer.magicExpansion.utils.ConvertItem.BasicCreateItem;
+import static io.Yomicer.magicExpansion.utils.ConvertItem.*;
 import static io.Yomicer.magicExpansion.utils.Language.get;
 import static io.Yomicer.magicExpansion.utils.Language.getList;
 import static io.Yomicer.magicExpansion.utils.Utils.doGlow;
@@ -47,7 +49,7 @@ public final class MagicExpansionItemSetup {
 
 
     // ItemGroups
-    private static final NestedItemGroup magicexpansion = new NestedItemGroup(
+    public static final NestedItemGroup magicexpansion = new NestedItemGroup(
             new NamespacedKey(MagicExpansion.getInstance(), "magicexpansion"),
             new CustomItemStack(doGlow(Material.LIGHT),"§x§F§D§B§7§D§4§kll§x§F§D§B§7§D§4魔§x§F§A§7§E§B§3法§x§F§F§6§9§B§4拓§x§F§F§6§9§B§4展§x§F§D§B§7§D§4§kll"),0
     );
@@ -120,6 +122,17 @@ public final class MagicExpansionItemSetup {
             new NamespacedKey(MagicExpansion.getInstance(), "prebuilding"), magicexpansion,
             new CustomItemStack(doGlow(Material.BRICKS), ColorGradient.getGradientName("魔法-预制菜（建筑）")), 10
     );
+
+    public static final ItemGroup magicexpansionhonkai = new SubItemGroup(
+            new NamespacedKey(MagicExpansion.getInstance(), "honkai"), magicexpansion,
+            new CustomItemStack(CustomHead.SILVER_WOLF.getItem(), ColorGradient.getGradientName("Honkai: Star Rail")), 10
+    );
+
+    public static final ItemGroup magicexpansionrscmagic = new SubItemGroup(
+            new NamespacedKey(MagicExpansion.getInstance(), "rscmagic"), magicexpansion,
+            new CustomItemStack(CustomHead.MAGICSOLO.getItem(), ColorGradient.getGradientName("魔法-1.21修复/优化~物品/机器")), 10
+    );
+
 
     private static final ItemGroup magicexpansionupdateinfo = new SubItemGroup(
             new NamespacedKey(MagicExpansion.getInstance(), "updateinfo"), magicexpansion,
@@ -205,6 +218,18 @@ public final class MagicExpansionItemSetup {
 
         //更新日志
         new UnplaceableBlock(magicexpansionupdateinfo, MagicExpansionItems.UPDATE_LOG_2025_06_23, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
+        //更新日志
+        new UnplaceableBlock(magicexpansionupdateinfo, MagicExpansionItems.UPDATE_LOG_2025_06_29, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
+        //更新日志
+        new UnplaceableBlock(magicexpansionupdateinfo, MagicExpansionItems.UPDATE_LOG_2025_07_12, SPECIAL_RECIPE_TYPE, new ItemStack[] {
                 null, null, null,
                 null, null, null,
                 null, null, null
@@ -954,6 +979,60 @@ public final class MagicExpansionItemSetup {
 
 
 
+        //MIHOYO角色，要放在激光扫描仪下面
+        //星光扫描仪-盲盒拆解器
+        new RandomBoxMachine(magicexpansionenergy, MagicExpansionItems.MIHOYO_STAR_RAY_MACHINE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                new ItemStack(Material.IRON_INGOT),MagicExpansionItems.LIGHT_CORE,new ItemStack(Material.IRON_INGOT),
+                MagicExpansionItems.LIGHT_CORE,new ItemStack(Material.LIGHT),MagicExpansionItems.LIGHT_CORE,
+                new ItemStack(Material.IRON_INGOT),MagicExpansionItems.LIGHT_CORE,new ItemStack(Material.IRON_INGOT)
+        }).register(plugin);
+        //崩铁
+        new HonkaiStarRailBox(magicexpansionhonkai, MagicExpansionItems.HONKAI_STAR_RAIL_BOX, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                new ItemStack(Material.IRON_INGOT),new ItemStack(Material.GUNPOWDER),new ItemStack(Material.IRON_INGOT),
+                new ItemStack(Material.GUNPOWDER),SlimefunItems.MAGIC_SUGAR,new ItemStack(Material.GUNPOWDER),
+                new ItemStack(Material.IRON_INGOT),new ItemStack(Material.GUNPOWDER),new ItemStack(Material.IRON_INGOT)
+        }).register(plugin);
+
+        new SlimefunItem(magicexpansionhonkai, MagicExpansionItems.JING_LIU, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null,null,null,
+                null,new CustomItemStack(CustomHead.BLUE_GIFT_BOX.getItem(), "&c&l注意：&c&l该物品可从崩铁盲盒中抽取"),null,
+                null,null,null
+        }).register(plugin);
+
+        new SlimefunItem(magicexpansionhonkai, MagicExpansionItems.SILVER_WOLF, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null,null,null,
+                null,new CustomItemStack(CustomHead.BLUE_GIFT_BOX.getItem(), "&c&l注意：&c&l该物品可从崩铁盲盒中抽取"),null,
+                null,null,null
+        }).register(plugin);
+
+        new SlimefunItem(magicexpansionhonkai, MagicExpansionItems.KAFKA, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null,null,null,
+                null,new CustomItemStack(CustomHead.BLUE_GIFT_BOX.getItem(), "&c&l注意：&c&l该物品可从崩铁盲盒中抽取"),null,
+                null,null,null
+        }).register(plugin);
+
+        new SlimefunItem(magicexpansionhonkai, MagicExpansionItems.SUNDAY, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null,null,null,
+                null,new CustomItemStack(CustomHead.BLUE_GIFT_BOX.getItem(), "&c&l注意：&c&l该物品可从崩铁盲盒中抽取"),null,
+                null,null,null
+        }).register(plugin);
+
+        new SlimefunItem(magicexpansionhonkai, MagicExpansionItems.LUNAE, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null,null,null,
+                null,new CustomItemStack(CustomHead.BLUE_GIFT_BOX.getItem(), "&c&l注意：&c&l该物品可从崩铁盲盒中抽取"),null,
+                null,null,null
+        }).register(plugin);
+
+        new SlimefunItem(magicexpansionhonkai, MagicExpansionItems.HUOHUO, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null,null,null,
+                null,new CustomItemStack(CustomHead.BLUE_GIFT_BOX.getItem(), "&c&l注意：&c&l该物品可从崩铁盲盒中抽取"),null,
+                null,null,null
+        }).register(plugin);
+
+
+
+
+
 
 
 
@@ -981,7 +1060,18 @@ public final class MagicExpansionItemSetup {
                 .setProcessingSpeed(1)
                 .register(plugin);
 
-
+        //条件注册，1.21魔法兼容问题
+        if(IfItemXist("MAGIC_REDSTONE")&&IfItemXist("MAGIC_COSMIC_DUST")){
+            new RSCMagicMiner(magicexpansionrscmagic, MagicExpansionItems.RSC_MAGIC_MINER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
+                    null,createItem("MAGIC_GEOMINER"), null,
+                    null,  createItem("MAGIC_GEOMINER_BOX"), null,
+                    new ItemStack(Material.REDSTONE), new ItemStack(Material.GUNPOWDER), new ItemStack(Material.REDSTONE)
+            })
+                    .setCapacity(1314)
+                    .setEnergyConsumption(260)
+                    .setProcessingSpeed(1)
+                    .register(plugin);
+        }
 
 
     }

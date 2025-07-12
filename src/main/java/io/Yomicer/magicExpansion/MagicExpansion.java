@@ -1,6 +1,7 @@
 package io.Yomicer.magicExpansion;
 
 import io.Yomicer.magicExpansion.Listener.SlimefunRegistryFinalized;
+import io.Yomicer.magicExpansion.Listener.SlimefunRegistryGiftBox;
 import io.Yomicer.magicExpansion.Listener.SlimefunRegistryListener;
 import io.Yomicer.magicExpansion.Listener.bossListener.BasicBossAttackListener;
 import io.Yomicer.magicExpansion.Listener.bossListener.BasicBossDropListener;
@@ -75,6 +76,7 @@ public class MagicExpansion extends JavaPlugin implements SlimefunAddon {
         // 注册事件监听器
         getServer().getPluginManager().registerEvents(new SlimefunRegistryFinalized(), this);
         getServer().getPluginManager().registerEvents(new SlimefunRegistryListener(), this);
+        getServer().getPluginManager().registerEvents(new SlimefunRegistryGiftBox(), this);
         getServer().getPluginManager().registerEvents(new ItemEffectAttackListener(), this);
         getServer().getPluginManager().registerEvents(new ItemEffectKillListener(), this);
         getServer().getPluginManager().registerEvents(new ArrowHitLocationListener(), this);

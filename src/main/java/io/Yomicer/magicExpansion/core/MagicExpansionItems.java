@@ -25,7 +25,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 10"),
+            getGradientName("Version: Build 11"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -473,6 +473,8 @@ public class MagicExpansionItems {
 
     //更新日志
     public static final SlimefunItemStack UPDATE_LOG_2025_06_23 = createDefaultItemGlow("UPDATE_LOG_2025_06_23",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2025_06_29 = createDefaultItemGlow("UPDATE_LOG_2025_06_29",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2025_07_12 = createDefaultItemGlow("UPDATE_LOG_2025_07_12",Material.PAPER);
 
 
 
@@ -598,6 +600,10 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack FIVE_ELEMENT_MINER = themed("FIVE_ELEMENT_MINER",new CustomItemStack(CustomHead.getHead("846472b7bd8de52a101584ea2dd7db190d417ca548bb6568379acebdd02b1799")),
             get("GEO.FIVE_ELEMENT_MINER.Name"),getList("GEO.FIVE_ELEMENT_MINER.Lore"));
 
+
+    public static final SlimefunItemStack RSC_MAGIC_MINER = themed("RSC_MAGIC_MINER",new CustomItemStack(CustomHead.getHead("846472b7bd8de52a101584ea2dd7db190d417ca548bb6568379acebdd02b1799")),
+            get("GEO.RSC_MAGIC_MINER.Name"),getList("GEO.RSC_MAGIC_MINER.Lore"));
+
     //GEO资源
     public static final SlimefunItemStack GOLD_ELEMENT = createDefaultGeoResource("GOLD_ELEMENT",Material.YELLOW_DYE);
     public static final SlimefunItemStack WOOD_ELEMENT = createDefaultGeoResource("WOOD_ELEMENT",Material.GREEN_DYE);
@@ -606,6 +612,17 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack FIRE_ELEMENT = createDefaultGeoResource("FIRE_ELEMENT",Material.RED_DYE);
 
 
+
+
+    //米哈游-盲盒-崩铁
+    public static final SlimefunItemStack MIHOYO_STAR_RAY_MACHINE = createDefaultMihoyoRole("MIHOYO_STAR_RAY_MACHINE",CustomHead.STAR_HEEAD);
+    public static final SlimefunItemStack HONKAI_STAR_RAIL_BOX = createDefaultMihoyoRole("HONKAI_STAR_RAIL_BOX",CustomHead.BLUE_GIFT_BOX);
+    public static final SlimefunItemStack JING_LIU = createDefaultMihoyoRole("JING_LIU",CustomHead.JING_LIU);
+    public static final SlimefunItemStack SILVER_WOLF = createDefaultMihoyoRole("SILVER_WOLF",CustomHead.SILVER_WOLF);
+    public static final SlimefunItemStack KAFKA = createDefaultMihoyoRole("KAFKA",CustomHead.KAFKA);
+    public static final SlimefunItemStack SUNDAY = createDefaultMihoyoRole("SUNDAY",CustomHead.SUNDAY);
+    public static final SlimefunItemStack LUNAE = createDefaultMihoyoRole("LUNAE",CustomHead.LUNAE);
+    public static final SlimefunItemStack HUOHUO = createDefaultMihoyoRole("HUOHUO",CustomHead.HUOHUO);
 
 
 
@@ -687,6 +704,15 @@ public class MagicExpansionItems {
                 material,
                 get("TEMPLATE." + id + ".Name"),
                 getList("TEMPLATE." + id + ".Lore")
+        );
+    }
+
+    public static SlimefunItemStack createDefaultMihoyoRole(String id,CustomHead head) {
+        return themed(
+                id,
+                head.getItem(),
+                get("MIHOYO_ROLE." + id + ".Name"),
+                getList("MIHOYO_ROLE." + id + ".Lore")
         );
     }
 
