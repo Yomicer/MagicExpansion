@@ -25,7 +25,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 11"),
+            getGradientName("Version: Build 12"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -475,6 +475,8 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2025_06_23 = createDefaultItemGlow("UPDATE_LOG_2025_06_23",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_06_29 = createDefaultItemGlow("UPDATE_LOG_2025_06_29",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_07_12 = createDefaultItemGlow("UPDATE_LOG_2025_07_12",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2025_07_20 = createDefaultItemGlow("UPDATE_LOG_2025_07_20",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2025_07_23 = createDefaultItemGlow("UPDATE_LOG_2025_07_23",Material.PAPER);
 
 
 
@@ -574,6 +576,10 @@ public class MagicExpansionItems {
     //材料工坊
     public static final SlimefunItemStack PRE_BUILDINGS_MACHINE_RESOURCE_ADVANCED = createDefaultRecipeMachine("PRE_BUILDINGS_MACHINE_RESOURCE_ADVANCED",Material.SEA_LANTERN);
 
+    //材料工坊
+    public static final SlimefunItemStack INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE = createDefaultRecipeMachine("INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE",Material.FURNACE);
+    public static final SlimefunItemStack INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE_ULTRA = createDefaultRecipeMachine("INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE_ULTRA",Material.BLAST_FURNACE);
+
 
 
     //普通机器
@@ -611,6 +617,9 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack EARTH_ELEMENT = createDefaultGeoResource("EARTH_ELEMENT",Material.BROWN_DYE);
     public static final SlimefunItemStack FIRE_ELEMENT = createDefaultGeoResource("FIRE_ELEMENT",Material.RED_DYE);
 
+    public static final SlimefunItemStack FIVE_ELEMENT = themed("FIVE_ELEMENT",new CustomItemStack(CustomHead.getHead("92b4278edb2672c6b32138a0e61e446420caa7fc1508b88e36eaffb14a69206a")),
+            get("GEO.FIVE_ELEMENT.Name"),getList("GEO.FIVE_ELEMENT.Lore"));
+
 
 
 
@@ -624,6 +633,32 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack LUNAE = createDefaultMihoyoRole("LUNAE",CustomHead.LUNAE);
     public static final SlimefunItemStack HUOHUO = createDefaultMihoyoRole("HUOHUO",CustomHead.HUOHUO);
 
+
+
+
+
+    //空岛系列
+    public static final SlimefunItemStack SINGLE_CUBE_ORIGIN = themed("SINGLE_CUBE_ORIGIN",Material.DIRT,
+            get("SKY_BLOCK.SINGLE_CUBE_ORIGIN.Name"),getList("SKY_BLOCK.SINGLE_CUBE_ORIGIN.Lore"));
+
+
+    public static final SlimefunItemStack SINGLE_CUBE_ORE = themed("SINGLE_CUBE_ORE",Material.STONE,
+            get("SKY_BLOCK.SINGLE_CUBE_ORE.Name"),getList("SKY_BLOCK.SINGLE_CUBE_ORE.Lore"));
+
+
+
+    //空岛系列-钻石镐
+    public static final SlimefunItemStack SINGLE_DIAMOND_PICKAXE = themed("SINGLE_DIAMOND_PICKAXE",Material.DIAMOND_PICKAXE,
+            get("SKY_BLOCK.SINGLE_DIAMOND_PICKAXE.Name"),getList("SKY_BLOCK.SINGLE_DIAMOND_PICKAXE.Lore"));
+    //空岛系列-钻石斧
+    public static final SlimefunItemStack SINGLE_DIAMOND_AXE = themed("SINGLE_DIAMOND_AXE",Material.DIAMOND_AXE,
+            get("SKY_BLOCK.SINGLE_DIAMOND_AXE.Name"),getList("SKY_BLOCK.SINGLE_DIAMOND_AXE.Lore"));
+    //空岛系列-钻石铲
+    public static final SlimefunItemStack SINGLE_DIAMOND_SHOVEL = themed("SINGLE_DIAMOND_SHOVEL",Material.DIAMOND_SHOVEL,
+            get("SKY_BLOCK.SINGLE_DIAMOND_SHOVEL.Name"),getList("SKY_BLOCK.SINGLE_DIAMOND_SHOVEL.Lore"));
+    //空岛系列-钻石锄
+    public static final SlimefunItemStack SINGLE_DIAMOND_HOE = themed("SINGLE_DIAMOND_HOE",Material.DIAMOND_HOE,
+            get("SKY_BLOCK.SINGLE_DIAMOND_HOE.Name"),getList("SKY_BLOCK.SINGLE_DIAMOND_HOE.Lore"));
 
 
 

@@ -5,6 +5,7 @@ import io.Yomicer.magicExpansion.items.electric.geoMachine.FiveElementsMiner;
 import io.Yomicer.magicExpansion.items.electric.geoMachine.RSCMagicMiner;
 import io.Yomicer.magicExpansion.items.electric.recipeMachine.RandomBoxMachine;
 import io.Yomicer.magicExpansion.items.electric.recipeMachine.RecipeMachine;
+import io.Yomicer.magicExpansion.items.electric.recipeMachine.RecipeRandomMachine;
 import io.Yomicer.magicExpansion.items.electric.resourceGenerator.ResourceMachine;
 import io.Yomicer.magicExpansion.items.enchantMachine.EnchantingTable;
 import io.Yomicer.magicExpansion.items.misc.FireZombieMB;
@@ -12,6 +13,8 @@ import io.Yomicer.magicExpansion.items.misc.HonkaiStarRailBox;
 import io.Yomicer.magicExpansion.items.misc.MagicGeoResourceDefault;
 import io.Yomicer.magicExpansion.items.preBuildings.PreBuildingTree;
 import io.Yomicer.magicExpansion.items.quickMachine.*;
+import io.Yomicer.magicExpansion.items.skyBlock.SingleCubeOre;
+import io.Yomicer.magicExpansion.items.skyBlock.SingleCubeOrigin;
 import io.Yomicer.magicExpansion.items.summonBossItem.FireZombie;
 import io.Yomicer.magicExpansion.items.tools.*;
 import io.Yomicer.magicExpansion.core.MagicExpansionItems;
@@ -128,6 +131,11 @@ public final class MagicExpansionItemSetup {
             new CustomItemStack(CustomHead.SILVER_WOLF.getItem(), ColorGradient.getGradientName("Honkai: Star Rail")), 10
     );
 
+    public static final ItemGroup magicexpansionskyblock = new SubItemGroup(
+            new NamespacedKey(MagicExpansion.getInstance(), "skyblock"), magicexpansion,
+            new CustomItemStack(CustomHead.getHead("7948942fed672ded57f8cdb169a5076062586e77002ee30e07693c025e6f0db5"), ColorGradient.getGradientName("魔法-SkyBlock")), 10
+    );
+
     public static final ItemGroup magicexpansionrscmagic = new SubItemGroup(
             new NamespacedKey(MagicExpansion.getInstance(), "rscmagic"), magicexpansion,
             new CustomItemStack(CustomHead.MAGICSOLO.getItem(), ColorGradient.getGradientName("魔法-1.21修复/优化~物品/机器")), 10
@@ -230,6 +238,18 @@ public final class MagicExpansionItemSetup {
         }).register(plugin);
         //更新日志
         new UnplaceableBlock(magicexpansionupdateinfo, MagicExpansionItems.UPDATE_LOG_2025_07_12, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
+        //更新日志
+        new UnplaceableBlock(magicexpansionupdateinfo, MagicExpansionItems.UPDATE_LOG_2025_07_20, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
+        //更新日志
+        new UnplaceableBlock(magicexpansionupdateinfo, MagicExpansionItems.UPDATE_LOG_2025_07_23, SPECIAL_RECIPE_TYPE, new ItemStack[] {
                 null, null, null,
                 null, null, null,
                 null, null, null
@@ -507,7 +527,7 @@ public final class MagicExpansionItemSetup {
 
 
         //无尽打火石
-        new InfiniteFlintAndSteel(magicexpansionresource, MagicExpansionItems.INFINITY_FLINT_AND_STEEL, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+        new InfiniteTool(magicexpansionresource, MagicExpansionItems.INFINITY_FLINT_AND_STEEL, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 MagicExpansionItems.IRON_INGOT,MagicExpansionItems.IRON_INGOT, MagicExpansionItems.IRON_INGOT,
                 MagicExpansionItems.IRON_INGOT,new ItemStack(Material.FLINT),MagicExpansionItems.IRON_INGOT,
                 MagicExpansionItems.IRON_INGOT,MagicExpansionItems.IRON_INGOT,MagicExpansionItems.IRON_INGOT
@@ -834,11 +854,6 @@ public final class MagicExpansionItemSetup {
                         new ItemStack[] {MagicExpansionItems.PRE_BUILDING_TAFEI})
                 .register(plugin);
 
-        var sf1 = SlimefunItem.getByItem(SlimefunItems.SILICON);
-        var itemStack1 = new ItemStack(sf1.getItem().getType());
-        itemStack1.setItemMeta(sf1.getItem().getItemMeta());
-        itemStack1.setAmount(2);
-
 
         //纯净硅源机
         new RecipeMachine(magicexpansionrecipemachine, MagicExpansionItems.QUARTZ_PURE_MACHINE_BAISC, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
@@ -874,6 +889,89 @@ public final class MagicExpansionItemSetup {
                 .register(plugin);
 
 
+        //一体化·矿粉产线
+        new RecipeRandomMachine(magicexpansionrecipemachine, MagicExpansionItems.INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MagicExpansionItems.OAK_PLANKS,SlimefunItems.ELECTRIC_GOLD_PAN_3,MagicExpansionItems.OAK_PLANKS,
+                SlimefunItems.ELECTRIC_DUST_WASHER_3,MagicExpansionItems.AMETHYST_SHARD,SlimefunItems.ELECTRIC_ORE_GRINDER_3,
+                MagicExpansionItems.IRON_INGOT,MagicExpansionItems.IRON_INGOT,MagicExpansionItems.IRON_INGOT
+        })
+                .setCapacity(1314)
+                .setConsumption(26)
+                .setProcessingSpeed(1)
+                .addRecipe(1, new ItemStack[] {sfItemAmount(SlimefunItems.SIFTED_ORE,1)},
+                        new ItemStack[] {SlimefunItems.IRON_DUST,SlimefunItems.GOLD_DUST,SlimefunItems.LEAD_DUST,
+                                SlimefunItems.SILVER_DUST,SlimefunItems.COPPER_DUST,SlimefunItems.ALUMINUM_DUST,
+                                SlimefunItems.MAGNESIUM_DUST,SlimefunItems.TIN_DUST,SlimefunItems.ZINC_DUST,SlimefunItems.STONE_CHUNK})
+                .addRecipe(1, new ItemStack[] {new ItemStack(Material.GRAVEL)},
+                        new ItemStack[] {new ItemStack(Material.IRON_NUGGET,2),new ItemStack(Material.CLAY_BALL,2),
+                                new ItemStack(Material.FLINT,2),sfItemAmount(SlimefunItems.SIFTED_ORE,2)})
+                .addRecipe(1, new ItemStack[] {new ItemStack(Material.COBBLESTONE)},
+                        new ItemStack[] {new ItemStack(Material.GRAVEL)})
+                .addRecipe(1, new ItemStack[] {new ItemStack(Material.BONE)},
+                        new ItemStack[] {new ItemStack(Material.BONE_MEAL,4)})
+                .addRecipe(1, new ItemStack[] {new ItemStack(Material.BLAZE_ROD)},
+                        new ItemStack[] {new ItemStack(Material.BLAZE_POWDER,4)})
+                .addRecipe(1, new ItemStack[] {new ItemStack(Material.DIRT)},
+                        new ItemStack[] {SlimefunItems.STONE_CHUNK})
+                .addRecipe(1, new ItemStack[] {new ItemStack(Material.DIAMOND)},
+                        new ItemStack[] {sfItemAmount(SlimefunItems.CARBON,4)})
+                .addRecipe(1, new ItemStack[] {new ItemStack(Material.NETHER_WART)},
+                        new ItemStack[] {sfItemAmount(SlimefunItems.MAGIC_LUMP_1,4)})
+                .addRecipe(1, new ItemStack[] {new ItemStack(Material.ENDER_EYE)},
+                        new ItemStack[] {sfItemAmount(SlimefunItems.ENDER_LUMP_1,4)})
+                .addRecipe(1, new ItemStack[] {new ItemStack(Material.SOUL_SAND,1)},
+                        new ItemStack[] {new ItemStack(Material.QUARTZ),new ItemStack(Material.NETHER_WART),
+                                new ItemStack(Material.BLAZE_POWDER),new ItemStack(Material.GOLD_NUGGET),
+                                new ItemStack(Material.GLOWSTONE_DUST),new ItemStack(Material.GHAST_TEAR)})
+                .addRecipe(1, new ItemStack[] {new ItemStack(Material.SOUL_SOIL,4)},
+                        new ItemStack[] {new ItemStack(Material.QUARTZ),new ItemStack(Material.NETHER_WART),
+                                new ItemStack(Material.BLAZE_POWDER),new ItemStack(Material.GOLD_NUGGET),
+                                new ItemStack(Material.GLOWSTONE_DUST),new ItemStack(Material.GHAST_TEAR)})
+                .addRecipe(1, new ItemStack[] {new ItemStack(Material.SAND)},
+                        new ItemStack[] {SlimefunItems.SALT})
+                .register(plugin);
+
+        //一体化·矿粉产线·ULTRA
+        new RecipeRandomMachine(magicexpansionrecipemachine, MagicExpansionItems.INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE_ULTRA, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE,MagicExpansionItems.ELEMENT_INGOT,
+                MagicExpansionItems.INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE,MagicExpansionItems.FIVE_ELEMENT,MagicExpansionItems.INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE,
+                MagicExpansionItems.AMETHYST_SHARD,MagicExpansionItems.INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE,MagicExpansionItems.AMETHYST_SHARD
+        })
+                .setCapacity(1314)
+                .setConsumption(260)
+                .setProcessingSpeed(1)
+                .addRecipe(1, new ItemStack[] {sfItemAmount(SlimefunItems.SIFTED_ORE,64)},
+                        new ItemStack[] {sfItemAmount(SlimefunItems.IRON_DUST,64),sfItemAmount(SlimefunItems.GOLD_DUST,64),sfItemAmount(SlimefunItems.LEAD_DUST,64),
+                                sfItemAmount(SlimefunItems.SILVER_DUST,64),sfItemAmount(SlimefunItems.COPPER_DUST,64),sfItemAmount(SlimefunItems.ALUMINUM_DUST,64),
+                                sfItemAmount(SlimefunItems.MAGNESIUM_DUST,64),sfItemAmount(SlimefunItems.TIN_DUST,64),sfItemAmount(SlimefunItems.ZINC_DUST,64),sfItemAmount(SlimefunItems.STONE_CHUNK,64)})
+                .addRecipe(1, new ItemStack[] {new ItemStack(Material.GRAVEL,32)},
+                        new ItemStack[] {new ItemStack(Material.IRON_NUGGET,64),new ItemStack(Material.CLAY_BALL,64),
+                                new ItemStack(Material.FLINT,64),sfItemAmount(SlimefunItems.SIFTED_ORE,64)})
+                .addRecipe(1, new ItemStack[] {new ItemStack(Material.COBBLESTONE,64)},
+                        new ItemStack[] {new ItemStack(Material.GRAVEL,48)})
+                .addRecipe(1, new ItemStack[] {new ItemStack(Material.BONE,16)},
+                        new ItemStack[] {new ItemStack(Material.BONE_MEAL,64)})
+                .addRecipe(1, new ItemStack[] {new ItemStack(Material.BLAZE_ROD,16)},
+                        new ItemStack[] {new ItemStack(Material.BLAZE_POWDER,64)})
+                .addRecipe(1, new ItemStack[] {new ItemStack(Material.DIRT,64)},
+                        new ItemStack[] {sfItemAmount(SlimefunItems.STONE_CHUNK,64)})
+                .addRecipe(1, new ItemStack[] {new ItemStack(Material.DIAMOND,16)},
+                        new ItemStack[] {sfItemAmount(SlimefunItems.CARBON,64)})
+                .addRecipe(1, new ItemStack[] {new ItemStack(Material.NETHER_WART,16)},
+                        new ItemStack[] {sfItemAmount(SlimefunItems.MAGIC_LUMP_1,64)})
+                .addRecipe(1, new ItemStack[] {new ItemStack(Material.ENDER_EYE,16)},
+                        new ItemStack[] {sfItemAmount(SlimefunItems.ENDER_LUMP_1,64)})
+                .addRecipe(1, new ItemStack[] {new ItemStack(Material.SOUL_SAND,64)},
+                        new ItemStack[] {new ItemStack(Material.QUARTZ,64),new ItemStack(Material.NETHER_WART,64),
+                                new ItemStack(Material.BLAZE_POWDER,64),new ItemStack(Material.GOLD_NUGGET,64),
+                                new ItemStack(Material.GLOWSTONE_DUST,64),new ItemStack(Material.GHAST_TEAR,64)})
+                .addRecipe(1, new ItemStack[] {new ItemStack(Material.SOUL_SOIL,64)},
+                        new ItemStack[] {new ItemStack(Material.QUARTZ,64),new ItemStack(Material.NETHER_WART,64),
+                                new ItemStack(Material.BLAZE_POWDER,64),new ItemStack(Material.GOLD_NUGGET,64),
+                                new ItemStack(Material.GLOWSTONE_DUST,64),new ItemStack(Material.GHAST_TEAR,64)})
+                .addRecipe(1, new ItemStack[] {new ItemStack(Material.SAND,64)},
+                        new ItemStack[] {sfItemAmount(SlimefunItems.SALT,64)})
+                .register(plugin);
 
 
 
@@ -976,6 +1074,12 @@ public final class MagicExpansionItemSetup {
         },"土元素",false,1314,520)
                 .register(plugin);
 
+        new UnplaceableBlock(magicexpansionresource, MagicExpansionItems.FIVE_ELEMENT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                null,MagicExpansionItems.WOOD_ELEMENT,null,
+                MagicExpansionItems.WATER_ELEMENT,MagicExpansionItems.GOLD_ELEMENT,MagicExpansionItems.FIRE_ELEMENT,
+                null,MagicExpansionItems.EARTH_ELEMENT,null
+        }).register(plugin);
+
 
 
 
@@ -985,7 +1089,14 @@ public final class MagicExpansionItemSetup {
                 new ItemStack(Material.IRON_INGOT),MagicExpansionItems.LIGHT_CORE,new ItemStack(Material.IRON_INGOT),
                 MagicExpansionItems.LIGHT_CORE,new ItemStack(Material.LIGHT),MagicExpansionItems.LIGHT_CORE,
                 new ItemStack(Material.IRON_INGOT),MagicExpansionItems.LIGHT_CORE,new ItemStack(Material.IRON_INGOT)
-        }).register(plugin);
+        })
+                .addRecipe(0, new ItemStack[]{MagicExpansionItems.HONKAI_STAR_RAIL_BOX}, new ItemStack[]{MagicExpansionItems.JING_LIU})
+                .addRecipe(0, new ItemStack[]{MagicExpansionItems.HONKAI_STAR_RAIL_BOX}, new ItemStack[]{MagicExpansionItems.SILVER_WOLF})
+                .addRecipe(0, new ItemStack[]{MagicExpansionItems.HONKAI_STAR_RAIL_BOX}, new ItemStack[]{MagicExpansionItems.KAFKA})
+                .addRecipe(0, new ItemStack[]{MagicExpansionItems.HONKAI_STAR_RAIL_BOX}, new ItemStack[]{MagicExpansionItems.SUNDAY})
+                .addRecipe(0, new ItemStack[]{MagicExpansionItems.HONKAI_STAR_RAIL_BOX}, new ItemStack[]{MagicExpansionItems.HUOHUO})
+                .addRecipe(0, new ItemStack[]{MagicExpansionItems.HONKAI_STAR_RAIL_BOX}, new ItemStack[]{MagicExpansionItems.LUNAE})
+                .register(plugin);
         //崩铁
         new HonkaiStarRailBox(magicexpansionhonkai, MagicExpansionItems.HONKAI_STAR_RAIL_BOX, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 new ItemStack(Material.IRON_INGOT),new ItemStack(Material.GUNPOWDER),new ItemStack(Material.IRON_INGOT),
@@ -1028,6 +1139,53 @@ public final class MagicExpansionItemSetup {
                 null,new CustomItemStack(CustomHead.BLUE_GIFT_BOX.getItem(), "&c&l注意：&c&l该物品可从崩铁盲盒中抽取"),null,
                 null,null,null
         }).register(plugin);
+
+
+
+        //空岛系列
+        new SingleCubeOrigin(magicexpansionskyblock, MagicExpansionItems.SINGLE_CUBE_ORIGIN, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MagicExpansionItems.TIN_INGOT,MagicExpansionItems.GOLD_INGOT, MagicExpansionItems.COPPER_INGOT,
+                MagicExpansionItems.ALUMINUM_INGOT,new ItemStack(Material.DIRT),MagicExpansionItems.LEAD_INGOT,
+                MagicExpansionItems.ZINC_INGOT,MagicExpansionItems.SILVER_INGOT,MagicExpansionItems.MAGNESIUM_INGOT,
+        }).register(plugin);
+
+        new SingleCubeOre(magicexpansionskyblock, MagicExpansionItems.SINGLE_CUBE_ORE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                new ItemStack(Material.IRON_ORE),new ItemStack(Material.COPPER_ORE), new ItemStack(Material.GOLD_ORE),
+                new ItemStack(Material.EMERALD_ORE),MagicExpansionItems.SINGLE_CUBE_ORIGIN,new ItemStack(Material.DIAMOND_ORE),
+                new ItemStack(Material.COAL_ORE),new ItemStack(Material.NETHER_QUARTZ_ORE),new ItemStack(Material.REDSTONE_ORE),
+        }).register(plugin);
+
+
+
+
+        //空岛系列-钻石工具
+        new InfiniteTool(magicexpansionskyblock, MagicExpansionItems.SINGLE_DIAMOND_PICKAXE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MagicExpansionItems.DIAMOND,MagicExpansionItems.DIAMOND, MagicExpansionItems.DIAMOND,
+                null,MagicExpansionItems.STICK,null,
+                null,MagicExpansionItems.STICK,null,
+        }).register(plugin);
+        //空岛系列-钻石工具
+        new InfiniteTool(magicexpansionskyblock, MagicExpansionItems.SINGLE_DIAMOND_AXE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                null,MagicExpansionItems.DIAMOND, MagicExpansionItems.DIAMOND,
+                null,MagicExpansionItems.STICK,MagicExpansionItems.DIAMOND,
+                null,MagicExpansionItems.STICK,null,
+        }).register(plugin);
+        //空岛系列-钻石工具
+        new InfiniteTool(magicexpansionskyblock, MagicExpansionItems.SINGLE_DIAMOND_SHOVEL, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                null,MagicExpansionItems.DIAMOND,null,
+                null,MagicExpansionItems.STICK,null,
+                null,MagicExpansionItems.STICK,null,
+        }).register(plugin);
+        //空岛系列-钻石工具
+        new InfiniteTool(magicexpansionskyblock, MagicExpansionItems.SINGLE_DIAMOND_HOE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                null,MagicExpansionItems.DIAMOND, MagicExpansionItems.DIAMOND,
+                null,MagicExpansionItems.STICK,null,
+                null,MagicExpansionItems.STICK,null,
+        }).register(plugin);
+
+
+
+
 
 
 
