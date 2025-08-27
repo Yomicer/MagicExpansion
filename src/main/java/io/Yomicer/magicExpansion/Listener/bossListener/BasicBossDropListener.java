@@ -38,7 +38,7 @@ public class BasicBossDropListener implements Listener {
                 dropFireZombieLoot(entity);
                 break;
             default:
-                Debug.logWarn("未知的怪物类型: " + mobType);
+//                Debug.logWarn("未知的怪物类型: " + mobType);
                 break;
         }
     }

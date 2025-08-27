@@ -27,7 +27,7 @@ public class PreBuildingTree extends SimpleSlimefunItem<ItemUseHandler> implemen
     private final String originName;
     private final String replaceName;
 
-    private static final Map<UUID, Long> cooldowns = new HashMap<>();
+    private final Map<UUID, Long> cooldowns = new HashMap<>();
 
     private final long COOLDOWN_MS;
 

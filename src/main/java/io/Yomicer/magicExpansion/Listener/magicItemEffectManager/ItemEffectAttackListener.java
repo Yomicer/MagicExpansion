@@ -20,6 +20,7 @@ import org.bukkit.util.Vector;
 import java.util.Random;
 
 import static io.Yomicer.magicExpansion.items.enchantMachine.EnchantingTable.ATTRIBUTE_POOL;
+import static io.Yomicer.magicExpansion.utils.ItemPermissionUtils.hasPermissionOnAttack;
 
 public class ItemEffectAttackListener implements Listener {
 
@@ -52,6 +53,7 @@ public class ItemEffectAttackListener implements Listener {
 
     private void applyEffect(String attribute, Object value, Entity target, Player player) {
         if (!(target instanceof LivingEntity livingTarget)) return;
+        if(!hasPermissionOnAttack(player)) return;
         switch (attribute) {
             case "MagicExpansion.Knockback": // 击退效果
                 if (value instanceof Integer knockbackStrength) {

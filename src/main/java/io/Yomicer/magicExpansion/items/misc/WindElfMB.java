@@ -4,6 +4,7 @@ import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 import io.Yomicer.magicExpansion.MagicExpansion;
 import io.Yomicer.magicExpansion.core.MagicExpansionItems;
 import io.Yomicer.magicExpansion.utils.ColorGradient;
+import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.core.multiblocks.MultiBlockMachine;
@@ -26,12 +27,11 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import static io.Yomicer.magicExpansion.items.summonBossItem.bossSkill.FireZombieSkill.*;
-import static io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils.isItemSimilar;
 
-public class FireZombieMB extends MultiBlockMachine {
+public class WindElfMB extends MultiBlockMachine {
 
-    public FireZombieMB(ItemGroup itemGroup, SlimefunItemStack item) {
-        super(itemGroup, item, new ItemStack[] {null, MagicExpansionItems.FIREZOMBIE_HEAD, null, null, MagicExpansionItems.FIREZOMBIE_BODY, null, null, MagicExpansionItems.FIREZOMBIE_BODY, null}, BlockFace.SELF);
+    public WindElfMB(ItemGroup itemGroup, SlimefunItemStack item) {
+        super(itemGroup, item, new ItemStack[] {null, MagicExpansionItems.WIND_ELF_HEAD, null, null, MagicExpansionItems.WIND_ELF_BODY, null, null, MagicExpansionItems.WIND_ELF_BODY, null}, BlockFace.SELF);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class FireZombieMB extends MultiBlockMachine {
         Block pumpkinHead = b.getRelative(BlockFace.UP);
         Block bottomBlackstone = b.getRelative(BlockFace.DOWN);
 
-        if(!StorageCacheUtils.isBlock(locationUp, "MAGIC_EXPANSION_FIREZOMBIE_HEAD") || !StorageCacheUtils.isBlock(location, "MAGIC_EXPANSION_FIREZOMBIE_BODY") || !StorageCacheUtils.isBlock(locationDown, "MAGIC_EXPANSION_FIREZOMBIE_BODY")) {
+        if(!StorageCacheUtils.isBlock(locationUp, "MAGIC_EXPANSION_WIND_ELF_HEAD") || !StorageCacheUtils.isBlock(location, "MAGIC_EXPANSION_WIND_ELF_BODY") || !StorageCacheUtils.isBlock(locationDown, "MAGIC_EXPANSION_WIND_ELF_BODY")) {
 
             p.sendMessage(ColorGradient.getGradientName("[魔法·BOSS召唤]你需要使用正确的搭建方式"));
             p.sendMessage(ColorGradient.getGradientName("[魔法·BOSS召唤]请检查你放置的方块"));
@@ -58,23 +58,23 @@ public class FireZombieMB extends MultiBlockMachine {
         Slimefun.getDatabaseManager().getBlockDataController().removeBlock(b.getLocation().clone());
         bottomBlackstone.setType(Material.AIR);
         Slimefun.getDatabaseManager().getBlockDataController().removeBlock(b.getLocation().clone().add(0, -1, 0));
-        spawnFireZombie(b.getLocation().clone());
+        spawnWindZombie(b.getLocation().clone());
     }
 
 
 
-    private void spawnFireZombie(Location location) {
+    private void spawnWindZombie(Location location) {
 
         // 获取玩家位置并生成怪物
-        LivingEntity mob = (LivingEntity) location.getWorld().spawnEntity(location, EntityType.ZOMBIE);
+        LivingEntity mob = (LivingEntity) location.getWorld().spawnEntity(location, EntityType.ALLAY);
 
         // 设置怪物名称
-        String zombieName = "§c§l烈焰僵尸";
+        String zombieName = "§3§l风灵";
         mob.setCustomName(zombieName);
         mob.setCustomNameVisible(true);
         // 设置自定义元数据：用于标识这是烈火僵尸
-        mob.setMetadata("magicMobType", new FixedMetadataValue(MagicExpansion.getInstance(), "FireZombie"));
-        mob.setMetadata("isInvincibleFireZombie", new FixedMetadataValue(MagicExpansion.getInstance(), false)); // 设置无敌元数据
+        mob.setMetadata("magicMobType", new FixedMetadataValue(MagicExpansion.getInstance(), "WindElf"));
+        mob.setMetadata("isInvincibleWindElf", new FixedMetadataValue(MagicExpansion.getInstance(), false)); // 设置无敌元数据
         // 调整最大生命值并设置初始血量
         double maxHealth = 200.0; // 自定义最大生命值
         mob.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(maxHealth);
@@ -89,11 +89,11 @@ public class FireZombieMB extends MultiBlockMachine {
         // 定义技能列表
         Runnable[] skills = {
                 () -> magicAttackSkill(mob, zombieName),
-                () -> redstoneParticleAttackSkill(mob),
-                () -> fireParticleAttackSkill(mob),
+                () -> redstoneParticleAttackSkillWindElf(mob),
+                () -> twoWindParticleAttackSkill(mob),
         };
 
-        // 每隔4-8秒随机释放一个技能
+        // 每隔4-6秒随机释放一个技能
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -102,27 +102,27 @@ public class FireZombieMB extends MultiBlockMachine {
                     return;
                 }
                 // 修改名称，添加“无法选中·”前缀
-                mob.setMetadata("isInvincibleFireZombie", new FixedMetadataValue(MagicExpansion.getInstance(), true));
-                mob.setCustomName(zombieName + "§e§l[霸体]");
+                mob.setMetadata("isInvincibleWindElf", new FixedMetadataValue(MagicExpansion.getInstance(), true));
+                mob.setCustomName(zombieName + "§e§l[无敌]");
                 mob.setCustomNameVisible(true);
 
                 new BukkitRunnable() {
                     @Override
                     public void run() {
                         // 恢复原始名称
-                        mob.setMetadata("isInvincibleFireZombie", new FixedMetadataValue(MagicExpansion.getInstance(), false));
-                        mob.setCustomName(zombieName);
+                        mob.setMetadata("isInvincibleWindElf", new FixedMetadataValue(MagicExpansion.getInstance(), false));
+                        mob.setCustomName(zombieName+ "§e§d[虚弱]");
                         mob.setCustomNameVisible(true);
                     }
-                }.runTaskLater(MagicExpansion.getInstance(), 50L); // 2.5秒后恢复
+                }.runTaskLater(MagicExpansion.getInstance(), 40L+ new Random().nextInt(20)); // 2.5秒后恢复
 
                 // 随机选择一个技能释放
                 int randomIndex = new Random().nextInt(skills.length);
                 skills[randomIndex].run();
             }
-        }.runTaskTimer(MagicExpansion.getInstance(), 0L, 80L + new Random().nextInt(81)); // 每4-8秒执行一次
+        }.runTaskTimer(MagicExpansion.getInstance(), 0L, 80L + new Random().nextInt(41)); // 每4-6秒执行一次
 
-        // 添加：每隔3秒进行一次传送
+        // 添加：每隔0.5秒进行一次传送
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -161,12 +161,14 @@ public class FireZombieMB extends MultiBlockMachine {
                 // 传送怪物到新位置
                 mob.teleport(newLocation);
             }
-        }.runTaskTimer(MagicExpansion.getInstance(), 0L, 200L); // 每3秒执行一次
+        }.runTaskTimer(MagicExpansion.getInstance(), 0L, 10L); // 每0.5秒执行一次
 
 
 
 
     }
+
+
 
     // 生成雷击效果
     public void worldStrikeLightningEffect(Location location) {

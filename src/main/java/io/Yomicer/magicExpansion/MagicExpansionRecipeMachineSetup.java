@@ -1,6 +1,7 @@
 package io.Yomicer.magicExpansion;
 
 import io.Yomicer.magicExpansion.core.MagicExpansionItems;
+import io.Yomicer.magicExpansion.items.electric.recipeMachine.RecipeMachine;
 import io.Yomicer.magicExpansion.items.electric.recipeMachine.RecipeMachinePreBuilding;
 import io.Yomicer.magicExpansion.items.electric.templateMachine.TemplateMachine;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
@@ -225,7 +226,7 @@ public class MagicExpansionRecipeMachineSetup {
                 .register(plugin);
 
 
-        //泥土园
+        //钓鱼
         new TemplateMachine(magicexpansionrecipemachine, MagicExpansionItems.FISHING_MACHINE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 SlimefunItems.PROGRAMMABLE_ANDROID_FISHERMAN, MagicExpansionItems.CORE_ORIGIN,SlimefunItems.PROGRAMMABLE_ANDROID_FISHERMAN,
                 MagicExpansionItems.ELEMENT_INGOT,new ItemStack(Material.COD),MagicExpansionItems.ELEMENT_INGOT,
@@ -254,6 +255,39 @@ public class MagicExpansionRecipeMachineSetup {
                                 new ItemStack(Material.BONE,1),new ItemStack(Material.ENCHANTED_BOOK,1),
                                 new ItemStack(Material.SPIDER_EYE,1),new ItemStack(Material.BLAZE_ROD,1)})
                 .register(plugin);
+
+
+
+        //元素提纯机
+        new RecipeMachine(magicexpansionrecipemachine, MagicExpansionItems.INGOT_PURE_MACHINE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                SlimefunItems.TRASH_CAN, SlimefunItems.ESSENCE_OF_AFTERLIFE,SlimefunItems.BOOSTED_URANIUM,
+                MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.FIVE_ELEMENT,MagicExpansionItems.ELEMENT_INGOT,
+                SlimefunItems.CARBON_PRESS_3,MagicExpansionItems.AMETHYST_SHARD,SlimefunItems.CARBON_PRESS_3
+        })
+                .setCapacity(1314)
+                .setConsumption(260)
+                .setProcessingSpeed(1)
+                .addRecipe(2, new ItemStack[] {sfItemAmount(MagicExpansionItems.IRON_INGOT,64),sfItemAmount(MagicExpansionItems.ELEMENT_INGOT,8)},
+                        new ItemStack[] {MagicExpansionItems.PURE_IRON})
+                .addRecipe(2, new ItemStack[] {sfItemAmount(MagicExpansionItems.COPPER_INGOT,64),sfItemAmount(MagicExpansionItems.ELEMENT_INGOT,8)},
+                        new ItemStack[] {MagicExpansionItems.PURE_COPPER})
+                .addRecipe(2, new ItemStack[] {sfItemAmount(MagicExpansionItems.MAGNESIUM_INGOT,64),sfItemAmount(MagicExpansionItems.ELEMENT_INGOT,8)},
+                        new ItemStack[] {MagicExpansionItems.PURE_MAGNESIUM})
+                .addRecipe(2, new ItemStack[] {sfItemAmount(MagicExpansionItems.GOLD_INGOT,64),sfItemAmount(MagicExpansionItems.ELEMENT_INGOT,8)},
+                        new ItemStack[] {MagicExpansionItems.PURE_GOLD})
+                .addRecipe(2, new ItemStack[] {sfItemAmount(MagicExpansionItems.LEAD_INGOT,64),sfItemAmount(MagicExpansionItems.ELEMENT_INGOT,8)},
+                        new ItemStack[] {MagicExpansionItems.PURE_LEAD})
+                .addRecipe(2, new ItemStack[] {sfItemAmount(MagicExpansionItems.ALUMINUM_INGOT,64),sfItemAmount(MagicExpansionItems.ELEMENT_INGOT,8)},
+                        new ItemStack[] {MagicExpansionItems.PURE_ALUMINUM})
+                .addRecipe(2, new ItemStack[] {sfItemAmount(MagicExpansionItems.SILVER_INGOT,64),sfItemAmount(MagicExpansionItems.ELEMENT_INGOT,8)},
+                        new ItemStack[] {MagicExpansionItems.PURE_SILVER})
+                .addRecipe(2, new ItemStack[] {sfItemAmount(MagicExpansionItems.TIN_INGOT,64),sfItemAmount(MagicExpansionItems.ELEMENT_INGOT,8)},
+                        new ItemStack[] {MagicExpansionItems.PURE_TIN})
+                .addRecipe(2, new ItemStack[] {sfItemAmount(MagicExpansionItems.ZINC_INGOT,64),sfItemAmount(MagicExpansionItems.ELEMENT_INGOT,8)},
+                        new ItemStack[] {MagicExpansionItems.PURE_ZINC})
+                .register(plugin);
+
+
 
 
 

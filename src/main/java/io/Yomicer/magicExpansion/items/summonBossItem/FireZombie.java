@@ -69,7 +69,7 @@ public class FireZombie extends SimpleSlimefunItem<ItemUseHandler> implements No
         LivingEntity mob = (LivingEntity) location.getWorld().spawnEntity(location, EntityType.ZOMBIE);
 
         // 设置怪物名称
-        String zombieName = "§c烈焰僵尸";
+        String zombieName = "§c§l烈焰僵尸";
         mob.setCustomName(zombieName);
         mob.setCustomNameVisible(true);
         // 设置自定义元数据：用于标识这是烈火僵尸
@@ -88,9 +88,9 @@ public class FireZombie extends SimpleSlimefunItem<ItemUseHandler> implements No
 
         // 定义技能列表
         Runnable[] skills = {
-                () -> magicAttackSkill(mob, player),
-                () -> redstoneParticleAttackSkill(mob, player),
-                () -> fireParticleAttackSkill(mob, player),
+                () -> magicAttackSkill(mob, zombieName),
+                () -> redstoneParticleAttackSkill(mob),
+                () -> fireParticleAttackSkill(mob),
         };
 
         // 每隔4-8秒随机释放一个技能

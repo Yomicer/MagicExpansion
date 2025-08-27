@@ -125,6 +125,7 @@ public class SingleCubeOre extends SlimefunItem implements HologramOwner{
         ores.add(Material.DIRT);
         ores.add(Material.DEEPSLATE);
         ores.add(Material.COBBLED_DEEPSLATE);
+        ores.add(Material.ANCIENT_DEBRIS);
 
         return ores;
     }

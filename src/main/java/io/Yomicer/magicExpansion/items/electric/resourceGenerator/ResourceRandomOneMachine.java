@@ -17,25 +17,26 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
 
-public class ResourceMachine extends AbstractElectricResourceMachine {
+public class ResourceRandomOneMachine extends AbstractElectricResourceMachine {
 
     private static final int[] BACKGROUND_SLOTS = new int[] { 0, 4, 8, 9, 13, 17 };
     private static final int[] OUTPUT_BORDER_SLOTS = new int[] { 10, 11, 12, 14, 15, 16};
     private static final int[] INPUT_BORDER_SLOTS = new int[] {1, 2, 3, 5, 6, 7};
-    
+
     private static final int[] OUTPUT_SLOTS = new int[] { 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53};
 
     private static final ItemStack PROGRESS_ITEM = new ItemStack(Material.SOUL_LANTERN);
-    private ItemStack material;
+    private ItemStack material = new ItemStack(Material.BARRIER);
 
     private static final ItemStack PROGRESS_STACK = new CustomItemStack(Material.SOUL_CAMPFIRE, getGradientName("信息"), getGradientName("类型：资源生成器"), getGradientName("所属附属：魔法"));
 
 
 
-    public ResourceMachine(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    public ResourceRandomOneMachine(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
 
     }
@@ -52,6 +53,29 @@ public class ResourceMachine extends AbstractElectricResourceMachine {
     public void tick(BlockMenu menu, Block b) {
 //            updateInfoStack(menu);
         super.tick(menu, b);
+    }
+
+    protected void addOutputs(BlockMenu menu, Block b, ItemStack[] outputs) {
+        List<ItemStack> validOutputs = new ArrayList<>();
+
+        // 收集所有非 null 的输出
+        for (ItemStack output : outputs) {
+            if (output != null) {
+                validOutputs.add(output);
+            }
+        }
+
+        // 如果有有效的输出
+        if (!validOutputs.isEmpty()) {
+            // 如果只有一个，直接输出
+            if (validOutputs.size() == 1) {
+                menu.pushItem(validOutputs.get(0).clone(), getOutputSlots());
+            } else {
+                // 否则随机选一个
+                ItemStack randomOutput = validOutputs.get(new Random().nextInt(validOutputs.size()));
+                menu.pushItem(randomOutput.clone(), getOutputSlots());
+            }
+        }
     }
 
     @Override
@@ -78,8 +102,8 @@ public class ResourceMachine extends AbstractElectricResourceMachine {
 	public List<ItemStack> getDisplayRecipes() {
 	    List<ItemStack> display = new ArrayList<>();
 
-        display.add(new CustomItemStack(Material.KNOWLEDGE_BOOK, getGradientName("产物⇨"),getGradientName("生产效率⇨ ⚙ 每 " + getCraftSecond() + " s生成一次"),getGradientName("生产能耗⇨ ⚡ "+ getEnergyConsumption()*2 +" J/s")));
-        display.add(new CustomItemStack(Material.KNOWLEDGE_BOOK, getGradientName("产物⇨"),getGradientName("生产效率⇨ ⚙ 每 " + getCraftSecond() + " s生成一次"),getGradientName("生产能耗⇨ ⚡ "+ getEnergyConsumption()*2 +" J/s")));
+        display.add(new CustomItemStack(Material.KNOWLEDGE_BOOK, getGradientName("产物⇨"),getGradientName("生产效率⇨ ⚙ 每 " + getCraftSecond() + " s生成一次"),getGradientName("生产能耗⇨ ⚡ "+ getEnergyConsumption()*2 +" J/s"),getGradientName("随机产出一种产物")));
+        display.add(new CustomItemStack(Material.KNOWLEDGE_BOOK, getGradientName("产物⇨"),getGradientName("生产效率⇨ ⚙ 每 " + getCraftSecond() + " s生成一次"),getGradientName("生产能耗⇨ ⚡ "+ getEnergyConsumption()*2 +" J/s"),getGradientName("随机产出一种产物")));
         // 将输出物品数组中的所有物品添加到显示列表
         display.addAll(Arrays.asList(getItemStackOutputs()));
 

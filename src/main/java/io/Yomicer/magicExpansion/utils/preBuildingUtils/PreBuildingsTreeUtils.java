@@ -55,17 +55,17 @@ public class PreBuildingsTreeUtils {
                 }
             }
 
-            // 检查预期空间是否有权限冲突
+            // 检查预期空间是否有权限冲突&&空间是否充足
             if (hasPermissionConflicts(blocks, pasteLocation, player.getWorld(),player)) {
-                player.sendMessage("§c有部分区域没有权限，请选择其他地方放置。");
+                player.sendMessage("§c有部分区域没有权限或者是空间大小不足，请选择其他地方放置。");
                 return false; // 存在冲突，返回 false
             }
 
-            // 检查是否有冲突
-            if (hasConflicts(blocks, pasteLocation, player.getWorld())) {
-                player.sendMessage("§c当前空间大小不足，请选择其他地方放置。");
-                return false; // 存在冲突，返回 false
-            }
+//            // 检查是否有冲突
+//            if (hasConflicts(blocks, pasteLocation, player.getWorld())) {
+//                player.sendMessage("§c当前空间大小不足，请选择其他地方放置。");
+//                return false; // 存在冲突，返回 false
+//            }
 
             // 如果没有冲突，则开始粘贴
             for (BlockData blockData : blocks) {
