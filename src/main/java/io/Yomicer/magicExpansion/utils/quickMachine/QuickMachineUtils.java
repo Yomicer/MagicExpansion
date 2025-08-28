@@ -13,6 +13,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
 import java.util.List;
@@ -382,12 +383,29 @@ public class QuickMachineUtils {
             Pair<ItemStack, Integer> recipeResult = getRecipeResultWithAmount(recipe, recipeType);
             if (recipeResult == null) continue;
 
-            ItemStack resultItem = recipeResult.getFirstValue(); // 提取产物
+            ItemStack resultItem = recipeResult.getFirstValue().clone(); // 提取产物并克隆以避免修改原对象
+            ItemStack resultItemDisplay = recipeResult.getFirstValue().clone(); // 提取产物并克隆以避免修改原对象
+            // 假设 resultItemDisplay 是已经克隆的 ItemStack 对象
+            if (resultItemDisplay.hasItemMeta()) { // 确保 ItemStack 不为空且有 ItemMeta
+                ItemMeta itemMeta = resultItemDisplay.getItemMeta(); // 获取 ItemMeta
+                if (itemMeta != null && itemMeta.hasDisplayName()) { // 确保 ItemMeta 存在且有 displayName
+                    String originalName = itemMeta.getDisplayName(); // 获取原始显示名称
+                    String newName = "§x§F§D§B§7§D§4"+originalName + "§e [产物]"; // 添加后缀 [产物]
+                    itemMeta.setDisplayName(newName); // 设置新的显示名称
+                    resultItemDisplay.setItemMeta(itemMeta); // 将修改后的 ItemMeta 应用回 ItemStack
+                }
+            }else{
+                String name = "§x§F§D§B§7§D§4"+ItemStackHelper.getName(resultItemDisplay);
+                String newName = name + "§e [产物]";
+                ItemMeta meta = resultItemDisplay.getItemMeta();
+                meta.setDisplayName(newName);
+                resultItemDisplay.setItemMeta(meta);
+            }
             int outputAmountPerCraft = recipeResult.getSecondValue(); // 提取单次合成数量
 
             // 创建一个局部变量 currentSlot 来存储当前槽位
             int currentSlot = slot++;
-            menu.addItem(currentSlot, resultItem, (p, s, item, action) -> {
+            menu.addItem(currentSlot, resultItemDisplay, (p, s, item, action) -> {
                 if (action.isRightClicked() && !action.isShiftClicked()) {
                     // 右键点击：显示制作一份所需的材料
                     p.sendMessage("§a配方: §b" + getDisplayName(resultItem));

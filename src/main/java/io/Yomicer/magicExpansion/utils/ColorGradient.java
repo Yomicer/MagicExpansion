@@ -4,6 +4,7 @@ import org.bukkit.Color;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ColorGradient {
     /*覆写颜色*/
@@ -83,6 +84,7 @@ public class ColorGradient {
     }
 
 
+    //default color
     private static List<Color> createColorList() {
         List<Color> colorList = new ArrayList<>();
         colorList.add(Color.fromRGB(253, 183, 212)); // 淡粉色
@@ -90,6 +92,47 @@ public class ColorGradient {
         colorList.add(Color.fromRGB(255, 105, 180)); // 亮粉色
         return colorList;
     }
+
+
+
+    /**
+     * 生成指定数量的随机颜色列表
+     *
+     * @param count 随机颜色的数量
+     * @return 随机颜色列表
+     */
+    private static List<Color> createRandomColorList(int count) {
+        List<Color> colorList = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < count; i++) {
+            int red = random.nextInt(256);
+            int green = random.nextInt(256);
+            int blue = random.nextInt(256);
+            colorList.add(Color.fromRGB(red, green, blue));
+        }
+        return colorList;
+    }
+
+    /**
+     * 生成带有随机渐变色的字符串（Minecraft §x 格式）
+     *
+     * @param text  输入的字符串
+     * @param count 渐变色数量
+     * @return 带有随机渐变色的字符串
+     */
+    public static String getRandomGradientName(String text, int count) {
+        if (count <= 0) {
+            throw new IllegalArgumentException("Count must be greater than zero");
+        }
+        List<Color> randomColorList = createRandomColorList(count);
+        return getGradientName(text, randomColorList);
+    }
+
+    // 如果需要直接调用，不指定颜色数量，默认使用3种颜色进行渐变
+    public static String getRandomGradientName(String text) {
+        return getRandomGradientName(text, 3); // 默认三种颜色渐变
+    }
+
 
 
 }

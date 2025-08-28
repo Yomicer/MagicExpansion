@@ -4,6 +4,7 @@ import io.Yomicer.magicExpansion.core.MagicExpansionItems;
 import io.Yomicer.magicExpansion.items.electric.recipeMachine.RecipeMachine;
 import io.Yomicer.magicExpansion.items.electric.recipeMachine.RecipeMachinePreBuilding;
 import io.Yomicer.magicExpansion.items.electric.templateMachine.TemplateMachine;
+import io.Yomicer.magicExpansion.utils.itemUtils.NamedTagBuilder;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import org.bukkit.Material;
@@ -121,6 +122,18 @@ public class MagicExpansionRecipeMachineSetup {
                 .addRecipe(2, new ItemStack[] {MagicExpansionItems.COLOR_GLAZED_TERRACOTTA_1}, new ItemStack[] {new ItemStack(Material.WHITE_GLAZED_TERRACOTTA,64)})
                 .addRecipe(2, new ItemStack[] {sfItemAmount(MagicExpansionItems.COLOR_GLAZED_TERRACOTTA_1,64)}, new ItemStack[] {MagicExpansionItems.COLOR_GLAZED_TERRACOTTA_2})
                 .addRecipe(2, new ItemStack[] {MagicExpansionItems.COLOR_GLAZED_TERRACOTTA_2}, new ItemStack[] {sfItemAmount(MagicExpansionItems.COLOR_GLAZED_TERRACOTTA_1,64)})
+                .addRecipe(2, new ItemStack[] {new ItemStack(Material.CHERRY_LEAVES,64),new ItemStack(Material.WHITE_DYE,64),
+                                new ItemStack(Material.RED_DYE,64),new ItemStack(Material.YELLOW_DYE,64),new ItemStack(Material.BLUE_DYE,64)},
+                        new ItemStack[] {MagicExpansionItems.COLOR_LEAVES_1})
+                .addRecipe(2, new ItemStack[] {MagicExpansionItems.COLOR_LEAVES_1}, new ItemStack[] {new ItemStack(Material.CHERRY_LEAVES,64)})
+                .addRecipe(2, new ItemStack[] {sfItemAmount(MagicExpansionItems.COLOR_LEAVES_1,64)}, new ItemStack[] {MagicExpansionItems.COLOR_LEAVES_2})
+                .addRecipe(2, new ItemStack[] {MagicExpansionItems.COLOR_LEAVES_2}, new ItemStack[] {sfItemAmount(MagicExpansionItems.COLOR_LEAVES_1,64)})
+                .addRecipe(2, new ItemStack[] {MagicExpansionItems.OAK_LOG_1,new ItemStack(Material.WHITE_DYE,64),
+                                new ItemStack(Material.RED_DYE,64),new ItemStack(Material.YELLOW_DYE,64),new ItemStack(Material.BLUE_DYE,64)},
+                        new ItemStack[] {MagicExpansionItems.COLOR_LOG_1})
+                .addRecipe(2, new ItemStack[] {MagicExpansionItems.COLOR_LOG_1}, new ItemStack[] {MagicExpansionItems.OAK_LOG_1})
+                .addRecipe(2, new ItemStack[] {sfItemAmount(MagicExpansionItems.COLOR_LOG_1,64)}, new ItemStack[] {MagicExpansionItems.COLOR_LOG_2})
+                .addRecipe(2, new ItemStack[] {MagicExpansionItems.COLOR_LOG_2}, new ItemStack[] {sfItemAmount(MagicExpansionItems.COLOR_LOG_1,64)})
                 .register(plugin);
 
         //终极魔法建筑工坊
@@ -140,6 +153,53 @@ public class MagicExpansionRecipeMachineSetup {
                         MagicExpansionItems.REDSTONE_1,MagicExpansionItems.COBBLESTONE_1,MagicExpansionItems.HOPPER_1,
                         new ItemStack(Material.STRING,15),MagicExpansionItems.SPACE_INFINITY_MAGIC},
                         new ItemStack[] {MagicExpansionItems.PRE_BUILDING_SHULKER_FARM})
+                .addRecipe(20,new ItemStack[] {
+                        sfItemAmount(MagicExpansionItems.COLOR_CONCRETE_1,48),sfItemAmount(MagicExpansionItems.COLOR_TERRACOTTA_1,6),sfItemAmount(MagicExpansionItems.COLOR_WOOL_1,6),
+                        sfItemAmount(MagicExpansionItems.IRON_INGOT_1,8),sfItemAmount(MagicExpansionItems.COLOR_LOG_2,1),sfItemAmount(MagicExpansionItems.REDSTONE_2,1),
+                        NamedTagBuilder.nameTag("Mcdonalds"),MagicExpansionItems.SPACE_INFINITY_MAGIC},
+                        new ItemStack[] {MagicExpansionItems.PRE_BUILDING_MCDONALDS})
+
+                .addRecipe(20,new ItemStack[] {
+                        sfItemAmount(MagicExpansionItems.COLOR_CONCRETE_1,4),sfItemAmount(MagicExpansionItems.COLOR_TERRACOTTA_1,36),sfItemAmount(MagicExpansionItems.COLOR_WOOL_1,2),
+                        sfItemAmount(MagicExpansionItems.STONE_2,2),sfItemAmount(MagicExpansionItems.OAK_LOG_1,1),sfItemAmount(MagicExpansionItems.IRON_INGOT_1,2),
+                        NamedTagBuilder.nameTag("MoonRabbitShop"),MagicExpansionItems.SPACE_INFINITY_MAGIC},
+                        new ItemStack[] {MagicExpansionItems.PRE_BUILDING_MOON_RABBIT_SHOP})
+                .addRecipe(20,new ItemStack[] {
+                        sfItemAmount(MagicExpansionItems.COLOR_LOG_1,10),sfItemAmount(MagicExpansionItems.COLOR_LEAVES_1,2),sfItemAmount(MagicExpansionItems.IRON_INGOT_1,2),
+                        sfItemAmount(MagicExpansionItems.STONE_2,2),sfItemAmount(MagicExpansionItems.COBBLESTONE_1,1),sfItemAmount(MagicExpansionItems.STONE_BRICKS_1,2),
+                        NamedTagBuilder.nameTag("MiddleHorseHouse"),MagicExpansionItems.SPACE_INFINITY_MAGIC},
+                        new ItemStack[] {MagicExpansionItems.PRE_BUILDING_MIDDLE_HORSE_HOUSE})
+                .addRecipe(20,new ItemStack[] {
+                                sfItemAmount(MagicExpansionItems.COLOR_CONCRETE_1,14),sfItemAmount(MagicExpansionItems.COLOR_LEAVES_1,6),sfItemAmount(MagicExpansionItems.IRON_INGOT_1,3),
+                                sfItemAmount(MagicExpansionItems.COBBLESTONE_1,5),sfItemAmount(MagicExpansionItems.STONE_BRICKS_1,8),sfItemAmount(MagicExpansionItems.OAK_LOG_1,5),
+                                NamedTagBuilder.nameTag("SiHeYuan"),MagicExpansionItems.SPACE_INFINITY_MAGIC},
+                        new ItemStack[] {MagicExpansionItems.PRE_BUILDING_SI_HE_YUAN})
+                .addRecipe(20,new ItemStack[] {
+                                sfItemAmount(MagicExpansionItems.COLOR_CONCRETE_1,23),sfItemAmount(MagicExpansionItems.COBBLESTONE_1,9),sfItemAmount(MagicExpansionItems.IRON_INGOT_1,19),
+                                sfItemAmount(MagicExpansionItems.COLOR_LOG_1,5),sfItemAmount(MagicExpansionItems.COLOR_WOOL_1,3),sfItemAmount(MagicExpansionItems.STONE_1,2),
+                                NamedTagBuilder.nameTag("KFCMiddle"),MagicExpansionItems.SPACE_INFINITY_MAGIC},
+                        new ItemStack[] {MagicExpansionItems.PRE_BUILDING_KFC_MIDDLE})
+                .addRecipe(20,new ItemStack[] {
+                                sfItemAmount(MagicExpansionItems.COLOR_CONCRETE_1,25),sfItemAmount(MagicExpansionItems.STONE_BRICKS_1,21),sfItemAmount(MagicExpansionItems.COLOR_CONCRETE_1,18),
+                                sfItemAmount(MagicExpansionItems.COLOR_LOG_1,3),sfItemAmount(MagicExpansionItems.COLOR_WOOL_1,2),sfItemAmount(MagicExpansionItems.COBBLESTONE_1,2),
+                                NamedTagBuilder.nameTag("LargeSnowKing"),MagicExpansionItems.SPACE_INFINITY_MAGIC},
+                        new ItemStack[] {MagicExpansionItems.PRE_BUILDING_LARGE_SNOW_KING})
+                .addRecipe(20,new ItemStack[] {
+                                sfItemAmount(MagicExpansionItems.COLOR_LOG_2,1),sfItemAmount(MagicExpansionItems.COLOR_CONCRETE_2,1),sfItemAmount(MagicExpansionItems.STONE_BRICKS_1,7),
+                                sfItemAmount(MagicExpansionItems.OAK_LOG_1,8),sfItemAmount(MagicExpansionItems.IRON_INGOT_1,2),new ItemStack(Material.DRAGON_EGG),
+                                NamedTagBuilder.nameTag("MiddleVilla"),MagicExpansionItems.SPACE_INFINITY_MAGIC},
+                        new ItemStack[] {MagicExpansionItems.PRE_BUILDING_MIDDLE_VILLA})
+                .addRecipe(20,new ItemStack[] {
+                                sfItemAmount(MagicExpansionItems.COLOR_CONCRETE_1,1),sfItemAmount(MagicExpansionItems.COLOR_TERRACOTTA_1,4),sfItemAmount(MagicExpansionItems.COLOR_LOG_1,6),
+                                sfItemAmount(MagicExpansionItems.GLASS_1,4),sfItemAmount(MagicExpansionItems.COLOR_LEAVES_1,5),sfItemAmount(MagicExpansionItems.COBBLESTONE_1,7),
+                                NamedTagBuilder.nameTag("SakuraShop"),MagicExpansionItems.SPACE_INFINITY_MAGIC},
+                        new ItemStack[] {MagicExpansionItems.PRE_BUILDING_SAKURA_SHOP})
+                .addRecipe(20,new ItemStack[] {
+                                sfItemAmount(MagicExpansionItems.OAK_LOG_1,35),sfItemAmount(MagicExpansionItems.COBBLESTONE_1,16),sfItemAmount(MagicExpansionItems.COLOR_WOOL_1,3),
+                                sfItemAmount(MagicExpansionItems.GLASS_1,7),sfItemAmount(MagicExpansionItems.IRON_INGOT_1,3),sfItemAmount(MagicExpansionItems.LIGHT_1,3),
+                                NamedTagBuilder.nameTag("KrustyKrab"),MagicExpansionItems.SPACE_INFINITY_MAGIC},
+                        new ItemStack[] {MagicExpansionItems.PRE_BUILDING_KRUSTY_KRAB})
+
                 .register(plugin);
 
         //泥土园

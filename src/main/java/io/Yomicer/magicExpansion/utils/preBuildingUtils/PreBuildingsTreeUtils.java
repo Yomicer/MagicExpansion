@@ -76,10 +76,14 @@ public class PreBuildingsTreeUtils {
                         pasteLocation.getBlockZ() + blockData.z
                 );
 
-                if (blockData.blockState != null && !blockData.blockState.isEmpty()) {
-                    location.getBlock().setBlockData(Bukkit.createBlockData(blockData.blockState));
-                } else {
-                    location.getBlock().setType(Material.valueOf(blockData.type));
+                try {
+                    if (blockData.blockState != null && !blockData.blockState.isEmpty()) {
+                        location.getBlock().setBlockData(Bukkit.createBlockData(blockData.blockState));
+                    } else {
+                        location.getBlock().setType(Material.valueOf(blockData.type));
+                    }
+                } catch (IllegalArgumentException e) {
+                    location.getBlock().setType(Material.GLASS);
                 }
             }
 
