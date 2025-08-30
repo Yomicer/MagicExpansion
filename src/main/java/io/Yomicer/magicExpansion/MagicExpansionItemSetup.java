@@ -10,6 +10,7 @@ import io.Yomicer.magicExpansion.items.electric.resourceGenerator.ResourceMachin
 import io.Yomicer.magicExpansion.items.electric.resourceGenerator.ResourceRandomOneMachine;
 import io.Yomicer.magicExpansion.items.enchantMachine.EnchantingTable;
 import io.Yomicer.magicExpansion.items.misc.*;
+import io.Yomicer.magicExpansion.items.misc.fish.CommonFish;
 import io.Yomicer.magicExpansion.items.preBuildings.PreBuildingTree;
 import io.Yomicer.magicExpansion.items.quickMachine.*;
 import io.Yomicer.magicExpansion.items.skyBlock.SingleCubeOre;
@@ -35,10 +36,15 @@ import io.github.thebusybiscuit.slimefun4.implementation.items.geo.GEOMiner;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static io.Yomicer.magicExpansion.core.MagicExpansionItems.*;
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
@@ -84,7 +90,7 @@ public final class MagicExpansionItemSetup {
             new CustomItemStack(doGlow(Material.MAGENTA_GLAZED_TERRACOTTA), getGradientName("快捷机器")), 4
     );
 
-    private static final ItemGroup magicexpansionresourcegenerator = new SubItemGroup(
+    public static final ItemGroup magicexpansionresourcegenerator = new SubItemGroup(
             new NamespacedKey(MagicExpansion.getInstance(), "resourcegenerator"), magicexpansion,
             new CustomItemStack(doGlow(Material.LANTERN), ColorGradient.getGradientName("资源生成器")), 5
     );
@@ -141,6 +147,11 @@ public final class MagicExpansionItemSetup {
     public static final ItemGroup magicexpansionrscmagic = new SubItemGroup(
             new NamespacedKey(MagicExpansion.getInstance(), "rscmagic"), magicexpansion,
             new CustomItemStack(CustomHead.MAGICSOLO.getItem(), ColorGradient.getRandomGradientName("魔法-1.21修复/优化~物品/机器")), 10
+    );
+
+    public static final ItemGroup magicexpansionfishing = new SubItemGroup(
+            new NamespacedKey(MagicExpansion.getInstance(), "fishing"), magicexpansion,
+            new CustomItemStack(doGlow(Material.FISHING_ROD), ColorGradient.getGradientName("钓鱼佬")), 10
     );
 
     public static final ItemGroup magicexpansionnonsensical = new SubItemGroup(
@@ -288,6 +299,12 @@ public final class MagicExpansionItemSetup {
         }).register(plugin);
         //更新日志
         new UnplaceableBlock(magicexpansionupdateinfo, MagicExpansionItems.UPDATE_LOG_2025_08_29, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
+        //更新日志
+        new UnplaceableBlock(magicexpansionupdateinfo, MagicExpansionItems.UPDATE_LOG_2025_08_30, SPECIAL_RECIPE_TYPE, new ItemStack[] {
                 null, null, null,
                 null, null, null,
                 null, null, null
@@ -451,6 +468,148 @@ public final class MagicExpansionItemSetup {
                 new ItemStack(Material.SUGAR_CANE),MAGIC_EXPANSION_MAGIC_SUGAR_37,new ItemStack(Material.SUGAR_CANE),
                 new ItemStack(Material.SUGAR_CANE),new ItemStack(Material.SUGAR_CANE),new ItemStack(Material.SUGAR_CANE)
         }).register(plugin);
+
+
+        // 自定义
+        new FishingRod(magicexpansionfishing, MagicExpansionItems.FISHING_ROD_LOG, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                null,null,new ItemStack(Material.OAK_LOG),
+                null,new ItemStack(Material.CHERRY_LOG),new ItemStack(Material.STRING),
+                new ItemStack(Material.BIRCH_LOG),null, AMETHYST_SHARD
+        }, new HashMap<>() {{
+            put(Enchantment.LUCK, 1);
+            put(Enchantment.LURE, 5);
+        }}, false,
+                Map.of(
+                        "default", List.of(
+                                new WeightedItem(new ItemStack(Material.OAK_LOG), 1),
+                                new WeightedItem(new ItemStack(Material.ACACIA_LOG), 1),
+                                new WeightedItem(new ItemStack(Material.JUNGLE_LOG), 1),
+                                new WeightedItem(new ItemStack(Material.BIRCH_LOG), 1),
+                                new WeightedItem(new ItemStack(Material.CHERRY_LOG), 1),
+                                new WeightedItem(new ItemStack(Material.SPRUCE_LOG), 1),
+                                new WeightedItem(new ItemStack(Material.DARK_OAK_LOG), 1),
+                                new WeightedItem(new ItemStack(Material.MANGROVE_LOG), 1),
+                                new WeightedItem(new ItemStack(Material.CRIMSON_STEM), 1),
+                                new WeightedItem(new ItemStack(Material.WARPED_STEM), 1)
+                        )
+                )).register(plugin);
+
+        // 萌新钓竿
+        new FishingRod(magicexpansionfishing, MagicExpansionItems.FISHING_ROD_NEW_PLAYER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                null,null,new ItemStack(Material.STICK),
+                null,new ItemStack(Material.STICK),new ItemStack(Material.STRING),
+                new ItemStack(Material.STICK),null,SlimefunItems.MAGIC_SUGAR
+        }, new HashMap<>() {{
+            put(Enchantment.LUCK, 1);
+            put(Enchantment.LURE, 2);
+        }}, false,
+                Map.of(
+                        "magic_sugar", List.of(
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_1, 5),
+                                new WeightedItem(SlimefunItems.MAGIC_LUMP_1, 70),
+                                new WeightedItem(SlimefunItems.MAGIC_LUMP_2, 10),
+                                new WeightedItem(SlimefunItems.MAGIC_LUMP_3, 2),
+                                new WeightedItem(SlimefunItems.ENDER_LUMP_1, 70),
+                                new WeightedItem(SlimefunItems.ENDER_LUMP_2, 10),
+                                new WeightedItem(SlimefunItems.ENDER_LUMP_3, 2),
+                                new WeightedItem(SlimefunItems.MAGICAL_GLASS, 8),
+                                new WeightedItem(SlimefunItems.MAGICAL_BOOK_COVER, 8),
+                                new WeightedItem(SlimefunItems.LAVA_CRYSTAL, 1),
+                                new WeightedItem(SlimefunItems.COMMON_TALISMAN, 3),
+                                new WeightedItem(SlimefunItems.NECROTIC_SKULL, 1),
+                                new WeightedItem(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1),
+                                new WeightedItem(SlimefunItems.SYNTHETIC_SHULKER_SHELL, 1),
+                                new WeightedItem(SlimefunItems.BLANK_RUNE, 22),
+                                new WeightedItem(SlimefunItems.AIR_RUNE, 2),
+                                new WeightedItem(SlimefunItems.EARTH_RUNE, 2),
+                                new WeightedItem(SlimefunItems.FIRE_RUNE, 2),
+                                new WeightedItem(SlimefunItems.WATER_RUNE, 2),
+                                new WeightedItem(SlimefunItems.ENDER_RUNE, 2),
+                                new WeightedItem(SlimefunItems.LIGHTNING_RUNE, 1),
+                                new WeightedItem(SlimefunItems.RAINBOW_RUNE, 1),
+                                new WeightedItem(SlimefunItems.SOULBOUND_RUNE, 1),
+                                new WeightedItem(SlimefunItems.ENCHANTMENT_RUNE, 1),
+                                new WeightedItem(SlimefunItems.VILLAGER_RUNE, 1),
+                                new WeightedItem(SlimefunItems.STRANGE_NETHER_GOO, 1),
+                                new WeightedItem(SlimefunItems.RAINBOW_LEATHER, 1),
+                                new WeightedItem(RANDOM_FISH_COMMON, 1),
+                                new WeightedItem(RANDOM_FISH_UNCOMMON, 1)
+                        ),
+                        "bread", List.of(
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.COD),"§b迷路的生鳕鱼",getGradientName("这是谁家的鳕鱼？")), 200),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.SALMON),"§b晕头转向的生鲑鱼",getGradientName("有没有听过洄鲑阵法？")), 200),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.TROPICAL_FISH),"§b有1.4的热带鱼",getGradientName("热带鱼是怎么跑到中远河里的？")), 50),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PUFFERFISH),"§b发绿的河豚",getGradientName("这东西可不能乱吃哦~")), 90),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.POTION),"§b神秘的药剂",getGradientName("也许能喝吧？")), 40),
+                                new WeightedItem(new ItemStack(Material.HONEY_BOTTLE,15), 30),
+                                new WeightedItem(RANDOM_FISH_COMMON, 400),
+                                new WeightedItem(RANDOM_FISH_UNCOMMON, 100),
+                                new WeightedItem(RANDOM_FISH_RARE, 27),
+                                new WeightedItem(RANDOM_FISH_EPIC, 6)
+                        ),
+                        "default", List.of(
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.SUGAR_CANE),"§b腐烂的甘蔗",getGradientName("河里怎么会有甘蔗呢？")), 8),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.STICK),"§b锟斤拷",getGradientName("这是什么东西呢？")), 8),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.INK_SAC),"§b新鲜的墨囊",getGradientName("谁家好人把墨囊丢在河里啊？")), 8),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.CAKE),"§b隔夜的蛋糕",getGradientName("蛋糕吃不完了？")), 8),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.REDSTONE,8),"§b8-bit 红石",getGradientName("一把刚好8个？")), 8),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.DISPENSER,8),"§b粘液科技要用到的发射器",getGradientName("放地上就好了？")), 8),
+                                new WeightedItem(RANDOM_FISH_COMMON, 1)
+                        )
+                )).register(plugin);
+
+        //钓鱼说明
+        new UnplaceableBlock(magicexpansionfishing, FISHING_INFO, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
+        //鱼类说明
+        new UnplaceableBlock(magicexpansionfishing, FISH_CATEGORY_INFO, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
+
+        // 普通鱼
+        new CommonFish(magicexpansionfishing, RANDOM_FISH_COMMON, RecipeType.NULL, new ItemStack[] {
+                null,null,null,
+                null,new CustomItemStack(new ItemStack(doGlow(Material.FISHING_ROD)),getGradientName("钓鱼有概率获取"), ColorGradient.getGradientName("通过魔法2.0系列鱼杆钓取"),getGradientName("很常见的鱼")),null,
+                null,null,null
+        }).register(plugin);
+        // 普通鱼
+        new CommonFish(magicexpansionfishing, RANDOM_FISH_UNCOMMON, RecipeType.NULL, new ItemStack[] {
+                null,null,null,
+                null,new CustomItemStack(new ItemStack(doGlow(Material.FISHING_ROD)),getGradientName("钓鱼有概率获取"), ColorGradient.getGradientName("通过魔法2.0系列鱼杆钓取"),getGradientName("比较罕见的鱼")),null,
+                null,null,null
+        }).register(plugin);
+        // 普通鱼
+        new CommonFish(magicexpansionfishing, RANDOM_FISH_RARE, RecipeType.NULL, new ItemStack[] {
+                null,null,null,
+                null,new CustomItemStack(new ItemStack(doGlow(Material.FISHING_ROD)),getGradientName("钓鱼有概率获取"), ColorGradient.getGradientName("通过魔法2.0系列鱼杆钓取"),getGradientName("出没地点隐秘，且停留时间极短，可能对某些鱼饵有一定兴趣")),null,
+                null,null,null
+        }).register(plugin);
+        // 普通鱼
+        new CommonFish(magicexpansionfishing, RANDOM_FISH_EPIC, RecipeType.NULL, new ItemStack[] {
+                null,null,null,
+                null,new CustomItemStack(new ItemStack(doGlow(Material.FISHING_ROD)),getGradientName("钓鱼有概率获取"), ColorGradient.getGradientName("通过魔法2.0系列鱼杆钓取"),getGradientName("极少有人能证明它真的存在，不使用特殊鱼饵几乎无法碰见")),null,
+                null,null,null
+        }).register(plugin);
+        // 普通鱼
+        new CommonFish(magicexpansionfishing, RANDOM_FISH_LEGENDARY, RecipeType.NULL, new ItemStack[] {
+                null,null,null,
+                null,new CustomItemStack(new ItemStack(doGlow(Material.FISHING_ROD)),getGradientName("钓鱼有概率获取"), ColorGradient.getGradientName("通过魔法2.0系列鱼杆钓取"),getGradientName("只存在于古老传说中，现实是否存疑，只有传说中的鱼饵才有些许概率能够遇到")),null,
+                null,null,null
+        }).register(plugin);
+
+
+
+
+
+
+
+
+
 
         // 烈火僵尸BOSS
         new FireZombie(magicexpansionboss, MagicExpansionItems.FIRE_ZOMBIE, SPECIAL_RECIPE_TYPE, new ItemStack[] {

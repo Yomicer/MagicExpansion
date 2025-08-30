@@ -26,7 +26,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 14"),
+            getGradientName("Version: Build 15"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -620,6 +620,28 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2025_08_01 = createDefaultItemGlow("UPDATE_LOG_2025_08_01",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_08_27 = createDefaultItemGlow("UPDATE_LOG_2025_08_27",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_08_29 = createDefaultItemGlow("UPDATE_LOG_2025_08_29",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2025_08_30 = createDefaultItemGlow("UPDATE_LOG_2025_08_30",Material.PAPER);
+
+
+
+    public static final SlimefunItemStack FISHING_ROD_LOG = createDefaultItem("FISHING_ROD_LOG",Material.FISHING_ROD);
+    public static final SlimefunItemStack FISHING_ROD_NEW_PLAYER = createDefaultItem("FISHING_ROD_NEW_PLAYER",Material.FISHING_ROD);
+
+
+
+    public static final SlimefunItemStack FISHING_INFO = createDefaultItemGlow("FISHING_INFO",Material.PAPER);
+    public static final SlimefunItemStack FISH_CATEGORY_INFO = createDefaultItemGlow("FISH_CATEGORY_INFO",Material.PAPER);
+
+    public static final SlimefunItemStack RANDOM_FISH_COMMON = themed("RANDOM_FISH_COMMON",Material.COD_BUCKET,
+            get("Items.RANDOM_FISH_COMMON.Name"),getList("Items.RANDOM_FISH_COMMON.Lore"));
+    public static final SlimefunItemStack RANDOM_FISH_UNCOMMON = themed("RANDOM_FISH_UNCOMMON",Material.SALMON_BUCKET,
+            get("Items.RANDOM_FISH_UNCOMMON.Name"),getList("Items.RANDOM_FISH_UNCOMMON.Lore"));
+    public static final SlimefunItemStack RANDOM_FISH_RARE = themed("RANDOM_FISH_RARE",Material.PUFFERFISH_BUCKET,
+            get("Items.RANDOM_FISH_RARE.Name"),getList("Items.RANDOM_FISH_RARE.Lore"));
+    public static final SlimefunItemStack RANDOM_FISH_EPIC = themed("RANDOM_FISH_EPIC",Material.TROPICAL_FISH_BUCKET,
+            get("Items.RANDOM_FISH_EPIC.Name"),getList("Items.RANDOM_FISH_EPIC.Lore"));
+    public static final SlimefunItemStack RANDOM_FISH_LEGENDARY = themed("RANDOM_FISH_LEGENDARY",Material.AXOLOTL_BUCKET,
+            get("Items.RANDOM_FISH_LEGENDARY.Name"),getList("Items.RANDOM_FISH_LEGENDARY.Lore"));
 
 
 
@@ -773,6 +795,11 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack POWER_FIRE_STABILITY = createDefaultPowerMachine("POWER_FIRE_STABILITY",Material.SOUL_CAMPFIRE);
     public static final SlimefunItemStack POWER_COLOR_EGG_BLOCK = createDefaultPowerMachine("POWER_COLOR_EGG_BLOCK",Material.SNOW_BLOCK);
     public static final SlimefunItemStack POWER_COLOR_EGG_KEY = createDefaultPowerMachine("POWER_COLOR_EGG_KEY",Material.TINTED_GLASS);
+
+
+
+    public static final SlimefunItemStack POWER_FISH_ELECTRIC = createDefaultPowerMachine("POWER_FISH_ELECTRIC",Material.SEA_LANTERN);
+    public static final SlimefunItemStack FISH_VIVARIUM = createDefaultPowerMachine("FISH_VIVARIUM",Material.LIGHT_BLUE_STAINED_GLASS_PANE);
 
 
 

@@ -1,7 +1,5 @@
 package io.Yomicer.magicExpansion.Listener;
 
-import io.Yomicer.magicExpansion.MagicExpansion;
-import io.Yomicer.magicExpansion.MagicExpansionQuickMachineSetup;
 import io.Yomicer.magicExpansion.utils.log.Debug;
 import io.github.thebusybiscuit.slimefun4.api.events.SlimefunItemRegistryFinalizedEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
@@ -14,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.*;
 
 public class SlimefunRegistryFinalized implements Listener {
+
 
 
     // 预加载的 磨石 配方列表（静态常量）
