@@ -23,17 +23,36 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.util.Vector;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+
 
 public class PlayerFishingListener implements Listener {
 
     // 所有鱼饵类型（优先级顺序）
     private static final List<Lure> LURES = List.of(
             new MoreLure(SlimefunItems.MAGIC_SUGAR,"magic_sugar"),
-            new MoreLure(new ItemStack(Material.BREAD),"bread")
+            new MoreLure(new ItemStack(Material.BREAD),"bread"),
+            new MoreLure(MagicExpansionItems.FISH_LURE_BASIC,"fishLureBasic"),
+            new MoreLure(MagicExpansionItems.FISH_LURE_DUST,"fishLureDust"),
+            new MoreLure(MagicExpansionItems.FISH_LURE_ORE,"fishLureOre")
     );
+
+    private static final Set<ItemStack> RANDOM_FISH_TYPES = new HashSet<>();
+
+    static {
+        RANDOM_FISH_TYPES.add(MagicExpansionItems.RANDOM_FISH_COMMON);
+        RANDOM_FISH_TYPES.add(MagicExpansionItems.RANDOM_FISH_UNCOMMON);
+        RANDOM_FISH_TYPES.add(MagicExpansionItems.RANDOM_FISH_RARE);
+        RANDOM_FISH_TYPES.add(MagicExpansionItems.RANDOM_FISH_RARE_POOL_DUST);
+        RANDOM_FISH_TYPES.add(MagicExpansionItems.RANDOM_FISH_RARE_POOL_ORE);
+        RANDOM_FISH_TYPES.add(MagicExpansionItems.RANDOM_FISH_EPIC);
+        RANDOM_FISH_TYPES.add(MagicExpansionItems.RANDOM_FISH_LEGENDARY);
+
+    }
+
 
     @EventHandler
     public void onFish(PlayerFishEvent e) {
@@ -76,16 +95,8 @@ public class PlayerFishingListener implements Listener {
             item.remove();
         }
 
-        // 如果是 Slimefun 随机鱼，则替换为具体鱼
-        if (SlimefunUtils.isItemSimilar(drop, MagicExpansionItems.RANDOM_FISH_COMMON, true)
-                || SlimefunUtils.isItemSimilar(drop, MagicExpansionItems.RANDOM_FISH_UNCOMMON, true)
-                || SlimefunUtils.isItemSimilar(drop, MagicExpansionItems.RANDOM_FISH_RARE, true)
-                || SlimefunUtils.isItemSimilar(drop, MagicExpansionItems.RANDOM_FISH_EPIC, true)
-                || SlimefunUtils.isItemSimilar(drop, MagicExpansionItems.RANDOM_FISH_LEGENDARY, true)
-        ) {
-
-            drop = FishKeys.enchantDropWithFishData(player, drop);
-
+        if (isRandomFish(drop)) {
+            drop = FishKeys.enchantDropWithFishData(player, drop, rod);
         }
 
 
@@ -118,6 +129,17 @@ public class PlayerFishingListener implements Listener {
             "☀ 今日晴，适合欧：",
             "☁ 今天非酋附体："
     );
+
+    private boolean isRandomFish(ItemStack item) {
+        if (item == null || item.getType().isAir()) return false;
+        for (ItemStack randomFish : RANDOM_FISH_TYPES) {
+            if (SlimefunUtils.isItemSimilar(item, randomFish, true)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     private ItemStack getSmartLoot(Player player, FishingRod fishingRod) {
         Set<String> supportedKeys = fishingRod.getLootTable().keySet();

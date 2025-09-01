@@ -20,6 +20,7 @@ import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.inventory.DirtyChestMenu;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -27,9 +28,7 @@ import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static io.Yomicer.magicExpansion.items.misc.fish.Fish.*;
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
@@ -39,24 +38,41 @@ public class FishOutputMachine extends MenuBlock implements EnergyNetProvider, R
 
     private final int Capacity;
     public static final int ENERGY_CONSUMPTION = 500;
-    private final String fishTypeCopperDust = "CopperDustFish";
-    private final SlimefunItemStack outputCopperDust = SlimefunItems.COPPER_DUST;
-    private final String fishTypeGoldDust = "GoldDustFish";
-    private final SlimefunItemStack outputGoldDust = SlimefunItems.GOLD_DUST;
-    private final String fishTypeIronDust = "IronDustFish";
-    private final SlimefunItemStack outputIronDust = SlimefunItems.IRON_DUST;
-    private final String fishTypeTinDust = "TinDustFish";
-    private final SlimefunItemStack outputTinDust = SlimefunItems.TIN_DUST;
-    private final String fishTypeSilverDust = "SilverDustFish";
-    private final SlimefunItemStack outputSilverDust = SlimefunItems.SILVER_DUST;
-    private final String fishTypeAluminumDust = "AluminumDustFish";
-    private final SlimefunItemStack outputAluminumDust = SlimefunItems.ALUMINUM_DUST;
-    private final String fishTypeLeadDust = "LeadDustFish";
-    private final SlimefunItemStack outputLeadDust = SlimefunItems.LEAD_DUST;
-    private final String fishTypeZincDust = "ZincDustFish";
-    private final SlimefunItemStack outputZincDust = SlimefunItems.ZINC_DUST;
-    private final String fishTypeMagnesiumDust = "MagnesiumDustFish";
-    private final SlimefunItemStack outputMagnesiumDust = SlimefunItems.MAGNESIUM_DUST;
+
+    // 1. 定义所有鱼类型与输出物品的映射（集中管理，易扩展）
+    private final Map<String, ItemStack> FISH_OUTPUT_MAP = new HashMap<>() {{
+        put("CopperDustFish",     SlimefunItems.COPPER_DUST);
+        put("GoldDustFish",       SlimefunItems.GOLD_DUST);
+        put("IronDustFish",       SlimefunItems.IRON_DUST);
+        put("TinDustFish",        SlimefunItems.TIN_DUST);
+        put("SilverDustFish",     SlimefunItems.SILVER_DUST);
+        put("AluminumDustFish",   SlimefunItems.ALUMINUM_DUST);
+        put("LeadDustFish",       SlimefunItems.LEAD_DUST);
+        put("ZincDustFish",       SlimefunItems.ZINC_DUST);
+        put("MagnesiumDustFish",  SlimefunItems.MAGNESIUM_DUST);
+        // 🔶 煤晶鱼 → 煤炭
+        put("CoalFish", new ItemStack(Material.COAL));
+        // 💚 翠宝鱼 → 绿宝石
+        put("EmeraldFish", new ItemStack(Material.EMERALD));
+        // 🔷 靛灵鱼 → 青金石
+        put("LapisFish", new ItemStack(Material.LAPIS_LAZULI));
+        // 💎 晶耀鱼 → 钻石
+        put("DiamondFish", new ItemStack(Material.DIAMOND));
+        // 🔴 焰晶鱼 → 下界石英
+        put("QuartzFish", new ItemStack(Material.QUARTZ));
+        // 🟣 震颤鱼 → 紫水晶碎片
+        put("AmethystFish", new ItemStack(Material.AMETHYST_SHARD));
+        // ⚫ 铁核鱼 → 铁锭
+        put("IronFish", new ItemStack(Material.IRON_INGOT));
+        // 🟡 鎏核鱼 → 金锭
+        put("GoldFish", new ItemStack(Material.GOLD_INGOT));
+        // 🟠 铜脉鱼 → 铜锭
+        put("CopperFish", new ItemStack(Material.COPPER_INGOT));
+        // ⚔️ 狱铸鱼 → 下界合金锭
+        put("NetheriteFish", new ItemStack(Material.NETHERITE_INGOT));
+        // ⚔️ 灯笼鱼 → 萤石粉
+        put("GlowStoneDustFish", new ItemStack(Material.GLOWSTONE_DUST));
+    }};
 
 
     public FishOutputMachine(ItemGroup category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int Capacity) {
@@ -106,64 +122,29 @@ public class FishOutputMachine extends MenuBlock implements EnergyNetProvider, R
         if(meta != null) {
 
             PersistentDataContainer pdc = meta.getPersistentDataContainer();
+            // 读取PDC数据
+            String fishType = pdc.get(FishKeys.FISH_TYPE, PersistentDataType.STRING);
+            Double weight = pdc.get(FishKeys.FISH_WEIGHT, PersistentDataType.DOUBLE);
+            String weightRarityName = pdc.get(FishKeys.FISH_WEIGHT_RARITY, PersistentDataType.STRING);
 
-            String fishType = null;
-            double weight = 0.0;
-            String weightRarityName = null;
-
-            if (pdc.has(FishKeys.FISH_TYPE, PersistentDataType.STRING)) {
-                fishType = pdc.get(FishKeys.FISH_TYPE, PersistentDataType.STRING);
-            }
-            if (pdc.has(FishKeys.FISH_WEIGHT, PersistentDataType.DOUBLE)) {
-                weight = pdc.get(FishKeys.FISH_WEIGHT, PersistentDataType.DOUBLE);
-            }
-            if (pdc.has(FishKeys.FISH_WEIGHT_RARITY, PersistentDataType.STRING)) {
-                weightRarityName = pdc.get(FishKeys.FISH_WEIGHT_RARITY, PersistentDataType.STRING);
+            // 基础校验
+            if (fishType == null || weight == null || weight == 0.0 || weightRarityName == null) {
+                return ;
             }
 
-            if (Objects.equals(fishType, fishTypeCopperDust) && weight != 0.0 && weightRarityName != null) {
-                int num = (int) weight*Fish.WeightRarity.getMultiplierByName(weightRarityName);
-                if(num <=0) num =1;
-                outItems = new SlimefunItemStack(outputCopperDust,num);
-            } else if (Objects.equals(fishType, fishTypeGoldDust) && weight != 0.0 && weightRarityName != null) {
-                int num = (int) weight*Fish.WeightRarity.getMultiplierByName(weightRarityName);
-                if(num <=0) num =1;
-                outItems = new SlimefunItemStack(outputGoldDust,num);
-            }else if (Objects.equals(fishType, fishTypeIronDust) && weight != 0.0 && weightRarityName != null) {
-                int num = (int) (weight * Fish.WeightRarity.getMultiplierByName(weightRarityName));
-                if (num <= 0) num = 1;
-                outItems = new SlimefunItemStack(outputIronDust, num);
+            // 从映射中查找对应输出物品
+            ItemStack baseOutput = FISH_OUTPUT_MAP.get(fishType).clone();
+            if (baseOutput != null) {
+
+                int multiplier = Fish.WeightRarity.getMultiplierByName(weightRarityName);
+                int amount = (int) (weight * multiplier);
+                if (amount <= 0) amount = 1;
+
+                baseOutput.setAmount(amount);
+                outItems = baseOutput;
+
             }
-            else if (Objects.equals(fishType, fishTypeTinDust) && weight != 0.0 && weightRarityName != null) {
-                int num = (int) (weight * Fish.WeightRarity.getMultiplierByName(weightRarityName));
-                if (num <= 0) num = 1;
-                outItems = new SlimefunItemStack(outputTinDust, num);
-            }
-            else if (Objects.equals(fishType, fishTypeSilverDust) && weight != 0.0 && weightRarityName != null) {
-                int num = (int) (weight * Fish.WeightRarity.getMultiplierByName(weightRarityName));
-                if (num <= 0) num = 1;
-                outItems = new SlimefunItemStack(outputSilverDust, num);
-            }
-            else if (Objects.equals(fishType, fishTypeAluminumDust) && weight != 0.0 && weightRarityName != null) {
-                int num = (int) (weight * Fish.WeightRarity.getMultiplierByName(weightRarityName));
-                if (num <= 0) num = 1;
-                outItems = new SlimefunItemStack(outputAluminumDust, num);
-            }
-            else if (Objects.equals(fishType, fishTypeLeadDust) && weight != 0.0 && weightRarityName != null) {
-                int num = (int) (weight * Fish.WeightRarity.getMultiplierByName(weightRarityName));
-                if (num <= 0) num = 1;
-                outItems = new SlimefunItemStack(outputLeadDust, num);
-            }
-            else if (Objects.equals(fishType, fishTypeZincDust) && weight != 0.0 && weightRarityName != null) {
-                int num = (int) (weight * Fish.WeightRarity.getMultiplierByName(weightRarityName));
-                if (num <= 0) num = 1;
-                outItems = new SlimefunItemStack(outputZincDust, num);
-            }
-            else if (Objects.equals(fishType, fishTypeMagnesiumDust) && weight != 0.0 && weightRarityName != null) {
-                int num = (int) (weight * Fish.WeightRarity.getMultiplierByName(weightRarityName));
-                if (num <= 0) num = 1;
-                outItems = new SlimefunItemStack(outputMagnesiumDust, num);
-            }
+
 
         }
         if (outItems != null && inv != null) {
@@ -263,32 +244,58 @@ public class FishOutputMachine extends MenuBlock implements EnergyNetProvider, R
         display.add(new CustomItemStack(CustomHead.getHead("26314d31b095e4d421760497be6a156f459d8c9957b7e6b1c12deb4e47860d71"),getGradientName("支持的鱼类 ⇨")));
         display.add(new CustomItemStack(CustomHead.getHead("26314d31b095e4d421760497be6a156f459d8c9957b7e6b1c12deb4e47860d71"),getGradientName("产出的产物 ⇨")));
 
-        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET,CopperDustFish.getDisplayName(),getGradientName("每秒产出个数："+ " 重量 * 魔法鱼稀有程度 ")));
-        display.add(outputCopperDust);
+//        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET,CopperDustFish.getDisplayName(),getGradientName("每秒产出个数："+ " 重量 * 魔法鱼稀有程度 ")));
+//        display.add(outputCopperDust);
+//
+//        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET, GoldDustFish.getDisplayName(), getGradientName("每秒产出个数：" + " 重量 * 魔法鱼稀有程度 ")));
+//        display.add(outputGoldDust);
+//
+//        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET, IronDustFish.getDisplayName(), getGradientName("每秒产出个数：" + " 重量 * 魔法鱼稀有程度 ")));
+//        display.add(outputIronDust);
+//
+//        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET, TinDustFish.getDisplayName(), getGradientName("每秒产出个数：" + " 重量 * 魔法鱼稀有程度 ")));
+//        display.add(outputTinDust);
+//
+//        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET, SilverDustFish.getDisplayName(), getGradientName("每秒产出个数：" + " 重量 * 魔法鱼稀有程度 ")));
+//        display.add(outputSilverDust);
+//
+//        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET, AluminumDustFish.getDisplayName(), getGradientName("每秒产出个数：" + " 重量 * 魔法鱼稀有程度 ")));
+//        display.add(outputAluminumDust);
+//
+//        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET, LeadDustFish.getDisplayName(), getGradientName("每秒产出个数：" + " 重量 * 魔法鱼稀有程度 ")));
+//        display.add(outputLeadDust);
+//
+//        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET, ZincDustFish.getDisplayName(), getGradientName("每秒产出个数：" + " 重量 * 魔法鱼稀有程度 ")));
+//        display.add(outputZincDust);
+//
+//        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET, MagnesiumDustFish.getDisplayName(), getGradientName("每秒产出个数：" + " 重量 * 魔法鱼稀有程度 ")));
+//        display.add(outputMagnesiumDust);
 
-        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET, GoldDustFish.getDisplayName(), getGradientName("每秒产出个数：" + " 重量 * 魔法鱼稀有程度 ")));
-        display.add(outputGoldDust);
 
-        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET, IronDustFish.getDisplayName(), getGradientName("每秒产出个数：" + " 重量 * 魔法鱼稀有程度 ")));
-        display.add(outputIronDust);
+        for (Map.Entry<String, ItemStack> entry : FISH_OUTPUT_MAP.entrySet()) {
+            String fishTypeName = entry.getKey();
+            Fish fish = Fish.fromString(fishTypeName);
+            if (fish == null) {
+                continue; // 跳过无效类型
+            }
+            ItemStack output = entry.getValue();
 
-        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET, TinDustFish.getDisplayName(), getGradientName("每秒产出个数：" + " 重量 * 魔法鱼稀有程度 ")));
-        display.add(outputTinDust);
-
-        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET, SilverDustFish.getDisplayName(), getGradientName("每秒产出个数：" + " 重量 * 魔法鱼稀有程度 ")));
-        display.add(outputSilverDust);
-
-        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET, AluminumDustFish.getDisplayName(), getGradientName("每秒产出个数：" + " 重量 * 魔法鱼稀有程度 ")));
-        display.add(outputAluminumDust);
-
-        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET, LeadDustFish.getDisplayName(), getGradientName("每秒产出个数：" + " 重量 * 魔法鱼稀有程度 ")));
-        display.add(outputLeadDust);
-
-        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET, ZincDustFish.getDisplayName(), getGradientName("每秒产出个数：" + " 重量 * 魔法鱼稀有程度 ")));
-        display.add(outputZincDust);
-
-        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET, MagnesiumDustFish.getDisplayName(), getGradientName("每秒产出个数：" + " 重量 * 魔法鱼稀有程度 ")));
-        display.add(outputMagnesiumDust);
+            display.add(new CustomItemStack(
+                    Material.PUFFERFISH_BUCKET,
+                    fish.getDisplayName(),
+                    getGradientName("每秒产出个数：重量 × 魔法鱼体重稀有程度")
+            ));
+            display.add(output);
+        }
         return display;
     }
+
+
+
+    private static void addDisplay(List<ItemStack> l,Material m, String s, ItemStack i){
+        l.add(new CustomItemStack(m, s, getGradientName("每秒产出个数：" + " 重量 * 魔法鱼稀有程度 ")));
+        l.add(i);
+    }
+
 }
+

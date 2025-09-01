@@ -24,48 +24,38 @@ public class FishKeys {
     // 可选：存储重量稀有度（字符串）
     public static final NamespacedKey FISH_WEIGHT_RARITY = new NamespacedKey(JavaPlugin.getPlugin(MagicExpansion.class), "fish_weight_rarity");
 
-    // 映射：Slimefun 物品 → 对应的 Fish 池（按基础稀有度）
-    private static final Map<SlimefunItemStack, List<Fish>> LOOT_TABLE = new HashMap<>();
 
-    static {
-        // COMMON 鱼池
-        LOOT_TABLE.put(MagicExpansionItems.RANDOM_FISH_COMMON, Arrays.asList(
-                Fish.SanWenFish,
-                Fish.XueFish
-        ));
+    // ✅ 定义：物品 → 对应的稀有度（集中管理，易扩展）
+    private static final Map<ItemStack, Fish.Rarity> RARITY_ITEM_MAP = new HashMap<>() {{
+        put(MagicExpansionItems.RANDOM_FISH_COMMON,           Fish.Rarity.COMMON);
+        put(MagicExpansionItems.RANDOM_FISH_UNCOMMON,         Fish.Rarity.UNCOMMON);
+        put(MagicExpansionItems.RANDOM_FISH_RARE,             Fish.Rarity.RARE);
+        put(MagicExpansionItems.RANDOM_FISH_RARE_POOL_DUST,   Fish.Rarity.RARE_POOL_DUST);
+        put(MagicExpansionItems.RANDOM_FISH_RARE_POOL_ORE,    Fish.Rarity.RARE_POOL_ORE);
+        put(MagicExpansionItems.RANDOM_FISH_EPIC,             Fish.Rarity.EPIC);
+        put(MagicExpansionItems.RANDOM_FISH_LEGENDARY,        Fish.Rarity.LEGENDARY);
+        // 👉 想加新稀有度？直接 put 一行即可！
+    }};
 
-//        // RARE 鱼池
-//        LOOT_TABLE.put(MagicExpansionItems.RANDOM_FISH_RARE, Arrays.asList(
-//                Fish.PUFFERFISH,
-//                Fish.TROPICAL_FISH
-//        ));
-//
-//        // EPIC 鱼池
-//        LOOT_TABLE.put(MagicExpansionItems.RANDOM_FISH_EPIC, Arrays.asList(
-//                Fish.MYSTIC_EEL,
-//                Fish.LEGENDARY_BASS
-//        ));
-    }
+    private static final Set<ItemStack> MAGIC_FISHING_RODS_NEW = new HashSet<>(Arrays.asList(
 
+            MagicExpansionItems.FISHING_ROD_NEW_PLAYER
 
-    public static ItemStack enchantDropWithFishData(Player player, ItemStack drop) {
+    ));
+    private static final Set<ItemStack> MAGIC_FISHING_RODS_ADVANCED = new HashSet<>(Arrays.asList(
+
+            MagicExpansionItems.FISHING_ROD_WIND_SPEAKER
+
+    ));
+    public static ItemStack enchantDropWithFishData(Player player, ItemStack drop, ItemStack rod) {
         Fish.Rarity targetRarity = null;
 
-        // 判断是哪种随机鱼
-        if (SlimefunUtils.isItemSimilar(drop, MagicExpansionItems.RANDOM_FISH_COMMON, true)) {
-            targetRarity = Fish.Rarity.COMMON;
-        }
-        else if (SlimefunUtils.isItemSimilar(drop, MagicExpansionItems.RANDOM_FISH_UNCOMMON, true)) {
-            targetRarity = Fish.Rarity.UNCOMMON;
-        }
-        else if (SlimefunUtils.isItemSimilar(drop, MagicExpansionItems.RANDOM_FISH_RARE, true)) {
-            targetRarity = Fish.Rarity.RARE;
-        }
-        else if (SlimefunUtils.isItemSimilar(drop, MagicExpansionItems.RANDOM_FISH_EPIC, true)) {
-            targetRarity = Fish.Rarity.EPIC;
-        }
-        else if (SlimefunUtils.isItemSimilar(drop, MagicExpansionItems.RANDOM_FISH_LEGENDARY, true)) {
-            targetRarity = Fish.Rarity.LEGENDARY;
+
+        for (Map.Entry<ItemStack, Fish.Rarity> entry : RARITY_ITEM_MAP.entrySet()) {
+            if (SlimefunUtils.isItemSimilar(drop, entry.getKey(), true)) {
+                targetRarity = entry.getValue();
+                break; // 找到就退出
+            }
         }
 
         // 如果不是目标物品，原样返回
@@ -82,7 +72,14 @@ public class FishKeys {
         Random random = new Random();
         Fish chosenFish = candidates.get(random.nextInt(candidates.size()));
 
-        double weight = chosenFish.rollWeight();
+        double weight = 0.0;
+        if (isMagicFishingRod(rod, MAGIC_FISHING_RODS_NEW)) {
+            weight = chosenFish.rollWeightNew();
+        }else if (isMagicFishingRod(rod, MAGIC_FISHING_RODS_ADVANCED)) {
+            weight = chosenFish.rollWeightAdvanced();
+        }
+
+//        double weight = chosenFish.rollWeight();
 
         ItemMeta meta = drop.getItemMeta();
         if (meta == null) {
@@ -114,14 +111,14 @@ public class FishKeys {
         }
 
         // --- 修改显示名 ---
-        meta.setDisplayName(chosenFish.getDisplayName());
+        meta.setDisplayName(chosenFish.getDisplayName() + " " +weightRareThis);
 
         // --- 修改 Lore ---
         List<String> lore = new ArrayList<>();
         lore.add(""); // 空行分隔
         lore.add(ColorGradient.getGradientName("鱼种稀有度: ")+ "§r§f" + chosenFish.getRarity().getDisplayName());
         lore.add(ColorGradient.getGradientName("重量: ")+ "§r§f" + String.format("%.3f", weight) + " kg");
-        lore.add(ColorGradient.getGradientName("稀有度: ")+ "§r" + weightRarity.getDisplayName() + weightRareThis);
+        lore.add(ColorGradient.getGradientName("稀有度: ")+ "§r" + weightRarity.getDisplayName() +" "+ weightRareThis);
         if (chosenFish.getLoreLines() != null && chosenFish.getLoreLines().length > 0) {
             lore.add(""); // 空行分隔
             lore.addAll(Arrays.asList(chosenFish.getLoreLines()));
@@ -134,6 +131,13 @@ public class FishKeys {
         return drop;
     }
 
+    private static boolean isMagicFishingRod(ItemStack item, Set<ItemStack> s) {
+        if (item == null || item.getType().isAir()) return false;
+
+        return s.stream()
+                .anyMatch(rod -> SlimefunUtils.isItemSimilar(item, rod, true));
+    }
+
     public static List<Fish> getPossibleFishesForRarity(Fish.Rarity rarity) {
         switch (rarity) {
             case COMMON:
@@ -144,6 +148,22 @@ public class FishKeys {
                 return Arrays.asList(Fish.ReDaiFish,Fish.CopperDustFish,Fish.AluminumDustFish,
                 Fish.GoldDustFish, Fish.IronDustFish, Fish.LeadDustFish, Fish.TinDustFish,
                         Fish.MagnesiumDustFish, Fish.SilverDustFish, Fish.ZincDustFish);
+            case RARE_POOL_ORE:
+                // 稀有矿物鱼池：包含所有可产出矿物资源的稀有鱼种
+                return Arrays.asList(Fish.CoalFish,
+                        Fish.EmeraldFish, Fish.LapisFish,
+                        Fish.DiamondFish, Fish.QuartzFish,
+                        Fish.AmethystFish, Fish.IronFish,
+                        Fish.GoldFish, Fish.CopperFish,
+                        Fish.NetheriteFish,Fish.GlowStoneDustFish);
+            case RARE_POOL_DUST:
+                // 稀有矿粉鱼池：包含所有可产出矿粉资源的稀有鱼种
+                return Arrays.asList(Fish.ReDaiFish,
+                        Fish.CopperDustFish, Fish.AluminumDustFish,
+                        Fish.GoldDustFish, Fish.IronDustFish,
+                        Fish.LeadDustFish, Fish.TinDustFish,
+                        Fish.MagnesiumDustFish, Fish.SilverDustFish,
+                        Fish.ZincDustFish);
             case EPIC:
                 return Arrays.asList(Fish.MYSTIC_EEL);
             case LEGENDARY:

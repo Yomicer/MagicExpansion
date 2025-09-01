@@ -26,14 +26,14 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 15"),
+            getGradientName("Version: Build 16"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
     public static final SlimefunItemStack MAGIC_EXPANSION_AUTHOR = new SlimefunItemStack(
             "MAGIC_EXPANSION_AUTHOR",
             "8adb25ab9976d89d0bd8118d72c1c06bb907060c1e02a729b652d1e86b1ebbbc",
-            getGradientName("开发者：magicsolo"),
+            getGradientName("开发者 magicsolo"),
             "",
             getGradientName("Github: Yomicer"),
             getGradientName("Author of MagicExpansion")
@@ -373,6 +373,9 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack BASIC_ENCHANT_STONE = themed("BASIC_ENCHANT_STONE",doGlow(Material.IRON_INGOT),
             get("Items.BASIC_ENCHANT_STONE.Name"),getList("Items.BASIC_ENCHANT_STONE.Lore"));
 
+    public static final SlimefunItemStack WIND_SPIRIT = themed("WIND_SPIRIT",doGlow(Material.STRING),
+            get("Items.WIND_SPIRIT.Name"),getList("Items.WIND_SPIRIT.Lore"));
+
     public static final SlimefunItemStack MAGIC_EXPANSION_ENCHANTING_TABLE_INFO = themed("ENCHANTING_TABLE_INFO",doGlow(Material.PAPER),
             get("Items.ENCHANTING_TABLE_INFO.Name"),getList("Items.ENCHANTING_TABLE_INFO.Lore"));
 
@@ -606,6 +609,21 @@ public class MagicExpansionItems {
 
 
 
+    public static final SlimefunItemStack UI_THX = createDefaultItem("UI_THX",Material.PAPER);
+    public static final SlimefunItemStack UI_3 = createDefaultItem("UI_3",Material.LIGHT_GRAY_STAINED_GLASS_PANE);
+    public static final SlimefunItemStack UI_4 = createDefaultItem("UI_4",Material.LIGHT_GRAY_STAINED_GLASS_PANE);
+    public static final SlimefunItemStack UI_5 = createDefaultItem("UI_5",Material.LIGHT_GRAY_STAINED_GLASS_PANE);
+    public static final SlimefunItemStack UI_6 = createDefaultItem("UI_6",Material.LIGHT_GRAY_STAINED_GLASS_PANE);
+    public static final SlimefunItemStack UI_7 = createDefaultItem("UI_7",Material.LIGHT_GRAY_STAINED_GLASS_PANE);
+    public static final SlimefunItemStack UI_8 = createDefaultItem("UI_8",Material.LIGHT_GRAY_STAINED_GLASS_PANE);
+    public static final SlimefunItemStack UI_9 = createDefaultItem("UI_9",Material.LIGHT_GRAY_STAINED_GLASS_PANE);
+
+
+    public static final SlimefunItemStack NAZUKICYL_TEST = themed("NAZUKICYL_TEST",new CustomItemStack(CustomHead.getHead("8adb25ab9976d89d0bd8118d72c1c06bb907060c1e02a729b652d1e86b1ebbbc")),
+            get("Items.NAZUKICYL_TEST.Name"),getList("Items.NAZUKICYL_TEST.Lore"));
+    public static final SlimefunItemStack HAIMAN_TEST = themed("HAIMAN_TEST",new CustomItemStack(CustomHead.getHead("1421f1514da756c8c6c7c0b83a79265c26c9ece66b3bad8fbd94bd96d7040d7e")),
+            get("Items.HAIMAN_TEST.Name"),getList("Items.HAIMAN_TEST.Lore"));
+
 
 
 
@@ -621,12 +639,14 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2025_08_27 = createDefaultItemGlow("UPDATE_LOG_2025_08_27",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_08_29 = createDefaultItemGlow("UPDATE_LOG_2025_08_29",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_08_30 = createDefaultItemGlow("UPDATE_LOG_2025_08_30",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2025_09_02 = createDefaultItemGlow("UPDATE_LOG_2025_09_02",Material.PAPER);
 
 
 
     public static final SlimefunItemStack FISHING_ROD_LOG = createDefaultItem("FISHING_ROD_LOG",Material.FISHING_ROD);
     public static final SlimefunItemStack FISHING_ROD_NEW_PLAYER = createDefaultItem("FISHING_ROD_NEW_PLAYER",Material.FISHING_ROD);
-
+    public static final SlimefunItemStack FISHING_STICK_STAR_IRON = createDefaultItem("FISHING_STICK_STAR_IRON",Material.STICK);
+    public static final SlimefunItemStack FISHING_ROD_WIND_SPEAKER = createDefaultItem("FISHING_ROD_WIND_SPEAKER",Material.FISHING_ROD);
 
 
     public static final SlimefunItemStack FISHING_INFO = createDefaultItemGlow("FISHING_INFO",Material.PAPER);
@@ -638,10 +658,21 @@ public class MagicExpansionItems {
             get("Items.RANDOM_FISH_UNCOMMON.Name"),getList("Items.RANDOM_FISH_UNCOMMON.Lore"));
     public static final SlimefunItemStack RANDOM_FISH_RARE = themed("RANDOM_FISH_RARE",Material.PUFFERFISH_BUCKET,
             get("Items.RANDOM_FISH_RARE.Name"),getList("Items.RANDOM_FISH_RARE.Lore"));
+    public static final SlimefunItemStack RANDOM_FISH_RARE_POOL_DUST = themed("RANDOM_FISH_RARE_POOL_DUST",Material.PUFFERFISH_BUCKET,
+            get("Items.RANDOM_FISH_RARE_POOL_DUST.Name"),getList("Items.RANDOM_FISH_RARE_POOL_DUST.Lore"));
+    public static final SlimefunItemStack RANDOM_FISH_RARE_POOL_ORE = themed("RANDOM_FISH_RARE_POOL_ORE",Material.PUFFERFISH_BUCKET,
+            get("Items.RANDOM_FISH_RARE_POOL_ORE.Name"),getList("Items.RANDOM_FISH_RARE_POOL_ORE.Lore"));
     public static final SlimefunItemStack RANDOM_FISH_EPIC = themed("RANDOM_FISH_EPIC",Material.TROPICAL_FISH_BUCKET,
             get("Items.RANDOM_FISH_EPIC.Name"),getList("Items.RANDOM_FISH_EPIC.Lore"));
     public static final SlimefunItemStack RANDOM_FISH_LEGENDARY = themed("RANDOM_FISH_LEGENDARY",Material.AXOLOTL_BUCKET,
             get("Items.RANDOM_FISH_LEGENDARY.Name"),getList("Items.RANDOM_FISH_LEGENDARY.Lore"));
+
+    public static final SlimefunItemStack FISH_LURE_BASIC = themed("FISH_LURE_BASIC",Material.WHITE_DYE,
+            get("Items.FISH_LURE_BASIC.Name"),getList("Items.FISH_LURE_BASIC.Lore"));
+    public static final SlimefunItemStack FISH_LURE_DUST = themed("FISH_LURE_DUST",Material.YELLOW_DYE,
+            get("Items.FISH_LURE_DUST.Name"),getList("Items.FISH_LURE_DUST.Lore"));
+    public static final SlimefunItemStack FISH_LURE_ORE = themed("FISH_LURE_ORE",Material.CYAN_DYE,
+            get("Items.FISH_LURE_ORE.Name"),getList("Items.FISH_LURE_ORE.Lore"));
 
 
 

@@ -37,10 +37,40 @@ public class BasicBossDropListener implements Listener {
             case "FireZombie":
                 dropFireZombieLoot(entity);
                 break;
+            case "WindElf":
+                dropWindElfLoot(entity);
+                break;
             default:
 //                Debug.logWarn("未知的怪物类型: " + mobType);
                 break;
         }
+    }
+
+    /**
+     * 烈火僵尸死亡时的掉落逻辑
+     *
+     * @param entity 死亡的实体
+     */
+    private void dropWindElfLoot(LivingEntity entity) {
+        // 清除默认掉落物（可选）
+        entity.getWorld().getEntitiesByClass(Item.class).forEach(Entity::remove);
+
+        // 获取死亡位置
+        Location dropLocation = entity.getLocation();
+
+        if(new Random().nextInt(100000)>91888){
+            return;
+        }
+        ItemStack DropItem = MagicExpansionItems.WIND_SPIRIT;
+        ItemStack DropItem2 = SlimefunItems.ADVANCED_CIRCUIT_BOARD;
+
+        // 掉落物品到世界中
+        dropLocation.getWorld().dropItemNaturally(dropLocation, DropItem);
+        dropLocation.getWorld().dropItemNaturally(dropLocation, DropItem2);
+        // 示例：掉落一些经验值
+        entity.getWorld().spawnEntity(dropLocation, EntityType.EXPERIENCE_ORB);
+
+
     }
 
 

@@ -6,20 +6,31 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import io.github.thebusybiscuit.slimefun4.core.attributes.RecipeDisplayItem;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class FishingRod extends SlimefunItem {
+import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
+
+public class FishingRod extends SlimefunItem implements RecipeDisplayItem {
 
     private final Map<Enchantment, Integer> enchantments;
     private final boolean glow;
     private final Map<String, List<WeightedItem>> lootTable;
+
+    // ✅ 所有可使用的鱼饵定义在这里（Material, 显示名, Lore）
+    private final List<ItemStack> USABLE_LURES;
+
+
     /**
      * 构造器
      *
@@ -36,11 +47,13 @@ public class FishingRod extends SlimefunItem {
                       ItemStack[] recipe,
                       Map<Enchantment, Integer> enchantments,
                       boolean glow,
-                      Map<String, List<WeightedItem>> lootTable) {
+                      Map<String, List<WeightedItem>> lootTable,
+                      List<ItemStack> USABLE_LURES) {
         super(itemGroup, item, recipeType, recipe);
         this.enchantments = enchantments;
         this.glow = glow;
         this.lootTable = lootTable;
+        this.USABLE_LURES = USABLE_LURES;
     }
 
 
@@ -83,12 +96,26 @@ public class FishingRod extends SlimefunItem {
         );
     }
 
-    // ✅ 新增：暴露 lootMap
+
     public Map<String, List<WeightedItem>> getLootTable() {
         return lootTable;
     }
 
 
+    @Override
+    public @NotNull List<ItemStack> getDisplayRecipes() {
+        List<ItemStack> display = new ArrayList<>();
+        display.add(new CustomItemStack(Material.KNOWLEDGE_BOOK, getGradientName("可使用的鱼饵⇩"),getGradientName("越靠前的鱼饵优先级越高")));
+        display.add(new CustomItemStack(Material.AIR));
+        display.add(new CustomItemStack(Material.KNOWLEDGE_BOOK, getGradientName("可使用的鱼饵⇩"),getGradientName("副手鱼饵有绝对优先级，空气优先级永远最低")));
+        display.add(new CustomItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE, getGradientName("空气")));
+        // 添加所有鱼饵
+        for (ItemStack lure : USABLE_LURES) {
+            display.add(new CustomItemStack(Material.AIR));
+            display.add(lure);
+        }
 
 
+        return display;
+    }
 }

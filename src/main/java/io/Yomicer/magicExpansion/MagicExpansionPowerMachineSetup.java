@@ -57,16 +57,16 @@ public class MagicExpansionPowerMachineSetup {
                 .register(plugin);
 
         new FishEnergyGenerator(magicexpansionpower, MagicExpansionItems.POWER_FISH_ELECTRIC, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                MagicExpansionItems.ELEMENT_INGOT, MagicExpansionItems.FIVE_ELEMENT,MagicExpansionItems.ELEMENT_INGOT,
+                MagicExpansionItems.ELEMENT_INGOT, SlimefunItems.ADVANCED_CIRCUIT_BOARD,MagicExpansionItems.ELEMENT_INGOT,
                 SlimefunItems.WITHER_PROOF_GLASS, new ItemStack(Material.WATER_BUCKET),SlimefunItems.WITHER_PROOF_GLASS,
                 MagicExpansionItems.ELEMENT_INGOT,SlimefunItems.ELECTRIC_MOTOR,MagicExpansionItems.ELEMENT_INGOT
         },25000000)
                 .setPowerType("生物发电机")
                 .register(plugin);
         new FishOutputMachine(magicexpansionresourcegenerator, MagicExpansionItems.FISH_VIVARIUM, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                MagicExpansionItems.ELEMENT_INGOT, MagicExpansionItems.PURE_ELEMENT_WATER,MagicExpansionItems.ELEMENT_INGOT,
-                MagicExpansionItems.WATER_ELEMENT, MagicExpansionItems.POWER_FISH_ELECTRIC,MagicExpansionItems.WATER_ELEMENT,
-                MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.AMETHYST_SHARD,MagicExpansionItems.ELEMENT_INGOT
+                MagicExpansionItems.ELEMENT_INGOT, MagicExpansionItems.AMETHYST_SHARD,MagicExpansionItems.ELEMENT_INGOT,
+                new ItemStack(Material.WATER_BUCKET), MagicExpansionItems.POWER_FISH_ELECTRIC,new ItemStack(Material.WATER_BUCKET),
+                MagicExpansionItems.ELEMENT_INGOT,new ItemStack(Material.BUCKET),MagicExpansionItems.ELEMENT_INGOT
         },131452)
                 .setPowerType("生态缸")
                 .register(plugin);
