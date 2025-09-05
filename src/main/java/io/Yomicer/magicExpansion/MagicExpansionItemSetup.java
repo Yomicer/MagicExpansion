@@ -31,6 +31,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.groups.NestedItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.groups.SubItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
+import io.github.thebusybiscuit.slimefun4.implementation.items.HiddenItem;
 import io.github.thebusybiscuit.slimefun4.implementation.items.blocks.UnplaceableBlock;
 import io.github.thebusybiscuit.slimefun4.implementation.items.electric.Capacitor;
 import io.github.thebusybiscuit.slimefun4.implementation.items.geo.GEOMiner;
@@ -343,6 +344,12 @@ public final class MagicExpansionItemSetup {
                 null, null, null,
                 null, null, null
         }).register(plugin);
+        //更新日志
+        new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2025_09_05, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
 
 
 
@@ -481,7 +488,37 @@ public final class MagicExpansionItemSetup {
                 MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_37,
         };
         // 2. 用 for 循环注册所有升级配方
-        for (int n = 1; n <= 36; n++) {
+        for (int n = 1; n <= 2; n++) {
+            ItemStack[] recipe = {
+                    sugarLevels[n], sugarLevels[n], sugarLevels[n],
+                    sugarLevels[n], sugarLevels[n], sugarLevels[n],
+                    sugarLevels[n], sugarLevels[n], sugarLevels[n]
+            };
+
+            new UnplaceableBlock(
+                    magicexpansionnonsensical,
+                    sugarLevels[n + 1],
+                    RecipeType.ENHANCED_CRAFTING_TABLE,
+                    recipe
+            ).register(plugin);
+        }
+        // 2. 用 for 循环注册所有升级配方
+        for (int n = 3; n <= 34; n++) {
+            ItemStack[] recipe = {
+                    sugarLevels[n], sugarLevels[n], sugarLevels[n],
+                    sugarLevels[n], sugarLevels[n], sugarLevels[n],
+                    sugarLevels[n], sugarLevels[n], sugarLevels[n]
+            };
+
+            new HiddenItem(
+                    magicexpansionnonsensical,
+                    sugarLevels[n + 1],
+                    RecipeType.ENHANCED_CRAFTING_TABLE,
+                    recipe
+            ).register(plugin);
+        }
+        // 2. 用 for 循环注册所有升级配方
+        for (int n = 35; n <= 36; n++) {
             ItemStack[] recipe = {
                     sugarLevels[n], sugarLevels[n], sugarLevels[n],
                     sugarLevels[n], sugarLevels[n], sugarLevels[n],
@@ -503,6 +540,106 @@ public final class MagicExpansionItemSetup {
                 new ItemStack(Material.SUGAR_CANE),new ItemStack(Material.SUGAR_CANE),new ItemStack(Material.SUGAR_CANE)
         }).register(plugin);
 
+        // 递归记忆纤维
+        new UnplaceableBlock(magicexpansionnonsensical, MagicExpansionItems.MAGIC_EXPANSION_FINAL_STRING_1, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MAGIC_EXPANSION_MAGIC_SUGAR_21,MAGIC_EXPANSION_MAGIC_SUGAR_21,MAGIC_EXPANSION_MAGIC_SUGAR_21,
+                MAGIC_EXPANSION_MAGIC_SUGAR_21,new ItemStack(Material.STRING),MAGIC_EXPANSION_MAGIC_SUGAR_21,
+                MAGIC_EXPANSION_MAGIC_SUGAR_21,MAGIC_EXPANSION_MAGIC_SUGAR_21,MAGIC_EXPANSION_MAGIC_SUGAR_21
+        }).register(plugin);
+
+        // 1. 先创建一个数组，按顺序存放所有魔法糖常量
+        SlimefunItemStack[] stringLevels = {
+                null, // 占位：让索引从 1 开始
+                MAGIC_EXPANSION_FINAL_STRING_1,
+                MAGIC_EXPANSION_FINAL_STRING_2,
+                MAGIC_EXPANSION_FINAL_STRING_3,
+                MAGIC_EXPANSION_FINAL_STRING_4,
+                MAGIC_EXPANSION_FINAL_STRING_5,
+                MAGIC_EXPANSION_FINAL_STRING_6,
+                MAGIC_EXPANSION_FINAL_STRING_7,
+                MAGIC_EXPANSION_FINAL_STRING_8,
+                MAGIC_EXPANSION_FINAL_STRING_9,
+                MAGIC_EXPANSION_FINAL_STRING_10,
+                MAGIC_EXPANSION_FINAL_STRING_11,
+                MAGIC_EXPANSION_FINAL_STRING_12,
+                MAGIC_EXPANSION_FINAL_STRING_13,
+                MAGIC_EXPANSION_FINAL_STRING_14,
+                MAGIC_EXPANSION_FINAL_STRING_15,
+                MAGIC_EXPANSION_FINAL_STRING_16,
+                MAGIC_EXPANSION_FINAL_STRING_17,
+                MAGIC_EXPANSION_FINAL_STRING_18,
+                MAGIC_EXPANSION_FINAL_STRING_19,
+                MAGIC_EXPANSION_FINAL_STRING_20,
+                MAGIC_EXPANSION_FINAL_STRING_21
+
+        };
+        // 2. 用 for 循环注册所有升级配方
+        for (int n = 1; n <= 2; n++) {
+            ItemStack[] recipe = {
+                    stringLevels[n], stringLevels[n], stringLevels[n],
+                    stringLevels[n], stringLevels[n], stringLevels[n],
+                    stringLevels[n], stringLevels[n], stringLevels[n]
+            };
+
+            new UnplaceableBlock(
+                    magicexpansionnonsensical,
+                    stringLevels[n + 1],
+                    RecipeType.ENHANCED_CRAFTING_TABLE,
+                    recipe
+            ).register(plugin);
+        }
+        // 2. 用 for 循环注册所有升级配方
+        for (int n = 3; n <= 18; n++) {
+            ItemStack[] recipe = {
+                    stringLevels[n], stringLevels[n], stringLevels[n],
+                    stringLevels[n], stringLevels[n], stringLevels[n],
+                    stringLevels[n], stringLevels[n], stringLevels[n]
+            };
+
+            new HiddenItem(
+                    magicexpansionnonsensical,
+                    stringLevels[n + 1],
+                    RecipeType.ENHANCED_CRAFTING_TABLE,
+                    recipe
+            ).register(plugin);
+        }
+        // 2. 用 for 循环注册所有升级配方
+        for (int n = 19; n <= 20; n++) {
+            ItemStack[] recipe = {
+                    stringLevels[n], stringLevels[n], stringLevels[n],
+                    stringLevels[n], stringLevels[n], stringLevels[n],
+                    stringLevels[n], stringLevels[n], stringLevels[n]
+            };
+
+            new UnplaceableBlock(
+                    magicexpansionnonsensical,
+                    stringLevels[n + 1],
+                    RecipeType.ENHANCED_CRAFTING_TABLE,
+                    recipe
+            ).register(plugin);
+        }
+
+        // 终焉之丝
+        new UnplaceableBlock(magicexpansionnonsensical, MagicExpansionItems.FISHING_ROD_FINAL_STRING, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MAGIC_EXPANSION_FINAL_STRING_21,MAGIC_EXPANSION_FINAL_STRING_21,MAGIC_EXPANSION_FINAL_STRING_21,
+                MAGIC_EXPANSION_FINAL_STRING_21,new ItemStack(Material.STRING),MAGIC_EXPANSION_FINAL_STRING_21,
+                MAGIC_EXPANSION_FINAL_STRING_21,MAGIC_EXPANSION_FINAL_STRING_21,MAGIC_EXPANSION_FINAL_STRING_21
+        }).register(plugin);
+        // 终焉之丝
+        new UnplaceableBlock(magicexpansionnonsensical, MagicExpansionItems.FISHING_ROD_FINAL_HOOK, RecipeType.NULL, new ItemStack[] {
+                null,null,null,
+                null,new CustomItemStack(new ItemStack(Material.FISHING_ROD),"§b可被任意高阶鱼杆钓取",getGradientName("钓起他不需要任何鱼饵~")),null,
+                null,null,null
+        }).register(plugin);
+
+        // 终焉之钩
+        new HiddenItem(magicexpansionnonsensical, MagicExpansionItems.FISHING_ROD_FISH_ANYTHING, RecipeType.NULL, new ItemStack[] {
+                null,null,null,
+                null,new CustomItemStack(new ItemStack(Material.FISHING_ROD),"§b可以被魔法系列鱼杆钓起",getGradientName("图片仅供参考")),null,
+                null,null,null
+        }).register(plugin);
+
+
 
         // 自定义
         new FishingRod(magicexpansionfishing, MagicExpansionItems.FISHING_ROD_LOG, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
@@ -515,16 +652,18 @@ public final class MagicExpansionItemSetup {
         }}, false,
                 Map.of(
                         "default", List.of(
-                                new WeightedItem(new ItemStack(Material.OAK_LOG), 1),
-                                new WeightedItem(new ItemStack(Material.ACACIA_LOG), 1),
-                                new WeightedItem(new ItemStack(Material.JUNGLE_LOG), 1),
-                                new WeightedItem(new ItemStack(Material.BIRCH_LOG), 1),
-                                new WeightedItem(new ItemStack(Material.CHERRY_LOG), 1),
-                                new WeightedItem(new ItemStack(Material.SPRUCE_LOG), 1),
-                                new WeightedItem(new ItemStack(Material.DARK_OAK_LOG), 1),
-                                new WeightedItem(new ItemStack(Material.MANGROVE_LOG), 1),
-                                new WeightedItem(new ItemStack(Material.CRIMSON_STEM), 1),
-                                new WeightedItem(new ItemStack(Material.WARPED_STEM), 1)
+                                new WeightedItem(new ItemStack(Material.OAK_LOG), 3),
+                                new WeightedItem(new ItemStack(Material.ACACIA_LOG), 3),
+                                new WeightedItem(new ItemStack(Material.JUNGLE_LOG), 3),
+                                new WeightedItem(new ItemStack(Material.BIRCH_LOG), 3),
+                                new WeightedItem(new ItemStack(Material.CHERRY_LOG), 3),
+                                new WeightedItem(new ItemStack(Material.SPRUCE_LOG), 3),
+                                new WeightedItem(new ItemStack(Material.DARK_OAK_LOG), 3),
+                                new WeightedItem(new ItemStack(Material.MANGROVE_LOG), 3),
+                                new WeightedItem(new ItemStack(Material.CRIMSON_STEM), 3),
+                                new WeightedItem(new ItemStack(Material.WARPED_STEM), 3),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                                ), 1)
                         )
                 ), List.of()).register(plugin);
 
@@ -567,7 +706,9 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(SlimefunItems.STRANGE_NETHER_GOO, 1),
                                 new WeightedItem(SlimefunItems.RAINBOW_LEATHER, 1),
                                 new WeightedItem(RANDOM_FISH_COMMON, 1),
-                                new WeightedItem(RANDOM_FISH_UNCOMMON, 1)
+                                new WeightedItem(RANDOM_FISH_UNCOMMON, 1),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                                ), 18)
                         ),
                         "bread", List.of(
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.COD),"§b迷路的生鳕鱼",getGradientName("这是谁家的鳕鱼？")
@@ -662,7 +803,7 @@ public final class MagicExpansionItemSetup {
                 null,FISHING_ROD_NEW_PLAYER,WIND_SPIRIT,
                 FISHING_STICK_STAR_IRON,null,AMETHYST_SHARD
         }, new HashMap<>() {{
-            put(Enchantment.LUCK, 1);
+            put(Enchantment.LUCK, 5);
             put(Enchantment.LURE, 5);
         }}, false,
                 Map.of(
@@ -697,7 +838,9 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_COMMON, 15),
                                 new WeightedItem(RANDOM_FISH_UNCOMMON, 10),
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_DUST, 13),
-                                new WeightedItem(RANDOM_FISH_RARE_POOL_ORE, 13)
+                                new WeightedItem(RANDOM_FISH_RARE_POOL_ORE, 13),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                                ), 18)
                         ),
                         "bread", List.of(
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.COD,3),"§b迷路的生鳕鱼",getGradientName("这是谁家的鳕鱼？")
@@ -715,7 +858,9 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_UNCOMMON, 10),
                                 new WeightedItem(RANDOM_FISH_EPIC, 5),
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_DUST, 18),
-                                new WeightedItem(RANDOM_FISH_RARE_POOL_ORE, 18)
+                                new WeightedItem(RANDOM_FISH_RARE_POOL_ORE, 18),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                                ), 1)
                         ),
                         "fishLureBasic", List.of(
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.GLOW_BERRIES,3), "§a萤火草穗", getGradientName("夜间会发出微光，传说能引诱好奇的鱼")
@@ -732,7 +877,9 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_UNCOMMON, 18),
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_DUST, 15),
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_ORE, 15),
-                                new WeightedItem(RANDOM_FISH_EPIC, 8)
+                                new WeightedItem(RANDOM_FISH_EPIC, 8),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                                ), 1)
                         ),
                         "fishLureDust", List.of(
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.RED_SAND,3), "§6磨碎的铜砂", getGradientName("带有微弱金属光泽，是铜脉鱼的气息信标")
@@ -751,7 +898,9 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_UNCOMMON, 3),
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_DUST, 31),
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_ORE, 1),
-                                new WeightedItem(RANDOM_FISH_EPIC, 3)
+                                new WeightedItem(RANDOM_FISH_EPIC, 3),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                                ), 1)
                         ),
                         "fishLureOre", List.of(
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.COPPER_INGOT,3), "§b原生铜脉碎片", getGradientName("并非冶炼所得，而是从岩层中直接剥离的天然导电矿络")
@@ -770,7 +919,9 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_UNCOMMON, 3),
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_DUST, 1),
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_ORE, 31),
-                                new WeightedItem(RANDOM_FISH_EPIC, 3)
+                                new WeightedItem(RANDOM_FISH_EPIC, 3),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                                ), 1)
                         ),
                         "default", List.of(
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.SUGAR_CANE,8),"§b腐烂的甘蔗",getGradientName("河里怎么会有甘蔗呢？")
@@ -789,10 +940,51 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_UNCOMMON, 8),
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_DUST, 3),
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_ORE, 3),
-                                new WeightedItem(RANDOM_FISH_EPIC, 3)
+                                new WeightedItem(RANDOM_FISH_EPIC, 3),
+                                new WeightedItem(FISHING_ROD_FINAL_HOOK, 1),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                                ), 1)
                         )
                 ),Arrays.asList(SlimefunItems.MAGIC_SUGAR,new ItemStack(Material.BREAD),
                 FISH_LURE_BASIC,FISH_LURE_DUST,FISH_LURE_ORE)).register(plugin);
+
+
+        // 终焉鱼杆
+        new FishingRod(magicexpansionfishing, MagicExpansionItems.FISHING_ROD_FINAL_STICK, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                null,null,MAGIC_EXPANSION_MAGIC_SUGAR_CANE,
+                null,MAGIC_EXPANSION_MAGIC_SUGAR_CANE,FISHING_ROD_FINAL_STRING,
+                MAGIC_EXPANSION_MAGIC_SUGAR_CANE,null, FISHING_ROD_FINAL_HOOK
+        }, new HashMap<>() {{
+            put(Enchantment.LUCK, 25);
+            put(Enchantment.LURE, 5);
+        }}, false,
+                Map.of(
+                        "fishLureFinal", List.of(
+                                new WeightedItem(FISHING_ROD_FISH_ANYTHING, 12),
+                                new WeightedItem(RANDOM_FISH_COMMON, 1),
+                                new WeightedItem(RANDOM_FISH_UNCOMMON, 1),
+                                new WeightedItem(RANDOM_FISH_RARE_POOL_DUST, 1),
+                                new WeightedItem(RANDOM_FISH_RARE_POOL_ORE, 1),
+                                new WeightedItem(RANDOM_FISH_EPIC, 1),
+                                new WeightedItem(RANDOM_FISH_LEGENDARY, 1),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,8),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                                ), 1)
+                        ),
+                        "default", List.of(
+                                new WeightedItem(RANDOM_FISH_COMMON, 8),
+                                new WeightedItem(RANDOM_FISH_UNCOMMON, 6),
+                                new WeightedItem(RANDOM_FISH_RARE_POOL_DUST, 3),
+                                new WeightedItem(RANDOM_FISH_RARE_POOL_ORE, 3),
+                                new WeightedItem(RANDOM_FISH_EPIC, 3),
+                                new WeightedItem(RANDOM_FISH_LEGENDARY, 3),
+                                new WeightedItem(FISHING_ROD_FINAL_HOOK, 1),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,5),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                                ), 3)
+                        )
+                ), List.of(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                )
+        )).register(plugin);
+
 
         //星辰木
         new UnplaceableBlock(magicexpansionresource, FISHING_STICK_STAR_IRON, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {

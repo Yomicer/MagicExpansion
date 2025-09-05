@@ -47,6 +47,11 @@ public class FishKeys {
             MagicExpansionItems.FISHING_ROD_WIND_SPEAKER
 
     ));
+    private static final Set<ItemStack> MAGIC_FISHING_RODS_ULTRA = new HashSet<>(Arrays.asList(
+
+            MagicExpansionItems.FISHING_ROD_FINAL_STICK
+
+    ));
     public static ItemStack enchantDropWithFishData(Player player, ItemStack drop, ItemStack rod) {
         Fish.Rarity targetRarity = null;
 
@@ -77,6 +82,8 @@ public class FishKeys {
             weight = chosenFish.rollWeightNew();
         }else if (isMagicFishingRod(rod, MAGIC_FISHING_RODS_ADVANCED)) {
             weight = chosenFish.rollWeightAdvanced();
+        }else if (isMagicFishingRod(rod, MAGIC_FISHING_RODS_ULTRA)) {
+            weight = chosenFish.rollWeightUltra();
         }
 
 //        double weight = chosenFish.rollWeight();

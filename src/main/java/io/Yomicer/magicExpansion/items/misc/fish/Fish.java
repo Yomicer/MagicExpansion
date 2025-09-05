@@ -273,14 +273,60 @@ public enum Fish {
     public double rollWeightNew() {
         Random random = new Random();
         double unit = random.nextDouble();
-        double skewed = Math.pow(unit, 6.9);
-        return minWeight + (skewed * (maxWeight - minWeight));
+        double skewed = Math.pow(unit, 4.5);
+        double rand = random.nextDouble();
+        double multiplier;
+        if (rand < 0.40) {
+            multiplier = 0.3;
+        } else if (rand < 0.80) {
+            multiplier = 0.7;
+        } else if (rand < 0.90) {
+            multiplier = 0.95;
+        } else if (rand < 0.98) {
+            multiplier = 0.97;
+        } else {
+            multiplier = 1.0;
+        }
+        return minWeight + (skewed * (maxWeight - minWeight)*multiplier);
     }
     public double rollWeightAdvanced() {
         Random random = new Random();
         double unit = random.nextDouble();
-        double skewed = Math.pow(unit, 3.9);
-        return minWeight + (skewed * (maxWeight - minWeight));
+        double skewed = Math.pow(unit, 3.1);
+        double rand = random.nextDouble();
+        double multiplier;
+        if (rand < 0.20) {
+            multiplier = 0.3;
+        } else if (rand < 0.40) {
+            multiplier = 0.8;
+        } else if (rand < 0.70) {
+            multiplier = 0.97;
+        } else if (rand < 0.80) {
+            multiplier = 0.99;
+        } else {
+            multiplier = 1.0;
+        }
+        return minWeight + (skewed * (maxWeight - minWeight)*multiplier);
+    }
+
+    public double rollWeightUltra() {
+        Random random = new Random();
+        double unit = random.nextDouble();
+        double skewed = Math.pow(unit, 2.1);
+        double rand = random.nextDouble();
+        double multiplier;
+        if (rand < 0.10) {
+            multiplier = 0.3;
+        } else if (rand < 0.30) {
+            multiplier = 0.8;
+        } else if (rand < 0.60) {
+            multiplier = 0.97;
+        } else if (rand < 0.70) {
+            multiplier = 0.99;
+        } else {
+            multiplier = 1.0;
+        }
+        return minWeight + (skewed * (maxWeight - minWeight)*multiplier);
     }
 
     /**

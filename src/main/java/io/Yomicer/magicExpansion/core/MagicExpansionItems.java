@@ -1,6 +1,7 @@
 package io.Yomicer.magicExpansion.core;
 
 import io.Yomicer.magicExpansion.utils.CustomHeadUtils.CustomHead;
+import io.Yomicer.magicExpansion.utils.itemUtils.MagicStringBuilder;
 import io.Yomicer.magicExpansion.utils.itemUtils.MagicSugarBuilder;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
@@ -26,7 +27,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 16"),
+            getGradientName("Version: Build 17"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -335,6 +336,29 @@ public class MagicExpansionItems {
             getGradientName("真正意义上的第一个毕业物品")
     );
 
+    public static final SlimefunItemStack MAGIC_EXPANSION_FINAL_STRING_1 = MagicStringBuilder.getString(1);
+    public static final SlimefunItemStack MAGIC_EXPANSION_FINAL_STRING_2 = MagicStringBuilder.getString(2);
+    public static final SlimefunItemStack MAGIC_EXPANSION_FINAL_STRING_3 = MagicStringBuilder.getString(3);
+    public static final SlimefunItemStack MAGIC_EXPANSION_FINAL_STRING_4 = MagicStringBuilder.getString(4);
+    public static final SlimefunItemStack MAGIC_EXPANSION_FINAL_STRING_5 = MagicStringBuilder.getString(5);
+    public static final SlimefunItemStack MAGIC_EXPANSION_FINAL_STRING_6 = MagicStringBuilder.getString(6);
+    public static final SlimefunItemStack MAGIC_EXPANSION_FINAL_STRING_7 = MagicStringBuilder.getString(7);
+    public static final SlimefunItemStack MAGIC_EXPANSION_FINAL_STRING_8 = MagicStringBuilder.getString(8);
+    public static final SlimefunItemStack MAGIC_EXPANSION_FINAL_STRING_9 = MagicStringBuilder.getString(9);
+    public static final SlimefunItemStack MAGIC_EXPANSION_FINAL_STRING_10 = MagicStringBuilder.getString(10);
+    public static final SlimefunItemStack MAGIC_EXPANSION_FINAL_STRING_11 = MagicStringBuilder.getString(11);
+    public static final SlimefunItemStack MAGIC_EXPANSION_FINAL_STRING_12 = MagicStringBuilder.getString(12);
+    public static final SlimefunItemStack MAGIC_EXPANSION_FINAL_STRING_13 = MagicStringBuilder.getString(13);
+    public static final SlimefunItemStack MAGIC_EXPANSION_FINAL_STRING_14 = MagicStringBuilder.getString(14);
+    public static final SlimefunItemStack MAGIC_EXPANSION_FINAL_STRING_15 = MagicStringBuilder.getString(15);
+    public static final SlimefunItemStack MAGIC_EXPANSION_FINAL_STRING_16 = MagicStringBuilder.getString(16);
+    public static final SlimefunItemStack MAGIC_EXPANSION_FINAL_STRING_17 = MagicStringBuilder.getString(17);
+    public static final SlimefunItemStack MAGIC_EXPANSION_FINAL_STRING_18 = MagicStringBuilder.getString(18);
+    public static final SlimefunItemStack MAGIC_EXPANSION_FINAL_STRING_19 = MagicStringBuilder.getString(19);
+    public static final SlimefunItemStack MAGIC_EXPANSION_FINAL_STRING_20 = MagicStringBuilder.getString(20);
+    public static final SlimefunItemStack MAGIC_EXPANSION_FINAL_STRING_21 = MagicStringBuilder.getString(21);
+
+
 
 
 
@@ -640,6 +664,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2025_08_29 = createDefaultItemGlow("UPDATE_LOG_2025_08_29",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_08_30 = createDefaultItemGlow("UPDATE_LOG_2025_08_30",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_09_02 = createDefaultItemGlow("UPDATE_LOG_2025_09_02",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2025_09_05 = createDefaultItemGlow("UPDATE_LOG_2025_09_05",Material.PAPER);
 
 
 
@@ -647,6 +672,11 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack FISHING_ROD_NEW_PLAYER = createDefaultItem("FISHING_ROD_NEW_PLAYER",Material.FISHING_ROD);
     public static final SlimefunItemStack FISHING_STICK_STAR_IRON = createDefaultItem("FISHING_STICK_STAR_IRON",Material.STICK);
     public static final SlimefunItemStack FISHING_ROD_WIND_SPEAKER = createDefaultItem("FISHING_ROD_WIND_SPEAKER",Material.FISHING_ROD);
+    public static final SlimefunItemStack FISHING_ROD_FINAL_STICK = createDefaultItem("FISHING_ROD_FINAL_STICK",Material.FISHING_ROD);
+    public static final SlimefunItemStack FISHING_ROD_FINAL_STRING = createDefaultItem("FISHING_ROD_FINAL_STRING",Material.STRING);
+    public static final SlimefunItemStack FISHING_ROD_FINAL_HOOK = createDefaultItem("FISHING_ROD_FINAL_HOOK",Material.DIAMOND_PICKAXE);
+
+    public static final SlimefunItemStack FISHING_ROD_FISH_ANYTHING = createDefaultItem("FISHING_ROD_FISH_ANYTHING",Material.APPLE);
 
 
     public static final SlimefunItemStack FISHING_INFO = createDefaultItemGlow("FISHING_INFO",Material.PAPER);

@@ -1,5 +1,6 @@
 package io.Yomicer.magicExpansion.utils;
 
+import io.Yomicer.magicExpansion.utils.log.Debug;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
@@ -12,6 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class MagicExpansionSlimefunItemCache {
     // 静态缓存：存储所有 Slimefun 物品
     private static final List<SlimefunItem> SFITEMCACHE = new ArrayList<>();
+    private static final Random RANDOM = new Random(); // 避免重复创建 Random
 
     static {
         // 在类加载时预加载所有 Slimefun 物品
@@ -40,5 +42,17 @@ public class MagicExpansionSlimefunItemCache {
     public static void reloadCache() {
         SFITEMCACHE.clear();
         loadAllSlimefunItems();
+    }
+
+    public static SlimefunItem getRandomSlimefunItem() {
+        if (SFITEMCACHE.isEmpty()) {
+            return null;
+        }
+        return SFITEMCACHE.get(RANDOM.nextInt(SFITEMCACHE.size()));
+    }
+
+    public static ItemStack getRandomItemStack() {
+        SlimefunItem item = getRandomSlimefunItem();
+        return item != null ? item.getItem().clone() : null;
     }
 }
