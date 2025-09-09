@@ -462,6 +462,15 @@ public class EnchantingTable extends SimpleSlimefunItem<ItemUseHandler> implemen
             menu.addItem(29, newItem.themed(doGlow(Material.NETHER_STAR), "=======⚡一重赋能⚡=======",
                             generateRandomLore(), 1),
                     (player1, slot, item, action) -> {
+
+                        if(!isItemSimilar(menu.getItemInSlot(weaponSlot), weaponItem, true)){
+                            player1.sendMessage(ColorGradient.getGradientName("你这小byd又想卡bug了是吧？"));
+                            return false;
+                        }
+                        if(resourceItem.getAmount()<1||!isItemSimilar(menu.getItemInSlot(resourceSlot), resourceItem, true)){
+                            player1.sendMessage(ColorGradient.getGradientName("小byd，没想到吧，这里也被我修复了"));
+                            return false;
+                        }
                         ItemStack output = randomizeAttributes(weaponItem, finalresourceLevel, finalATTRIBUTE_POOL_USE,1);
 
                         if (!menu.fits(output, getOutputSlots())) {
@@ -482,6 +491,15 @@ public class EnchantingTable extends SimpleSlimefunItem<ItemUseHandler> implemen
         menu.addItem(31, newItem.themed(doGlow(Material.NETHER_STAR), "=======⚡二重赋能⚡=======",
                         generateRandomLore(),1),
                 (player1, slot, item, action) -> {
+
+                    if(!isItemSimilar(menu.getItemInSlot(weaponSlot), weaponItem, true)){
+                        player1.sendMessage(ColorGradient.getGradientName("你这小byd又想卡bug了是吧？"));
+                        return false;
+                    }
+                    if(resourceItem.getAmount()<2||!isItemSimilar(menu.getItemInSlot(resourceSlot), resourceItem, true)){
+                        player1.sendMessage(ColorGradient.getGradientName("小byd，没想到吧，这里也被我修复了"));
+                        return false;
+                    }
                     ItemStack output = randomizeAttributes(weaponItem, finalresourceLevel,finalATTRIBUTE_POOL_USE,2);
 
                     if (!menu.fits(output, getOutputSlots())) {
@@ -502,6 +520,15 @@ public class EnchantingTable extends SimpleSlimefunItem<ItemUseHandler> implemen
         menu.addItem(33, newItem.themed(doGlow(Material.NETHER_STAR), "=======⚡三重赋能⚡=======",
                         generateRandomLore(),1),
                 (player1, slot, item, action) -> {
+
+                    if(!isItemSimilar(menu.getItemInSlot(weaponSlot), weaponItem, true)){
+                        player1.sendMessage(ColorGradient.getGradientName("你这小byd又想卡bug了是吧？"));
+                        return false;
+                    }
+                    if(resourceItem.getAmount()<3||!isItemSimilar(menu.getItemInSlot(resourceSlot), resourceItem, true)){
+                        player1.sendMessage(ColorGradient.getGradientName("小byd，没想到吧，这里也被我修复了"));
+                        return false;
+                    }
                     ItemStack output = randomizeAttributes(weaponItem, finalresourceLevel,finalATTRIBUTE_POOL_USE,3);
 
                     if (!menu.fits(output, getOutputSlots())) {
@@ -850,7 +877,7 @@ public class EnchantingTable extends SimpleSlimefunItem<ItemUseHandler> implemen
      */
     private static char getRandomCharacter() {
         // 字符范围：大写字母、小写字母、数字、部分符号
-        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-=_+[]{}|;:,.<>?";
+        String chars = "鸡你太美ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-=_+[]{}|;:,.<>?";
         return chars.charAt(RANDOM.nextInt(chars.length()));
     }
 
