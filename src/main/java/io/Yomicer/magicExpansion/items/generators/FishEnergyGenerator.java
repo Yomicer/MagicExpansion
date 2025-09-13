@@ -46,7 +46,7 @@ public class FishEnergyGenerator extends MenuBlock implements EnergyNetProvider,
     private final String fishTypeTarget2 = "XueFish";
 
     // 1. 定义可扩展的鱼能量产出表（集中管理，易扩展）
-    private final Map<String, Integer> FISH_POWER_MAP = new HashMap<>() {{
+    private final Map<String, Integer> FISH_POWER_MAP = new LinkedHashMap<>() {{
         put("MYSTIC_EEL",     50000);  // 神秘鳗鱼：高能量
         put("XueFish",        200);    // 雪鱼：低能量
         put("GlowStoneDustFish",      3000);    // 雪鱼：低能量
@@ -214,16 +214,27 @@ public class FishEnergyGenerator extends MenuBlock implements EnergyNetProvider,
 //        display.add(new CustomItemStack(Material.TROPICAL_FISH_BUCKET,MYSTIC_EEL.getDisplayName(),getGradientName("每kg每秒发电量："+ChargeLore.formatEnergy(power)+" J")));
 //        display.add(new CustomItemStack(Material.COD_BUCKET,XueFish.getDisplayName(),getGradientName("每kg每秒发电量："+ChargeLore.formatEnergy(power2)+" J")));
         // ✅ 自动为所有在 FISH_POWER_MAP 中注册的鱼生成展示项
-        for (String fishType : FISH_POWER_MAP.keySet()) {
-            Material bucketMat = FISH_BUCKET_MAP.getOrDefault(fishType, Material.BUCKET);
-            Fish fish = Fish.fromString(fishType);
+        for (Map.Entry<String, Integer> entry : FISH_POWER_MAP.entrySet()) {
+
+            String fishTypeName = entry.getKey();
+            Fish fish = Fish.fromString(fishTypeName);
             if (fish == null) {
                 continue; // 跳过无效类型
             }
+            Material displayMaterial = switch (fish.getRarity()) {
+                case COMMON -> Material.COD_BUCKET;           // 普通 - 鳕鱼桶
+                case UNCOMMON -> Material.SALMON_BUCKET;     // 不常见 - 鲑鱼桶
+                case RARE -> Material.PUFFERFISH_BUCKET;  // 稀有 - 河豚
+                case EPIC -> Material.TROPICAL_FISH_BUCKET;     // 史诗 - 热带鱼
+                case LEGENDARY -> Material.AXOLOTL_BUCKET;   // 传说 - 用美西螈
+                case MYTHICAL -> Material.NETHER_STAR;       // 神话 - 下界之星（最稀有）
+                default -> Material.COD_BUCKET;
+            };
+
             String displayName = fish.getDisplayName();
-            int power = FISH_POWER_MAP.get(fishType);
+            int power = entry.getValue();
             display.add(new CustomItemStack(
-                    bucketMat,
+                    displayMaterial,
                     displayName,
                     getGradientName("每kg每秒发电量：" + ChargeLore.formatEnergy(power) + " J")
             ));

@@ -32,6 +32,8 @@ public class FishKeys {
         put(MagicExpansionItems.RANDOM_FISH_RARE,             Fish.Rarity.RARE);
         put(MagicExpansionItems.RANDOM_FISH_RARE_POOL_DUST,   Fish.Rarity.RARE_POOL_DUST);
         put(MagicExpansionItems.RANDOM_FISH_RARE_POOL_ORE,    Fish.Rarity.RARE_POOL_ORE);
+        put(MagicExpansionItems.RANDOM_FISH_RARE_POOL_INDUSTRY,    Fish.Rarity.RARE_POOL_INDUSTRY);
+        put(MagicExpansionItems.RANDOM_FISH_EPIC_POOL_INDUSTRY,    Fish.Rarity.EPIC_POOL_INDUSTRY);
         put(MagicExpansionItems.RANDOM_FISH_EPIC,             Fish.Rarity.EPIC);
         put(MagicExpansionItems.RANDOM_FISH_LEGENDARY,        Fish.Rarity.LEGENDARY);
         // 👉 想加新稀有度？直接 put 一行即可！
@@ -171,6 +173,20 @@ public class FishKeys {
                         Fish.LeadDustFish, Fish.TinDustFish,
                         Fish.MagnesiumDustFish, Fish.SilverDustFish,
                         Fish.ZincDustFish);
+            case RARE_POOL_INDUSTRY:
+                // 稀有矿粉鱼池：包含所有可产出矿粉资源的稀有鱼种
+                return Arrays.asList(Fish.ShuLingYu,
+                        Fish.UraniumFish,Fish.OilRockFish
+
+
+                        );
+            case EPIC_POOL_INDUSTRY:
+                // 稀有矿粉鱼池：包含所有可产出矿粉资源的稀有鱼种
+                return Arrays.asList(Fish.FoamCrystalFish,
+                        Fish.BlackDiamondFish
+
+
+                        );
             case EPIC:
                 return Arrays.asList(Fish.MYSTIC_EEL);
             case LEGENDARY:

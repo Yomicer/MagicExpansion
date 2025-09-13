@@ -160,6 +160,7 @@ public class SingleCubeOrigin extends SlimefunItem implements HologramOwner{
                 material.name().contains("FENCE") ||
                 material.name().contains("WALL") ||
                 material.name().contains("GATE")||
+                material.name().contains("DRAGON")||
                 material.name().contains("PORTAL")) {
             return true;
         }

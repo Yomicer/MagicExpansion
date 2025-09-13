@@ -207,6 +207,63 @@ public enum Fish {
             ColorGradient.getGradientName("「特殊作用」可用于发电")
     ),
 
+    // 【塑灵鱼】用于生产：塑料纸（Plastic Paper）
+    ShuLingYu(Rarity.RARE.colorCode + "塑灵鱼", 1.0, 64.0, Rarity.RARE,
+            ColorGradient.getGradientName("体内缠绕微塑料纤维网络，可过滤水体污染物。"),
+            ColorGradient.getGradientName("体表覆盖半透明聚合物鳞片，折射出虹彩光泽。"),
+            ColorGradient.getGradientName("其分泌物经处理可制成工业生产常用的塑料纸。"),
+            ColorGradient.getGradientName("塑灵鱼体重大多在 1 - 64 kg 范围内。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：塑料纸")
+    ),
+    // 【铀核鱼】用于生产：铀锭（Uranium Ingot）
+    UraniumFish(Rarity.RARE.colorCode + "铀核鱼", 1.0, 64.0, Rarity.RARE,
+            ColorGradient.getGradientName("体内含有微量放射性同位素，鳃部能富集水中的铀元素。"),
+            ColorGradient.getGradientName("体色呈深绿至墨黑，散发微弱荧光，接近时有温热感。"),
+            ColorGradient.getGradientName("是核能科技与高级反应堆的核心原材料来源。"),
+            ColorGradient.getGradientName("铀核鱼体重通常在 1 - 64 kg 之间。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：铀锭")
+    ),
+    // 【油岩鱼】用于生产：原油桶（Crude Oil Barrel）
+    OilRockFish(Rarity.RARE.colorCode + "油岩鱼", 1.0, 64.0, Rarity.RARE,
+            ColorGradient.getGradientName("栖息于深海油脉裂谷，体腔可自然合成液态烃类物质。"),
+            ColorGradient.getGradientName("表皮如浸油岩石，滑腻厚重，散发淡淡石油气味。"),
+            ColorGradient.getGradientName("捕获后可稳定提取原油，是能源工业的重要生物载体。"),
+            ColorGradient.getGradientName("油岩鱼体重普遍在 1 - 64 kg 范围内。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：原油桶")
+    ),
+    // 【泡晶鱼】用于生产：起泡锭（Foamium Ingot）
+    FoamCrystalFish(Rarity.EPIC.colorCode + "泡晶鱼", 1.0, 64.0, Rarity.EPIC,
+            ColorGradient.getGradientName("体内共生泡沫结晶菌，呼吸时释放含金属微泡。"),
+            ColorGradient.getGradientName("通体如半固态泡沫，轻盈透明，遇光膨胀闪烁。"),
+            ColorGradient.getGradientName("其结晶腺体可提炼出轻质高强的起泡锭，用于辐射物品制造。"),
+            ColorGradient.getGradientName("泡晶鱼体重多在 1 - 64 kg 之间。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：起泡锭")
+    ),
+    // 【黑曜鱼】用于生产：黑金刚石（Black Diamond）
+    BlackDiamondFish(Rarity.EPIC.colorCode + "黑曜鱼", 1.0, 64.0, Rarity.EPIC,
+            ColorGradient.getGradientName("生于地壳高压层，骨骼由天然纳米级碳晶构成。"),
+            ColorGradient.getGradientName("体表如碎曜石拼接，漆黑深邃，切割时迸发金属寒光。"),
+            ColorGradient.getGradientName("每百年蜕一次晶皮，可炼出比钻石更坚硬的黑金刚石。"),
+            ColorGradient.getGradientName("黑曜鱼体重可达 1 - 64 kg，越重者晶化程度越高。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：黑金刚石")
+    ),
+    // 【酸晶鱼】用于生产：硫酸盐（Sulfate Crystals）
+    SulfateFish(Rarity.RARE.colorCode + "酸晶鱼", 1.0, 64.0, Rarity.RARE,
+            ColorGradient.getGradientName("栖息于火山酸水湖，体内腺体可代谢硫化物生成结晶。"),
+            ColorGradient.getGradientName("体表覆盖细小硫酸盐晶簇，触碰会释放淡淡硫磺气味。"),
+            ColorGradient.getGradientName("其排出的晶体是工业制酸与肥料生产的重要原料。"),
+            ColorGradient.getGradientName("酸晶鱼体重一般在 1 - 64 kg 范围内。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：硫酸盐")
+    ),
+    // 【晶鳞鱼】用于生产：硅（Silicon）
+    SiliconFish(Rarity.RARE.colorCode + "晶鳞鱼", 1.0, 64.0, Rarity.RARE,
+            ColorGradient.getGradientName("生活在高硅沙质水域，鳃部可高效吸收并提纯二氧化硅。"),
+            ColorGradient.getGradientName("鳞片如微型晶片，排列规整，在阳光下呈现半导体光泽。"),
+            ColorGradient.getGradientName("体内沉积的高纯度硅晶体，是电子工业与太阳能板的核心材料。"),
+            ColorGradient.getGradientName("晶鳞鱼体重多在 1 - 64 kg 之间，越老者硅化程度越高。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：硅")
+    ),
+
 
 
 
@@ -409,8 +466,12 @@ public enum Fish {
         RARE("§b稀有", "§b"),
         RARE_POOL_DUST("§b稀有-POOL-矿粉", "§b"),
         RARE_POOL_ORE("§b稀有-POOL-矿物", "§b"),
+        RARE_POOL_INDUSTRY("§b稀有-POOL-工业材料", "§b"),
         EPIC("§d史诗", "§d"),
-        LEGENDARY("§c传说", "§c");
+        EPIC_POOL_INDUSTRY("§d史诗-POOL-工业材料", "§d"),
+        LEGENDARY("§c传说", "§c"),
+        MYTHICAL("§e传说", "§e");
+
 
         private final String displayName;
         private final String colorCode;

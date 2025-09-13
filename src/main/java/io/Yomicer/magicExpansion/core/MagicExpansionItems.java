@@ -27,7 +27,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 18"),
+            getGradientName("Version: Build 19"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -666,6 +666,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2025_09_02 = createDefaultItemGlow("UPDATE_LOG_2025_09_02",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_09_05 = createDefaultItemGlow("UPDATE_LOG_2025_09_05",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_09_09 = createDefaultItemGlow("UPDATE_LOG_2025_09_09",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2025_09_13 = createDefaultItemGlow("UPDATE_LOG_2025_09_13",Material.PAPER);
 
 
 
@@ -693,8 +694,12 @@ public class MagicExpansionItems {
             get("Items.RANDOM_FISH_RARE_POOL_DUST.Name"),getList("Items.RANDOM_FISH_RARE_POOL_DUST.Lore"));
     public static final SlimefunItemStack RANDOM_FISH_RARE_POOL_ORE = themed("RANDOM_FISH_RARE_POOL_ORE",Material.PUFFERFISH_BUCKET,
             get("Items.RANDOM_FISH_RARE_POOL_ORE.Name"),getList("Items.RANDOM_FISH_RARE_POOL_ORE.Lore"));
+    public static final SlimefunItemStack RANDOM_FISH_RARE_POOL_INDUSTRY = themed("RANDOM_FISH_RARE_POOL_INDUSTRY",Material.PUFFERFISH_BUCKET,
+            get("Items.RANDOM_FISH_RARE_POOL_INDUSTRY.Name"),getList("Items.RANDOM_FISH_RARE_POOL_INDUSTRY.Lore"));
     public static final SlimefunItemStack RANDOM_FISH_EPIC = themed("RANDOM_FISH_EPIC",Material.TROPICAL_FISH_BUCKET,
             get("Items.RANDOM_FISH_EPIC.Name"),getList("Items.RANDOM_FISH_EPIC.Lore"));
+    public static final SlimefunItemStack RANDOM_FISH_EPIC_POOL_INDUSTRY = themed("RANDOM_FISH_EPIC_POOL_INDUSTRY",Material.TROPICAL_FISH_BUCKET,
+            get("Items.RANDOM_FISH_EPIC_POOL_INDUSTRY.Name"),getList("Items.RANDOM_FISH_EPIC_POOL_INDUSTRY.Lore"));
     public static final SlimefunItemStack RANDOM_FISH_LEGENDARY = themed("RANDOM_FISH_LEGENDARY",Material.AXOLOTL_BUCKET,
             get("Items.RANDOM_FISH_LEGENDARY.Name"),getList("Items.RANDOM_FISH_LEGENDARY.Lore"));
 

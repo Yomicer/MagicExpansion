@@ -40,7 +40,7 @@ public class FishOutputMachine extends MenuBlock implements EnergyNetProvider, R
     public static final int ENERGY_CONSUMPTION = 500;
 
     // 1. 定义所有鱼类型与输出物品的映射（集中管理，易扩展）
-    private final Map<String, ItemStack> FISH_OUTPUT_MAP = new HashMap<>() {{
+    private final Map<String, ItemStack> FISH_OUTPUT_MAP = new LinkedHashMap<>() {{
         put("CopperDustFish",     SlimefunItems.COPPER_DUST);
         put("GoldDustFish",       SlimefunItems.GOLD_DUST);
         put("IronDustFish",       SlimefunItems.IRON_DUST);
@@ -72,6 +72,20 @@ public class FishOutputMachine extends MenuBlock implements EnergyNetProvider, R
         put("NetheriteFish", new ItemStack(Material.NETHERITE_INGOT));
         // ⚔️ 灯笼鱼 → 萤石粉
         put("GlowStoneDustFish", new ItemStack(Material.GLOWSTONE_DUST));
+        // ⚔️ 塑灵鱼 → 塑料纸
+        put("ShuLingYu", SlimefunItems.PLASTIC_SHEET);
+        // ⚔️ 铀核鱼 → U
+        put("UraniumFish", SlimefunItems.URANIUM);
+        // ⚔️ 油岩鱼 → 原油桶
+        put("OilRockFish", SlimefunItems.OIL_BUCKET);
+        // ⚔️ 泡晶鱼 → 起泡锭
+        put("FoamCrystalFish", SlimefunItems.BLISTERING_INGOT_3);
+        // ⚔️ 黑曜鱼 → 黑金刚石
+        put("BlackDiamondFish", SlimefunItems.CARBONADO);
+        // ⚔️ 晶鳞鱼 → 硫酸盐
+        put("SulfateFish", SlimefunItems.SULFATE);
+        // ⚔️ 酸晶鱼 → 硅
+        put("SiliconFish", SlimefunItems.SILICON);
     }};
 
 
@@ -246,30 +260,6 @@ public class FishOutputMachine extends MenuBlock implements EnergyNetProvider, R
 
 //        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET,CopperDustFish.getDisplayName(),getGradientName("每秒产出个数："+ " 重量 * 魔法鱼稀有程度 ")));
 //        display.add(outputCopperDust);
-//
-//        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET, GoldDustFish.getDisplayName(), getGradientName("每秒产出个数：" + " 重量 * 魔法鱼稀有程度 ")));
-//        display.add(outputGoldDust);
-//
-//        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET, IronDustFish.getDisplayName(), getGradientName("每秒产出个数：" + " 重量 * 魔法鱼稀有程度 ")));
-//        display.add(outputIronDust);
-//
-//        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET, TinDustFish.getDisplayName(), getGradientName("每秒产出个数：" + " 重量 * 魔法鱼稀有程度 ")));
-//        display.add(outputTinDust);
-//
-//        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET, SilverDustFish.getDisplayName(), getGradientName("每秒产出个数：" + " 重量 * 魔法鱼稀有程度 ")));
-//        display.add(outputSilverDust);
-//
-//        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET, AluminumDustFish.getDisplayName(), getGradientName("每秒产出个数：" + " 重量 * 魔法鱼稀有程度 ")));
-//        display.add(outputAluminumDust);
-//
-//        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET, LeadDustFish.getDisplayName(), getGradientName("每秒产出个数：" + " 重量 * 魔法鱼稀有程度 ")));
-//        display.add(outputLeadDust);
-//
-//        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET, ZincDustFish.getDisplayName(), getGradientName("每秒产出个数：" + " 重量 * 魔法鱼稀有程度 ")));
-//        display.add(outputZincDust);
-//
-//        display.add(new CustomItemStack(Material.PUFFERFISH_BUCKET, MagnesiumDustFish.getDisplayName(), getGradientName("每秒产出个数：" + " 重量 * 魔法鱼稀有程度 ")));
-//        display.add(outputMagnesiumDust);
 
 
         for (Map.Entry<String, ItemStack> entry : FISH_OUTPUT_MAP.entrySet()) {
@@ -279,9 +269,19 @@ public class FishOutputMachine extends MenuBlock implements EnergyNetProvider, R
                 continue; // 跳过无效类型
             }
             ItemStack output = entry.getValue();
+            // 根据稀有度选择不同的鱼桶材质
+            Material displayMaterial = switch (fish.getRarity()) {
+                case COMMON -> Material.COD_BUCKET;           // 普通 - 鳕鱼桶
+                case UNCOMMON -> Material.SALMON_BUCKET;     // 不常见 - 鲑鱼桶
+                case RARE -> Material.PUFFERFISH_BUCKET;  // 稀有 - 河豚
+                case EPIC -> Material.TROPICAL_FISH_BUCKET;     // 史诗 - 热带鱼
+                case LEGENDARY -> Material.AXOLOTL_BUCKET;   // 传说 - 用美西螈
+                case MYTHICAL -> Material.NETHER_STAR;       // 神话 - 下界之星（最稀有）
+                default -> Material.COD_BUCKET;
+            };
 
             display.add(new CustomItemStack(
-                    Material.PUFFERFISH_BUCKET,
+                    displayMaterial,
                     fish.getDisplayName(),
                     getGradientName("每秒产出个数：重量 × 魔法鱼体重稀有程度")
             ));
