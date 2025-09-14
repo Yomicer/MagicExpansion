@@ -44,7 +44,7 @@ public class MagicExpansionPowerMachineSetup {
                 MagicExpansionItems.GOLD_ELEMENT, MagicExpansionItems.WOOD_ELEMENT,MagicExpansionItems.WATER_ELEMENT,
                 MagicExpansionItems.FIRE_ELEMENT,MagicExpansionItems.POWER_CORE,MagicExpansionItems.EARTH_ELEMENT,
                 MagicExpansionItems.FIVE_ELEMENT,MagicExpansionItems.FIVE_ELEMENT,MagicExpansionItems.FIVE_ELEMENT
-        }, Material.GLOWSTONE, BlockFace.UP, 1314520,1 ,2000000000)
+        }, Material.GLOWSTONE, BlockFace.UP, 1314520,1 ,65726)
                 .setPowerType("方块·彩蛋发电机")
                 .register(plugin);
 

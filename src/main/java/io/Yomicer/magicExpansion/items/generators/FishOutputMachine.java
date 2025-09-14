@@ -68,6 +68,8 @@ public class FishOutputMachine extends MenuBlock implements EnergyNetProvider, R
         put("GoldFish", new ItemStack(Material.GOLD_INGOT));
         // 🟠 铜脉鱼 → 铜锭
         put("CopperFish", new ItemStack(Material.COPPER_INGOT));
+        // 🟠 赤脉鱼 → 红石
+        put("RedstoneFish", new ItemStack(Material.REDSTONE));
         // ⚔️ 狱铸鱼 → 下界合金锭
         put("NetheriteFish", new ItemStack(Material.NETHERITE_INGOT));
         // ⚔️ 灯笼鱼 → 萤石粉
@@ -82,6 +84,8 @@ public class FishOutputMachine extends MenuBlock implements EnergyNetProvider, R
         put("FoamCrystalFish", SlimefunItems.BLISTERING_INGOT_3);
         // ⚔️ 黑曜鱼 → 黑金刚石
         put("BlackDiamondFish", SlimefunItems.CARBONADO);
+        // ⚔️ 灵咒鱼 → 附魔之瓶
+        put("EnchantedBottleFish", new ItemStack(Material.EXPERIENCE_BOTTLE));
         // ⚔️ 晶鳞鱼 → 硫酸盐
         put("SulfateFish", SlimefunItems.SULFATE);
         // ⚔️ 酸晶鱼 → 硅
@@ -147,18 +151,20 @@ public class FishOutputMachine extends MenuBlock implements EnergyNetProvider, R
             }
 
             // 从映射中查找对应输出物品
-            ItemStack baseOutput = FISH_OUTPUT_MAP.get(fishType).clone();
-            if (baseOutput != null) {
+            ItemStack baseOutputOrigin = FISH_OUTPUT_MAP.get(fishType);
+            if(baseOutputOrigin != null) {
+                ItemStack baseOutput = FISH_OUTPUT_MAP.get(fishType).clone();
+                if (baseOutput != null) {
 
-                int multiplier = Fish.WeightRarity.getMultiplierByName(weightRarityName);
-                int amount = (int) (weight * multiplier);
-                if (amount <= 0) amount = 1;
+                    int multiplier = Fish.WeightRarity.getMultiplierByName(weightRarityName);
+                    int amount = (int) (weight * multiplier);
+                    if (amount <= 0) amount = 1;
 
-                baseOutput.setAmount(amount);
-                outItems = baseOutput;
+                    baseOutput.setAmount(amount);
+                    outItems = baseOutput;
 
+                }
             }
-
 
         }
         if (outItems != null && inv != null) {

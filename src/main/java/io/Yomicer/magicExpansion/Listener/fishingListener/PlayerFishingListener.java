@@ -59,7 +59,9 @@ public class PlayerFishingListener implements Listener {
         RANDOM_FISH_TYPES.add(MagicExpansionItems.RANDOM_FISH_RARE);
         RANDOM_FISH_TYPES.add(MagicExpansionItems.RANDOM_FISH_RARE_POOL_DUST);
         RANDOM_FISH_TYPES.add(MagicExpansionItems.RANDOM_FISH_RARE_POOL_ORE);
+        RANDOM_FISH_TYPES.add(MagicExpansionItems.RANDOM_FISH_RARE_POOL_INDUSTRY);
         RANDOM_FISH_TYPES.add(MagicExpansionItems.RANDOM_FISH_EPIC);
+        RANDOM_FISH_TYPES.add(MagicExpansionItems.RANDOM_FISH_EPIC_POOL_INDUSTRY);
         RANDOM_FISH_TYPES.add(MagicExpansionItems.RANDOM_FISH_LEGENDARY);
 
     }

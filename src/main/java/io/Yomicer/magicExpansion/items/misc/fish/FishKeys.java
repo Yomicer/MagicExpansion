@@ -164,7 +164,8 @@ public class FishKeys {
                         Fish.DiamondFish, Fish.QuartzFish,
                         Fish.AmethystFish, Fish.IronFish,
                         Fish.GoldFish, Fish.CopperFish,
-                        Fish.NetheriteFish,Fish.GlowStoneDustFish);
+                        Fish.NetheriteFish,Fish.GlowStoneDustFish,
+                        Fish.RedstoneFish);
             case RARE_POOL_DUST:
                 // 稀有矿粉鱼池：包含所有可产出矿粉资源的稀有鱼种
                 return Arrays.asList(Fish.ReDaiFish,
@@ -176,14 +177,16 @@ public class FishKeys {
             case RARE_POOL_INDUSTRY:
                 // 稀有矿粉鱼池：包含所有可产出矿粉资源的稀有鱼种
                 return Arrays.asList(Fish.ShuLingYu,
-                        Fish.UraniumFish,Fish.OilRockFish
+                        Fish.UraniumFish,Fish.OilRockFish,
+                        Fish.SiliconFish,Fish.SulfateFish
 
 
                         );
             case EPIC_POOL_INDUSTRY:
                 // 稀有矿粉鱼池：包含所有可产出矿粉资源的稀有鱼种
                 return Arrays.asList(Fish.FoamCrystalFish,
-                        Fish.BlackDiamondFish
+                        Fish.BlackDiamondFish,Fish.EnchantedBottleFish
+
 
 
                         );

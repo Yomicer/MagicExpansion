@@ -13,8 +13,7 @@ public enum Fish {
     XueFish(Rarity.COMMON.colorCode+"鳕鱼", 2.0, 96.0, Rarity.COMMON,
             ColorGradient.getGradientName("寒冷水域的居民。"),
             ColorGradient.getGradientName("适合制作鱼条。"),
-            ColorGradient.getGradientName("鳕鱼体重大多都在 2 - 96 kg之间。"),
-            ColorGradient.getGradientName("[特殊作用]可生产：萤石粉")
+            ColorGradient.getGradientName("鳕鱼体重大多都在 2 - 96 kg之间。")
     ),
     HeTun(Rarity.UNCOMMON.colorCode+"河豚", 0.2, 1.5, Rarity.UNCOMMON,
             ColorGradient.getGradientName("小心！它会膨胀！"),
@@ -188,6 +187,14 @@ public enum Fish {
             ColorGradient.getGradientName("铜脉鱼体重大多都在 1 - 64 kg 之间。"),
             ColorGradient.getGradientName("「特殊作用」可生产：铜锭")
     ),
+    // 【脉动鱼】用于生产：红石粉（Redstone Dust）
+    RedstoneFish(Rarity.RARE.colorCode + "赤脉鱼", 1.0, 64.0, Rarity.RARE,
+            ColorGradient.getGradientName("栖息于地底强磁场与矿物脉动交汇处，体内共生着微型红石菌群。"),
+            ColorGradient.getGradientName("鱼鳍如电路板纹路，游动时体表闪烁着规律的红色脉冲光。"),
+            ColorGradient.getGradientName("其脊髓与内脏富含活性红石微粒，是能量传导与自动化装置的核心原料。"),
+            ColorGradient.getGradientName("脉动鱼体重多在 1 - 64 kg 之间，脉冲频率越高，红石纯度越佳。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：红石粉")
+    ),
     // 【NetheriteFish】用于生产：下界合金锭（Netherite Ingot）
     NetheriteFish(Rarity.RARE.colorCode + "狱铸鱼", 1.0, 64.0, Rarity.RARE,
             ColorGradient.getGradientName("由下界烈焰与远古合金融合而成，周身缠绕黑焰。"),
@@ -262,6 +269,15 @@ public enum Fish {
             ColorGradient.getGradientName("体内沉积的高纯度硅晶体，是电子工业与太阳能板的核心材料。"),
             ColorGradient.getGradientName("晶鳞鱼体重多在 1 - 64 kg 之间，越老者硅化程度越高。"),
             ColorGradient.getGradientName("「特殊作用」可生产：硅")
+    ),
+    // 【灵咒鱼】用于生产：附魔瓶（Bottled Enchanting）
+    EnchantedBottleFish(Rarity.EPIC.colorCode + "灵咒鱼", 0.8, 32.0, Rarity.EPIC,
+            ColorGradient.getGradientName("游弋于魔法漩涡与古代符文阵之间，以逸散的附魔能量为食。"),
+            ColorGradient.getGradientName("通体半透明，体内似有无数微型符文如萤火般流转，永不熄灭。"),
+            ColorGradient.getGradientName("其体液蕴含不稳定的奥术精华，可凝结为蕴含随机魔力的附魔瓶。"),
+            ColorGradient.getGradientName("灵咒鱼极为罕见，捕获时需保持安静，否则符文溃散，魔力尽失。"),
+            ColorGradient.getGradientName("灵咒鱼体重多在 1 - 64 kg 之间，越老者灵咒程度越高。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：附魔之瓶")
     ),
 
 
