@@ -249,7 +249,8 @@ public final class MagicExpansionItemSetup {
                 null, null, null
         }).register(plugin);
 
-        registerUIBlockInContribution(MagicExpansionItems.UI_3,plugin);
+//        registerUIBlockInContribution(MagicExpansionItems.UI_3,plugin);
+        registerUIBlockInContribution(MagicExpansionItems.UI_WIKI,plugin);
         registerUIBlockInContribution(MagicExpansionItems.UI_4,plugin);
         registerUIBlockInContribution(MagicExpansionItems.UI_5,plugin);
         registerUIBlockInContribution(MagicExpansionItems.UI_6,plugin);
@@ -360,13 +361,19 @@ public final class MagicExpansionItemSetup {
                 null, null, null,
                 null, null, null,
                 null, null, null
-        },SlimefunItems.MAGIC_SUGAR).register(plugin);
+        }).register(plugin);
         //更新日志
         new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2025_09_14, SPECIAL_RECIPE_TYPE, new ItemStack[] {
                 null, null, null,
                 null, null, null,
                 null, null, null
-        },SlimefunItems.MAGIC_SUGAR).register(plugin);
+        }).register(plugin);
+        //更新日志
+        new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2025_09_18, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
 
 
 
@@ -1644,9 +1651,9 @@ public final class MagicExpansionItemSetup {
                 MagicExpansionItems.PURE_ELEMENT_INGOT,
                 RecipeType.SMELTERY,
                 new ItemStack[] {
-                        MagicExpansionItems.IRON_INGOT,MagicExpansionItems.GOLD_INGOT, MagicExpansionItems.COPPER_INGOT,
-                        MagicExpansionItems.MAGNESIUM_INGOT, MagicExpansionItems.TIN_INGOT, MagicExpansionItems.SILVER_INGOT, MagicExpansionItems.SILVER_INGOT,
-                        MagicExpansionItems.LEAD_INGOT, MagicExpansionItems.ALUMINUM_INGOT, MagicExpansionItems.ZINC_INGOT,
+                        MagicExpansionItems.PURE_IRON,MagicExpansionItems.PURE_GOLD, MagicExpansionItems.PURE_COPPER,
+                        MagicExpansionItems.PURE_MAGNESIUM, MagicExpansionItems.PURE_TIN, MagicExpansionItems.PURE_SILVER,
+                        MagicExpansionItems.PURE_LEAD, MagicExpansionItems.PURE_ALUMINUM, MagicExpansionItems.PURE_ZINC,
                 }
         ).register(plugin);
 

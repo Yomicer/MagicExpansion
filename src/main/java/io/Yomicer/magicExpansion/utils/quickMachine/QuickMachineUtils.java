@@ -9,15 +9,14 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.collections.Pair;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
 import net.guizhanss.guizhanlib.minecraft.helper.inventory.ItemStackHelper;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static io.Yomicer.magicExpansion.utils.GiveItem.giveOrDropItem;
 import static io.Yomicer.magicExpansion.utils.Utils.doGlow;
@@ -388,17 +387,41 @@ public class QuickMachineUtils {
             // 假设 resultItemDisplay 是已经克隆的 ItemStack 对象
             if (resultItemDisplay.hasItemMeta()) { // 确保 ItemStack 不为空且有 ItemMeta
                 ItemMeta itemMeta = resultItemDisplay.getItemMeta(); // 获取 ItemMeta
-                if (itemMeta != null && itemMeta.hasDisplayName()) { // 确保 ItemMeta 存在且有 displayName
-                    String originalName = itemMeta.getDisplayName(); // 获取原始显示名称
-                    String newName = "§x§F§D§B§7§D§4"+originalName + "§e [产物]"; // 添加后缀 [产物]
-                    itemMeta.setDisplayName(newName); // 设置新的显示名称
+//                    String originalName = itemMeta.getDisplayName(); // 获取原始显示名称
+//                    String newName = "§x§F§D§B§7§D§4"+originalName + "§e [产物]"; // 添加后缀 [产物]
+//                    itemMeta.setDisplayName(newName); // 设置新的显示名称
+                    // 准备 Lore 列表
+                    List<String> lore = new ArrayList<>();
+                    lore.add("");
+                    // 添加“所需材料”标题
+                    lore.add("§a所需材料:");
+                    // 添加每种材料
+                    for (Map.Entry<String, Integer> ingredient : recipe.entrySet()) {
+                        String displayName = getIngredientDisplayName(ingredient.getKey());
+                        int requiredAmount = ingredient.getValue();
+                        lore.add(" §e- " + displayName + " x " + requiredAmount);
+                    }
+                    // 将新的 Lore 设置到 ItemMeta
+                    itemMeta.setLore(lore);
                     resultItemDisplay.setItemMeta(itemMeta); // 将修改后的 ItemMeta 应用回 ItemStack
-                }
             }else{
-                String name = "§x§F§D§B§7§D§4"+ItemStackHelper.getName(resultItemDisplay);
-                String newName = name + "§e [产物]";
-                ItemMeta meta = resultItemDisplay.getItemMeta();
-                meta.setDisplayName(newName);
+//                String name = "§x§F§D§B§7§D§4"+ItemStackHelper.getName(resultItemDisplay);
+//                String newName = name + "§e [产物]";
+                ItemMeta meta = Bukkit.getItemFactory().getItemMeta(resultItemDisplay.getType());
+//                meta.setDisplayName(newName);
+                // 准备 Lore 列表
+                List<String> lore = new ArrayList<>();
+                lore.add("");
+                // 添加“所需材料”标题
+                lore.add("§a所需材料:");
+                // 添加每种材料
+                for (Map.Entry<String, Integer> ingredient : recipe.entrySet()) {
+                    String displayName = getIngredientDisplayName(ingredient.getKey());
+                    int requiredAmount = ingredient.getValue();
+                    lore.add(" §e- " + displayName + " x " + requiredAmount);
+                }
+                // 将新的 Lore 设置到 ItemMeta
+                meta.setLore(lore);
                 resultItemDisplay.setItemMeta(meta);
             }
             int outputAmountPerCraft = recipeResult.getSecondValue(); // 提取单次合成数量
@@ -450,7 +473,9 @@ public class QuickMachineUtils {
                     // Shift + 左键点击：批量合成
                     Map<String, Integer> currentPlayerItems = getPlayerInventoryItems(p);
                     int maxCraftableAmount = calculateMaxCraftableAmount(currentPlayerItems, recipe);
-
+                    if (maxCraftableAmount > 52000){
+                        maxCraftableAmount = 52000;
+                    }
                     if (maxCraftableAmount <= 0) {
                         p.sendMessage("§c材料不足，无法合成！");
                         return false;

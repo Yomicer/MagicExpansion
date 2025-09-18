@@ -40,10 +40,10 @@ import static io.Yomicer.magicExpansion.utils.quickMachine.QuickMachineUtilsMBVe
 public class QuickMachineBV extends SlimefunItem implements EnergyNetComponent {
 
 
-    private final int[] inputInfo = {0};
-    private final int[] inputSlots = {1,2,3,4,5,6,7,8, 9,10,11,12,13,14,15,16,17, 18,19,20,21,22,23,24,25,26};
-    private final int[] outputInfo = {27};
-    private final int[] outputSlots = {28,29,30,31,32,33,34,35};
+    private final int[] inputInfo = {};
+    private final int[] inputSlots = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35};
+    private final int[] outputInfo = {};
+    private final int[] outputSlots = {35,34,33,32,31,30,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1};
     private final int[] starslot = {49};
     private final int[] arrowslots = {45,53};
     private final int[] iBorder = {46,47,48,50,51,52};
@@ -85,7 +85,8 @@ public class QuickMachineBV extends SlimefunItem implements EnergyNetComponent {
                             "§e右键 §b查看单次合成所需的材料",
                             "§e左键 §b制作一次",
                             "§b按住 §eShift 右键 §b一次制作32个物品",
-                            "§b按住 §eShift 左键 §b制作所有可制作的物品"),
+                            "§b按住 §eShift 左键 §b制作所有可制作的物品",
+                            "§b注意 §e1~4行 §b是输入槽也是输出槽"),
                         (player1, slot, item, action) -> {
                             addAvailableRecipesToMenu(menu, receivedMBRecipes, recipeTypeQuick);
                             return false;
@@ -172,15 +173,15 @@ public class QuickMachineBV extends SlimefunItem implements EnergyNetComponent {
     }
 
     static void borders(BlockMenuPreset preset, int[] inputInfo, int[] outputInfo, int[] arrow, int[] star, int[] iBorder) {
-        for (int i : inputInfo ) {
-            preset.addItem(i, new CustomItemStack(doGlow(new ItemStack (Material.LIGHT_BLUE_STAINED_GLASS_PANE)), "§b材料输入槽→","§b材料输入槽↓","§b1~3行为材料输入槽"),
-                    (p, slot, item, action) -> false);
-        }
+//        for (int i : inputInfo ) {
+//            preset.addItem(i, new CustomItemStack(doGlow(new ItemStack (Material.LIGHT_BLUE_STAINED_GLASS_PANE)), "§b材料输入槽→","§b材料输入槽↓","§b1~3行为材料输入槽"),
+//                    (p, slot, item, action) -> false);
+//        }
 
-        for (int i : outputInfo) {
-            preset.addItem(i, new CustomItemStack(new ItemStack (Material.YELLOW_STAINED_GLASS_PANE), "§b产物输入槽→","§b产物列表↓"),
-                    (p, slot, item, action) -> false);
-        }
+//        for (int i : outputInfo) {
+//            preset.addItem(i, new CustomItemStack(new ItemStack (Material.YELLOW_STAINED_GLASS_PANE), "§b产物输入槽→","§b产物列表↓"),
+//                    (p, slot, item, action) -> false);
+//        }
 
 
 //        for (int i : arrow) {

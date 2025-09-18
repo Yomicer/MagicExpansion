@@ -27,7 +27,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 20"),
+            getGradientName("Version: Build 21"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -634,7 +634,16 @@ public class MagicExpansionItems {
 
 
     public static final SlimefunItemStack UI_THX = createDefaultItem("UI_THX",Material.PAPER);
-    public static final SlimefunItemStack UI_3 = createDefaultItem("UI_3",Material.LIGHT_GRAY_STAINED_GLASS_PANE);
+//    public static final SlimefunItemStack UI_3 = createDefaultItem("UI_3",Material.LIGHT_GRAY_STAINED_GLASS_PANE);
+
+    //AUTHOR
+    public static final SlimefunItemStack UI_WIKI = new SlimefunItemStack(
+            "MAGIC_EXPANSION_UI_WIKI",
+            Material.CALIBRATED_SCULK_SENSOR,
+            getGradientName("wiki 网址"),
+            "",
+            getGradientName("https://github.com/Yomicer/MagicExpansion/wiki")
+    );
     public static final SlimefunItemStack UI_4 = createDefaultItem("UI_4",Material.LIGHT_GRAY_STAINED_GLASS_PANE);
     public static final SlimefunItemStack UI_5 = createDefaultItem("UI_5",Material.LIGHT_GRAY_STAINED_GLASS_PANE);
     public static final SlimefunItemStack UI_6 = createDefaultItem("UI_6",Material.LIGHT_GRAY_STAINED_GLASS_PANE);
@@ -668,6 +677,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2025_09_09 = createDefaultItemGlow("UPDATE_LOG_2025_09_09",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_09_13 = createDefaultItemGlow("UPDATE_LOG_2025_09_13",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_09_14 = createDefaultItemGlow("UPDATE_LOG_2025_09_14",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2025_09_18 = createDefaultItemGlow("UPDATE_LOG_2025_09_18",Material.PAPER);
 
 
 
@@ -834,6 +844,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack PRE_BUILDINGS_MACHINE_ADVANCED = createDefaultRecipeMachine("PRE_BUILDINGS_MACHINE_ADVANCED",Material.CARTOGRAPHY_TABLE);
     //材料工坊
     public static final SlimefunItemStack PRE_BUILDINGS_MACHINE_RESOURCE_ADVANCED = createDefaultRecipeMachine("PRE_BUILDINGS_MACHINE_RESOURCE_ADVANCED",Material.SEA_LANTERN);
+    public static final SlimefunItemStack PRE_BUILDINGS_MACHINE_RESOURCE_ADVANCED_REVERSE = createDefaultRecipeMachine("PRE_BUILDINGS_MACHINE_RESOURCE_ADVANCED_REVERSE",Material.PRISMARINE);
 
     //材料工坊
     public static final SlimefunItemStack INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE = createDefaultRecipeMachine("INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE",Material.FURNACE);
