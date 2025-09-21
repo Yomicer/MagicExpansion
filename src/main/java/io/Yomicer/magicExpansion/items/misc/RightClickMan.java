@@ -17,25 +17,27 @@ import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
+import net.guizhanss.guizhanlib.minecraft.helper.inventory.ItemStackHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.BlockState;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BlockStateMeta;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 import static io.Yomicer.magicExpansion.utils.Utils.doGlow;
 
@@ -75,128 +77,189 @@ public class RightClickMan extends SlimefunItem implements EnergyNetComponent {
     }
     protected void tick(Block block) {
         BlockMenu menu = StorageCacheUtils.getMenu(block.getLocation());
+        if(menu != null && menu.hasViewer()) {
+            // 定义：逻辑槽位 → 显示槽位 → 方向
+            Map<Integer, Map.Entry<Integer, BlockFace>> directionMap = new HashMap<>();
+            directionMap.put(9,  new AbstractMap.SimpleImmutableEntry<>(0, BlockFace.UP));     // 9 → 0 → UP
+            directionMap.put(10, new AbstractMap.SimpleImmutableEntry<>(1, BlockFace.DOWN));   // 10→ 1 → DOWN
+            directionMap.put(11, new AbstractMap.SimpleImmutableEntry<>(2, BlockFace.EAST));   // 11→ 2 → EAST
+            directionMap.put(12, new AbstractMap.SimpleImmutableEntry<>(3, BlockFace.SOUTH));  // 12→ 3 → SOUTH
+            directionMap.put(13, new AbstractMap.SimpleImmutableEntry<>(4, BlockFace.WEST));   // 13→ 4 → WEST
+            directionMap.put(14, new AbstractMap.SimpleImmutableEntry<>(5, BlockFace.NORTH));  // 14→ 5 → NORTH
 
-        // 定义槽位与方向的映射（槽位 → 是否启用）
-        assert menu != null;
-        boolean up = isButtonOn(menu, 9);
-        boolean down = isButtonOn(menu, 10);
-        boolean east = isButtonOn(menu, 11);
-        boolean south = isButtonOn(menu, 12);
-        boolean west = isButtonOn(menu, 13);
-        boolean north = isButtonOn(menu, 14);
+            // 遍历每个方向
+            for (Map.Entry<Integer, Map.Entry<Integer, BlockFace>> entry : directionMap.entrySet()) {
+                int logicSlot = entry.getKey();           // 控制逻辑的槽位 (9~14)
+                int displaySlot = entry.getValue().getKey(); // 显示用的槽位 (0~5)
+                BlockFace face = entry.getValue().getValue(); // 对应方向
 
-        World world = block.getLocation().getWorld();
-        List<Player> nearbyPlayers = world.getPlayers().stream()
-                .filter(player -> player.getLocation().distanceSquared(block.getLocation()) <= 2500)
-                .sorted(Comparator.comparingDouble(a -> a.getLocation().distance(block.getLocation())))
-                .toList();
+                Block targetBlock = block.getRelative(face);
+                Location targetLocation = targetBlock.getLocation();
 
-        if (nearbyPlayers.isEmpty()) return;
-        Player nearestPlayer = nearbyPlayers.get(0);
+                boolean isEnabled = isButtonOn(menu, logicSlot);
+                String statusText = isEnabled ? "§a已启用" : "§7未启用";
 
-        String directions = "";
+                ItemStack displayItem;
 
-        if (up) {
-            Location loc1 = block.getLocation().clone().add(0, 1, 0);
-            Block targetBlock1 = loc1.getBlock();
-            PlayerInteractEvent interactEvent = new PlayerInteractEvent(
-                    nearestPlayer,
-                    Action.RIGHT_CLICK_BLOCK,
-                    new ItemStack(Material.AIR),
-                    targetBlock1,
-                    BlockFace.SELF
-            );
-            Bukkit.getPluginManager().callEvent(interactEvent);
-            directions += "上 ";
-        }
+                SlimefunItem sfItem = StorageCacheUtils.getSfItem(targetLocation);
+                if (sfItem != null) {
+                    displayItem = sfItem.getItem().clone();
+                }
+                else if (targetBlock.getType() != Material.AIR) {
+                    displayItem = new ItemStack(targetBlock.getType());
 
-        if (down) {
-            Location loc2 = block.getLocation().clone().add(0, -1, 0);
-            Block targetBlock2 = loc2.getBlock();
-            PlayerInteractEvent interactEvent = new PlayerInteractEvent(
-                    nearestPlayer,
-                    Action.RIGHT_CLICK_BLOCK,
-                    new ItemStack(Material.AIR),
-                    targetBlock2,
-                    BlockFace.SELF
-            );
-            Bukkit.getPluginManager().callEvent(interactEvent);
-            directions += "下 ";
-        }
+                    BlockState state = targetBlock.getState();
+                    ItemMeta meta = displayItem.getItemMeta();
+                    if (meta instanceof BlockStateMeta blockStateMeta) {
+                        blockStateMeta.setBlockState(state);
+                        blockStateMeta.setLore(null);
+                        displayItem.setItemMeta(blockStateMeta);
+                    }
+                }
+                else {
+                    displayItem = new ItemStack(Material.BARRIER);
+                    ItemMeta meta = displayItem.getItemMeta();
+                    if (meta != null) {
+                        meta.setDisplayName("§7空气");
+                        meta.setLore(Arrays.asList(
+                                "§7坐标: " + targetBlock.getX() + "," + targetBlock.getY() + "," + targetBlock.getZ(),
+                                "§7状态: " + statusText,
+                                "§8（此处为空气）"
+                        ));
+                        displayItem.setItemMeta(meta);
+                    }
+                    menu.replaceExistingItem(displaySlot, displayItem);
+                    continue;
+                }
 
-        if (east) {
-            Location loc3 = block.getLocation().clone().add(1, 0, 0);
-            Block targetBlock3 = loc3.getBlock();
-            PlayerInteractEvent interactEvent = new PlayerInteractEvent(
-                    nearestPlayer,
-                    Action.RIGHT_CLICK_BLOCK,
-                    new ItemStack(Material.AIR),
-                    targetBlock3,
-                    BlockFace.SELF
-            );
-            Bukkit.getPluginManager().callEvent(interactEvent);
-            directions += "东 ";
-        }
+                // ====== 4. 对非 AIR 的正常方块，统一设置显示信息 ======
+                setBlockDisplayWithInfo(displayItem, targetBlock, statusText);
 
-        if (south) {
-            Location loc4 = block.getLocation().clone().add(0, 0, 1);
-            Block targetBlock4 = loc4.getBlock();
-            PlayerInteractEvent interactEvent = new PlayerInteractEvent(
-                    nearestPlayer,
-                    Action.RIGHT_CLICK_BLOCK,
-                    new ItemStack(Material.AIR),
-                    targetBlock4,
-                    BlockFace.SELF
-            );
-            Bukkit.getPluginManager().callEvent(interactEvent);
-            directions += "南 ";
-        }
+                // 更新 GUI
+                menu.replaceExistingItem(displaySlot, displayItem);
+            }
 
-        if (west) {
-            Location loc5 = block.getLocation().clone().add(-1, 0, 0);
-            Block targetBlock5 = loc5.getBlock();
-            PlayerInteractEvent interactEvent = new PlayerInteractEvent(
-                    nearestPlayer,
-                    Action.RIGHT_CLICK_BLOCK,
-                    new ItemStack(Material.AIR),
-                    targetBlock5,
-                    BlockFace.SELF
-            );
-            Bukkit.getPluginManager().callEvent(interactEvent);
-            directions += "西 ";
-        }
+            // 定义槽位与方向的映射（槽位 → 是否启用）
+            boolean up = isButtonOn(menu, 9);
+            boolean down = isButtonOn(menu, 10);
+            boolean east = isButtonOn(menu, 11);
+            boolean south = isButtonOn(menu, 12);
+            boolean west = isButtonOn(menu, 13);
+            boolean north = isButtonOn(menu, 14);
 
-        if (north) {
-            Location loc6 = block.getLocation().clone().add(0, 0, -1);
-            Block targetBlock6 = loc6.getBlock();
-            PlayerInteractEvent interactEvent = new PlayerInteractEvent(
-                    nearestPlayer,
-                    Action.RIGHT_CLICK_BLOCK,
-                    new ItemStack(Material.AIR),
-                    targetBlock6,
-                    BlockFace.SELF
-            );
-            Bukkit.getPluginManager().callEvent(interactEvent);
-            directions += "北";
-        }
+            World world = block.getLocation().getWorld();
+            List<Player> nearbyPlayers = world.getPlayers().stream()
+                    .filter(player -> player.getLocation().distanceSquared(block.getLocation()) <= 2500)
+                    .sorted(Comparator.comparingDouble(a -> a.getLocation().distance(block.getLocation())))
+                    .toList();
 
-        // 更新状态显示
-        if (menu != null && menu.hasViewer()) {
-            if (nearestPlayer != null) {
-                menu.replaceExistingItem(16, new CustomItemStack(Material.PINK_CANDLE, "§b交互机器人",
-                        "§b工作类型：§e右键交互方块",
-                        "§b交互速度：§e1次/粘液刻",
-                        "§b模拟玩家：§e" + nearestPlayer.getName(),
-                        "§b模拟方向：§e" + directions.trim(),
-                        "§b耗电速度：§e这个机器人不花电的",
-                        "§b电量存储：§e这个机器人不储存电"));
-            } else {
-                menu.replaceExistingItem(16, new CustomItemStack(Material.PINK_CANDLE, "§b交互机器人",
-                        "§b工作类型：§e右键交互方块",
-                        "§b交互速度：§e1次/粘液刻",
-                        "§c未检测到玩家在附近",
-                        "§b耗电速度：§e这个机器人不花电的",
-                        "§b电量存储：§e这个机器人不储存电"));
+            if (nearbyPlayers.isEmpty()) return;
+            Player nearestPlayer = nearbyPlayers.get(0);
+
+            String directions = "";
+
+            if (up) {
+                Location loc1 = block.getLocation().clone().add(0, 1, 0);
+                Block targetBlock1 = loc1.getBlock();
+                PlayerInteractEvent interactEvent = new PlayerInteractEvent(
+                        nearestPlayer,
+                        Action.RIGHT_CLICK_BLOCK,
+                        new ItemStack(Material.AIR),
+                        targetBlock1,
+                        BlockFace.SELF
+                );
+                Bukkit.getPluginManager().callEvent(interactEvent);
+                directions += "上 ";
+            }
+
+            if (down) {
+                Location loc2 = block.getLocation().clone().add(0, -1, 0);
+                Block targetBlock2 = loc2.getBlock();
+                PlayerInteractEvent interactEvent = new PlayerInteractEvent(
+                        nearestPlayer,
+                        Action.RIGHT_CLICK_BLOCK,
+                        new ItemStack(Material.AIR),
+                        targetBlock2,
+                        BlockFace.SELF
+                );
+                Bukkit.getPluginManager().callEvent(interactEvent);
+                directions += "下 ";
+            }
+
+            if (east) {
+                Location loc3 = block.getLocation().clone().add(1, 0, 0);
+                Block targetBlock3 = loc3.getBlock();
+                PlayerInteractEvent interactEvent = new PlayerInteractEvent(
+                        nearestPlayer,
+                        Action.RIGHT_CLICK_BLOCK,
+                        new ItemStack(Material.AIR),
+                        targetBlock3,
+                        BlockFace.SELF
+                );
+                Bukkit.getPluginManager().callEvent(interactEvent);
+                directions += "东 ";
+            }
+
+            if (south) {
+                Location loc4 = block.getLocation().clone().add(0, 0, 1);
+                Block targetBlock4 = loc4.getBlock();
+                PlayerInteractEvent interactEvent = new PlayerInteractEvent(
+                        nearestPlayer,
+                        Action.RIGHT_CLICK_BLOCK,
+                        new ItemStack(Material.AIR),
+                        targetBlock4,
+                        BlockFace.SELF
+                );
+                Bukkit.getPluginManager().callEvent(interactEvent);
+                directions += "南 ";
+            }
+
+            if (west) {
+                Location loc5 = block.getLocation().clone().add(-1, 0, 0);
+                Block targetBlock5 = loc5.getBlock();
+                PlayerInteractEvent interactEvent = new PlayerInteractEvent(
+                        nearestPlayer,
+                        Action.RIGHT_CLICK_BLOCK,
+                        new ItemStack(Material.AIR),
+                        targetBlock5,
+                        BlockFace.SELF
+                );
+                Bukkit.getPluginManager().callEvent(interactEvent);
+                directions += "西 ";
+            }
+
+            if (north) {
+                Location loc6 = block.getLocation().clone().add(0, 0, -1);
+                Block targetBlock6 = loc6.getBlock();
+                PlayerInteractEvent interactEvent = new PlayerInteractEvent(
+                        nearestPlayer,
+                        Action.RIGHT_CLICK_BLOCK,
+                        new ItemStack(Material.AIR),
+                        targetBlock6,
+                        BlockFace.SELF
+                );
+                Bukkit.getPluginManager().callEvent(interactEvent);
+                directions += "北";
+            }
+
+            // 更新状态显示
+            if (menu != null && menu.hasViewer()) {
+                if (nearestPlayer != null) {
+                    menu.replaceExistingItem(16, new CustomItemStack(Material.PINK_CANDLE, "§b交互机器人",
+                            "§b工作类型：§e右键交互方块",
+                            "§b交互速度：§e1次/粘液刻",
+                            "§b模拟玩家：§e" + nearestPlayer.getName(),
+                            "§b模拟方向：§e" + directions.trim(),
+                            "§b耗电速度：§e这个机器人不花电的",
+                            "§b电量存储：§e这个机器人不储存电"));
+                } else {
+                    menu.replaceExistingItem(16, new CustomItemStack(Material.PINK_CANDLE, "§b交互机器人",
+                            "§b工作类型：§e右键交互方块",
+                            "§b交互速度：§e1次/粘液刻",
+                            "§c未检测到玩家在附近",
+                            "§b耗电速度：§e这个机器人不花电的",
+                            "§b电量存储：§e这个机器人不储存电"));
+                }
             }
         }
     }
@@ -302,6 +365,41 @@ public class RightClickMan extends SlimefunItem implements EnergyNetComponent {
     private boolean isButtonOn(BlockMenu menu, int slot) {
         ItemStack item = menu.getItemInSlot(slot);
         return item != null && item.getType() == Material.LANTERN; // 注意：这里我们直接用 LANTERN 判断
+    }
+
+    /**
+     * 设置物品显示：继承原显示名和Lore，并追加坐标和状态信息
+     */
+    private void setBlockDisplayWithInfo(ItemStack item, Block block, String statusLine) {
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) return;
+
+        // 1. 设置显示名（使用 ItemStackHelper 获取友好名称）
+        String displayName = ItemStackHelper.getDisplayName(item);
+        meta.setDisplayName(displayName);
+
+        List<String> lore = new ArrayList<>();
+
+        // 2. 保留原有 Lore（如果有）
+        if (meta.hasLore()) {
+            lore.addAll(meta.getLore());
+        }
+
+        // 3. 添加分隔线（如果已有 Lore 或要添加新信息）
+        if (!lore.isEmpty() || statusLine != null) {
+            lore.add("§8---");
+        }
+
+        // 4. 追加坐标
+        lore.add("§7坐标: " + block.getX() + "," + block.getY() + "," + block.getZ());
+
+        // 5. 追加状态（可选）
+        if (statusLine != null) {
+            lore.add("§7状态: " + statusLine);
+        }
+
+        meta.setLore(lore);
+        item.setItemMeta(meta);
     }
 
 
