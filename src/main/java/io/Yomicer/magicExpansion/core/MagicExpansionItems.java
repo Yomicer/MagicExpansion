@@ -27,7 +27,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 21"),
+            getGradientName("Version: Build 22"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -678,6 +678,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2025_09_13 = createDefaultItemGlow("UPDATE_LOG_2025_09_13",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_09_14 = createDefaultItemGlow("UPDATE_LOG_2025_09_14",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_09_18 = createDefaultItemGlow("UPDATE_LOG_2025_09_18",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2025_09_20 = createDefaultItemGlow("UPDATE_LOG_2025_09_20",Material.PAPER);
 
 
 
@@ -854,6 +855,9 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack INGOT_PURE_MACHINE = createDefaultRecipeMachine("INGOT_PURE_MACHINE",Material.SMOKER);
 
 
+    public static final SlimefunItemStack TWO_TO_MAGIC_GEO_MACHINE = createDefaultRecipeMachine("TWO_TO_MAGIC_GEO_MACHINE",Material.AMETHYST_BLOCK);
+
+
 
     //普通机器
     public static final SlimefunItemStack PHANTON_SUPPRESSION = createDefaultMachine("PHANTON_SUPPRESSION",Material.LIGHT_BLUE_GLAZED_TERRACOTTA);
@@ -897,6 +901,9 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack WATER_ELEMENT = createDefaultGeoResource("WATER_ELEMENT",Material.LIGHT_BLUE_DYE);
     public static final SlimefunItemStack EARTH_ELEMENT = createDefaultGeoResource("EARTH_ELEMENT",Material.BROWN_DYE);
     public static final SlimefunItemStack FIRE_ELEMENT = createDefaultGeoResource("FIRE_ELEMENT",Material.RED_DYE);
+    public static final SlimefunItemStack RSC_MAGIC_REDSTONE = createDefaultGeoResource("RSC_MAGIC_REDSTONE",Material.REDSTONE);
+    public static final SlimefunItemStack RSC_MAGIC_COSMIC_DUST = createDefaultGeoResource("RSC_MAGIC_COSMIC_DUST",Material.GLOWSTONE_DUST);
+    public static final SlimefunItemStack RSC_MAGIC_SOUL = createDefaultGeoResource("RSC_MAGIC_SOUL",Material.SOUL_LANTERN);
 
     public static final SlimefunItemStack FIVE_ELEMENT = themed("FIVE_ELEMENT",new CustomItemStack(CustomHead.getHead("92b4278edb2672c6b32138a0e61e446420caa7fc1508b88e36eaffb14a69206a")),
             get("GEO.FIVE_ELEMENT.Name"),getList("GEO.FIVE_ELEMENT.Lore"));

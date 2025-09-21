@@ -12,9 +12,8 @@ import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 
-import static io.Yomicer.magicExpansion.MagicExpansionItemSetup.magicexpansionenergy;
-import static io.Yomicer.magicExpansion.MagicExpansionItemSetup.magicexpansionrecipemachine;
-import static io.Yomicer.magicExpansion.utils.ConvertItem.AdvancedCreateItem;
+import static io.Yomicer.magicExpansion.MagicExpansionItemSetup.*;
+import static io.Yomicer.magicExpansion.utils.ConvertItem.*;
 import static io.Yomicer.magicExpansion.utils.itemUtils.sfItemUtils.sfItemAmount;
 
 public class MagicExpansionRecipeMachineSetup {
@@ -362,6 +361,25 @@ public class MagicExpansionRecipeMachineSetup {
                 .addRecipe(2, new ItemStack[] {sfItemAmount(MagicExpansionItems.ZINC_INGOT,64),sfItemAmount(MagicExpansionItems.ELEMENT_INGOT,8)},
                         new ItemStack[] {MagicExpansionItems.PURE_ZINC})
                 .register(plugin);
+
+
+        //魔法资源开采集-rsc
+        new RecipeMachine(magicexpansionrscmagic, MagicExpansionItems.TWO_TO_MAGIC_GEO_MACHINE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                SlimefunItems.MAGIC_SUGAR, SlimefunItems.MAGIC_SUGAR,new ItemStack(Material.SUGAR),
+                SlimefunItems.MAGIC_SUGAR,new ItemStack(Material.FURNACE),new ItemStack(Material.SUGAR),
+                SlimefunItems.MAGIC_SUGAR,new ItemStack(Material.SUGAR),new ItemStack(Material.SUGAR)
+        })
+                .setCapacity(1314)
+                .setConsumption(26)
+                .setProcessingSpeed(1)
+                .addRecipe(2, new ItemStack[] {sfItemAmount(MagicExpansionItems.RSC_MAGIC_REDSTONE,1)},
+                        new ItemStack[] {stoneCreateItem("MAGIC_REDSTONE")})
+                .addRecipe(2, new ItemStack[] {sfItemAmount(MagicExpansionItems.RSC_MAGIC_COSMIC_DUST,1)},
+                        new ItemStack[] {stoneCreateItem("MAGIC_COSMIC_DUST")})
+                .addRecipe(2, new ItemStack[] {sfItemAmount(MagicExpansionItems.RSC_MAGIC_SOUL,1)},
+                        new ItemStack[] {stoneCreateItem("MAGIC_SOUL")})
+                .register(plugin);
+
 
 
 

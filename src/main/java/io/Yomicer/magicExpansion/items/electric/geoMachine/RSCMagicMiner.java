@@ -79,19 +79,31 @@ public class RSCMagicMiner extends AContainer implements RecipeDisplayItem , Hol
 
         processor.setProgressBar(getProgressBar());
 
+//        redstone = Slimefun.getRegistry()
+//                .getGEOResources()
+//                .get(new NamespacedKey("rykenslimefuncustomizer", "magic_redstone"))
+//                .orElse(null);
+//        dust = Slimefun.getRegistry()
+//                .getGEOResources()
+//                .get(new NamespacedKey("rykenslimefuncustomizer", "magic_cosmic_dust"))
+//                .orElse(null);
+//        soul = Slimefun.getRegistry()
+//                .getGEOResources()
+//                .get(new NamespacedKey("rykenslimefuncustomizer", "magic_soul"))
+//                .orElse(null);
+
         redstone = Slimefun.getRegistry()
                 .getGEOResources()
-                .get(new NamespacedKey("rykenslimefuncustomizer", "magic_redstone"))
+                .get(new NamespacedKey(MagicExpansion.getInstance(), "magic_expansion_rsc_magic_redstone"))
                 .orElse(null);
         dust = Slimefun.getRegistry()
                 .getGEOResources()
-                .get(new NamespacedKey("rykenslimefuncustomizer", "magic_cosmic_dust"))
+                .get(new NamespacedKey(MagicExpansion.getInstance(), "magic_expansion_rsc_magic_cosmic_dust"))
                 .orElse(null);
         soul = Slimefun.getRegistry()
                 .getGEOResources()
-                .get(new NamespacedKey("rykenslimefuncustomizer", "magic_soul"))
+                .get(new NamespacedKey(MagicExpansion.getInstance(), "magic_expansion_rsc_magic_soul"))
                 .orElse(null);
-
 
         addItemHandler(onBlockPlace(), onBlockBreak());
 
@@ -223,15 +235,15 @@ public class RSCMagicMiner extends AContainer implements RecipeDisplayItem , Hol
 
         MachineRecipe recipe;
 
-        recipe = tryProcessEarthLikeRecipe(inv, redstone_input, createItem("MAGIC_REDSTONE"), redstone, 5);
+        recipe = tryProcessEarthLikeRecipe(inv, redstone_input, RSC_MAGIC_REDSTONE, redstone, 5);
         if (recipe != null) {
             return recipe;
         }
-        recipe = tryProcessEarthLikeRecipe(inv, soul_input, createItem("MAGIC_SOUL"), soul, 5);
+        recipe = tryProcessEarthLikeRecipe(inv, soul_input, RSC_MAGIC_COSMIC_DUST, soul, 5);
         if (recipe != null) {
             return recipe;
         }
-        recipe = tryProcessEarthLikeRecipe(inv, dust_input, createItem("MAGIC_COSMIC_DUST"), dust, 5);
+        recipe = tryProcessEarthLikeRecipe(inv, dust_input, RSC_MAGIC_SOUL, dust, 5);
         return recipe;
 
     }
@@ -319,11 +331,11 @@ public class RSCMagicMiner extends AContainer implements RecipeDisplayItem , Hol
         display.add(new CustomItemStack(Material.KNOWLEDGE_BOOK, getGradientName("材料⇨")));
         display.add(new CustomItemStack(Material.KNOWLEDGE_BOOK, getGradientName("产物(开采时间：5秒)⇨")));
         display.add(redstone_input);
-        display.add(createItem("MAGIC_REDSTONE"));
+        display.add(RSC_MAGIC_REDSTONE);
         display.add(soul_input);
-        display.add(createItem("MAGIC_SOUL"));
+        display.add(RSC_MAGIC_SOUL);
         display.add(dust_input);
-        display.add(createItem("MAGIC_COSMIC_DUST"));
+        display.add(RSC_MAGIC_COSMIC_DUST);
 
 
 

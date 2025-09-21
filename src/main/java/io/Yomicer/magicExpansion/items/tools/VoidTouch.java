@@ -97,6 +97,13 @@ public class VoidTouch extends SimpleSlimefunItem<ItemUseHandler> implements Not
 
                 if (targetLoc != null) {
                     Location playerLoc = player.getLocation();
+                    // ✅ 检查是否在同一世界
+                    if (!playerLoc.getWorld().equals(targetLoc.getWorld())) {
+                        player.sendMessage("⚠️ 目标位置位于不同维度，无法交互！");
+                        player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+                        return;
+                    }
+
                     double distance = targetLoc.distance(playerLoc);
 
                     if (distance > 250) {

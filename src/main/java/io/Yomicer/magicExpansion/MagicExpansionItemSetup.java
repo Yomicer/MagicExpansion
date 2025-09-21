@@ -374,6 +374,12 @@ public final class MagicExpansionItemSetup {
                 null, null, null,
                 null, null, null
         }).register(plugin);
+        //更新日志
+        new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2025_09_20, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
 
 
 
@@ -1547,6 +1553,25 @@ public final class MagicExpansionItemSetup {
         },"土元素",false,1314,520)
                 .register(plugin);
 
+        new MagicGeoResourceDefault(magicexpansionrscmagic, MagicExpansionItems.RSC_MAGIC_REDSTONE, FIVE_ELEMENT_MINER, new ItemStack[] {
+                null,null,null,
+                null,new CustomItemStack(new ItemStack(Material.NETHER_STAR), "&c&l注意：&c&l原版资源采集器无法开采此资源","需要使用魔法资源开采机-优化版"),null,
+                null,null,null
+        },"魔法红石-RSC",false,1314,520)
+                .register(plugin);
+        new MagicGeoResourceDefault(magicexpansionrscmagic, MagicExpansionItems.RSC_MAGIC_COSMIC_DUST, FIVE_ELEMENT_MINER, new ItemStack[] {
+                null,null,null,
+                null,new CustomItemStack(new ItemStack(Material.NETHER_STAR), "&c&l注意：&c&l原版资源采集器无法开采此资源","需要使用魔法资源开采机-优化版"),null,
+                null,null,null
+        },"宇宙尘-RSC",false,1314,520)
+                .register(plugin);
+        new MagicGeoResourceDefault(magicexpansionrscmagic, MagicExpansionItems.RSC_MAGIC_SOUL, FIVE_ELEMENT_MINER, new ItemStack[] {
+                null,null,null,
+                null,new CustomItemStack(new ItemStack(Material.NETHER_STAR), "&c&l注意：&c&l原版资源采集器无法开采此资源","需要使用魔法资源开采机-优化版"),null,
+                null,null,null
+        },"灵魂-RSC",false,1314,520)
+                .register(plugin);
+
         new UnplaceableBlock(magicexpansionresource, MagicExpansionItems.FIVE_ELEMENT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 null,MagicExpansionItems.WOOD_ELEMENT,null,
                 MagicExpansionItems.WATER_ELEMENT,MagicExpansionItems.GOLD_ELEMENT,MagicExpansionItems.FIRE_ELEMENT,
@@ -2696,7 +2721,6 @@ public final class MagicExpansionItemSetup {
                 .register(plugin);
 
         //条件注册，1.21魔法兼容问题
-        if(IfItemXist("MAGIC_REDSTONE")&&IfItemXist("MAGIC_COSMIC_DUST")){
             new RSCMagicMiner(magicexpansionrscmagic, MagicExpansionItems.RSC_MAGIC_MINER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
                     null,SlimefunItems.GEO_MINER, null,
                     null, SlimefunItems.OUTPUT_CHEST, null,
@@ -2706,7 +2730,7 @@ public final class MagicExpansionItemSetup {
                     .setEnergyConsumption(260)
                     .setProcessingSpeed(1)
                     .register(plugin);
-        }
+
 
 
     }
