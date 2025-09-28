@@ -271,7 +271,7 @@ public enum Fish {
             ColorGradient.getGradientName("「特殊作用」可生产：硅")
     ),
     // 【灵咒鱼】用于生产：附魔瓶（Bottled Enchanting）
-    EnchantedBottleFish(Rarity.EPIC.colorCode + "灵咒鱼", 0.8, 32.0, Rarity.EPIC,
+    EnchantedBottleFish(Rarity.EPIC.colorCode + "灵咒鱼", 1.0, 64.0, Rarity.EPIC,
             ColorGradient.getGradientName("游弋于魔法漩涡与古代符文阵之间，以逸散的附魔能量为食。"),
             ColorGradient.getGradientName("通体半透明，体内似有无数微型符文如萤火般流转，永不熄灭。"),
             ColorGradient.getGradientName("其体液蕴含不稳定的奥术精华，可凝结为蕴含随机魔力的附魔瓶。"),

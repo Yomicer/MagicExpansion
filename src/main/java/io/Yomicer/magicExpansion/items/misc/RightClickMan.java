@@ -77,7 +77,7 @@ public class RightClickMan extends SlimefunItem implements EnergyNetComponent {
     }
     protected void tick(Block block) {
         BlockMenu menu = StorageCacheUtils.getMenu(block.getLocation());
-        if(menu != null && menu.hasViewer()) {
+        if(menu != null) {
             // 定义：逻辑槽位 → 显示槽位 → 方向
             Map<Integer, Map.Entry<Integer, BlockFace>> directionMap = new HashMap<>();
             directionMap.put(9,  new AbstractMap.SimpleImmutableEntry<>(0, BlockFace.UP));     // 9 → 0 → UP
@@ -106,14 +106,21 @@ public class RightClickMan extends SlimefunItem implements EnergyNetComponent {
                     displayItem = sfItem.getItem().clone();
                 }
                 else if (targetBlock.getType() != Material.AIR) {
-                    displayItem = new ItemStack(targetBlock.getType());
+                    // 检查材料是否可以作为物品
+                    Material blockType = targetBlock.getType();
+                    if (isValidItemMaterial(blockType)) {
+                        displayItem = new ItemStack(blockType);
 
-                    BlockState state = targetBlock.getState();
-                    ItemMeta meta = displayItem.getItemMeta();
-                    if (meta instanceof BlockStateMeta blockStateMeta) {
-                        blockStateMeta.setBlockState(state);
-                        blockStateMeta.setLore(null);
-                        displayItem.setItemMeta(blockStateMeta);
+                        BlockState state = targetBlock.getState();
+                        ItemMeta meta = displayItem.getItemMeta();
+                        if (meta instanceof BlockStateMeta blockStateMeta) {
+                            blockStateMeta.setBlockState(state);
+                            blockStateMeta.setLore(null);
+                            displayItem.setItemMeta(blockStateMeta);
+                        }
+                    } else {
+                        // 对于不能作为物品的方块，使用屏障并显示方块信息
+                        displayItem = createBlockDisplayItem(blockType, targetBlock, statusText);
                     }
                 }
                 else {
@@ -243,7 +250,7 @@ public class RightClickMan extends SlimefunItem implements EnergyNetComponent {
             }
 
             // 更新状态显示
-            if (menu != null && menu.hasViewer()) {
+            if (menu.hasViewer()) {
                 if (nearestPlayer != null) {
                     menu.replaceExistingItem(16, new CustomItemStack(Material.PINK_CANDLE, "§b交互机器人",
                             "§b工作类型：§e右键交互方块",
@@ -262,6 +269,38 @@ public class RightClickMan extends SlimefunItem implements EnergyNetComponent {
                 }
             }
         }
+    }
+
+    /**
+     * 检查材料是否可以作为有效的物品
+     */
+    private boolean isValidItemMaterial(Material material) {
+        // 墙上的标志牌、双台阶等不能作为物品
+        return material.isItem() && !material.name().contains("WALL_") && !material.name().contains("DOUBLE_");
+    }
+
+    /**
+     * 为不能作为物品的方块创建显示物品
+     */
+    private ItemStack createBlockDisplayItem(Material blockType, Block block, String statusText) {
+        ItemStack displayItem = new ItemStack(Material.BARRIER);
+        ItemMeta meta = displayItem.getItemMeta();
+
+        if (meta != null) {
+            // 获取方块的友好名称
+            String blockName = blockType.name().toLowerCase().replace("_", " ");
+            meta.setDisplayName("§7" + blockName);
+
+            List<String> lore = new ArrayList<>();
+            lore.add("§7坐标: " + block.getX() + "," + block.getY() + "," + block.getZ());
+            lore.add("§7状态: " + statusText);
+            lore.add("§8（此方块无法作为物品显示）");
+
+            meta.setLore(lore);
+            displayItem.setItemMeta(meta);
+        }
+
+        return displayItem;
     }
 
     private void constructMenu(String displayName) {
@@ -371,6 +410,7 @@ public class RightClickMan extends SlimefunItem implements EnergyNetComponent {
      * 设置物品显示：继承原显示名和Lore，并追加坐标和状态信息
      */
     private void setBlockDisplayWithInfo(ItemStack item, Block block, String statusLine) {
+        if (item == null) return;
         ItemMeta meta = item.getItemMeta();
         if (meta == null) return;
 

@@ -83,18 +83,13 @@ public class TypeEnergyGenerator extends MenuBlock implements EnergyNetProvider 
     public int getGeneratedOutput(Location l, SlimefunBlockData data) {
 
         int gen;
-        Block fire = l.getBlock().getRelative(face);
-        if (fire.getType() != material) {
-            gen = 0;
-        }else {
-            if (power2 > 0) {
-                double r = Math.random();
-                double genDouble = power + (power2 - power) * Math.pow(r, 3);
-                gen = (int) genDouble;
-//                gen = new Random().nextInt(power, power2);
-            } else {
-                gen = power;
-            }
+        if (power2 > 0) {
+            double r = Math.random();
+            double genDouble = power + (power2 - power) * Math.pow(r, 3);
+            gen = (int) genDouble;
+//               gen = new Random().nextInt(power, power2);
+        } else {
+            gen = power;
         }
 
         BlockMenu inv = StorageCacheUtils.getMenu(l);

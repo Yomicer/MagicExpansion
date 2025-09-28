@@ -3,7 +3,9 @@ package io.Yomicer.magicExpansion.Listener;
 import io.Yomicer.magicExpansion.utils.log.Debug;
 import io.github.thebusybiscuit.slimefun4.api.events.SlimefunItemRegistryFinalizedEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.multiblocks.MultiBlockMachine;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -51,8 +53,6 @@ public class SlimefunRegistryFinalized implements Listener {
     String ID6 = "PRESSURE_CHAMBER";
     //魔法工作台
 //    String ID7 = "MAGIC_WORKBENCH";
-
-
 
 
 

@@ -239,11 +239,11 @@ public class RSCMagicMiner extends AContainer implements RecipeDisplayItem , Hol
         if (recipe != null) {
             return recipe;
         }
-        recipe = tryProcessEarthLikeRecipe(inv, soul_input, RSC_MAGIC_COSMIC_DUST, soul, 5);
+        recipe = tryProcessEarthLikeRecipe(inv, soul_input, RSC_MAGIC_SOUL, soul, 5);
         if (recipe != null) {
             return recipe;
         }
-        recipe = tryProcessEarthLikeRecipe(inv, dust_input, RSC_MAGIC_SOUL, dust, 5);
+        recipe = tryProcessEarthLikeRecipe(inv, dust_input, RSC_MAGIC_COSMIC_DUST, dust, 5);
         return recipe;
 
     }

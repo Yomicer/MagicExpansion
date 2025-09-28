@@ -27,7 +27,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 23"),
+            getGradientName("Version: Build 24"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -633,6 +633,15 @@ public class MagicExpansionItems {
 
 
 
+
+    public static final SlimefunItemStack SF_TIMINGS_HOLOGRAM = createDefaultItemGlow("SF_TIMINGS_HOLOGRAM",Material.QUARTZ_SLAB);
+    public static final SlimefunItemStack MUSIC_TEST = createDefaultItemGlow("MUSIC_TEST",Material.RABBIT);
+    public static final SlimefunItemStack CARGO_TERMINAL = createDefaultItemGlow("CARGO_TERMINAL",Material.NOTE_BLOCK);
+    public static final SlimefunItemStack CARGO_FRAGMENT = createDefaultItemGlow("CARGO_FRAGMENT",Material.PRISMARINE_CRYSTALS);
+
+
+
+
     public static final SlimefunItemStack UI_THX = createDefaultItem("UI_THX",Material.PAPER);
 //    public static final SlimefunItemStack UI_3 = createDefaultItem("UI_3",Material.LIGHT_GRAY_STAINED_GLASS_PANE);
 
@@ -656,6 +665,8 @@ public class MagicExpansionItems {
             get("Items.NAZUKICYL_TEST.Name"),getList("Items.NAZUKICYL_TEST.Lore"));
     public static final SlimefunItemStack HAIMAN_TEST = themed("HAIMAN_TEST",new CustomItemStack(CustomHead.getHead("1421f1514da756c8c6c7c0b83a79265c26c9ece66b3bad8fbd94bd96d7040d7e")),
             get("Items.HAIMAN_TEST.Name"),getList("Items.HAIMAN_TEST.Lore"));
+    public static final SlimefunItemStack QIZHIYI_TEST = themed("QIZHIYI_TEST",new CustomItemStack(CustomHead.getHead("f92cbe88217460b5b5edad02d6b9a547ac0a194e75c061fba754a815d8f08f9")),
+            get("Items.QIZHIYI_TEST.Name"),getList("Items.QIZHIYI_TEST.Lore"));
 
 
 
@@ -679,6 +690,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2025_09_14 = createDefaultItemGlow("UPDATE_LOG_2025_09_14",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_09_18 = createDefaultItemGlow("UPDATE_LOG_2025_09_18",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_09_20 = createDefaultItemGlow("UPDATE_LOG_2025_09_20",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2025_09_27 = createDefaultItemGlow("UPDATE_LOG_2025_09_27",Material.PAPER);
 
 
 

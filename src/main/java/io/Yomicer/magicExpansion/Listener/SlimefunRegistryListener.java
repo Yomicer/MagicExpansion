@@ -1,5 +1,6 @@
 package io.Yomicer.magicExpansion.Listener;
 
+import io.Yomicer.magicExpansion.utils.log.Debug;
 import io.github.thebusybiscuit.slimefun4.api.events.SlimefunItemRegistryFinalizedEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
@@ -42,8 +43,6 @@ public class SlimefunRegistryListener implements Listener {
         loadRecipes(HEATED_PRESSURE_CHAMBER_RECIPES, RecipeType.HEATED_PRESSURE_CHAMBER);
         loadRecipes(MAGIC_WORKBENCH_RECIPES, RecipeType.MAGIC_WORKBENCH);
         loadRecipes(ORE_CRUSHER_RECIPES, RecipeType.ORE_CRUSHER);
-
-
 
     }
 
