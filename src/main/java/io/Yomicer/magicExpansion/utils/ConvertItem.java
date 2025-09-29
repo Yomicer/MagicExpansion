@@ -14,7 +14,7 @@ public class ConvertItem {
 
         // 检查是否成功获取到 Slimefun 物品
         if (slimefunItem == null) {
-            Debug.logInfo("无法找到 ID 为 " + selectedItem + " 的 Slimefun 物品！");
+            Debug.logInfo("检测到未安装魔法1.0,已为您替换为等价值材料。此物品在魔法1.0的ID为: "+ selectedItem);
             return MagicExpansionItems.MAGIC_EXPANSION_TO_MAGIC_ITEM_BASIC; // 返回一个初级
         }
 
@@ -47,7 +47,7 @@ public class ConvertItem {
 
         // 检查是否成功获取到 Slimefun 物品
         if (slimefunItem == null) {
-            Debug.logInfo("无法找到 ID 为 " + selectedItem + " 的 Slimefun 物品！");
+            Debug.logInfo("检测到未安装魔法1.0,已为您替换为等价值材料。此物品在魔法1.0的ID为: "+ selectedItem);
             return MagicExpansionItems.MAGIC_EXPANSION_TO_MAGIC_ITEM_ADVANCED; // 返回一个进阶
         }
 

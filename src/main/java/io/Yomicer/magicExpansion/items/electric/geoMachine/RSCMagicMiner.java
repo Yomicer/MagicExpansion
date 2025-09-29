@@ -47,7 +47,6 @@ import java.util.OptionalInt;
 
 import static io.Yomicer.magicExpansion.core.MagicExpansionItems.*;
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
-import static io.Yomicer.magicExpansion.utils.ConvertItem.createItem;
 
 public class RSCMagicMiner extends AContainer implements RecipeDisplayItem , HologramOwner{
 

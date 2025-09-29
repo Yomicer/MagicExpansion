@@ -285,7 +285,7 @@ public class CargoCore extends SlimefunItem implements EnergyNetComponent{
 
             // 音效
             Block block = menu.getLocation().getBlock();
-            block.getWorld().playSound(block.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.2F, 1.2F);
+//            block.getWorld().playSound(block.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.2F, 1.2F);
         }
     }
 
@@ -1704,12 +1704,12 @@ public class CargoCore extends SlimefunItem implements EnergyNetComponent{
 
         // 10. 播放音效和粒子效果
         if (actualPushed > 0) {
-            sourceBlock.getWorld().playSound(
-                    sourceBlock.getLocation(),
-                    Sound.ENTITY_ENDERMAN_TELEPORT,
-                    0.3F,
-                    1.0F
-            );
+//            sourceBlock.getWorld().playSound(
+//                    sourceBlock.getLocation(),
+//                    Sound.ENTITY_ENDERMAN_TELEPORT,
+//                    0.3F,
+//                    1.0F
+//            );
 
             // 添加粒子效果显示传输
             showTransferParticles(sourceBlock.getLocation(), targetLocation, Particle.END_ROD);
@@ -2106,12 +2106,12 @@ public class CargoCore extends SlimefunItem implements EnergyNetComponent{
 
             if (extractedAmount > 0) {
                 // 播放抽取音效
-                destBlock.getWorld().playSound(
-                        destBlock.getLocation(),
-                        Sound.ENTITY_ENDER_EYE_LAUNCH,
-                        0.2F,
-                        1.0F
-                );
+//                destBlock.getWorld().playSound(
+//                        destBlock.getLocation(),
+//                        Sound.ENTITY_ENDER_EYE_LAUNCH,
+//                        0.2F,
+//                        1.0F
+//                );
                 hasExtracted = true;
             }
 
