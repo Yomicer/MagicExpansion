@@ -1,14 +1,11 @@
 package io.Yomicer.magicExpansion.items.misc;
 
-import com.google.common.reflect.TypeToken;
-import com.google.gson.Gson;
 import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 import io.Yomicer.magicExpansion.MagicExpansion;
 import io.Yomicer.magicExpansion.items.tools.VoidTouch;
 import io.Yomicer.magicExpansion.utils.ColorGradient;
 import io.Yomicer.magicExpansion.utils.SameItemJudge;
-import io.Yomicer.magicExpansion.utils.log.Debug;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -19,10 +16,7 @@ import io.github.thebusybiscuit.slimefun4.core.handlers.BlockPlaceHandler;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.implementation.handlers.SimpleBlockBreakHandler;
-import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.WordUtils;
-import io.github.thebusybiscuit.slimefun4.libraries.dough.data.persistent.PersistentDataAPI;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
-import io.github.thebusybiscuit.slimefun4.libraries.dough.items.ItemUtils;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
@@ -34,7 +28,6 @@ import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
 import net.guizhanss.guizhanlib.minecraft.helper.inventory.ItemStackHelper;
-import net.guizhanss.guizhanlib.slimefun.utils.BlockStorageUtil;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -1236,15 +1229,28 @@ public class CargoCore extends SlimefunItem implements EnergyNetComponent{
                 } else {
                     Block block = loc.getBlock();
                     if (block.getType() != Material.AIR) {
-                        targetItem = new ItemStack(block.getType());
-                        BlockState state = block.getState();
-                        ItemMeta meta = targetItem.getItemMeta();
-                        if (meta instanceof BlockStateMeta bsm) {
-                            bsm.setBlockState(state);
-                            targetItem.setItemMeta(bsm);
+                        // 安全地创建物品堆栈，避免使用无效的物品类型
+                        try {
+                            // 检查材料是否是有效的物品类型
+                            Material blockType = block.getType();
+                            if (isValidItemType(blockType)) {
+                                targetItem = new ItemStack(blockType);
+                                BlockState state = block.getState();
+                                ItemMeta meta = targetItem.getItemMeta();
+                                if (meta instanceof BlockStateMeta bsm) {
+                                    bsm.setBlockState(state);
+                                    targetItem.setItemMeta(bsm);
+                                }
+                            } else {
+                                // 对于墙上的标志等非物品方块，使用替代的显示物品
+                                targetItem = getAlternativeDisplayItem(blockType);
+                            }
+                        } catch (IllegalArgumentException e) {
+                            // 如果创建物品堆栈失败，使用默认的替代物品
+                            targetItem = new ItemStack(Material.COMPASS);
                         }
                     } else {
-                        targetItem = new ItemStack(Material.BARRIER);
+                        targetItem = new ItemStack(Material.COMPASS);
                     }
                 }
             } else {
@@ -1269,7 +1275,7 @@ public class CargoCore extends SlimefunItem implements EnergyNetComponent{
             lore.add("§f右键：清除");
 
             if (targetMeta == null) {
-                targetMeta = Bukkit.getItemFactory().getItemMeta(Material.COMPASS);
+                targetMeta = Bukkit.getItemFactory().getItemMeta(Material.RECOVERY_COMPASS);
             }
             targetMeta.setDisplayName("§f目标坐标");
             targetMeta.setLore(lore);
@@ -1500,6 +1506,80 @@ public class CargoCore extends SlimefunItem implements EnergyNetComponent{
     }
 
     // ====== 辅助方法 ======
+
+    /**
+     * 检查材料是否是有效的物品类型
+     */
+    private boolean isValidItemType(Material material) {
+        try {
+            // 尝试创建物品堆栈来验证
+            new ItemStack(material);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
+
+    /**
+     * 为无效的物品类型获取替代的显示物品
+     */
+    private ItemStack getAlternativeDisplayItem(Material originalType) {
+        // 先尝试去掉WALL_前缀获取普通版本
+        if (originalType.name().startsWith("WALL_")) {
+            String baseName = originalType.name().replace("WALL_", "");
+            try {
+                Material baseMaterial = Material.valueOf(baseName);
+                if (isValidItemType(baseMaterial)) {
+                    return new ItemStack(baseMaterial);
+                }
+            } catch (IllegalArgumentException ignored) {
+                // 如果转换失败，继续处理特殊情况
+            }
+
+            // 如果去掉前缀后无效，处理特殊情况
+            if (originalType.name().contains("SIGN")) {
+                return new ItemStack(Material.OAK_SIGN);
+            }
+            if (originalType.name().contains("BANNER")) {
+                return new ItemStack(Material.BLACK_BANNER);
+            }
+        }
+
+        // 默认安全替代品
+        return new ItemStack(Material.COMPASS);
+    }
+
+
+    /**
+     * 为无效的物品类型提供安全的替代显示物品
+     */
+    private ItemStack getSafeAlternativeItem(Material originalType) {
+        // 先尝试去掉WALL_前缀获取普通版本
+        if (originalType.name().startsWith("WALL_")) {
+            String baseName = originalType.name().replace("WALL_", "");
+            try {
+                Material baseMaterial = Material.valueOf(baseName);
+                if (isValidItemType(baseMaterial)) {
+                    return new ItemStack(baseMaterial);
+                }
+            } catch (IllegalArgumentException ignored) {
+                // 如果转换失败，继续处理特殊情况
+            }
+
+            // 如果去掉前缀后无效，处理特殊情况
+            if (originalType.name().contains("SIGN")) {
+                return new ItemStack(Material.OAK_SIGN);
+            }
+            if (originalType.name().contains("BANNER")) {
+                return new ItemStack(Material.BLACK_BANNER);
+            }
+        }
+
+        // 默认安全替代品
+        return new ItemStack(Material.COMPASS);
+    }
+
+
     private Location parseLocation(String str) {
         try {
             String[] parts = str.split(",", 4);
@@ -2038,7 +2118,7 @@ public class CargoCore extends SlimefunItem implements EnergyNetComponent{
         }
         if (hasExtracted) {
             // 显示粒子效果
-            showTransferParticles(sourceMenu.getLocation(), destBlock.getLocation(), Particle.FALLING_HONEY);
+            showTransferParticles(sourceMenu.getLocation(), destBlock.getLocation(), Particle.DRAGON_BREATH);
         }
 
     }
@@ -2220,19 +2300,33 @@ public class CargoCore extends SlimefunItem implements EnergyNetComponent{
                 } else {
                     Block block = loc.getBlock();
                     if (block.getType() != Material.AIR) {
-                        bindItem = new ItemStack(block.getType());
-                        BlockState state = block.getState();
-                        ItemMeta meta = bindItem.getItemMeta();
-                        if (meta instanceof BlockStateMeta bsm) {
-                            bsm.setBlockState(state);
-                            bindItem.setItemMeta(bsm);
+                        // 安全地创建物品堆栈
+                        try {
+                            Material blockType = block.getType();
+                            // 检查是否为有效的物品类型
+                            if (isValidItemType(blockType)) {
+                                bindItem = new ItemStack(blockType);
+                                // 保留原有的BlockStateMeta处理逻辑
+                                BlockState state = block.getState();
+                                ItemMeta meta = bindItem.getItemMeta();
+                                if (meta instanceof BlockStateMeta bsm) {
+                                    bsm.setBlockState(state);
+                                    bindItem.setItemMeta(bsm);
+                                }
+                            } else {
+                                // 对于墙上的标志等非物品方块，使用安全的替代品
+                                bindItem = getSafeAlternativeItem(blockType);
+                            }
+                        } catch (IllegalArgumentException e) {
+                            // 如果创建失败，使用默认的安全物品
+                            bindItem = new ItemStack(Material.COMPASS);
                         }
                     } else {
-                        bindItem = new ItemStack(Material.BARRIER);
+                        bindItem = new ItemStack(Material.COMPASS);
                     }
                 }
             } else {
-                bindItem = new ItemStack(Material.COMPASS);
+                bindItem = new ItemStack(Material.RECOVERY_COMPASS);
             }
 
             ItemMeta bindMeta = bindItem.getItemMeta();
