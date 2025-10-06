@@ -1188,29 +1188,20 @@ public final class MagicExpansionItemSetup {
 
 
 
-
-
-
-
-
-
-
-
-
         // 双面胶
-        new DoubleSidedTape(magicexpansionspecialitem, MagicExpansionItems.DOUBLE_SIDED_TAPE, RecipeType.NULL, new ItemStack[] {
+        new DoubleSidedTape(magicexpansionspecialitem, MagicExpansionItems.DOUBLE_SIDED_TAPE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 null,new ItemStack(Material.SLIME_BALL),null,
                 null,new ItemStack(Material.PAPER),null,
                 null,null,null
         }).register(plugin);
         // 薛定谔的相框
-        new SchrodingerFrame(magicexpansionspecialitem, MagicExpansionItems.SCHRODINGER_FRAME_ONE, RecipeType.NULL, new ItemStack[] {
+        new SchrodingerFrame(magicexpansionspecialitem, MagicExpansionItems.SCHRODINGER_FRAME_ONE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 null,new ItemStack(Material.ITEM_FRAME),null,
                 null,new ItemStack(Material.PAPER),null,
                 null,null,null
         },true, "schrodinger_frame").register(plugin);
         // 薛定谔的相框
-        new SchrodingerFrame(magicexpansionspecialitem, MagicExpansionItems.SCHRODINGER_FRAME_INFINITE, RecipeType.NULL, new ItemStack[] {
+        new SchrodingerFrame(magicexpansionspecialitem, MagicExpansionItems.SCHRODINGER_FRAME_INFINITE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 SCHRODINGER_FRAME_ONE,SCHRODINGER_FRAME_ONE,SCHRODINGER_FRAME_ONE,
                 SCHRODINGER_FRAME_ONE,MAGIC_EXPANSION_MAGIC_SUGAR_1,SCHRODINGER_FRAME_ONE,
                 SCHRODINGER_FRAME_ONE,SCHRODINGER_FRAME_ONE,SCHRODINGER_FRAME_ONE
