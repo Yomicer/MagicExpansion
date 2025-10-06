@@ -331,6 +331,25 @@ public class MagicExpansionRecipeMachineSetup {
                                 new ItemStack(Material.SPIDER_EYE,1),new ItemStack(Material.BLAZE_ROD,1)})
                 .register(plugin);
 
+        if (IfItemXist("MAGIC_REDSTONE")) {
+            //魔法资源开采集-rsc
+            new RecipeMachine(magicexpansionrscmagic, MagicExpansionItems.TWO_TO_MAGIC_GEO_MACHINE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
+                    SlimefunItems.MAGIC_SUGAR, SlimefunItems.MAGIC_SUGAR, new ItemStack(Material.SUGAR),
+                    SlimefunItems.MAGIC_SUGAR, new ItemStack(Material.FURNACE), new ItemStack(Material.SUGAR),
+                    SlimefunItems.MAGIC_SUGAR, new ItemStack(Material.SUGAR), new ItemStack(Material.SUGAR)
+            })
+                    .setCapacity(1314)
+                    .setConsumption(26)
+                    .setProcessingSpeed(1)
+                    .addRecipe(2, new ItemStack[]{sfItemAmount(MagicExpansionItems.RSC_MAGIC_REDSTONE, 1)},
+                            new ItemStack[]{stoneCreateItem("MAGIC_REDSTONE")})
+                    .addRecipe(2, new ItemStack[]{sfItemAmount(MagicExpansionItems.RSC_MAGIC_COSMIC_DUST, 1)},
+                            new ItemStack[]{stoneCreateItem("MAGIC_COSMIC_DUST")})
+                    .addRecipe(2, new ItemStack[]{sfItemAmount(MagicExpansionItems.RSC_MAGIC_SOUL, 1)},
+                            new ItemStack[]{stoneCreateItem("MAGIC_SOUL")})
+                    .register(plugin);
+
+        }
 
 
         //元素提纯机
@@ -363,22 +382,8 @@ public class MagicExpansionRecipeMachineSetup {
                 .register(plugin);
 
 
-        //魔法资源开采集-rsc
-        new RecipeMachine(magicexpansionrscmagic, MagicExpansionItems.TWO_TO_MAGIC_GEO_MACHINE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                SlimefunItems.MAGIC_SUGAR, SlimefunItems.MAGIC_SUGAR,new ItemStack(Material.SUGAR),
-                SlimefunItems.MAGIC_SUGAR,new ItemStack(Material.FURNACE),new ItemStack(Material.SUGAR),
-                SlimefunItems.MAGIC_SUGAR,new ItemStack(Material.SUGAR),new ItemStack(Material.SUGAR)
-        })
-                .setCapacity(1314)
-                .setConsumption(26)
-                .setProcessingSpeed(1)
-                .addRecipe(2, new ItemStack[] {sfItemAmount(MagicExpansionItems.RSC_MAGIC_REDSTONE,1)},
-                        new ItemStack[] {stoneCreateItem("MAGIC_REDSTONE")})
-                .addRecipe(2, new ItemStack[] {sfItemAmount(MagicExpansionItems.RSC_MAGIC_COSMIC_DUST,1)},
-                        new ItemStack[] {stoneCreateItem("MAGIC_COSMIC_DUST")})
-                .addRecipe(2, new ItemStack[] {sfItemAmount(MagicExpansionItems.RSC_MAGIC_SOUL,1)},
-                        new ItemStack[] {stoneCreateItem("MAGIC_SOUL")})
-                .register(plugin);
+
+
 
 
 
@@ -387,6 +392,5 @@ public class MagicExpansionRecipeMachineSetup {
 
 
     }
-
 
 }

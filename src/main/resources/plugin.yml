@@ -17,9 +17,13 @@ commands:
     permission: magicexpansion.command
     permission-message: &c你没有权限执行此指令！
 
-  mx:
+  mxw:
     description: Main command for map management.
   permissions:
     MagicExpansionMachines.use:
       description: Allows players to use the plugin commands.
       default: op
+
+  mxf:
+    description: 钓鱼图鉴相关命令
+    usage: /<command> <open_guide|guide>

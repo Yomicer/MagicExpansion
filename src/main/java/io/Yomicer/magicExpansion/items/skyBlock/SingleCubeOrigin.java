@@ -94,8 +94,9 @@ public class SingleCubeOrigin extends SlimefunItem implements HologramOwner{
                 Material newMaterial = getRandomValidBlock();
                 block.setType(newMaterial);
 
-                ItemStack blockItemStack = new ItemStack(block.getType());
-                String displayName = ItemStackHelper.getDisplayName(blockItemStack);
+//                ItemStack blockItemStack = new ItemStack(block.getType());
+//                String displayName = ItemStackHelper.getDisplayName(blockItemStack);
+                String displayName = ItemStackHelper.getDisplayName(new ItemStack(newMaterial));
                 updateHologram(block, ColorGradient.getGradientName("单方块·起源-形态:" + displayName));
                 }else{
                 removeHologram(block);

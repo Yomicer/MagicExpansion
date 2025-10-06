@@ -27,7 +27,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 26"),
+            getGradientName("Version: Build 27"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -692,6 +692,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2025_09_20 = createDefaultItemGlow("UPDATE_LOG_2025_09_20",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_09_27 = createDefaultItemGlow("UPDATE_LOG_2025_09_27",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_09_29 = createDefaultItemGlow("UPDATE_LOG_2025_09_29",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2025_10_06 = createDefaultItemGlow("UPDATE_LOG_2025_10_06",Material.PAPER);
 
 
 
@@ -706,8 +707,17 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack FISHING_ROD_FISH_ANYTHING = createDefaultItem("FISHING_ROD_FISH_ANYTHING",Material.APPLE);
 
 
+    // 双面胶
+    public static final SlimefunItemStack DOUBLE_SIDED_TAPE = createDefaultItem("DOUBLE_SIDED_TAPE",Material.PAPER);
+    public static final SlimefunItemStack SCHRODINGER_FRAME_ONE = createDefaultItem("SCHRODINGER_FRAME_ONE",Material.ITEM_FRAME);
+    public static final SlimefunItemStack SCHRODINGER_FRAME_INFINITE = createDefaultItem("SCHRODINGER_FRAME_INFINITE",Material.GLOW_ITEM_FRAME);
+
+
     public static final SlimefunItemStack FISHING_INFO = createDefaultItemGlow("FISHING_INFO",Material.PAPER);
     public static final SlimefunItemStack FISH_CATEGORY_INFO = createDefaultItemGlow("FISH_CATEGORY_INFO",Material.PAPER);
+
+
+    public static final SlimefunItemStack FISHING_BOOK = createDefaultItemGlow("FISHING_BOOK",Material.KNOWLEDGE_BOOK);
 
     public static final SlimefunItemStack RANDOM_FISH_COMMON = themed("RANDOM_FISH_COMMON",Material.COD_BUCKET,
             get("Items.RANDOM_FISH_COMMON.Name"),getList("Items.RANDOM_FISH_COMMON.Lore"));
@@ -862,7 +872,9 @@ public class MagicExpansionItems {
 
     //材料工坊
     public static final SlimefunItemStack INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE = createDefaultRecipeMachine("INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE",Material.FURNACE);
+    public static final SlimefunItemStack INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE_DEFAULT = createDefaultRecipeMachine("INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE_DEFAULT",Material.FURNACE);
     public static final SlimefunItemStack INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE_ULTRA = createDefaultRecipeMachine("INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE_ULTRA",Material.BLAST_FURNACE);
+    public static final SlimefunItemStack INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE_ULTRA_DEFAULT = createDefaultRecipeMachine("INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE_ULTRA_DEFAULT",Material.BLAST_FURNACE);
 
 
     public static final SlimefunItemStack INGOT_PURE_MACHINE = createDefaultRecipeMachine("INGOT_PURE_MACHINE",Material.SMOKER);

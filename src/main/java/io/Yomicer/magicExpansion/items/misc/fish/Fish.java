@@ -486,7 +486,7 @@ public enum Fish {
         EPIC("§d史诗", "§d"),
         EPIC_POOL_INDUSTRY("§d史诗-POOL-工业材料", "§d"),
         LEGENDARY("§c传说", "§c"),
-        MYTHICAL("§e传说", "§e");
+        MYTHICAL("§e神话", "§e");
 
 
         private final String displayName;

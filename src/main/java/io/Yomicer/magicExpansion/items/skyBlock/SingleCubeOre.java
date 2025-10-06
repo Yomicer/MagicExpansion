@@ -94,8 +94,9 @@ public class SingleCubeOre extends SlimefunItem implements HologramOwner{
                 Material newMaterial = getRandomOreBlock();
                 block.setType(newMaterial);
 
-                ItemStack blockItemStack = new ItemStack(block.getType());
-                String displayName = ItemStackHelper.getDisplayName(blockItemStack);
+//                ItemStack blockItemStack = new ItemStack(block.getType());
+//                String displayName = ItemStackHelper.getDisplayName(blockItemStack);
+                String displayName = ItemStackHelper.getDisplayName(new ItemStack(newMaterial));
                 updateHologram(block, ColorGradient.getGradientName("单方块·矿脉-形态:" + displayName));
                 }else{
                 removeHologram(block);

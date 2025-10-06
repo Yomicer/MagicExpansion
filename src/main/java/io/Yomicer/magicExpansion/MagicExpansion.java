@@ -9,7 +9,9 @@ import io.Yomicer.magicExpansion.Listener.bossListener.BasicBossDropListener;
 import io.Yomicer.magicExpansion.Listener.fishingListener.PlayerFishingListener;
 import io.Yomicer.magicExpansion.Listener.magicItemEffectManager.ArrowHitLocationListener;
 import io.Yomicer.magicExpansion.Listener.magicItemEffectManager.ItemEffectAttackListener;
+import io.Yomicer.magicExpansion.Listener.miscListener.ItemFrameListener;
 import io.Yomicer.magicExpansion.Listener.worldListener.Events;
+import io.Yomicer.magicExpansion.specialActions.Command.FishingGuideCommand;
 import io.Yomicer.magicExpansion.specialActions.Command.MagicExpansionCommand;
 import io.Yomicer.magicExpansion.Listener.magicItemEffectManager.ItemEffectKillListener;
 import io.Yomicer.magicExpansion.specialActions.Command.WorldCommand;
@@ -67,7 +69,9 @@ public class MagicExpansion extends JavaPlugin implements SlimefunAddon {
 
         // Registering Command
         this.getCommand("magicexpansion").setExecutor(new MagicExpansionCommand());
-        this.getCommand("mx").setExecutor(new WorldCommand(this));
+        this.getCommand("mxw").setExecutor(new WorldCommand(this));
+        this.getCommand("mxf").setExecutor(new FishingGuideCommand());
+        this.getCommand("mxf").setTabCompleter(new FishingGuideCommand());
 
         // 创建地图保存目录
         File mapsDir = new File(getDataFolder(), "maps");
@@ -87,6 +91,7 @@ public class MagicExpansion extends JavaPlugin implements SlimefunAddon {
         getServer().getPluginManager().registerEvents(new BasicBossDropListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerFishingListener(), this);
         getServer().getPluginManager().registerEvents(new Events(), this);
+        getServer().getPluginManager().registerEvents(new ItemFrameListener(), this);
         getLogger().info("§b监听注册完毕！");
 
 

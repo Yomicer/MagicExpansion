@@ -44,7 +44,7 @@ public class WorldCommand implements CommandExecutor, TabCompleter {
         }
 
         if (args.length == 0) {
-            player.sendMessage("§bUsage: /mx <select|exitselect|exportmap|paste|clear|ctrlv>");
+            player.sendMessage("§bUsage: /mxw <select|exitselect|exportmap|paste|clear|ctrlv>");
             return true;
         }
 
@@ -65,7 +65,7 @@ public class WorldCommand implements CommandExecutor, TabCompleter {
 
             case "paste":
                 if (args.length < 2) {
-                    player.sendMessage("§cUsage: /me paste <filename>");
+                    player.sendMessage("§cUsage: /mxw paste <filename>");
                     return true;
                 }
                 MapUtils.pasteMap(player, args[1]);

@@ -179,7 +179,7 @@ public class CargoCore extends SlimefunItem implements EnergyNetComponent{
         // === Lore：原物品 Lore + 数量 ===
         List<String> lore = new ArrayList<>();
 
-        lore.add("§e承载物品名称: §r" + itemName);
+        lore.add(itemName);
 
         if (original.hasItemMeta() && original.getItemMeta().hasLore()) {
             lore.addAll(original.getItemMeta().getLore());
