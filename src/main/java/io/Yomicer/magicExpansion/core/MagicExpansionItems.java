@@ -27,7 +27,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 28"),
+            getGradientName("Version: Build 29"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -637,6 +637,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack SF_TIMINGS_HOLOGRAM = createDefaultItemGlow("SF_TIMINGS_HOLOGRAM",Material.QUARTZ_SLAB);
     public static final SlimefunItemStack MUSIC_TEST = createDefaultItemGlow("MUSIC_TEST",Material.RABBIT);
     public static final SlimefunItemStack CARGO_TERMINAL = createDefaultItemGlow("CARGO_TERMINAL",Material.NOTE_BLOCK);
+    public static final SlimefunItemStack CARGO_TERMINAL_RENEW = createDefaultItemGlow("CARGO_TERMINAL_RENEW",Material.NOTE_BLOCK);
     public static final SlimefunItemStack CARGO_FRAGMENT = createDefaultItemGlow("CARGO_FRAGMENT",Material.PRISMARINE_CRYSTALS);
 
 
@@ -659,6 +660,21 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UI_7 = createDefaultItem("UI_7",Material.LIGHT_GRAY_STAINED_GLASS_PANE);
     public static final SlimefunItemStack UI_8 = createDefaultItem("UI_8",Material.LIGHT_GRAY_STAINED_GLASS_PANE);
     public static final SlimefunItemStack UI_9 = createDefaultItem("UI_9",Material.LIGHT_GRAY_STAINED_GLASS_PANE);
+
+//    public static final SlimefunItemStack UI_IS_LATEST_BUILD = new SlimefunItemStack(
+//            "MAGIC_EXPANSION_UI_IS_LATEST_BUILD",
+//            Material.CALIBRATED_SCULK_SENSOR,
+//            getGradientName("当前魔法2.0为以往版本"),
+//            "",
+//            getGradientName("请及时关注最新版更新内容")
+//    );
+//    public static final SlimefunItemStack UI_NOT_LATEST_BUILD = new SlimefunItemStack(
+//            "MAGIC_EXPANSION_UI_NOT_LATEST_BUILD",
+//            Material.NETHER_STAR,
+//            getGradientName("当前魔法2.0为最新版本"),
+//            "",
+//            getGradientName("期待明天会更好")
+//    );
 
 
     public static final SlimefunItemStack NAZUKICYL_TEST = themed("NAZUKICYL_TEST",new CustomItemStack(CustomHead.getHead("8adb25ab9976d89d0bd8118d72c1c06bb907060c1e02a729b652d1e86b1ebbbc")),
@@ -693,6 +709,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2025_09_27 = createDefaultItemGlow("UPDATE_LOG_2025_09_27",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_09_29 = createDefaultItemGlow("UPDATE_LOG_2025_09_29",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_10_06 = createDefaultItemGlow("UPDATE_LOG_2025_10_06",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2025_10_07 = createDefaultItemGlow("UPDATE_LOG_2025_10_07",Material.PAPER);
 
 
 

@@ -2,6 +2,8 @@ package io.Yomicer.magicExpansion.Listener.miscListener;
 import io.Yomicer.magicExpansion.utils.log.Debug;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import net.guizhanss.guizhanlib.minecraft.helper.inventory.ItemStackHelper;
+import org.bukkit.Material;
+import org.bukkit.block.ShulkerBox;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -9,6 +11,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.hanging.HangingBreakEvent;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BlockStateMeta;
 
 import javax.swing.*;
 
@@ -23,13 +26,13 @@ public class ItemFrameListener implements Listener {
         if (hasTapeTag(itemFrame) || hasInfiniteTag(itemFrame)) {
 
             ItemStack itemInside = itemFrame.getItem();
-            SlimefunItem sfItem = SlimefunItem.getByItem(itemInside);
-            if (null != sfItem) {
+//            SlimefunItem sfItem = SlimefunItem.getByItem(itemInside);
+            if (itemInside.hasItemMeta()) {
                 e.setCancelled(true);
                 ItemStack doubleDrop = itemInside.clone();
                 itemFrame.getWorld().dropItemNaturally(itemFrame.getLocation(), doubleDrop);
                 itemFrame.setItem(null);
-                p.sendMessage("请不要将粘液物品放上去");
+                p.sendMessage("请不要将携带NBT的物品放上去");
                 return;
             }
 
@@ -58,6 +61,7 @@ public class ItemFrameListener implements Listener {
         }
 
     }
+
 
 
 

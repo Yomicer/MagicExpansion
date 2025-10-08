@@ -253,6 +253,14 @@ public final class MagicExpansionItemSetup {
 
 //        registerUIBlockInContribution(MagicExpansionItems.UI_3,plugin);
         registerUIBlockInContribution(MagicExpansionItems.UI_WIKI,plugin);
+
+
+
+
+
+
+
+
         registerUIBlockInContribution(MagicExpansionItems.UI_4,plugin);
         registerUIBlockInContribution(MagicExpansionItems.UI_5,plugin);
         registerUIBlockInContribution(MagicExpansionItems.UI_6,plugin);
@@ -398,6 +406,11 @@ public final class MagicExpansionItemSetup {
                 null, null, null
         }).register(plugin);
         new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2025_10_06, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
+        new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2025_10_07, SPECIAL_RECIPE_TYPE, new ItemStack[] {
                 null, null, null,
                 null, null, null,
                 null, null, null
@@ -2838,12 +2851,22 @@ public final class MagicExpansionItemSetup {
                 new ItemStack(Material.COOKED_RABBIT),new ItemStack(Material.SLIME_BALL),new ItemStack(Material.COOKED_RABBIT),
                 new ItemStack(Material.RABBIT),new ItemStack(Material.COOKED_RABBIT),new ItemStack(Material.RABBIT)
         }).register(plugin);
-        //测试存储
+
+        //魔法存储终端
         new CargoCore(magicexpansionenergy, MagicExpansionItems.CARGO_TERMINAL, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 SlimefunItems.CARGO_MANAGER,SlimefunItems.CRAFTER_SMART_PORT,SlimefunItems.CARGO_MANAGER,
                 SlimefunItems.CARGO_INPUT_NODE,SlimefunItems.CARGO_MANAGER,SlimefunItems.CARGO_OUTPUT_NODE_2,
                 SlimefunItems.CARGO_MANAGER,FIVE_ELEMENT_TOUCH,SlimefunItems.CARGO_MANAGER
         }).register(plugin);
+
+        //测试存储
+        new CargoCoreMore(magicexpansionenergy, CARGO_TERMINAL_RENEW, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                new ItemStack(Material.CHEST),PURE_FIVE_ELEMENT,new ItemStack(Material.CHEST),
+                PURE_ELEMENT_INGOT,CARGO_TERMINAL,PURE_ELEMENT_INGOT,
+                new ItemStack(Material.CHEST),PURE_FIVE_ELEMENT,new ItemStack(Material.CHEST)
+        }).register(plugin);
+
+
         //存储碎片
         new CargoFragment(magicexpansionspecialitem, MagicExpansionItems.CARGO_FRAGMENT, RecipeType.NULL, new ItemStack[] {
                 null,null,null,

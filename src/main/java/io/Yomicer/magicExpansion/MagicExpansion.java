@@ -51,7 +51,7 @@ public class MagicExpansion extends JavaPlugin implements SlimefunAddon {
             GuizhanUpdater.start(this, getFile(), "Yomicer", "MagicExpansion", "master");
             getLogger().info("§b更新完毕！");
         }else{
-            getLogger().info("§b已是最新版！");
+            getLogger().info("§b未启用自动更新！");
         }
         ConfigLoader.load(this);
         Language.loadConfig(ConfigLoader.LANGUAGE);
