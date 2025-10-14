@@ -275,7 +275,7 @@ public enum Fish {
             ColorGradient.getGradientName("游弋于魔法漩涡与古代符文阵之间，以逸散的附魔能量为食。"),
             ColorGradient.getGradientName("通体半透明，体内似有无数微型符文如萤火般流转，永不熄灭。"),
             ColorGradient.getGradientName("其体液蕴含不稳定的奥术精华，可凝结为蕴含随机魔力的附魔瓶。"),
-            ColorGradient.getGradientName("灵咒鱼极为罕见，捕获时需保持安静，否则符文溃散，魔力尽失。"),
+            ColorGradient.getGradientName("灵咒鱼极为罕见，需用魔法钓竿垂钓，否则符文溃散，魔力尽失。"),
             ColorGradient.getGradientName("灵咒鱼体重多在 1 - 64 kg 之间，越老者灵咒程度越高。"),
             ColorGradient.getGradientName("「特殊作用」可生产：附魔之瓶")
     ),

@@ -18,6 +18,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
@@ -129,6 +130,26 @@ public class PlayerFishingListener implements Listener {
         }
 
 
+        if (isTNTItem(drop)){
+            TNTPrimed tnt = player.getWorld().spawn(hookLocation.add(0,2,0), TNTPrimed.class);
+            tnt.setFuseTicks(600);
+            tnt.setCustomName(getGradientName("这是一颗威力非常大的TNT"));
+            tnt.setCustomNameVisible(true);
+            tnt.setFireTicks(400);
+            Vector direction = player.getLocation().add(0,2,0).toVector()
+                    .subtract(hookLocation.toVector())
+                    .normalize()
+                    .multiply(1);
+            tnt.setVelocity(direction);
+            tnt.setGlowing(true);
+            String itemName = ItemStackHelper.getDisplayName(drop);
+            String message = phrases.get(new Random().nextInt(phrases.size()));
+            player.sendMessage((ColorGradient.getRandomGradientName(message))+" §r"+itemName+ColorGradient.getRandomGradientName(" ！！"));
+            return;
+        }
+
+
+
         if (drop != null) {
             Item rewardItem = player.getWorld().dropItem(hookLocation, drop);
             rewardItem.setPickupDelay(0);
@@ -171,6 +192,11 @@ public class PlayerFishingListener implements Listener {
     private boolean isAnythingItem(ItemStack item) {
         if (item == null || item.getType().isAir()) return false;
         return SlimefunUtils.isItemSimilar(item, FISHING_ROD_FISH_ANYTHING, true);
+    }
+
+    private boolean isTNTItem(ItemStack item) {
+        if (item == null || item.getType().isAir()) return false;
+        return SlimefunUtils.isItemSimilar(item, new CustomItemStack(new ItemStack(Material.COCOA_BEANS),getGradientName("一个TNT")), true);
     }
 
 

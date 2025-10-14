@@ -897,7 +897,9 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_INDUSTRY, 18),
                                 new WeightedItem(RANDOM_FISH_EPIC_POOL_ALLOY_INGOT, 5),
                                 new WeightedItem(RANDOM_FISH_EPIC, 9),
-                                new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 3)
+                                new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 3),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                                ), 1)
                         ),
                         "default", List.of(
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.SUGAR_CANE,2),"§b腐烂的甘蔗",getGradientName("河里怎么会有甘蔗呢？")), 8),
@@ -907,7 +909,9 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.REDSTONE,8),"§b8-bit 红石",getGradientName("一把刚好8个？")), 8),
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.DISPENSER,2),"§b粘液科技要用到的发射器",getGradientName("放地上就好了？")), 8),
                                 new WeightedItem(RANDOM_FISH_COMMON, 2),
-                                new WeightedItem(RANDOM_FISH_UNCOMMON, 1)
+                                new WeightedItem(RANDOM_FISH_UNCOMMON, 1),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.COCOA_BEANS),getGradientName("一个TNT")), 2)
+
                         )
                 ),Arrays.asList(SlimefunItems.MAGIC_SUGAR,new ItemStack(Material.BREAD),
                 FISH_LURE_BASIC,FISH_LURE_DUST,FISH_LURE_ORE,FISH_LURE_ALLOY_INGOT)).register(plugin);
@@ -1061,7 +1065,7 @@ public final class MagicExpansionItemSetup {
                                 ), 15),
                                 new WeightedItem(new CustomItemStack(CustomHead.getHead("a1f71182915f5f862189a81f690acde4f671075db267eb6128fd1b4a84da8d7c"),"§c冷殇的轮椅",getGradientName("传说中专为“挂机玩家”打造的神装，装上它，连睡觉都能通关最终Boss。"),getGradientName("——不是你太强，是轮椅替你扛下了所有的难度。")
                                 ), 15),
-                                new WeightedItem(new CustomItemStack(new ItemStack(Material.COCOA_BEANS),"§c屎",getGradientName("传说中专为“挂机玩家”打造的神装，装上它，连睡觉都能通关最终Boss。"),getGradientName("——不是你太强，是轮椅替你扛下了所有的难度。")
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.COCOA_BEANS),"§c屎"
                                 ), 15),
                                 new WeightedItem(new CustomItemStack(CustomHead.MAGICSOLO.getItem(),getGradientName("magicsolo"),getGradientName("南柯一梦终须醒，浮生若梦皆是空~"),getGradientName("南柯一梦若浮生，不梦前世不梦今~")
                                 ), 15),
@@ -1074,7 +1078,9 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_INDUSTRY, 13),
                                 new WeightedItem(RANDOM_FISH_EPIC_POOL_ALLOY_INGOT, 16),
                                 new WeightedItem(RANDOM_FISH_EPIC, 10),
-                                new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 10)
+                                new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 10),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                                ), 1)
                         ),
                         "default", List.of(
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.SUGAR_CANE,8),"§b腐烂的甘蔗",getGradientName("河里怎么会有甘蔗呢？")
