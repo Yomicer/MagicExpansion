@@ -64,6 +64,34 @@ public class BaseFish {
     public static final BaseFish SulfateFish = of(Fish.SulfateFish);
     public static final BaseFish SiliconFish = of(Fish.SiliconFish);
     public static final BaseFish EnchantedBottleFish = of(Fish.EnchantedBottleFish);
+
+
+    //合金锭鱼
+    public static final BaseFish ReinforcedAlloyFish = of(Fish.ReinforcedAlloyFish);
+    public static final BaseFish HardenedMetalFish = of(Fish.HardenedMetalFish);
+    public static final BaseFish DamascusSoulFish = of(Fish.DamascusSoulFish);
+    public static final BaseFish SteelSoulFish = of(Fish.SteelSoulFish);
+    public static final BaseFish BronzeAncientFish = of(Fish.BronzeAncientFish);
+    public static final BaseFish HardlightAluFish = of(Fish.HardlightAluFish);
+    public static final BaseFish SilverCopperFish = of(Fish.SilverCopperFish);
+    public static final BaseFish BrassResonanceFish = of(Fish.BrassResonanceFish);
+    public static final BaseFish AluminumBrassFish = of(Fish.AluminumBrassFish);
+    public static final BaseFish AluminumBronzeFish = of(Fish.AluminumBronzeFish);
+    public static final BaseFish CorinthianBronzeFish = of(Fish.CorinthianBronzeFish);
+    public static final BaseFish SolderFlowFish = of(Fish.SolderFlowFish);
+    public static final BaseFish NickelSpiritFish = of(Fish.NickelSpiritFish);
+    public static final BaseFish CobaltFlameFish = of(Fish.CobaltFlameFish);
+    public static final BaseFish SiliconIronFish = of(Fish.SiliconIronFish);
+    public static final BaseFish CarbonSoulFish = of(Fish.CarbonSoulFish);
+    public static final BaseFish GildedIronFish = of(Fish.GildedIronFish);
+    public static final BaseFish RedstoneAlloyFish = of(Fish.RedstoneAlloyFish);
+    public static final BaseFish NeptuniumShadowFish = of(Fish.NeptuniumShadowFish);
+    public static final BaseFish PlutoniumCoreFish = of(Fish.PlutoniumCoreFish);
+
+
+
+
+
     public static final BaseFish LegendaryLuFish = of(Fish.LegendaryLuFish);
     public static final BaseFish MYSTIC_EEL = of(Fish.MYSTIC_EEL);
 
@@ -76,7 +104,7 @@ public class BaseFish {
             case UNCOMMON -> Material.SALMON_BUCKET;      // 不常见 - 鲑鱼桶
             case RARE, RARE_POOL_DUST, RARE_POOL_ORE, RARE_POOL_INDUSTRY ->
                     Material.PUFFERFISH_BUCKET;               // 稀有 - 河豚桶
-            case EPIC, EPIC_POOL_INDUSTRY ->
+            case EPIC, EPIC_POOL_INDUSTRY, EPIC_POOL_ALLOY_INGOT ->
                     Material.TROPICAL_FISH_BUCKET;            // 史诗 - 热带鱼桶
             case LEGENDARY, MYTHICAL ->
                     Material.AXOLOTL_BUCKET;                  // 传说 - 美西螈桶

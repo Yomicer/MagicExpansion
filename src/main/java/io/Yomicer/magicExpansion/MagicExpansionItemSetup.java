@@ -37,6 +37,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.items.HiddenItem;
 import io.github.thebusybiscuit.slimefun4.implementation.items.blocks.UnplaceableBlock;
 import io.github.thebusybiscuit.slimefun4.implementation.items.electric.Capacitor;
 import io.github.thebusybiscuit.slimefun4.implementation.items.geo.GEOMiner;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -255,13 +256,19 @@ public final class MagicExpansionItemSetup {
         registerUIBlockInContribution(MagicExpansionItems.UI_WIKI,plugin);
 
 
+        Config cfg = new Config(plugin);
+
+        if (cfg.getBoolean("options.auto-update") && MagicExpansion.getInstance().getDescription().getVersion().startsWith("Build ")) {
+            registerUIBlockInContribution(MagicExpansionItems.UI_IS_LATEST_BUILD,plugin);
+        }else{
+            registerUIBlockInContribution(MagicExpansionItems.UI_NOT_LATEST_BUILD,plugin);
+        }
 
 
 
+//        registerUIBlockInContribution(MagicExpansionItems.UI_4,plugin);
 
 
-
-        registerUIBlockInContribution(MagicExpansionItems.UI_4,plugin);
         registerUIBlockInContribution(MagicExpansionItems.UI_5,plugin);
         registerUIBlockInContribution(MagicExpansionItems.UI_6,plugin);
         registerUIBlockInContribution(MagicExpansionItems.UI_7,plugin);
@@ -411,6 +418,11 @@ public final class MagicExpansionItemSetup {
                 null, null, null
         }).register(plugin);
         new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2025_10_07, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
+        new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2025_10_14, SPECIAL_RECIPE_TYPE, new ItemStack[] {
                 null, null, null,
                 null, null, null,
                 null, null, null
@@ -861,6 +873,32 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 1),
                                 new WeightedItem(RANDOM_FISH_EPIC, 1)
                         ),
+                        "fishLureAlloyIngot", List.of(
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.BOWL),"§6马桶盖",getGradientName("远古净秽仪式的圣环，开启则通幽界，闭合即封污浊。"),getGradientName("凡人不知，它曾是神明如厕时的结界之门。")
+                                ), 23),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.YELLOW_DYE),"§e香蕉皮",getGradientName("滑倒过三位国王、两只独角兽和一个自诩永不跌倒的冒险者。"),getGradientName("传说它来自月光下微笑的黄金树，专为命运的踉跄而生。")
+                                ), 23),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.IRON_SHOVEL),"§a马桶搋子",getGradientName("深渊吸魂者的仿造品，每一次下压都在封印来自下水道的低语。"),getGradientName("真正的强者，用它不止通管道，更通灵界。"),getGradientName("ber~ber~ber~")
+                                ), 23),
+                                new WeightedItem(new CustomItemStack(CustomHead.getHead("1421f1514da756c8c6c7c0b83a79265c26c9ece66b3bad8fbd94bd96d7040d7e"),"§b海鳗",getGradientName("深海裂隙中游动的活电鞭，脊髓里流淌着远古雷神的残魂。"),getGradientName("渔民称它“黑潮之怒”，碰触者浑身抽搐，口吐电文。")
+                                ), 23),
+                                new WeightedItem(new CustomItemStack(CustomHead.getHead("a1f71182915f5f862189a81f690acde4f671075db267eb6128fd1b4a84da8d7c"),"§c冷殇的轮椅",getGradientName("传说中专为“挂机玩家”打造的神装，装上它，连睡觉都能通关最终Boss。"),getGradientName("——不是你太强，是轮椅替你扛下了所有的难度。")
+                                ), 23),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.COCOA_BEANS),"§c屎"
+                                ), 23),
+                                new WeightedItem(new CustomItemStack(CustomHead.MAGICSOLO.getItem(),getGradientName("magicsolo"),getGradientName("南柯一梦终须醒，浮生若梦皆是空~"),getGradientName("南柯一梦若浮生，不梦前世不梦今~")
+                                ), 23),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.GOLDEN_SHOVEL),"§e金铲铲",getGradientName("你是想要人口呢？"),getGradientName("还是想要纹章呢？")
+                                ), 23),
+                                new WeightedItem(RANDOM_FISH_COMMON, 38),
+                                new WeightedItem(RANDOM_FISH_UNCOMMON, 31),
+                                new WeightedItem(RANDOM_FISH_RARE_POOL_DUST, 21),
+                                new WeightedItem(RANDOM_FISH_RARE_POOL_ORE, 21),
+                                new WeightedItem(RANDOM_FISH_RARE_POOL_INDUSTRY, 18),
+                                new WeightedItem(RANDOM_FISH_EPIC_POOL_ALLOY_INGOT, 5),
+                                new WeightedItem(RANDOM_FISH_EPIC, 9),
+                                new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 3)
+                        ),
                         "default", List.of(
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.SUGAR_CANE,2),"§b腐烂的甘蔗",getGradientName("河里怎么会有甘蔗呢？")), 8),
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.STICK,2),"§b锟斤拷",getGradientName("这是什么东西呢？")), 8),
@@ -872,7 +910,7 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_UNCOMMON, 1)
                         )
                 ),Arrays.asList(SlimefunItems.MAGIC_SUGAR,new ItemStack(Material.BREAD),
-                FISH_LURE_BASIC,FISH_LURE_DUST,FISH_LURE_ORE)).register(plugin);
+                FISH_LURE_BASIC,FISH_LURE_DUST,FISH_LURE_ORE,FISH_LURE_ALLOY_INGOT)).register(plugin);
 
 
         // 风语者之竿
@@ -1012,6 +1050,32 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
                                 ), 1)
                         ),
+                        "fishLureAlloyIngot", List.of(
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.BOWL),"§6马桶盖",getGradientName("远古净秽仪式的圣环，开启则通幽界，闭合即封污浊。"),getGradientName("凡人不知，它曾是神明如厕时的结界之门。")
+                                ), 15),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.YELLOW_DYE),"§e香蕉皮",getGradientName("滑倒过三位国王、两只独角兽和一个自诩永不跌倒的冒险者。"),getGradientName("传说它来自月光下微笑的黄金树，专为命运的踉跄而生。")
+                                ), 15),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.IRON_SHOVEL),"§a马桶搋子",getGradientName("深渊吸魂者的仿造品，每一次下压都在封印来自下水道的低语。"),getGradientName("真正的强者，用它不止通管道，更通灵界。"),getGradientName("ber~ber~ber~")
+                                ), 15),
+                                new WeightedItem(new CustomItemStack(CustomHead.getHead("1421f1514da756c8c6c7c0b83a79265c26c9ece66b3bad8fbd94bd96d7040d7e"),"§b海鳗",getGradientName("深海裂隙中游动的活电鞭，脊髓里流淌着远古雷神的残魂。"),getGradientName("渔民称它“黑潮之怒”，碰触者浑身抽搐，口吐电文。")
+                                ), 15),
+                                new WeightedItem(new CustomItemStack(CustomHead.getHead("a1f71182915f5f862189a81f690acde4f671075db267eb6128fd1b4a84da8d7c"),"§c冷殇的轮椅",getGradientName("传说中专为“挂机玩家”打造的神装，装上它，连睡觉都能通关最终Boss。"),getGradientName("——不是你太强，是轮椅替你扛下了所有的难度。")
+                                ), 15),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.COCOA_BEANS),"§c屎",getGradientName("传说中专为“挂机玩家”打造的神装，装上它，连睡觉都能通关最终Boss。"),getGradientName("——不是你太强，是轮椅替你扛下了所有的难度。")
+                                ), 15),
+                                new WeightedItem(new CustomItemStack(CustomHead.MAGICSOLO.getItem(),getGradientName("magicsolo"),getGradientName("南柯一梦终须醒，浮生若梦皆是空~"),getGradientName("南柯一梦若浮生，不梦前世不梦今~")
+                                ), 15),
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.GOLDEN_SHOVEL),"§e金铲铲",getGradientName("你是想要人口呢？"),getGradientName("还是想要纹章呢？")
+                                ), 15),
+                                new WeightedItem(RANDOM_FISH_COMMON, 21),
+                                new WeightedItem(RANDOM_FISH_UNCOMMON, 25),
+                                new WeightedItem(RANDOM_FISH_RARE_POOL_DUST, 15),
+                                new WeightedItem(RANDOM_FISH_RARE_POOL_ORE, 15),
+                                new WeightedItem(RANDOM_FISH_RARE_POOL_INDUSTRY, 13),
+                                new WeightedItem(RANDOM_FISH_EPIC_POOL_ALLOY_INGOT, 16),
+                                new WeightedItem(RANDOM_FISH_EPIC, 10),
+                                new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 10)
+                        ),
                         "default", List.of(
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.SUGAR_CANE,8),"§b腐烂的甘蔗",getGradientName("河里怎么会有甘蔗呢？")
                                 ), 6),
@@ -1037,7 +1101,7 @@ public final class MagicExpansionItemSetup {
                                 ), 1)
                         )
                 ),Arrays.asList(SlimefunItems.MAGIC_SUGAR,new ItemStack(Material.BREAD),
-                FISH_LURE_BASIC,FISH_LURE_DUST,FISH_LURE_ORE)).register(plugin);
+                FISH_LURE_BASIC,FISH_LURE_DUST,FISH_LURE_ORE,FISH_LURE_ALLOY_INGOT)).register(plugin);
 
 
         // 终焉鱼杆
@@ -1051,7 +1115,7 @@ public final class MagicExpansionItemSetup {
         }}, false,
                 Map.of(
                         "fishLureFinal", List.of(
-                                new WeightedItem(FISHING_ROD_FISH_ANYTHING, 12),
+                                new WeightedItem(FISHING_ROD_FISH_ANYTHING, 20),
                                 new WeightedItem(RANDOM_FISH_COMMON, 1),
                                 new WeightedItem(RANDOM_FISH_UNCOMMON, 1),
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_DUST, 1),
@@ -1059,6 +1123,7 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_INDUSTRY, 1),
                                 new WeightedItem(RANDOM_FISH_EPIC, 1),
                                 new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 1),
+                                new WeightedItem(RANDOM_FISH_EPIC_POOL_ALLOY_INGOT, 1),
                                 new WeightedItem(RANDOM_FISH_LEGENDARY, 1),
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,8),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
                                 ), 1)
@@ -1071,6 +1136,7 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_INDUSTRY, 3),
                                 new WeightedItem(RANDOM_FISH_EPIC, 3),
                                 new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 3),
+                                new WeightedItem(RANDOM_FISH_EPIC_POOL_ALLOY_INGOT, 3),
                                 new WeightedItem(RANDOM_FISH_LEGENDARY, 3),
                                 new WeightedItem(FISHING_ROD_FINAL_HOOK, 1),
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,5),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
@@ -1158,11 +1224,21 @@ public final class MagicExpansionItemSetup {
                 null,null,null
         }).register(plugin);
 
+
+
         new CommonFishHidden(magicexpansionfishing, RANDOM_FISH_EPIC_POOL_INDUSTRY, RecipeType.NULL, new ItemStack[] {
                 null,null,null,
                 null,new CustomItemStack(new ItemStack(doGlow(Material.FISHING_ROD)),getGradientName("钓鱼有概率获取"), ColorGradient.getGradientName("通过魔法2.0系列鱼杆钓取"),getGradientName("出没地点隐秘，且停留时间极短，可能对某些鱼饵有一定兴趣")),null,
                 null,null,null
         }).register(plugin);
+        new CommonFishHidden(magicexpansionfishing, RANDOM_FISH_EPIC_POOL_ALLOY_INGOT, RecipeType.NULL, new ItemStack[] {
+                null,null,null,
+                null,new CustomItemStack(new ItemStack(doGlow(Material.FISHING_ROD)),getGradientName("钓鱼有概率获取"), ColorGradient.getGradientName("通过魔法2.0系列鱼杆钓取"),getGradientName("出没地点隐秘，且停留时间极短，可能对某些鱼饵有一定兴趣")),null,
+                null,null,null
+        }).register(plugin);
+
+
+
         // 传说鱼
         new CommonFish(magicexpansionfishing, RANDOM_FISH_LEGENDARY, RecipeType.NULL, new ItemStack[] {
                 null,null,null,
@@ -1187,6 +1263,12 @@ public final class MagicExpansionItemSetup {
                 new ItemStack(Material.EMERALD),FISH_LURE_BASIC,new ItemStack(Material.QUARTZ),
                 new ItemStack(Material.AMETHYST_SHARD),new ItemStack(Material.LAPIS_LAZULI),new ItemStack(Material.GLOWSTONE_DUST)
         },sfItemAmount(FISH_LURE_ORE,16)).register(plugin);
+        // 混合合金锭
+        new UnplaceableBlock(magicexpansionfishing, FISH_LURE_ALLOY_INGOT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                FISH_LURE_DUST,JIN_KE_LA,FISH_LURE_ORE,
+                JIN_KE_LA,FISH_LURE_BASIC,JIN_KE_LA,
+                FISH_LURE_ORE,JIN_KE_LA,FISH_LURE_DUST
+        },sfItemAmount(FISH_LURE_ALLOY_INGOT,8)).register(plugin);
 
 
 

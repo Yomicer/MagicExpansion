@@ -90,6 +90,71 @@ public class FishOutputMachine extends MenuBlock implements EnergyNetProvider, R
         put("SulfateFish", SlimefunItems.SULFATE);
         // ⚔️ 酸晶鱼 → 硅
         put("SiliconFish", SlimefunItems.SILICON);
+
+        // 【合金灵鱼】用于生产：强化合金锭
+        put("ReinforcedAlloyFish", SlimefunItems.REINFORCED_ALLOY_INGOT);
+
+        // 【硬化灵鱼】用于生产：硬化金属
+        put("HardenedMetalFish", SlimefunItems.HARDENED_METAL_INGOT);
+
+        // 【大马士革灵鱼】用于生产：大马士革钢锭
+        put("DamascusSoulFish", SlimefunItems.DAMASCUS_STEEL_INGOT);
+
+        // 【钢魄鱼】用于生产：钢锭
+        put("SteelSoulFish", SlimefunItems.STEEL_INGOT);
+
+        // 【青铜古影鱼】用于生产：青铜锭
+        put("BronzeAncientFish", SlimefunItems.BRONZE_INGOT);
+
+        // 【硬铝天翔鱼】用于生产：硬铝锭
+        put("HardlightAluFish", SlimefunItems.DURALUMIN_INGOT);
+
+        // 【银铜灵鱼】用于生产：银铜合金锭
+        put("SilverCopperFish", SlimefunItems.BILLON_INGOT);
+
+        // 【黄铜鸣音鱼】用于生产：黄铜锭
+        put("BrassResonanceFish", SlimefunItems.BRASS_INGOT);
+
+        // 【铝黄铜灵鱼】用于生产：铝黄铜锭
+        put("AluminumBrassFish", SlimefunItems.ALUMINUM_BRASS_INGOT);
+
+        // 【铝青铜灵鱼】用于生产：铝青铜锭
+        put("AluminumBronzeFish", SlimefunItems.ALUMINUM_BRONZE_INGOT);
+
+        // 【科林斯青铜灵鱼】用于生产：科林斯青铜锭
+        put("CorinthianBronzeFish", SlimefunItems.CORINTHIAN_BRONZE_INGOT);
+
+        // 【焊锡灵鱼】用于生产：焊锡锭
+        put("SolderFlowFish", SlimefunItems.SOLDER_INGOT);
+
+        // 【镍魄鱼】用于生产：镍锭
+        put("NickelSpiritFish", SlimefunItems.NICKEL_INGOT);
+
+        // 【钴焰鱼】用于生产：钴锭
+        put("CobaltFlameFish", SlimefunItems.COBALT_INGOT);
+
+        // 【硅铁灵鱼】用于生产：硅铁
+        put("SiliconIronFish", SlimefunItems.FERROSILICON);
+
+        // 【碳魂鱼】用于生产：碳块
+        put("CarbonSoulFish", SlimefunItems.CARBON_CHUNK);
+
+        // 【镀金灵鱼】用于生产：镀金铁锭
+        put("GildedIronFish", SlimefunItems.GILDED_IRON);
+
+        // 【红石合金灵鱼】用于生产：红石合金锭
+        put("RedstoneAlloyFish", SlimefunItems.REDSTONE_ALLOY);
+
+        // 【镎影鱼】用于生产：镎
+        put("NeptuniumShadowFish", SlimefunItems.NEPTUNIUM);
+
+        // 【钚心鱼】用于生产：钚
+        put("PlutoniumCoreFish", SlimefunItems.PLUTONIUM);
+
+
+
+
+
     }};
 
 

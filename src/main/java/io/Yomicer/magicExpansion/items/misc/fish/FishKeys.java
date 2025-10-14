@@ -17,6 +17,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
 
+import static io.Yomicer.magicExpansion.items.misc.fish.Fish.*;
+
 public class FishKeys {
 
     public static final NamespacedKey FISH_TYPE = new NamespacedKey(JavaPlugin.getPlugin(MagicExpansion.class), "fish_type");
@@ -34,6 +36,7 @@ public class FishKeys {
         put(MagicExpansionItems.RANDOM_FISH_RARE_POOL_ORE,    Fish.Rarity.RARE_POOL_ORE);
         put(MagicExpansionItems.RANDOM_FISH_RARE_POOL_INDUSTRY,    Fish.Rarity.RARE_POOL_INDUSTRY);
         put(MagicExpansionItems.RANDOM_FISH_EPIC_POOL_INDUSTRY,    Fish.Rarity.EPIC_POOL_INDUSTRY);
+        put(MagicExpansionItems.RANDOM_FISH_EPIC_POOL_ALLOY_INGOT,    Fish.Rarity.EPIC_POOL_ALLOY_INGOT);
         put(MagicExpansionItems.RANDOM_FISH_EPIC,             Fish.Rarity.EPIC);
         put(MagicExpansionItems.RANDOM_FISH_LEGENDARY,        Fish.Rarity.LEGENDARY);
         // 👉 想加新稀有度？直接 put 一行即可！
@@ -180,16 +183,23 @@ public class FishKeys {
                         Fish.UraniumFish,Fish.OilRockFish,
                         Fish.SiliconFish,Fish.SulfateFish
 
-
                         );
             case EPIC_POOL_INDUSTRY:
                 // 稀有矿粉鱼池：包含所有可产出矿粉资源的稀有鱼种
                 return Arrays.asList(Fish.FoamCrystalFish,
                         Fish.BlackDiamondFish,Fish.EnchantedBottleFish
 
-
-
                         );
+            case EPIC_POOL_ALLOY_INGOT:
+                return Arrays.asList(ReinforcedAlloyFish,
+                        HardenedMetalFish, DamascusSoulFish,SteelSoulFish,
+                        BronzeAncientFish, HardlightAluFish, SilverCopperFish,
+                        BrassResonanceFish, AluminumBrassFish, AluminumBronzeFish,
+                        CorinthianBronzeFish, SolderFlowFish, NickelSpiritFish,
+                        CobaltFlameFish, SiliconIronFish, CarbonSoulFish,
+                        GildedIronFish, RedstoneAlloyFish, NeptuniumShadowFish,
+                        PlutoniumCoreFish
+                );
             case EPIC:
                 return Arrays.asList(Fish.MYSTIC_EEL);
             case LEGENDARY:

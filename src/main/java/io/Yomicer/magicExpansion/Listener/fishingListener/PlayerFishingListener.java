@@ -44,6 +44,7 @@ public class PlayerFishingListener implements Listener {
             new MoreLure(MagicExpansionItems.FISH_LURE_BASIC,"fishLureBasic"),
             new MoreLure(MagicExpansionItems.FISH_LURE_DUST,"fishLureDust"),
             new MoreLure(MagicExpansionItems.FISH_LURE_ORE,"fishLureOre"),
+            new MoreLure(MagicExpansionItems.FISH_LURE_ALLOY_INGOT,"fishLureAlloyIngot"),
             new MoreLure(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD),getGradientName("鱼饵·记忆碎片"),
                     getGradientName("这个鱼饵可以钓到任何物品"),
                     getGradientName("他存在于过去或者是未来"),
@@ -62,6 +63,7 @@ public class PlayerFishingListener implements Listener {
         RANDOM_FISH_TYPES.add(MagicExpansionItems.RANDOM_FISH_RARE_POOL_INDUSTRY);
         RANDOM_FISH_TYPES.add(MagicExpansionItems.RANDOM_FISH_EPIC);
         RANDOM_FISH_TYPES.add(MagicExpansionItems.RANDOM_FISH_EPIC_POOL_INDUSTRY);
+        RANDOM_FISH_TYPES.add(MagicExpansionItems.RANDOM_FISH_EPIC_POOL_ALLOY_INGOT);
         RANDOM_FISH_TYPES.add(MagicExpansionItems.RANDOM_FISH_LEGENDARY);
 
     }

@@ -283,6 +283,210 @@ public enum Fish {
 
 
 
+    //【合金锭鱼】
+
+    // 【合金灵鱼】用于生产：强化合金锭
+    ReinforcedAlloyFish(Rarity.EPIC.colorCode + "强化灵鱼", 1.0, 64.0, Rarity.EPIC,
+            ColorGradient.getGradientName("游走于高压反应堆与强化能量场之间，以辐射淬炼与结构应力为食。"),
+            ColorGradient.getGradientName("躯体如多层复合装甲，表面浮现出暗红与银灰交织的强化纹路。"),
+            ColorGradient.getGradientName("其脊骨凝结成‘强化合金锭’，是未来科技的核心基材。"),
+            ColorGradient.getGradientName("需用魔法钓竿垂钓，否则灵鱼自毁，锭核崩解。"),
+            ColorGradient.getGradientName("强化灵鱼体重多在 1 - 64 kg 之间，越重者结构越稳定。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：强化合金锭")
+    ),
+
+    // 【硬化灵鱼】用于生产：硬化金属
+    HardenedMetalFish(Rarity.EPIC.colorCode + "硬化灵鱼", 1.0, 64.0, Rarity.EPIC,
+            ColorGradient.getGradientName("栖息于深地淬火池与高压锻压机之间，以极寒与烈焰交替淬炼为生。"),
+            ColorGradient.getGradientName("体表覆盖如陶瓷般坚硬的金属釉层，触之冰冷刺骨。"),
+            ColorGradient.getGradientName("体内结晶为‘硬化金属’，表面布满龟裂纹路，却坚不可摧。"),
+            ColorGradient.getGradientName("需用魔法钓竿垂钓，恒温环境下会陷入假死。"),
+            ColorGradient.getGradientName("硬化灵鱼体重多在 1 - 64 kg 之间，越老者釉层越厚。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：硬化金属")
+    ),
+
+    // 【大马士革灵鱼】用于生产：大马士革钢锭
+    DamascusSoulFish(Rarity.EPIC.colorCode + "大马士革灵鱼", 1.0, 64.0, Rarity.EPIC,
+            ColorGradient.getGradientName("诞生于千层叠锻的火焰之河，以折叠锻打的韵律与碳晶生长为能。"),
+            ColorGradient.getGradientName("通体如流动的水波纹钢，鳞片层层交叠，泛着幽蓝与暗金的交错光泽。"),
+            ColorGradient.getGradientName("体内沉眠着‘大马士革钢锭’，是工艺与灵魂的完美融合。"),
+            ColorGradient.getGradientName("需用魔法钓竿垂钓，需以古法钓具静取。"),
+            ColorGradient.getGradientName("大马士革灵鱼体重多在 1 - 64 kg 之间，纹路越繁复者品质越高。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：大马士革钢锭")
+    ),
+
+    // 【钢魄鱼】用于生产：钢锭
+    SteelSoulFish(Rarity.EPIC.colorCode + "钢魄鱼", 1.0, 64.0, Rarity.EPIC,
+            ColorGradient.getGradientName("栖息于熔炉核心与冷却钢水之间，以碳火之息与锤击韵律为养。"),
+            ColorGradient.getGradientName("通体银灰泛蓝，鳞片如轧制钢板层层交叠，坚韧不可摧。"),
+            ColorGradient.getGradientName("体内凝有‘钢锭’核心，乃工业脊梁的活体源头。"),
+            ColorGradient.getGradientName("需用魔法钓竿垂钓，静默是成功的关键。"),
+            ColorGradient.getGradientName("钢魄鱼体重多在 1 - 64 kg 之间，越沉者钢质越密。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：钢锭")
+    ),
+
+    // 【青铜古影鱼】用于生产：青铜锭
+    BronzeAncientFish(Rarity.EPIC.colorCode + "青铜古影鱼", 1.0, 64.0, Rarity.EPIC,
+            ColorGradient.getGradientName("穿梭于远古遗迹的铜管回廊与锡矿暗河之间，饮岁月锈迹为生。"),
+            ColorGradient.getGradientName("身披青绿锈甲，游动时发出低沉的编钟余音，仿佛历史在低语。"),
+            ColorGradient.getGradientName("腹中孕育‘青铜锭’，是文明初启时的金属圣物。"),
+            ColorGradient.getGradientName("需用魔法钓竿垂钓，稍有惊扰便化为铜尘消散。"),
+            ColorGradient.getGradientName("青铜古影鱼体重多在 1 - 64 kg 之间，越古者锈色越深。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：青铜锭")
+    ),
+
+    // 【硬铝天翔鱼】用于生产：硬铝锭
+    HardlightAluFish(Rarity.EPIC.colorCode + "硬铝天翔鱼", 1.0, 64.0, Rarity.EPIC,
+            ColorGradient.getGradientName("翱翔于高空风暴与雷云之间，以闪电离子与轻金属尘为食。"),
+            ColorGradient.getGradientName("躯体银白透亮，如航空合金锻造，边缘薄如刀锋，破风无声。"),
+            ColorGradient.getGradientName("体内结晶为‘硬铝锭’，轻盈而坚不可摧。"),
+            ColorGradient.getGradientName("需用魔法钓竿垂钓，否则瞬间汽化。"),
+            ColorGradient.getGradientName("硬铝天翔鱼体重多在 1 - 64 kg 之间，越轻盈者越接近完美合金。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：硬铝锭")
+    ),
+
+    // 【银铜灵鱼】用于生产：银铜合金锭
+    SilverCopperFish(Rarity.EPIC.colorCode + "银铜灵鱼", 1.0, 64.0, Rarity.EPIC,
+            ColorGradient.getGradientName("潜行于月光映照的银矿溪与铜脉交汇处，饮星辉与导电粒子为生。"),
+            ColorGradient.getGradientName("体色如月白银水，游动时留下微弱电流轨迹，触之微麻。"),
+            ColorGradient.getGradientName("体内凝结‘银铜合金锭’，导电性极佳，常用于高阶电路。"),
+            ColorGradient.getGradientName("需用魔法钓竿垂钓，阴云或日光下完全隐形。"),
+            ColorGradient.getGradientName("银铜灵鱼体重多在 1 - 64 kg 之间，越亮者纯度越高。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：银铜合金锭")
+    ),
+
+    // 【黄铜鸣音鱼】用于生产：黄铜锭
+    BrassResonanceFish(Rarity.EPIC.colorCode + "黄铜鸣音鱼", 1.0, 64.0, Rarity.EPIC,
+            ColorGradient.getGradientName("藏身于废弃管风琴与铜管工厂的积水深处，以声波振动为能。"),
+            ColorGradient.getGradientName("体色金黄耀目，游动时发出如号角般的低频嗡鸣。"),
+            ColorGradient.getGradientName("体内共鸣腔凝结出‘黄铜锭’，是音乐与金属的完美融合。"),
+            ColorGradient.getGradientName("需用魔法钓竿垂钓，否则引发共振，鱼体炸裂。"),
+            ColorGradient.getGradientName("黄铜鸣音鱼体重多在 1 - 64 kg 之间，嗡鸣越纯者品质越佳。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：黄铜锭")
+    ),
+
+    // 【铝黄铜灵鱼】用于生产：铝黄铜锭
+    AluminumBrassFish(Rarity.EPIC.colorCode + "铝黄铜灵鱼", 1.0, 64.0, Rarity.EPIC,
+            ColorGradient.getGradientName("栖息于高温散热器与工业冷却塔之间，以热流与抗腐蚀能量为食。"),
+            ColorGradient.getGradientName("体表呈淡金与灰白交织，如散热鳍片般结构分明，触之微温。"),
+            ColorGradient.getGradientName("体内结晶为‘铝黄铜锭’，耐高温且高效导热。"),
+            ColorGradient.getGradientName("需用魔法钓竿垂钓，温差不足则沉眠不醒。"),
+            ColorGradient.getGradientName("铝黄铜灵鱼体重多在 1 - 64 kg 之间，越热越活跃。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：铝黄铜锭")
+    ),
+
+    // 【铝青铜灵鱼】用于生产：铝青铜锭
+    AluminumBronzeFish(Rarity.EPIC.colorCode + "铝青铜灵鱼", 1.0, 64.0, Rarity.EPIC,
+            ColorGradient.getGradientName("游弋于深海高压区与青铜遗迹之间，以海流电解和金属抗蚀力为食。"),
+            ColorGradient.getGradientName("体表呈金褐与银灰交织，鳞片如耐腐蚀合金锻造，散发微弱阴极光泽。"),
+            ColorGradient.getGradientName("体内凝结‘铝青铜锭’，兼具强度与抗海水侵蚀的神圣平衡。"),
+            ColorGradient.getGradientName("需用魔法钓竿垂钓，需用非磁性钓具捕获，否则引来电鳗群攻击。"),
+            ColorGradient.getGradientName("铝青铜灵鱼体重多在 1 - 64 kg 之间，光泽越稳定者合金越纯净。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：铝青铜锭")
+    ),
+
+    // 【科林斯青铜灵鱼】用于生产：科林斯青铜锭
+    CorinthianBronzeFish(Rarity.EPIC.colorCode + "科林斯青铜灵鱼", 1.0, 64.0, Rarity.EPIC,
+            ColorGradient.getGradientName("藏身于失落神庙的机械机关之中，以古代魔法铭文与金属记忆为食。"),
+            ColorGradient.getGradientName("体表雕刻着微型科林斯柱纹，铜绿中透出神秘符文光泽。"),
+            ColorGradient.getGradientName("体内封印‘科林斯青铜锭’，蕴含古代智能的金属意识。"),
+            ColorGradient.getGradientName("需用魔法钓竿垂钓，否则触发陷阱。"),
+            ColorGradient.getGradientName("科林斯青铜灵鱼体重多在 1 - 64 kg 之间，纹路越繁复越珍贵。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：科林斯青铜锭")
+    ),
+
+    // 【焊锡灵鱼】用于生产：焊锡锭
+    SolderFlowFish(Rarity.EPIC.colorCode + "焊锡灵鱼", 1.0, 64.0, Rarity.EPIC,
+            ColorGradient.getGradientName("穿梭于废弃电路板与熔锡池之间，以电子流与低温熔融为生。"),
+            ColorGradient.getGradientName("身体柔软如液态金属，银灰中泛出彩虹光泽，可随意变形。"),
+            ColorGradient.getGradientName("体内凝结‘焊锡锭’，是连接电路与灵魂的桥梁。"),
+            ColorGradient.getGradientName("需用魔法钓竿垂钓，高温会使其完全液化逃逸。"),
+            ColorGradient.getGradientName("焊锡灵鱼体重多在 1 - 64 kg 之间，越柔韧者导电性越好。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：焊锡锭")
+    ),
+
+    // 【镍魄鱼】用于生产：镍锭
+    NickelSpiritFish(Rarity.EPIC.colorCode + "镍魄鱼", 1.0, 64.0, Rarity.EPIC,
+            ColorGradient.getGradientName("潜伏于地核边缘与陨石坑之间，以地磁与陨镍结晶为食。"),
+            ColorGradient.getGradientName("体色银白带青，游动时扰动磁场，指南针为之紊乱。"),
+            ColorGradient.getGradientName("体内蕴藏‘镍锭’，是合金之母，坚不可腐。"),
+            ColorGradient.getGradientName("需用魔法钓竿垂钓，平静天气中完全隐形。"),
+            ColorGradient.getGradientName("镍魄鱼体重多在 1 - 64 kg 之间，磁性越强者越稀有。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：镍锭")
+    ),
+
+    // 【钴焰鱼】用于生产：钴锭
+    CobaltFlameFish(Rarity.EPIC.colorCode + "钴焰鱼", 1.0, 64.0, Rarity.EPIC,
+            ColorGradient.getGradientName("诞生于火山熔岩与放射性矿脉之间，以高温与蓝焰能量为生。"),
+            ColorGradient.getGradientName("通体深蓝如夜空，鳞片燃烧着不灭的幽蓝火焰。"),
+            ColorGradient.getGradientName("体内凝结‘钴锭’，是高温合金与电池之心。"),
+            ColorGradient.getGradientName("需用魔法钓竿垂钓，否则火焰反噬钓者。"),
+            ColorGradient.getGradientName("钴焰鱼体重多在 1 - 64 kg 之间，火焰越盛者能量越强。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：钴锭")
+    ),
+
+    // 【硅铁灵鱼】用于生产：硅铁
+    SiliconIronFish(Rarity.EPIC.colorCode + "硅铁灵鱼", 1.0, 64.0, Rarity.EPIC,
+            ColorGradient.getGradientName("栖息于半导体废料场与高炉残渣之间，以硅晶生长与铁磁能量为食。"),
+            ColorGradient.getGradientName("体表如晶圆与金属的融合体，反射出彩虹般的干涉色。"),
+            ColorGradient.getGradientName("体内结晶为‘硅铁’，是电子工业的奠基材料。"),
+            ColorGradient.getGradientName("需用魔法钓竿垂钓，否则信号干扰致其自毁。"),
+            ColorGradient.getGradientName("硅铁灵鱼体重多在 1 - 64 kg 之间，越规整者纯度越高。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：硅铁")
+    ),
+
+    // 【碳魂鱼】用于生产：碳块
+    CarbonSoulFish(Rarity.EPIC.colorCode + "碳魂鱼", 1.0, 64.0, Rarity.EPIC,
+            ColorGradient.getGradientName("游弋于地底煤层与钻石形成带之间，以高压与时间结晶为食。"),
+            ColorGradient.getGradientName("通体漆黑如墨，鳞片如石墨层层堆叠，眼如钻石闪烁。"),
+            ColorGradient.getGradientName("体内压缩成‘碳块’，是生命与矿物的共同起源。"),
+            ColorGradient.getGradientName("需用魔法钓竿垂钓，常压中会迅速崩解。"),
+            ColorGradient.getGradientName("碳魂鱼体重多在 1 - 64 kg 之间，越黑越密实者越珍贵。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：碳块")
+    ),
+
+    // 【镀金灵鱼】用于生产：镀金铁锭
+    GildedIronFish(Rarity.EPIC.colorCode + "镀金灵鱼", 1.0, 64.0, Rarity.EPIC,
+            ColorGradient.getGradientName("穿梭于王座厅的金箔水池与铁梁之间，以荣耀与腐蚀抗性为食。"),
+            ColorGradient.getGradientName("铁质躯干外覆流动金膜，游动时洒落金色光尘。"),
+            ColorGradient.getGradientName("体内凝结‘镀金铁锭’，外华内坚，象征权力与防御。"),
+            ColorGradient.getGradientName("需用魔法钓竿垂钓，亵渎者将遭金液灼伤。"),
+            ColorGradient.getGradientName("镀金灵鱼体重多在 1 - 64 kg 之间，金层越厚越稀有。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：镀金铁锭")
+    ),
+
+    // 【红石合金灵鱼】用于生产：红石合金锭
+    RedstoneAlloyFish(Rarity.EPIC.colorCode + "红石合金灵鱼", 1.0, 64.0, Rarity.EPIC,
+            ColorGradient.getGradientName("诞生于红石脉动与金属导线交织的地下网络，以信号流为生。"),
+            ColorGradient.getGradientName("体色暗红泛光，体内有脉冲般的红光循环流动，如活体电路。"),
+            ColorGradient.getGradientName("体内结晶为‘红石合金锭’，是自动化与魔法的桥梁。"),
+            ColorGradient.getGradientName("需用魔法钓竿垂钓，否则脉冲紊乱导致自爆。"),
+            ColorGradient.getGradientName("红石合金灵鱼体重多在 1 - 64 kg 之间，脉冲越稳者越优质。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：红石合金锭")
+    ),
+
+    // 【镎影鱼】用于生产：镎
+    NeptuniumShadowFish(Rarity.EPIC.colorCode + "镎影鱼", 1.0, 64.0, Rarity.EPIC,
+            ColorGradient.getGradientName("潜行于核反应堆废料池与深地辐射带之间，以慢中子流为食。"),
+            ColorGradient.getGradientName("形如幽影，半透明躯体中闪烁着淡紫色辐射光晕。"),
+            ColorGradient.getGradientName("体内凝聚‘镎’元素，是人工超铀金属的活体结晶。"),
+            ColorGradient.getGradientName("需用魔法钓竿垂钓，暴露过久将导致基因变异。"),
+            ColorGradient.getGradientName("镎影鱼体重多在 1 - 64 kg 之间，光晕越强辐射越高。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：镎")
+    ),
+
+    // 【钚心鱼】用于生产：钚
+    PlutoniumCoreFish(Rarity.EPIC.colorCode + "钚心鱼", 1.0, 64.0, Rarity.EPIC,
+            ColorGradient.getGradientName("沉眠于最深地核与废弃核芯之间，以衰变热与暗能量为生。"),
+            ColorGradient.getGradientName("通体暗红如熔岩核心，心脏处有持续脉动的蓝色光点。"),
+            ColorGradient.getGradientName("体内孕育‘钚’，是毁灭与能源的终极化身。"),
+            ColorGradient.getGradientName("需用魔法钓竿垂钓，捕获后必须用量子容器密封。"),
+            ColorGradient.getGradientName("钚心鱼体重多在 1 - 64 kg 之间，脉动越强能量越恐怖。"),
+            ColorGradient.getGradientName("「特殊作用」可生产：钚")
+    ),
+
+
+
 
 
     LegendaryLuFish(Rarity.LEGENDARY.colorCode+"传奇鲈鱼", 2.0, 31.0, Rarity.LEGENDARY,
@@ -485,6 +689,7 @@ public enum Fish {
         RARE_POOL_INDUSTRY("§b稀有-POOL-工业材料", "§b"),
         EPIC("§d史诗", "§d"),
         EPIC_POOL_INDUSTRY("§d史诗-POOL-工业材料", "§d"),
+        EPIC_POOL_ALLOY_INGOT("§d史诗-POOL-合金锭", "§d"),
         LEGENDARY("§c传说", "§c"),
         MYTHICAL("§e神话", "§e");
 
