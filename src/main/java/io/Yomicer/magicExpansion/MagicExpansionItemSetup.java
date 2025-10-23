@@ -14,6 +14,7 @@ import io.Yomicer.magicExpansion.items.misc.*;
 import io.Yomicer.magicExpansion.items.misc.fish.CommonFish;
 import io.Yomicer.magicExpansion.items.misc.fish.CommonFishHidden;
 import io.Yomicer.magicExpansion.items.misc.fish.FishingBook;
+import io.Yomicer.magicExpansion.items.misc.fish.PowerEel;
 import io.Yomicer.magicExpansion.items.preBuildings.PreBuildingTree;
 import io.Yomicer.magicExpansion.items.quickMachine.*;
 import io.Yomicer.magicExpansion.items.skyBlock.SingleCubeOre;
@@ -427,6 +428,11 @@ public final class MagicExpansionItemSetup {
                 null, null, null,
                 null, null, null
         }).register(plugin);
+        new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2025_10_23, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
 
 
 
@@ -789,6 +795,9 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_EPIC, 1),
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_DUST, 1),
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_ORE, 1),
+                                new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 1),
+                                new WeightedItem(RANDOM_FISH_EPIC, 1),
+                                new WeightedItem(FISH_LEGENDARY_EEL_POWER, 13),
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
                                 ), 18)
                         ),
@@ -962,6 +971,7 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_INDUSTRY, 12),
                                 new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 3),
                                 new WeightedItem(RANDOM_FISH_EPIC, 3),
+                                new WeightedItem(FISH_LEGENDARY_EEL_POWER, 16),
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
                                 ), 18)
                         ),
@@ -1131,6 +1141,7 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 1),
                                 new WeightedItem(RANDOM_FISH_EPIC_POOL_ALLOY_INGOT, 1),
                                 new WeightedItem(RANDOM_FISH_LEGENDARY, 1),
+                                new WeightedItem(FISH_LEGENDARY_EEL_POWER, 1),
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,8),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
                                 ), 1)
                         ),
@@ -1144,6 +1155,7 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 3),
                                 new WeightedItem(RANDOM_FISH_EPIC_POOL_ALLOY_INGOT, 3),
                                 new WeightedItem(RANDOM_FISH_LEGENDARY, 3),
+                                new WeightedItem(FISH_LEGENDARY_EEL_POWER, 1),
                                 new WeightedItem(FISHING_ROD_FINAL_HOOK, 1),
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,5),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
                                 ), 3)
@@ -1247,6 +1259,12 @@ public final class MagicExpansionItemSetup {
 
         // 传说鱼
         new CommonFish(magicexpansionfishing, RANDOM_FISH_LEGENDARY, RecipeType.NULL, new ItemStack[] {
+                null,null,null,
+                null,new CustomItemStack(new ItemStack(doGlow(Material.FISHING_ROD)),getGradientName("钓鱼有概率获取"), ColorGradient.getGradientName("通过魔法2.0系列鱼杆钓取"),getGradientName("只存在于古老传说中，现实是否存疑，只有传说中的鱼饵才有些许概率能够遇到")),null,
+                null,null,null
+        }).register(plugin);
+        // 传说鱼
+        new PowerEel(magicexpansionspecialitem, FISH_LEGENDARY_EEL_POWER, RecipeType.NULL, new ItemStack[] {
                 null,null,null,
                 null,new CustomItemStack(new ItemStack(doGlow(Material.FISHING_ROD)),getGradientName("钓鱼有概率获取"), ColorGradient.getGradientName("通过魔法2.0系列鱼杆钓取"),getGradientName("只存在于古老传说中，现实是否存疑，只有传说中的鱼饵才有些许概率能够遇到")),null,
                 null,null,null
@@ -1548,6 +1566,19 @@ public final class MagicExpansionItemSetup {
                 MagicExpansionItems.ELEMENT_INGOT,SlimefunItems.ENERGIZED_CAPACITOR, MagicExpansionItems.ELEMENT_INGOT,
                 MagicExpansionItems.COPPER_INGOT,AdvancedCreateItem("MAGIC_COSMIC_DUST"),MagicExpansionItems.ZINC_INGOT,
                 MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.AMETHYST_SHARD,MagicExpansionItems.ELEMENT_INGOT,
+        }).register(plugin);
+
+        //纯净锭电容
+        new LuckCapacitor(magicexpansionpower,2147483647, MagicExpansionItems.PURE_INGOT_POWER_CORE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MagicExpansionItems.PURE_ELEMENT_INGOT, PURE_FIVE_ELEMENT, MagicExpansionItems.PURE_ELEMENT_INGOT,
+                MagicExpansionItems.PURE_ELEMENT_INGOT,SlimefunItems.ENERGIZED_CAPACITOR,MagicExpansionItems.PURE_ELEMENT_INGOT,
+                MagicExpansionItems.PURE_ELEMENT_INGOT,MagicExpansionItems.PURE_ELEMENT_INGOT,MagicExpansionItems.PURE_ELEMENT_INGOT,
+        }).register(plugin);
+        //纯净锭电容
+        new PowerCard(magicexpansionspecialitem,MagicExpansionItems.POWER_CARD, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MagicExpansionItems.PURE_ELEMENT_INGOT, PURE_FIVE_ELEMENT, MagicExpansionItems.PURE_ELEMENT_INGOT,
+                MagicExpansionItems.PURE_INGOT_POWER_CORE,new ItemStack(Material.PAPER),MagicExpansionItems.PURE_INGOT_POWER_CORE,
+                MagicExpansionItems.PURE_ELEMENT_INGOT,PURE_FIVE_ELEMENT,MagicExpansionItems.PURE_ELEMENT_INGOT,
         }).register(plugin);
 
 

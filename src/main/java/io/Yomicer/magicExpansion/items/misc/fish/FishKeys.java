@@ -39,6 +39,7 @@ public class FishKeys {
         put(MagicExpansionItems.RANDOM_FISH_EPIC_POOL_ALLOY_INGOT,    Fish.Rarity.EPIC_POOL_ALLOY_INGOT);
         put(MagicExpansionItems.RANDOM_FISH_EPIC,             Fish.Rarity.EPIC);
         put(MagicExpansionItems.RANDOM_FISH_LEGENDARY,        Fish.Rarity.LEGENDARY);
+        put(MagicExpansionItems.FISH_LEGENDARY_EEL_POWER,        Fish.Rarity.LEGENDARY_EEL);
         // 👉 想加新稀有度？直接 put 一行即可！
     }};
 
@@ -204,6 +205,8 @@ public class FishKeys {
                 return Arrays.asList(Fish.MYSTIC_EEL);
             case LEGENDARY:
                 return Arrays.asList(Fish.LegendaryLuFish);
+            case LEGENDARY_EEL:
+                return Arrays.asList(LegendaryEelFish);
             default:
                 return Collections.singletonList(Fish.SanWenFish);
         }

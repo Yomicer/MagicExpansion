@@ -1,10 +1,7 @@
 package io.Yomicer.magicExpansion;
 
 import io.Yomicer.magicExpansion.core.MagicExpansionItems;
-import io.Yomicer.magicExpansion.items.generators.FishEnergyGenerator;
-import io.Yomicer.magicExpansion.items.generators.FishOutputMachine;
-import io.Yomicer.magicExpansion.items.generators.NumberEnergyGenerator;
-import io.Yomicer.magicExpansion.items.generators.TypeEnergyGenerator;
+import io.Yomicer.magicExpansion.items.generators.*;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import org.bukkit.Material;
@@ -69,6 +66,23 @@ public class MagicExpansionPowerMachineSetup {
                 MagicExpansionItems.ELEMENT_INGOT,new ItemStack(Material.BUCKET),MagicExpansionItems.ELEMENT_INGOT
         },131452)
                 .setPowerType("生态缸")
+                .register(plugin);
+
+
+        new EnergyInputGenerator(magicexpansionpower, MagicExpansionItems.MAGIC_POWER_INPUT_MACHINE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                SlimefunItems.CARGO_OUTPUT_NODE, SlimefunItems.CARGO_OUTPUT_NODE,SlimefunItems.CARGO_OUTPUT_NODE,
+                SlimefunItems.CARGO_OUTPUT_NODE, MagicExpansionItems.PURE_INGOT_POWER_CORE,SlimefunItems.CARGO_OUTPUT_NODE,
+                SlimefunItems.CARGO_OUTPUT_NODE,SlimefunItems.CARGO_OUTPUT_NODE,SlimefunItems.CARGO_OUTPUT_NODE
+        })
+                .setPowerType("电力中转站·α")
+                .register(plugin);
+
+        new EnergyOutputGenerator(magicexpansionpower, MagicExpansionItems.MAGIC_POWER_OUTPUT_MACHINE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                SlimefunItems.CARGO_INPUT_NODE, SlimefunItems.CARGO_INPUT_NODE,SlimefunItems.CARGO_INPUT_NODE,
+                SlimefunItems.CARGO_INPUT_NODE, MagicExpansionItems.PURE_INGOT_POWER_CORE,SlimefunItems.CARGO_INPUT_NODE,
+                SlimefunItems.CARGO_INPUT_NODE,SlimefunItems.CARGO_INPUT_NODE,SlimefunItems.CARGO_INPUT_NODE
+        })
+                .setPowerType("电力中转站·β")
                 .register(plugin);
 
 

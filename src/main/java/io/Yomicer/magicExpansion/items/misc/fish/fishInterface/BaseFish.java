@@ -93,6 +93,9 @@ public class BaseFish {
 
 
     public static final BaseFish LegendaryLuFish = of(Fish.LegendaryLuFish);
+    public static final BaseFish LegendaryEelFish = of(Fish.LegendaryEelFish);
+
+
     public static final BaseFish MYSTIC_EEL = of(Fish.MYSTIC_EEL);
 
     /**
@@ -106,8 +109,10 @@ public class BaseFish {
                     Material.PUFFERFISH_BUCKET;               // 稀有 - 河豚桶
             case EPIC, EPIC_POOL_INDUSTRY, EPIC_POOL_ALLOY_INGOT ->
                     Material.TROPICAL_FISH_BUCKET;            // 史诗 - 热带鱼桶
-            case LEGENDARY, MYTHICAL ->
+            case LEGENDARY, LEGENDARY_EEL ->
                     Material.AXOLOTL_BUCKET;                  // 传说 - 美西螈桶
+            case MYTHICAL ->
+                Material.NAUTILUS_SHELL;                    // 神话 鹦鹉螺壳
             default -> Material.COD_BUCKET;
         };
     }

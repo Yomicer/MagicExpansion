@@ -380,7 +380,7 @@ public enum Fish {
             ColorGradient.getGradientName("游弋于深海高压区与青铜遗迹之间，以海流电解和金属抗蚀力为食。"),
             ColorGradient.getGradientName("体表呈金褐与银灰交织，鳞片如耐腐蚀合金锻造，散发微弱阴极光泽。"),
             ColorGradient.getGradientName("体内凝结‘铝青铜锭’，兼具强度与抗海水侵蚀的神圣平衡。"),
-            ColorGradient.getGradientName("需用魔法钓竿垂钓，需用非磁性钓具捕获，否则引来电鳗群攻击。"),
+            ColorGradient.getGradientName("需用魔法钓竿垂钓，否则引来电鳗群攻击。"),
             ColorGradient.getGradientName("铝青铜灵鱼体重多在 1 - 64 kg 之间，光泽越稳定者合金越纯净。"),
             ColorGradient.getGradientName("「特殊作用」可生产：铝青铜锭")
     ),
@@ -480,7 +480,7 @@ public enum Fish {
             ColorGradient.getGradientName("沉眠于最深地核与废弃核芯之间，以衰变热与暗能量为生。"),
             ColorGradient.getGradientName("通体暗红如熔岩核心，心脏处有持续脉动的蓝色光点。"),
             ColorGradient.getGradientName("体内孕育‘钚’，是毁灭与能源的终极化身。"),
-            ColorGradient.getGradientName("需用魔法钓竿垂钓，捕获后必须用量子容器密封。"),
+            ColorGradient.getGradientName("需用魔法钓竿垂钓，捕获后可使用任何容器密封。"),
             ColorGradient.getGradientName("钚心鱼体重多在 1 - 64 kg 之间，脉动越强能量越恐怖。"),
             ColorGradient.getGradientName("「特殊作用」可生产：钚")
     ),
@@ -495,6 +495,22 @@ public enum Fish {
             ColorGradient.getGradientName("据说能带来好运。"),
             ColorGradient.getGradientName("传奇鲈鱼体重大多都在 2 - 31 kg之间。")
     ),
+    LegendaryEelFish(Rarity.LEGENDARY.colorCode+"以太·虚灵电鳗", 888.888, 888.888, Rarity.LEGENDARY,
+            ColorGradient.getGradientName("可以被用作工业电力传输的载体！"),
+            ColorGradient.getGradientName("由于特殊原因，魔法师们找到了这种传说鱼的唯一钓饵。"),
+            ColorGradient.getGradientName("使得这种传说鱼极易被捕获，但也只是相对于不了解这种鱼的习性之前"),
+            ColorGradient.getGradientName("实际捕获概率还是比较低的。"),
+            ColorGradient.getGradientName("按理来说现在这种鱼应该属于史诗鱼。"),
+            ColorGradient.getGradientName("但是由于其逆天特性，还是应该被列为传说鱼。"),
+            ColorGradient.getGradientName("最多能存储 "+ Long.MAX_VALUE +" J电量"),
+            ColorGradient.getGradientName("需用魔法钓竿垂钓，该鱼对魔法糖比较感兴趣。"),
+            ColorGradient.getGradientName("以太·虚灵电鳗体重恒定为 888.888 kg。"),
+            " ",
+            ColorGradient.getGradientName("shift + 右键 设置储电上限"),
+            ColorGradient.getGradientName("当前储电量: 未初始化")
+    ),
+
+
     MYSTIC_EEL(Rarity.EPIC.colorCode+"裸背电鳗", 2.0, 21.0, Rarity.EPIC,
             ColorGradient.getGradientName("深海中的幽影。"),
             ColorGradient.getGradientName("散发着微弱的蓝光。"),
@@ -611,8 +627,8 @@ public enum Fish {
      * 注意：值越小表示越轻
      */
     public double getWeightPercent(double weight) {
-        if (weight <= minWeight) return 0.0;
         if (weight >= maxWeight) return 1.0;
+        if (weight <= minWeight) return 0.0;
         return (weight - minWeight) / (maxWeight - minWeight);
     }
 
@@ -691,6 +707,7 @@ public enum Fish {
         EPIC_POOL_INDUSTRY("§d史诗-POOL-工业材料", "§d"),
         EPIC_POOL_ALLOY_INGOT("§d史诗-POOL-合金锭", "§d"),
         LEGENDARY("§c传说", "§c"),
+        LEGENDARY_EEL("§c传说-以太电鳗", "§c"),
         MYTHICAL("§e神话", "§e");
 
 

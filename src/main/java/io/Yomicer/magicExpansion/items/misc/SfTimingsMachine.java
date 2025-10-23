@@ -73,7 +73,7 @@ public class SfTimingsMachine extends SlimefunItem implements EnergyNetComponent
 
             @Override
             public void onPlayerPlace(BlockPlaceEvent e) {
-                Location loc = e.getBlock().getLocation().add(SfTimingsMachine.this.getHologramOffsetSfTimings(e.getBlock()));
+                Location loc = e.getBlock().getLocation().clone().add(SfTimingsMachine.this.getHologramOffsetSfTimings(e.getBlock()));
                 Location loc1 = loc.clone().add(0, 1.0, 0);
                 Slimefun.getHologramsService().setHologramLabel(loc1, ColorGradient.getGradientName("待机中..."));
             }

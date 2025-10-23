@@ -537,6 +537,7 @@ public class FishingGuideMenu {
             case "legendary_fish":
                 items.add(new CustomItemStack(Material.COD,getGradientName("关于鱼群喜好"),getGradientName("喜好只是这种鱼更喜欢这种鱼饵"),getGradientName("其他鱼饵也有一定概率钓到这种鱼"),getGradientName("当然也有可能根本钓不到")));
                 items.add(FishManager.getFishItemWithLore(BaseFish.LegendaryLuFish,"",getGradientName("喜好：纠缠之节：终焉之丝·悖论为钩")));
+                items.add(FishManager.getFishItemWithLore(BaseFish.LegendaryEelFish,"",getGradientName("专属钓饵：魔法糖")));
                 break;
             case "mythical_fish":
                 items.add(new CustomItemStack(Material.COD,getGradientName("关于鱼群喜好"),getGradientName("喜好只是这种鱼更喜欢这种鱼饵"),getGradientName("其他鱼饵也有一定概率钓到这种鱼"),getGradientName("当然也有可能根本钓不到")));
@@ -621,7 +622,7 @@ public class FishingGuideMenu {
                 items.add(new CustomItemStack(CustomHead.getHead("a1f71182915f5f862189a81f690acde4f671075db267eb6128fd1b4a84da8d7c"),"§c冷殇的轮椅",getGradientName("传说中专为“挂机玩家”打造的神装，装上它，连睡觉都能通关最终Boss。"),getGradientName("——不是你太强，是轮椅替你扛下了所有的难度。")
                         ,"",getGradientName("专属钓饵: 魔法鱼饵·混合合金泥")));
                 items.add(new CustomItemStack(new ItemStack(Material.COCOA_BEANS),"§c屎"
-                        ,"",getGradientName("唯一喜好: 魔法鱼饵·混合合金泥")));
+                        ,"",getGradientName("专属钓饵: 魔法鱼饵·混合合金泥")));
                 items.add(new CustomItemStack(CustomHead.MAGICSOLO.getItem(),getGradientName("magicsolo"),getGradientName("南柯一梦终须醒，浮生若梦皆是空~"),getGradientName("南柯一梦若浮生，不梦前世不梦今~")
                         ,"",getGradientName("专属钓饵: 魔法鱼饵·混合合金泥")));
                 items.add(new CustomItemStack(new ItemStack(Material.GOLDEN_SHOVEL),"§e金铲铲",getGradientName("你是想要人口呢？"),getGradientName("还是想要纹章呢？")
@@ -667,6 +668,7 @@ public class FishingGuideMenu {
                 items.add(MagicExpansionItems.RANDOM_FISH_RARE_POOL_INDUSTRY);
                 items.add(MagicExpansionItems.RANDOM_FISH_EPIC_POOL_INDUSTRY);
                 items.add(MagicExpansionItems.RANDOM_FISH_EPIC);
+                items.add(FishManager.getFishItemWithLore(BaseFish.LegendaryEelFish,"",getGradientName("专属钓饵：魔法糖")));
                 items.add(new CustomItemStack(
                         new ItemStack(Material.PRISMARINE_SHARD, 1),
                         getGradientName("鱼饵·记忆碎片"),

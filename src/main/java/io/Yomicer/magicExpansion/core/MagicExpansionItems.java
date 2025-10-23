@@ -6,6 +6,7 @@ import io.Yomicer.magicExpansion.utils.itemUtils.MagicSugarBuilder;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
 import static io.Yomicer.magicExpansion.utils.Utils.doGlow;
@@ -27,7 +28,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 31"),
+            getGradientName("Version: Build 32"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -591,6 +592,12 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack POWER_CORE = themed("POWER_CORE",new CustomItemStack(CustomHead.getHead("96e0c954d5cab4b9714b8a7eaf9742eeaab7dda7fc2effefb1530099ae1309ac")),
             get("Resource.POWER_CORE.Name"),getList("Resource.POWER_CORE.Lore"));
 
+    public static final SlimefunItemStack PURE_INGOT_POWER_CORE = themed("PURE_INGOT_POWER_CORE",new CustomItemStack(CustomHead.getHead("5b0a0629a74a20cf419c1a12fca49f872b78524bb25dd8b9d74c1d26e7b09268")),
+            get("Resource.PURE_INGOT_POWER_CORE.Name"),getList("Resource.PURE_INGOT_POWER_CORE.Lore"));
+
+    public static final SlimefunItemStack POWER_CARD = themed("POWER_CARD",Material.PAPER,
+            get("Resource.POWER_CARD.Name"),getList("Resource.POWER_CARD.Lore"));
+
 
     public static final SlimefunItemStack PRE_BUILDING_TAFEI = createDefaultItemGlow("PRE_BUILDING_TAFEI",Material.PINK_WOOL);
 
@@ -711,6 +718,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2025_10_06 = createDefaultItemGlow("UPDATE_LOG_2025_10_06",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_10_07 = createDefaultItemGlow("UPDATE_LOG_2025_10_07",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_10_14 = createDefaultItemGlow("UPDATE_LOG_2025_10_14",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2025_10_23 = createDefaultItemGlow("UPDATE_LOG_2025_10_23",Material.PAPER);
 
 
 
@@ -757,6 +765,8 @@ public class MagicExpansionItems {
             get("Items.RANDOM_FISH_EPIC_POOL_ALLOY_INGOT.Name"),getList("Items.RANDOM_FISH_EPIC_POOL_ALLOY_INGOT.Lore"));
     public static final SlimefunItemStack RANDOM_FISH_LEGENDARY = themed("RANDOM_FISH_LEGENDARY",Material.AXOLOTL_BUCKET,
             get("Items.RANDOM_FISH_LEGENDARY.Name"),getList("Items.RANDOM_FISH_LEGENDARY.Lore"));
+    public static final SlimefunItemStack FISH_LEGENDARY_EEL_POWER = themed("FISH_LEGENDARY_EEL_POWER",Material.AXOLOTL_BUCKET,
+            get("Items.FISH_LEGENDARY_EEL_POWER.Name"),getList("Items.FISH_LEGENDARY_EEL_POWER.Lore"));
 
     public static final SlimefunItemStack FISH_LURE_BASIC = themed("FISH_LURE_BASIC",Material.WHITE_DYE,
             get("Items.FISH_LURE_BASIC.Name"),getList("Items.FISH_LURE_BASIC.Lore"));
@@ -930,6 +940,8 @@ public class MagicExpansionItems {
 
     public static final SlimefunItemStack POWER_FISH_ELECTRIC = createDefaultPowerMachine("POWER_FISH_ELECTRIC",Material.SEA_LANTERN);
     public static final SlimefunItemStack FISH_VIVARIUM = createDefaultPowerMachine("FISH_VIVARIUM",Material.LIGHT_BLUE_STAINED_GLASS_PANE);
+    public static final SlimefunItemStack MAGIC_POWER_INPUT_MACHINE = createDefaultPowerMachine("MAGIC_POWER_INPUT_MACHINE",Material.TINTED_GLASS);
+    public static final SlimefunItemStack MAGIC_POWER_OUTPUT_MACHINE = createDefaultPowerMachine("MAGIC_POWER_OUTPUT_MACHINE",Material.YELLOW_STAINED_GLASS);
 
 
 

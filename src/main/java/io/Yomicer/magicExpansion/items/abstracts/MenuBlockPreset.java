@@ -42,6 +42,10 @@ final class MenuBlockPreset extends BlockMenuPreset {
 
     @ParametersAreNonnullByDefault
     public int[] getSlotsAccessedByItemTransport(ItemTransportFlow flow) {
-        return new int[0];
+        if (flow == ItemTransportFlow.INSERT) {
+            return this.menuBlock.getInputSlots();
+        } else {
+            return this.menuBlock.getOutputSlots();
+        }
     }
 }
