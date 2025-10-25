@@ -24,6 +24,20 @@ commands:
       description: Allows players to use the plugin commands.
       default: op
 
+    mxai.use:
+      description: 可以使用AI聊天功能
+      default: true
+    mxai.op:
+      description: 可以控制全服AI模式开关
+      default: op  # 只有OP或有此权限的玩家可用
+
   mxf:
     description: 钓鱼图鉴相关命令
     usage: /<command> <open_guide|guide>
+
+
+  mxai:
+    description: AI聊天控制
+    usage: /mxai <chaton|chatoff|public|publicmode>
+    permission: mxai.use
+    permission-message: 你没有使用AI命令的权限！
