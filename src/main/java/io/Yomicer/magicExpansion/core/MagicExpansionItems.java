@@ -720,6 +720,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2025_10_14 = createDefaultItemGlow("UPDATE_LOG_2025_10_14",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_10_23 = createDefaultItemGlow("UPDATE_LOG_2025_10_23",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_10_25 = createDefaultItemGlow("UPDATE_LOG_2025_10_25",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2025_10_26 = createDefaultItemGlow("UPDATE_LOG_2025_10_26",Material.PAPER);
 
 
 

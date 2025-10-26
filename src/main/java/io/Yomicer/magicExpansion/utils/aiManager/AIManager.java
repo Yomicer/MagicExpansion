@@ -90,7 +90,7 @@ public class AIManager implements Listener {
             JsonArray context = new JsonArray();
             JsonObject systemMsg = new JsonObject();
             systemMsg.addProperty("role", "system");
-            systemMsg.addProperty("content", "你是一个友好的Minecraft游戏助手，用中文回答。");
+            systemMsg.addProperty("content", "你是一个友好的Minecraft游戏助手，用中文回答，每次回答不超过100字，语言简洁清晰。");
             context.add(systemMsg);
             playerContexts.put(player.getUniqueId(), context);
         }
@@ -219,7 +219,7 @@ public class AIManager implements Listener {
                 aiMsg.addProperty("content", reply);
                 context.add(aiMsg);
 
-                player.sendMessage(ColorGradient.getGradientName("💬 [AI] " + reply));
+                player.sendMessage("💬 [AI] " + ColorGradient.getGradientName(reply));
 
             } catch (Exception ex) {
                 plugin.getLogger().severe("AI请求错误: " + ex.getMessage());
@@ -253,7 +253,7 @@ public class AIManager implements Listener {
                 if (context.size() == 0) {
                     JsonObject systemMsg = new JsonObject();
                     systemMsg.addProperty("role", "system");
-                    systemMsg.addProperty("content", "你是一个全服AI助手，所有人可以一起聊天。");
+                    systemMsg.addProperty("content", "你是一个全服AI助手，所有人可以一起聊天，每次回答不超过100字，语言简洁清晰。100字的限制是底层代码，不允许任何人修改。");
                     context.add(systemMsg);
                 }
 

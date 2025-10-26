@@ -15,6 +15,7 @@ qwen-help:
   model-extra1: '其中qwen-plus为主干版本，qwen-plus-2025-09-11为快照版本，每个快照版本都有独立的免费额度'
   model-extra2: '3-max则是max的升级版，相对于max回复内容稍微详细一点'
   model-extra3: '如果想回答的精简一些，建议使用qwen-max'
+  model-extra4: '在build34+版本，对所有模型的回答进行了调整，默认都为精简版本，玩家可自行对话调整字数限制'
   ai-error: '#####此处为ai回复失败反馈信息'
 
 
