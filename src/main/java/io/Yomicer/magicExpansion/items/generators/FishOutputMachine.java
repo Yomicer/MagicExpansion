@@ -347,7 +347,7 @@ public class FishOutputMachine extends MenuBlock implements EnergyNetProvider, R
                 case RARE -> Material.PUFFERFISH_BUCKET;  // 稀有 - 河豚
                 case EPIC -> Material.TROPICAL_FISH_BUCKET;     // 史诗 - 热带鱼
                 case LEGENDARY -> Material.AXOLOTL_BUCKET;   // 传说 - 用美西螈
-                case MYTHICAL -> Material.NETHER_STAR;       // 神话 - 下界之星（最稀有）
+                case MYTHICAL -> Material.NAUTILUS_SHELL;       // 神话 - 下界之星（最稀有）
                 default -> Material.COD_BUCKET;
             };
 

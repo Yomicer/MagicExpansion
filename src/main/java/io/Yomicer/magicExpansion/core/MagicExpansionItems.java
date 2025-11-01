@@ -28,7 +28,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 33"),
+            getGradientName("Version: Build 35"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -96,6 +96,9 @@ public class MagicExpansionItems {
     //虚空之触
     public static final SlimefunItemStack FIVE_ELEMENT_TOUCH = themed("FIVE_ELEMENT_TOUCH",doGlow(Material.TWISTING_VINES),
             get("Items.FIVE_ELEMENT_TOUCH.Name"),getList("Items.FIVE_ELEMENT_TOUCH.Lore"));
+    //虚空之触
+    public static final SlimefunItemStack FIVE_ELEMENT_TOUCH_RIGHT_CLICK = themed("FIVE_ELEMENT_TOUCH_RIGHT_CLICK",doGlow(Material.VINE),
+            get("Items.FIVE_ELEMENT_TOUCH_RIGHT_CLICK.Name"),getList("Items.FIVE_ELEMENT_TOUCH_RIGHT_CLICK.Lore"));
 
     public static final SlimefunItemStack MAGIC_EXPANSION_RANDOM_SPAWNER = new SlimefunItemStack(
             "MAGIC_EXPANSION_RANDOM_SPAWNER",
@@ -721,6 +724,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2025_10_23 = createDefaultItemGlow("UPDATE_LOG_2025_10_23",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_10_25 = createDefaultItemGlow("UPDATE_LOG_2025_10_25",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_10_26 = createDefaultItemGlow("UPDATE_LOG_2025_10_26",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2025_11_02 = createDefaultItemGlow("UPDATE_LOG_2025_11_02",Material.PAPER);
 
 
 
@@ -739,6 +743,12 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack DOUBLE_SIDED_TAPE = createDefaultItem("DOUBLE_SIDED_TAPE",Material.PAPER);
     public static final SlimefunItemStack SCHRODINGER_FRAME_ONE = createDefaultItem("SCHRODINGER_FRAME_ONE",Material.ITEM_FRAME);
     public static final SlimefunItemStack SCHRODINGER_FRAME_INFINITE = createDefaultItem("SCHRODINGER_FRAME_INFINITE",Material.GLOW_ITEM_FRAME);
+
+
+    public static final SlimefunItemStack SEND_ITEMS_TO_PLAYER_MACHINE = createDefaultItem("SEND_ITEMS_TO_PLAYER_MACHINE",Material.BEACON);
+
+
+    public static final SlimefunItemStack CUSTOM_SEQUENCE_TOOL = createDefaultItem("CUSTOM_SEQUENCE_TOOL",Material.HEART_OF_THE_SEA);
 
 
     public static final SlimefunItemStack FISHING_INFO = createDefaultItemGlow("FISHING_INFO",Material.PAPER);

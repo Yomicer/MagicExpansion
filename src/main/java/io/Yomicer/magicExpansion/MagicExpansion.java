@@ -22,7 +22,6 @@ import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import lombok.SneakyThrows;
 import net.guizhanss.guizhanlibplugin.updater.GuizhanUpdater;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -74,6 +73,7 @@ public class MagicExpansion extends JavaPlugin implements SlimefunAddon {
         AIManager aiManager = new AIManager(this);
         aiManager.onEnable();  // ✅ 启动 AI 模块
         getLogger().info("✅ 魔法2.0 ai聊天功能加载完毕！使用 /mxai chaton 开启AI聊天。");
+
 
 
         // Registering Command

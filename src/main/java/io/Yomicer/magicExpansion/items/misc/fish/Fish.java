@@ -558,14 +558,14 @@ public enum Fish {
      */
     public double rollWeight() {
         Random random = new Random();
-        double unit = random.nextDouble();
+        double unit = 1 - random.nextDouble();
         double skewed = Math.pow(unit, 3.9);
         return minWeight + (skewed * (maxWeight - minWeight));
     }
 
     public double rollWeightNew() {
         Random random = new Random();
-        double unit = random.nextDouble();
+        double unit = 1 - random.nextDouble();
         double skewed = Math.pow(unit, 4.5);
         double rand = random.nextDouble();
         double multiplier;
@@ -584,7 +584,7 @@ public enum Fish {
     }
     public double rollWeightAdvanced() {
         Random random = new Random();
-        double unit = random.nextDouble();
+        double unit = 1 - random.nextDouble();
         double skewed = Math.pow(unit, 3.1);
         double rand = random.nextDouble();
         double multiplier;
@@ -604,7 +604,7 @@ public enum Fish {
 
     public double rollWeightUltra() {
         Random random = new Random();
-        double unit = random.nextDouble();
+        double unit = 1 - random.nextDouble();
         double skewed = Math.pow(unit, 2.1);
         double rand = random.nextDouble();
         double multiplier;
@@ -681,12 +681,12 @@ public enum Fish {
          * 注意：越轻越稀有 → 百分比越小越稀有
          */
         public static WeightRarity fromPercent(double percent) {
-            if (percent > 0.95) {
-                return SUPER_RARE_FISH;  // 最轻的 5% → 超级稀有
-            } else if (percent > 0.9) {
-                return RARE_FISH;        // 中间的 5% → 稀有鱼
+            if (percent > 0.93) {
+                return SUPER_RARE_FISH;  // 最重的 7% → 超级稀有
+            } else if (percent > 0.85) {
+                return RARE_FISH;        // 中间的 8% → 稀有鱼
             } else {
-                return COMMON_FISH;      // 最重的 90% → 普通鱼
+                return COMMON_FISH;      // 最轻的 85% → 普通鱼
             }
         }
     }
