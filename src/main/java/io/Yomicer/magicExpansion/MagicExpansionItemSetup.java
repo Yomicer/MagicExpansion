@@ -818,7 +818,7 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_ORE, 1),
                                 new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 1),
                                 new WeightedItem(RANDOM_FISH_EPIC, 1),
-                                new WeightedItem(FISH_LEGENDARY_EEL_POWER, 13),
+                                new WeightedItem(FISH_LEGENDARY_EEL_POWER, 1),
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
                                 ), 18)
                         ),
@@ -992,7 +992,7 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_INDUSTRY, 12),
                                 new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 3),
                                 new WeightedItem(RANDOM_FISH_EPIC, 3),
-                                new WeightedItem(FISH_LEGENDARY_EEL_POWER, 16),
+                                new WeightedItem(FISH_LEGENDARY_EEL_POWER, 3),
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
                                 ), 18)
                         ),

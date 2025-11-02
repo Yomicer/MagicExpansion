@@ -20,10 +20,12 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerChatEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -147,8 +149,15 @@ public class CustomSequenceTool extends SimpleSlimefunItem<ItemUseHandler> imple
         }
 
         if (slotData.message != null && !slotData.message.isEmpty()) {
-            lore.add("§d消息/指令: " + (slotData.message.length() > 20 ?
-                    slotData.message.substring(0, 20) + "..." : slotData.message));
+            int maxLength = 50;
+            String displayMessage = slotData.message.length() > maxLength ?
+                    slotData.message.substring(0, maxLength) + "..." : slotData.message;
+
+            if (slotData.message.startsWith("/")) {
+                lore.add("§d指令: " + displayMessage);
+            } else {
+                lore.add("§d消息: " + displayMessage);
+            }
         } else {
             lore.add("§c消息/指令: 未设置");
         }
@@ -304,22 +313,80 @@ public class CustomSequenceTool extends SimpleSlimefunItem<ItemUseHandler> imple
 
     // 设置间隔时间 - 完整实现
     private void setIntervalTime(Player player, int slot, PlayerSequenceData playerData, ItemStack toolItem) {
-        player.closeInventory();
-        player.sendMessage("§6请在聊天框中输入间隔时间（秒，最低0.01）:");
-        player.sendMessage("§c输入 'cancel' 取消设置");
 
-        // 记录等待输入
-        waitingForInput.put(player.getUniqueId(), new InputRequest(InputType.INTERVAL, slot, playerData, toolItem));
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                player.closeInventory();
+                player.sendMessage("§6请在聊天框中输入间隔时间（秒，最低0.01）:");
+                player.sendMessage("§c输入 'cancel' 取消设置");
+                // 记录等待输入
+                waitingForInput.put(player.getUniqueId(), new InputRequest(InputType.INTERVAL, slot, playerData, toolItem));
+            }
+        }.runTaskLater(MagicExpansion.getInstance(), 1L);
+
     }
 
     // 设置消息/指令 - 完整实现
     private void setMessageOrCommand(Player player, int slot, PlayerSequenceData playerData, ItemStack toolItem) {
-        player.closeInventory();
-        player.sendMessage("§6请在聊天框中输入消息或指令:");
-        player.sendMessage("§c输入 'cancel' 取消设置");
+        // 延迟一 tick 关闭菜单，确保先处理完点击事件
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                player.closeInventory();
+                player.sendMessage("§6=== 序列工具设置 ===");
+                player.sendMessage("§6请在聊天框中输入消息或指令:");
+                player.sendMessage("§7- 输入普通消息: 序列运行时发送聊天消息");
+                player.sendMessage("§7- 输入以/开头的指令: 序列运行时执行指令");
+                player.sendMessage("§c输入 'cancel' 取消设置");
+                player.sendMessage("§e注意: 您现在可以输入指令（如 /help），它会被保存而不会立即执行");
 
-        // 记录等待输入
-        waitingForInput.put(player.getUniqueId(), new InputRequest(InputType.MESSAGE, slot, playerData, toolItem));
+                // 记录等待输入
+                waitingForInput.put(player.getUniqueId(), new InputRequest(InputType.MESSAGE, slot, playerData, toolItem));
+            }
+        }.runTaskLater(MagicExpansion.getInstance(), 1L);
+    }
+
+    @EventHandler
+    public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
+        Player player = event.getPlayer();
+        UUID playerId = player.getUniqueId();
+
+        // 如果玩家正在等待输入，取消指令执行并处理输入
+        if (waitingForInput.containsKey(playerId)) {
+            event.setCancelled(true);
+
+            InputRequest request = waitingForInput.get(playerId);
+
+            // 只处理 MESSAGE 类型的输入请求
+            if (request.type != InputType.MESSAGE) {
+                player.sendMessage("§c请先完成当前设置！输入 'cancel' 取消");
+                player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+                return;
+            }
+
+            String command = event.getMessage(); // 这会包含 "/" 前缀
+
+            // 保存指令到序列工具
+            request.playerData.setMessage(request.slot, command);
+            savePlayerData(request.playerData, request.toolItem);
+
+            player.sendMessage("§a已设置步骤 " + (request.slot + 1) + " 的指令为: " + command);
+            player.sendMessage("§7注意: 这个指令将在序列运行时执行");
+            player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.5f);
+
+            waitingForInput.remove(playerId);
+
+            // 重新打开菜单
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    if (player.isOnline()) {
+                        openSequenceMenu(player, request.toolItem);
+                    }
+                }
+            }.runTask(MagicExpansion.getInstance());
+        }
     }
 
     // 处理玩家聊天输入
@@ -329,6 +396,11 @@ public class CustomSequenceTool extends SimpleSlimefunItem<ItemUseHandler> imple
         UUID playerId = player.getUniqueId();
 
         if (!waitingForInput.containsKey(playerId)) {
+            return;
+        }
+
+        // 如果消息以"/"开头，说明是指令，我们不处理（由指令预处理器处理）
+        if (event.getMessage().startsWith("/")) {
             return;
         }
 
@@ -342,6 +414,16 @@ public class CustomSequenceTool extends SimpleSlimefunItem<ItemUseHandler> imple
             waitingForInput.remove(playerId);
             player.sendMessage("§c已取消设置。");
             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+
+            // 取消后重新打开菜单
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    if (player.isOnline()) {
+                        openSequenceMenu(player, request.toolItem);
+                    }
+                }
+            }.runTask(MagicExpansion.getInstance());
             return;
         }
 
@@ -368,9 +450,12 @@ public class CustomSequenceTool extends SimpleSlimefunItem<ItemUseHandler> imple
                 break;
 
             case MESSAGE:
+                // 处理普通消息（非指令）
                 request.playerData.setMessage(request.slot, message);
                 savePlayerData(request.playerData, request.toolItem);
-                player.sendMessage("§a已设置步骤 " + (request.slot + 1) + " 的消息/指令为: " + message);
+
+                player.sendMessage("§a已设置步骤 " + (request.slot + 1) + " 的消息为: " + message);
+                player.sendMessage("§7注意: 这个消息将在序列运行时发送");
                 player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.5f);
                 break;
         }
@@ -493,15 +578,6 @@ public class CustomSequenceTool extends SimpleSlimefunItem<ItemUseHandler> imple
                         // 执行指令
                         player.performCommand(slotData.message.substring(1));
                     } else {
-//                        // 创建 PlayerChatEvent
-//                        PlayerChatEvent chatEvent = new PlayerChatEvent(
-//                                player,
-//                                slotData.message,
-//                                "<%1$s> %2$s",
-//                                null
-//                        );
-//                        chatEvent.setCancelled(false);
-//                        Bukkit.getPluginManager().callEvent(chatEvent);
                         player.chat(slotData.message);
                     }
                 }

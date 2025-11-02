@@ -495,7 +495,7 @@ public enum Fish {
             ColorGradient.getGradientName("据说能带来好运。"),
             ColorGradient.getGradientName("传奇鲈鱼体重大多都在 2 - 31 kg之间。")
     ),
-    LegendaryEelFish(Rarity.LEGENDARY.colorCode+"以太·虚灵电鳗", 888.888, 888.888, Rarity.LEGENDARY,
+    LegendaryEelFish(Rarity.LEGENDARY.colorCode+"以太·虚灵电鳗", 666.666, 888.888, Rarity.LEGENDARY,
             ColorGradient.getGradientName("可以被用作工业电力传输的载体！"),
             ColorGradient.getGradientName("由于特殊原因，魔法师们找到了这种传说鱼的唯一钓饵。"),
             ColorGradient.getGradientName("使得这种传说鱼极易被捕获，但也只是相对于不了解这种鱼的习性之前"),
@@ -504,7 +504,7 @@ public enum Fish {
             ColorGradient.getGradientName("但是由于其逆天特性，还是应该被列为传说鱼。"),
             ColorGradient.getGradientName("最多能存储 "+ Long.MAX_VALUE +" J电量"),
             ColorGradient.getGradientName("需用魔法钓竿垂钓，该鱼对魔法糖比较感兴趣。"),
-            ColorGradient.getGradientName("以太·虚灵电鳗体重恒定为 888.888 kg。"),
+            ColorGradient.getGradientName("以太·虚灵电鳗体重在 666.666 ~ 888.888 kg 之间。"),
             " ",
             ColorGradient.getGradientName("shift + 右键 设置储电上限"),
             ColorGradient.getGradientName("当前储电量: 未初始化")
