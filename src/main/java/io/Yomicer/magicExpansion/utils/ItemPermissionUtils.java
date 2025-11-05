@@ -55,6 +55,18 @@ public class ItemPermissionUtils {
         return false;
     }
 
+    public static boolean hasPermissionOnlyOnAttackEntity(Player player) {
+        // 检查玩家是否有 "slimefun.inventory.bypass" 权限
+        if (player.hasPermission("slimefun.inventory.bypass")) {
+            return true;
+        }
+        // 检查保护插件的权限（如 WorldGuard）
+        if (Slimefun.getProtectionManager().hasPermission(player, player.getLocation(), Interaction.ATTACK_ENTITY)) {
+            return true;
+        }
+        return false;
+    }
+
 
     /**
      * 判断玩家是否有权限进行操作

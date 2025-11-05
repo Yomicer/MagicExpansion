@@ -28,7 +28,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 36"),
+            getGradientName("Version: Build 37"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -597,6 +597,19 @@ public class MagicExpansionItems {
 
     public static final SlimefunItemStack PURE_INGOT_POWER_CORE = themed("PURE_INGOT_POWER_CORE",new CustomItemStack(CustomHead.getHead("5b0a0629a74a20cf419c1a12fca49f872b78524bb25dd8b9d74c1d26e7b09268")),
             get("Resource.PURE_INGOT_POWER_CORE.Name"),getList("Resource.PURE_INGOT_POWER_CORE.Lore"));
+    public static final SlimefunItemStack BAD_LUCK_CAPACITY = themed("BAD_LUCK_CAPACITY",new CustomItemStack(CustomHead.getHead("5b0a0629a74a20cf419c1a12fca49f872b78524bb25dd8b9d74c1d26e7b09268")),
+            get("Resource.BAD_LUCK_CAPACITY.Name"),getList("Resource.BAD_LUCK_CAPACITY.Lore"));
+    public static final SlimefunItemStack PANDORA_CAPACITY = themed("PANDORA_CAPACITY",new CustomItemStack(CustomHead.getHead("5b0a0629a74a20cf419c1a12fca49f872b78524bb25dd8b9d74c1d26e7b09268")),
+            get("Resource.PANDORA_CAPACITY.Name"),getList("Resource.PANDORA_CAPACITY.Lore"));
+    public static final SlimefunItemStack MAGIC_CAPACITY_BASIC = themed("MAGIC_CAPACITY_BASIC",new CustomItemStack(CustomHead.getHead("5b0a0629a74a20cf419c1a12fca49f872b78524bb25dd8b9d74c1d26e7b09268")),
+            get("Resource.MAGIC_CAPACITY_BASIC.Name"),getList("Resource.MAGIC_CAPACITY_BASIC.Lore"));
+    public static final SlimefunItemStack MAGIC_CAPACITY_ULTRA = themed("MAGIC_CAPACITY_ULTRA",new CustomItemStack(CustomHead.getHead("5b0a0629a74a20cf419c1a12fca49f872b78524bb25dd8b9d74c1d26e7b09268")),
+            get("Resource.MAGIC_CAPACITY_ULTRA.Name"),getList("Resource.MAGIC_CAPACITY_ULTRA.Lore"));
+
+
+
+
+
 
     public static final SlimefunItemStack POWER_CARD = themed("POWER_CARD",Material.PAPER,
             get("Resource.POWER_CARD.Name"),getList("Resource.POWER_CARD.Lore"));
@@ -725,6 +738,31 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2025_10_25 = createDefaultItemGlow("UPDATE_LOG_2025_10_25",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_10_26 = createDefaultItemGlow("UPDATE_LOG_2025_10_26",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_11_02 = createDefaultItemGlow("UPDATE_LOG_2025_11_02",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2025_11_05 = createDefaultItemGlow("UPDATE_LOG_2025_11_05",Material.PAPER);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public static final SlimefunItemStack DEATH_LIFE_BOOK = createDefaultItemGlow("DEATH_LIFE_BOOK",Material.BOOK);
+
+    public static final SlimefunItemStack DRAW_MACHINE = createDefaultItemGlow("DRAW_MACHINE",Material.CAULDRON);
+
+
+
+
 
 
 

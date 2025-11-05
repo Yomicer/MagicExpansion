@@ -99,7 +99,7 @@ public class EnergyInputGenerator extends MenuBlock implements EnergyNetProvider
 
             @Override
             public boolean isSynchronized() {
-                return true;
+                return false;
             }
         });
     }

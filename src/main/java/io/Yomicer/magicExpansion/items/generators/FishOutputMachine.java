@@ -10,8 +10,10 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetProvider;
 import io.github.thebusybiscuit.slimefun4.core.attributes.RecipeDisplayItem;
+import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
@@ -34,10 +36,10 @@ import static io.Yomicer.magicExpansion.items.misc.fish.Fish.*;
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
 import static io.Yomicer.magicExpansion.utils.Utils.doGlow;
 
-public class FishOutputMachine extends MenuBlock implements EnergyNetProvider, RecipeDisplayItem {
+public class FishOutputMachine extends MenuBlock implements EnergyNetComponent, RecipeDisplayItem {
 
     private final int Capacity;
-    public static final int ENERGY_CONSUMPTION = 500;
+    public static final int ENERGY_CONSUMPTION = 260;
 
     // 1. 定义所有鱼类型与输出物品的映射（集中管理，易扩展）
     private final Map<String, ItemStack> FISH_OUTPUT_MAP = new LinkedHashMap<>() {{
@@ -174,7 +176,7 @@ public class FishOutputMachine extends MenuBlock implements EnergyNetProvider, R
 
             @Override
             public boolean isSynchronized() {
-                return true;
+                return false;
             }
         });
     }
@@ -235,7 +237,7 @@ public class FishOutputMachine extends MenuBlock implements EnergyNetProvider, R
         if (outItems != null && inv != null) {
             removeCharge(block.getLocation(), getEnergyConsumption());
             inv.addItem(40, new CustomItemStack(doGlow(Material.SOUL_LANTERN), getGradientName("⚡机器正在运行⚡"),
-                            getGradientName("请时刻注意电力供给及输出槽是否充裕")),
+                            getGradientName("本机器会源源不断地生产，即使输出槽已经填满了")),
                     (player1, slot, item, action) -> false);
             pushAllItems(inv,outItems, getOutputSlots());
             return;
@@ -307,6 +309,11 @@ public class FishOutputMachine extends MenuBlock implements EnergyNetProvider, R
                 18,19,20,21,22,23,24,25,26,
                 27,28,29,30,31,32,33,34,35,
         };
+    }
+
+    @Override
+    public @NotNull EnergyNetComponentType getEnergyComponentType() {
+        return EnergyNetComponentType.CONSUMER;
     }
 
     @Override

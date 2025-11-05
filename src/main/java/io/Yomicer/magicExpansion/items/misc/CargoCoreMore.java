@@ -32,6 +32,7 @@ import net.guizhanss.guizhanlib.minecraft.helper.inventory.ItemStackHelper;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
@@ -101,7 +102,7 @@ public class CargoCoreMore extends SlimefunItem implements EnergyNetComponent{
 
             @Override
             public boolean isSynchronized() {
-                return true;
+                return false;
             }
         });
     }
@@ -1837,12 +1838,36 @@ public class CargoCoreMore extends SlimefunItem implements EnergyNetComponent{
                             Material blockType = block.getType();
                             if (isValidItemType(blockType)) {
                                 targetItem = new ItemStack(blockType);
-                                BlockState state = block.getState();
-                                ItemMeta meta = targetItem.getItemMeta();
-                                if (meta instanceof BlockStateMeta bsm) {
-                                    bsm.setBlockState(state);
-                                    targetItem.setItemMeta(bsm);
-                                }
+                                  // 现移除在主线程获取blockstate的操作    用处不大
+//                                // 🔹 修复：在主线程中获取 BlockState
+//                                if (Bukkit.isPrimaryThread()) {
+//                                    // 如果在主线程，直接获取
+//                                    BlockState state = block.getState();
+//                                    ItemMeta meta = targetItem.getItemMeta();
+//                                    if (meta instanceof BlockStateMeta bsm) {
+//                                        bsm.setBlockState(state);
+//                                        targetItem.setItemMeta(bsm);
+//                                    }
+//                                } else {
+//                                    // 如果在异步线程，使用同步方式获取
+//                                    ItemStack finalTargetItem = targetItem;
+//                                    Bukkit.getScheduler().runTask(MagicExpansion.getInstance(), () -> {
+//                                        try {
+//                                            BlockState state = block.getState();
+//                                            ItemMeta meta = finalTargetItem.getItemMeta();
+//                                            if (meta instanceof BlockStateMeta bsm) {
+//                                                bsm.setBlockState(state);
+//                                                finalTargetItem.setItemMeta(bsm);
+//                                            }
+//                                        } catch (IllegalStateException e) {
+//                                            // 如果仍然失败，记录错误并使用默认方式
+//                                            MagicExpansion.getInstance().getLogger().warning(
+//                                                    "无法获取方块状态在位置: " + block.getLocation() +
+//                                                            ", 类型: " + block.getType()
+//                                            );
+//                                        }
+//                                    });
+//                                }
                             } else {
                                 // 对于墙上的标志等非物品方块，使用替代的显示物品
                                 targetItem = getAlternativeDisplayItem(blockType);
@@ -1861,6 +1886,7 @@ public class CargoCoreMore extends SlimefunItem implements EnergyNetComponent{
 
             ItemMeta targetMeta = targetItem.getItemMeta();
             List<String> lore = new ArrayList<>();
+            lore.add(ItemStackHelper.getDisplayName(targetItem));
             if (targetMeta != null && targetMeta.hasLore()) {
                 lore.addAll(targetMeta.getLore());
             }
@@ -1879,7 +1905,7 @@ public class CargoCoreMore extends SlimefunItem implements EnergyNetComponent{
             if (targetMeta == null) {
                 targetMeta = Bukkit.getItemFactory().getItemMeta(Material.RECOVERY_COMPASS);
             }
-            targetMeta.setDisplayName("§f目标坐标");
+            targetMeta.setDisplayName("§e目标坐标");
             targetMeta.setLore(lore);
             targetItem.setItemMeta(targetMeta);
             menu.addItem(targetSlot, targetItem, (player, slot, clickedItem, action) -> {
@@ -2260,7 +2286,15 @@ public class CargoCoreMore extends SlimefunItem implements EnergyNetComponent{
                 transferTemplateItem(b, pairIndex, data);
             }
             if (templateItem != null && !templateItem.getType().isAir()) {
-                transferToVanillaContainer(b, pairIndex, data);
+//                transferToVanillaContainer(b, pairIndex, data);
+                if (Bukkit.isPrimaryThread()) {
+                    transferToVanillaContainer(b, pairIndex, data);
+                } else {
+                    int finalPairIndex = pairIndex;
+                    Bukkit.getScheduler().runTask(MagicExpansion.getInstance(), () -> {
+                        transferToVanillaContainer(b, finalPairIndex, data);
+                    });
+                }
             }
         }
     }
@@ -3044,13 +3078,35 @@ public class CargoCoreMore extends SlimefunItem implements EnergyNetComponent{
                             // 检查是否为有效的物品类型
                             if (isValidItemType(blockType)) {
                                 bindItem = new ItemStack(blockType);
-                                // 保留原有的BlockStateMeta处理逻辑
-                                BlockState state = block.getState();
-                                ItemMeta meta = bindItem.getItemMeta();
-                                if (meta instanceof BlockStateMeta bsm) {
-                                    bsm.setBlockState(state);
-                                    bindItem.setItemMeta(bsm);
-                                }
+                                // 现移除在主线程获取blockstate的操作    用处不大
+                                // 🔹 同步获取 BlockState - 必须同步
+//                                if (Bukkit.isPrimaryThread()) {
+//                                    BlockState state = block.getState();
+//                                    ItemMeta meta = bindItem.getItemMeta();
+//                                    if (meta instanceof BlockStateMeta bsm) {
+//                                        bsm.setBlockState(state);
+//                                        bindItem.setItemMeta(bsm);
+//                                    }
+//                                } else {
+//                                    // 如果在异步线程，使用同步方式获取
+//                                    ItemStack finalBindItem = bindItem;
+//                                    Bukkit.getScheduler().runTask(MagicExpansion.getInstance(), () -> {
+//                                        try {
+//                                            BlockState state = block.getState();
+//                                            ItemMeta meta = finalBindItem.getItemMeta();
+//                                            if (meta instanceof BlockStateMeta bsm) {
+//                                                bsm.setBlockState(state);
+//                                                finalBindItem.setItemMeta(bsm);
+//                                            }
+//                                        } catch (IllegalStateException e) {
+//                                            // 如果仍然失败，记录错误并使用默认方式
+//                                            MagicExpansion.getInstance().getLogger().warning(
+//                                                    "无法获取方块状态在位置: " + block.getLocation() +
+//                                                            ", 类型: " + block.getType()
+//                                            );
+//                                        }
+//                                    });
+//                                }
                             } else {
                                 // 对于墙上的标志等非物品方块，使用安全的替代品
                                 bindItem = getSafeAlternativeItem(blockType);
@@ -3067,6 +3123,7 @@ public class CargoCoreMore extends SlimefunItem implements EnergyNetComponent{
                 bindItem = new ItemStack(Material.RECOVERY_COMPASS);
             }
 
+
             ItemMeta bindMeta = bindItem.getItemMeta();
             List<String> lore = new ArrayList<>();
             lore.add(ItemStackHelper.getDisplayName(bindItem));
@@ -3079,7 +3136,12 @@ public class CargoCoreMore extends SlimefunItem implements EnergyNetComponent{
                 String[] parts = binding.split(",", 4);
                 lore.add("§a输入源坐标: §e" + parts[0] + ", " + parts[1] + ", " + parts[2]);
                 lore.add("§a世界: §e" + parts[3]);
-
+                Location loc = parseLocation(binding);
+                BlockMenu sourceMenu = StorageCacheUtils.getMenu(loc);
+                if (sourceMenu != null) {
+                    int[] outputSlots = sourceMenu.getPreset().getSlotsAccessedByItemTransport(ItemTransportFlow.WITHDRAW);
+                    lore.add("§b输出槽数: §e" + (outputSlots != null ? outputSlots.length : 0));
+                }
                 // 显示过滤模板信息
                 ItemStack filterTemplate = getInputFilterTemplate(b, pairIndex);
                 if (filterTemplate != null && !filterTemplate.getType().isAir()) {
@@ -3398,15 +3460,65 @@ public class CargoCoreMore extends SlimefunItem implements EnergyNetComponent{
                 } else {
                     Block block = loc.getBlock();
                     if (block != null && block.getType() != Material.AIR) {
-                        BlockState state = block.getState();
-                        if (state instanceof org.bukkit.block.data.BlockData) {
-                            coordItem = new ItemStack(block.getType(), 1);
-                        } else {
-                            coordItem = new ItemStack(block.getType());
+                        try {
+                            Material blockType = block.getType();
+                            // 检查是否为有效的物品类型
+                            if (isValidItemType(blockType)) {
+                                coordItem = new ItemStack(blockType);
+                            } else {
+                                // 对于墙上的标志等非物品方块，使用安全的替代品
+                                coordItem = getSafeAlternativeItem(blockType);
+                            }
+                        } catch (IllegalArgumentException e) {
+                            // 如果创建失败，使用默认的安全物品
+                            coordItem = new ItemStack(Material.COMPASS);
                         }
+                        // 现移除在主线程获取blockstate的操作    用处不大
+                        // 🔹 同步获取方块信息
+//                        if (Bukkit.isPrimaryThread()) {
+//                            try {
+//                                BlockState state = block.getState();
+//                                if (state instanceof BlockData) {
+//                                    ItemMeta meta = coordItem.getItemMeta();
+//                                    if (meta instanceof BlockStateMeta bsm) {
+//                                        bsm.setBlockState(state);
+//                                        coordItem.setItemMeta(bsm);
+//                                    }
+//                                }
+//                            } catch (Exception e) {
+//                                // 如果失败，至少显示基本类型
+//                            }
+//                        } else {
+//                            // 如果在异步线程，使用同步方式获取
+//                            ItemStack finalCoordItem = coordItem;
+//                            Bukkit.getScheduler().runTask(MagicExpansion.getInstance(), () -> {
+//                                try {
+//                                    BlockState state = block.getState();
+//                                    if (state instanceof BlockData) {
+//                                        ItemMeta meta = finalCoordItem.getItemMeta();
+//                                        if (meta instanceof BlockStateMeta bsm) {
+//                                            bsm.setBlockState(state);
+//                                            finalCoordItem.setItemMeta(bsm);
+//                                        }
+//                                    }
+//                                } catch (IllegalStateException e) {
+//                                    // 如果仍然失败，记录错误
+//                                    MagicExpansion.getInstance().getLogger().warning(
+//                                            "无法获取方块状态在位置: " + block.getLocation() +
+//                                                    ", 类型: " + block.getType()
+//                                    );
+//                                }
+//                            });
+//                        }
                     } else {
                         coordItem = new ItemStack(Material.COMPASS);
                     }
+                }
+
+                lore.add("§6模板名称: §e" + ItemStackHelper.getDisplayName(coordItem));
+                ItemMeta coordItemMeta = coordItem.getItemMeta();
+                if (coordItemMeta != null && coordItemMeta.hasLore()) {
+                    lore.addAll(coordItemMeta.getLore());
                 }
 
                 lore.add("§a目标坐标: §e" + loc.getBlockX() + ", " + loc.getBlockY() + ", " + loc.getBlockZ());
@@ -3450,7 +3562,11 @@ public class CargoCoreMore extends SlimefunItem implements EnergyNetComponent{
 
         if (template != null && !template.getType().isAir()) {
             templateItem = template.clone();
-            lore.add("§6模板: §e" + ItemStackHelper.getDisplayName(template));
+            lore.add("§6模板名称: §e" + ItemStackHelper.getDisplayName(template));
+            ItemMeta tempMeta = template.getItemMeta();
+            if (tempMeta != null && tempMeta.hasLore()) {
+                lore.addAll(tempMeta.getLore());
+            }
             lore.add("§6数量: §e" + amount);
 
             // 显示当前库存
@@ -3639,15 +3755,74 @@ public class CargoCoreMore extends SlimefunItem implements EnergyNetComponent{
                     if (sfItem != null) {
                         displayItem = sfItem.getItem().clone();
                     } else {
-                        displayItem = new ItemStack(Material.COMPASS);
+                        Block block = loc.getBlock();
+                        if (block != null && block.getType() != Material.AIR) {
+                            try {
+                                Material blockType = block.getType();
+                                // 检查是否为有效的物品类型
+                                if (isValidItemType(blockType)) {
+                                    displayItem = new ItemStack(blockType);
+                                } else {
+                                    // 对于墙上的标志等非物品方块，使用安全的替代品
+                                    displayItem = getSafeAlternativeItem(blockType);
+                                }
+                            } catch (IllegalArgumentException e) {
+                                // 如果创建失败，使用默认的安全物品
+                                displayItem = new ItemStack(Material.COMPASS);
+                            }
+                        }else {
+                            displayItem = new ItemStack(Material.COMPASS);
+                        }
+//                        displayItem = new ItemStack(loc.getBlock().getType());
+                        // 现移除在主线程获取blockstate的操作    用处不大
+                        // 🔹 同步获取方块信息
+//                        if (Bukkit.isPrimaryThread()) {
+//                            try {
+//                                BlockState state = loc.getBlock().getState();
+//                                ItemMeta meta = displayItem.getItemMeta();
+//                                if (meta instanceof BlockStateMeta bsm) {
+//                                    bsm.setBlockState(state);
+//                                    displayItem.setItemMeta(bsm);
+//                                }
+//                            } catch (Exception e) {
+//                                // 如果失败，至少显示基本类型
+//                            }
+//                        } else {
+//                            // 如果在异步线程，使用同步方式获取
+//                            ItemStack finalDisplayItem = displayItem;
+//                            Block finalBlock = loc.getBlock();
+//                            Bukkit.getScheduler().runTask(MagicExpansion.getInstance(), () -> {
+//                                try {
+//                                    BlockState state = finalBlock.getState();
+//                                    ItemMeta meta = finalDisplayItem.getItemMeta();
+//                                    if (meta instanceof BlockStateMeta bsm) {
+//                                        bsm.setBlockState(state);
+//                                        finalDisplayItem.setItemMeta(bsm);
+//                                    }
+//                                } catch (IllegalStateException e) {
+//                                    // 如果仍然失败，记录错误
+//                                    MagicExpansion.getInstance().getLogger().warning(
+//                                            "无法获取方块状态在位置: " + finalBlock.getLocation() +
+//                                                    ", 类型: " + finalBlock.getType()
+//                                    );
+//                                }
+//                            });
+//                        }
+                    }
+
+                    lore.add(ItemStackHelper.getDisplayName(displayItem));
+                    ItemMeta cdisplayItemMeta = displayItem.getItemMeta();
+                    if (cdisplayItemMeta != null && cdisplayItemMeta.hasLore()) {
+                        lore.addAll(cdisplayItemMeta.getLore());
                     }
 
                     lore.add("§a输入源坐标: §e" + loc.getBlockX() + ", " + loc.getBlockY() + ", " + loc.getBlockZ());
                     lore.add("§a世界: §e" + loc.getWorld().getName());
 
                     // 显示源机器状态
-                    Block sourceBlock = loc.getBlock();
-                    BlockMenu sourceMenu = BlockStorage.getInventory(sourceBlock);
+//                    Block sourceBlock = loc.getBlock();
+//                    BlockMenu sourceMenu = BlockStorage.getInventory(sourceBlock);
+                    BlockMenu sourceMenu = StorageCacheUtils.getMenu(loc);
                     if (sourceMenu != null) {
                         int[] outputSlots = sourceMenu.getPreset().getSlotsAccessedByItemTransport(ItemTransportFlow.WITHDRAW);
                         lore.add("§b输出槽数: §e" + (outputSlots != null ? outputSlots.length : 0));
