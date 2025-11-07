@@ -227,15 +227,19 @@ public class CargoFragmentDistributor extends SlimefunItem implements EnergyNetC
             if (inventoryItem == null || inventoryItem.getType() == Material.AIR) {
                 // 空槽位，可以放一整组
                 totalSpace += item.getMaxStackSize();
-            } else if (SlimefunUtils.isItemSimilar(inventoryItem, item, true)) {
+            } else if (SlimefunUtils.isItemSimilar(inventoryItem, item, true, false)) {
                 // 相同物品，计算剩余空间
                 int space = inventoryItem.getMaxStackSize() - inventoryItem.getAmount();
-                totalSpace += space;
+                if (space > 0) {
+                    totalSpace += space;
+                }
             }
+            // 不同物品的槽位不能堆叠，不计入可用空间
         }
 
         return totalSpace;
     }
+
 
     /**
      * 填满玩家背包
@@ -245,7 +249,7 @@ public class CargoFragmentDistributor extends SlimefunItem implements EnergyNetC
         ItemStack singleItem = item.clone();
         singleItem.setAmount(1);
 
-        // 先填充已有物品的槽位
+        // 先填充已有物品的槽位（相同物品可以堆叠）
         for (int i = 0; i < player.getInventory().getSize(); i++) {
             if (totalGiven >= maxAmount) break;
 
@@ -594,11 +598,11 @@ public class CargoFragmentDistributor extends SlimefunItem implements EnergyNetC
             preset.addItem(slot, borderItem, (p, slot1, item, action) -> false);
         }
 
-        // 设置输入槽 - 空槽位，可以直接放置物品
-        preset.addItem(inputSlot, null, (p, slot, item, action) -> {
-            // 允许放置任何物品
-            return true;
-        });
+//        // 设置输入槽 - 空槽位，可以直接放置物品
+//        preset.addItem(inputSlot, null, (p, slot, item, action) -> {
+//            // 允许放置任何物品
+//            return true;
+//        });
 
         // 设置玩家头颅槽 - 点击设置玩家
         ItemStack playerHeadItem = createPlayerHeadDisplay(null);
