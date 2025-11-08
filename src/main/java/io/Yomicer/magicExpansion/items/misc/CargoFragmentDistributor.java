@@ -4,6 +4,7 @@ import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 import io.Yomicer.magicExpansion.MagicExpansion;
 import io.Yomicer.magicExpansion.items.misc.CargoFragment;
+import io.Yomicer.magicExpansion.utils.log.Debug;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -803,12 +804,4 @@ public class CargoFragmentDistributor extends SlimefunItem implements EnergyNetC
         }
     }
 
-    // 插件禁用时清理任务
-    public static void onDisable() {
-        if (globalTickTask != null) {
-            globalTickTask.cancel();
-            globalTickTask = null;
-        }
-        machineStates.clear();
-    }
 }

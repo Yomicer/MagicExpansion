@@ -15,6 +15,7 @@ import io.Yomicer.magicExpansion.items.misc.fish.CommonFish;
 import io.Yomicer.magicExpansion.items.misc.fish.CommonFishHidden;
 import io.Yomicer.magicExpansion.items.misc.fish.FishingBook;
 import io.Yomicer.magicExpansion.items.misc.fish.PowerEel;
+import io.Yomicer.magicExpansion.items.misc.magicAlter.MagicWand;
 import io.Yomicer.magicExpansion.items.preBuildings.PreBuildingTree;
 import io.Yomicer.magicExpansion.items.quickMachine.*;
 import io.Yomicer.magicExpansion.items.skyBlock.SingleCubeOre;
@@ -454,6 +455,11 @@ public final class MagicExpansionItemSetup {
                 null, null, null
         }).register(plugin);
         new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2025_11_07, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
+        new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2025_11_08, SPECIAL_RECIPE_TYPE, new ItemStack[] {
                 null, null, null,
                 null, null, null,
                 null, null, null
@@ -977,43 +983,79 @@ public final class MagicExpansionItemSetup {
         }}, false,
                 Map.of(
                         "magic_sugar", List.of(
-                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_1, 10),
-                                new WeightedItem(SlimefunItems.MAGIC_LUMP_1, 1),
-                                new WeightedItem(SlimefunItems.MAGIC_LUMP_2, 1),
-                                new WeightedItem(SlimefunItems.MAGIC_LUMP_3, 8),
-                                new WeightedItem(SlimefunItems.ENDER_LUMP_1, 1),
-                                new WeightedItem(SlimefunItems.ENDER_LUMP_2, 1),
-                                new WeightedItem(SlimefunItems.ENDER_LUMP_3, 8),
-                                new WeightedItem(SlimefunItems.MAGICAL_GLASS, 2),
-                                new WeightedItem(SlimefunItems.MAGICAL_BOOK_COVER, 2),
-                                new WeightedItem(SlimefunItems.LAVA_CRYSTAL, 1),
-                                new WeightedItem(SlimefunItems.COMMON_TALISMAN, 3),
-                                new WeightedItem(SlimefunItems.NECROTIC_SKULL, 1),
-                                new WeightedItem(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1),
-                                new WeightedItem(SlimefunItems.SYNTHETIC_SHULKER_SHELL, 1),
-                                new WeightedItem(SlimefunItems.BLANK_RUNE, 1),
-                                new WeightedItem(SlimefunItems.AIR_RUNE, 1),
-                                new WeightedItem(SlimefunItems.EARTH_RUNE, 1),
-                                new WeightedItem(SlimefunItems.FIRE_RUNE, 1),
-                                new WeightedItem(SlimefunItems.WATER_RUNE, 1),
-                                new WeightedItem(SlimefunItems.ENDER_RUNE, 1),
-                                new WeightedItem(SlimefunItems.LIGHTNING_RUNE, 2),
-                                new WeightedItem(SlimefunItems.RAINBOW_RUNE, 2),
-                                new WeightedItem(SlimefunItems.SOULBOUND_RUNE, 2),
-                                new WeightedItem(SlimefunItems.ENCHANTMENT_RUNE, 2),
-                                new WeightedItem(SlimefunItems.VILLAGER_RUNE, 2),
-                                new WeightedItem(SlimefunItems.STRANGE_NETHER_GOO, 2),
-                                new WeightedItem(SlimefunItems.RAINBOW_LEATHER, 2),
-                                new WeightedItem(RANDOM_FISH_COMMON, 15),
-                                new WeightedItem(RANDOM_FISH_UNCOMMON, 10),
-                                new WeightedItem(RANDOM_FISH_RARE_POOL_DUST, 13),
-                                new WeightedItem(RANDOM_FISH_RARE_POOL_ORE, 13),
-                                new WeightedItem(RANDOM_FISH_RARE_POOL_INDUSTRY, 12),
-                                new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 3),
-                                new WeightedItem(RANDOM_FISH_EPIC, 3),
-                                new WeightedItem(FISH_LEGENDARY_EEL_POWER, 3),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_1, 100),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_2, 100),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_3, 15),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_4, 15),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_5, 15),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_6, 12),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_7, 12),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_8, 12),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_9, 7),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_10, 7),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_11, 7),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_12, 7),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_13, 7),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_14, 7),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_15, 7),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_16, 7),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_17, 7),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_18, 7),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_19, 7),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_20, 3),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_21, 3),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_22, 3),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_23, 3),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_24, 3),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_25, 2),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_26, 2),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_27, 2),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_28, 2),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_29, 1),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_30, 1),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_31, 1),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_32, 1),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_33, 1),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_34, 1),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_35, 1),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_36, 1),
+                                new WeightedItem(MAGIC_EXPANSION_MAGIC_SUGAR_37, 1),
+                                new WeightedItem(SlimefunItems.MAGIC_LUMP_1, 100),
+                                new WeightedItem(SlimefunItems.MAGIC_LUMP_2, 100),
+                                new WeightedItem(SlimefunItems.MAGIC_LUMP_3, 800),
+                                new WeightedItem(SlimefunItems.ENDER_LUMP_1, 100),
+                                new WeightedItem(SlimefunItems.ENDER_LUMP_2, 100),
+                                new WeightedItem(SlimefunItems.ENDER_LUMP_3, 800),
+                                new WeightedItem(SlimefunItems.MAGICAL_GLASS, 200),
+                                new WeightedItem(SlimefunItems.MAGICAL_BOOK_COVER, 200),
+                                new WeightedItem(SlimefunItems.LAVA_CRYSTAL, 100),
+                                new WeightedItem(SlimefunItems.COMMON_TALISMAN, 300),
+                                new WeightedItem(SlimefunItems.NECROTIC_SKULL, 100),
+                                new WeightedItem(SlimefunItems.ESSENCE_OF_AFTERLIFE, 100),
+                                new WeightedItem(SlimefunItems.SYNTHETIC_SHULKER_SHELL, 100),
+                                new WeightedItem(SlimefunItems.BLANK_RUNE, 100),
+                                new WeightedItem(SlimefunItems.AIR_RUNE, 100),
+                                new WeightedItem(SlimefunItems.EARTH_RUNE, 100),
+                                new WeightedItem(SlimefunItems.FIRE_RUNE, 100),
+                                new WeightedItem(SlimefunItems.WATER_RUNE, 100),
+                                new WeightedItem(SlimefunItems.ENDER_RUNE, 100),
+                                new WeightedItem(SlimefunItems.LIGHTNING_RUNE, 200),
+                                new WeightedItem(SlimefunItems.RAINBOW_RUNE, 200),
+                                new WeightedItem(SlimefunItems.SOULBOUND_RUNE, 200),
+                                new WeightedItem(SlimefunItems.ENCHANTMENT_RUNE, 200),
+                                new WeightedItem(SlimefunItems.VILLAGER_RUNE, 200),
+                                new WeightedItem(SlimefunItems.STRANGE_NETHER_GOO, 200),
+                                new WeightedItem(SlimefunItems.RAINBOW_LEATHER, 200),
+                                new WeightedItem(RANDOM_FISH_COMMON, 1500),
+                                new WeightedItem(RANDOM_FISH_UNCOMMON, 1000),
+                                new WeightedItem(RANDOM_FISH_RARE_POOL_DUST, 1300),
+                                new WeightedItem(RANDOM_FISH_RARE_POOL_ORE, 1300),
+                                new WeightedItem(RANDOM_FISH_RARE_POOL_INDUSTRY, 1200),
+                                new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 300),
+                                new WeightedItem(RANDOM_FISH_EPIC, 300),
+                                new WeightedItem(FISH_LEGENDARY_EEL_POWER, 300),
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
-                                ), 18)
+                                ), 1800)
                         ),
                         "bread", List.of(
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.COD,3),"§b迷路的生鳕鱼",getGradientName("这是谁家的鳕鱼？")
@@ -3085,6 +3127,12 @@ public final class MagicExpansionItemSetup {
                 ELEMENT_INGOT, new ItemStack(Material.DISPENSER), ELEMENT_INGOT,
                 REDSTONE, new ItemStack(Material.CAULDRON), REDSTONE,
                 ELEMENT_INGOT, REDSTONE, ELEMENT_INGOT
+        }).register(plugin);
+        //抽奖机
+        new MagicWand(magicexpansionspecialitem, MAGIC_WAND, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MAGIC_EXPANSION_MAGIC_SUGAR_2, new ItemStack(Material.BLAZE_ROD), MAGIC_EXPANSION_MAGIC_SUGAR_2,
+                MAGIC_EXPANSION_MAGIC_SUGAR_2, new ItemStack(Material.BLAZE_ROD), MAGIC_EXPANSION_MAGIC_SUGAR_2,
+                MAGIC_EXPANSION_MAGIC_SUGAR_2, new ItemStack(Material.BLAZE_ROD), MAGIC_EXPANSION_MAGIC_SUGAR_2
         }).register(plugin);
 
 

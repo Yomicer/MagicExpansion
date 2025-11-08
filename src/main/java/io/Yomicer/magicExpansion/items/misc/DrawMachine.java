@@ -2,6 +2,7 @@ package io.Yomicer.magicExpansion.items.misc;
 
 import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
+import io.Yomicer.magicExpansion.MagicExpansion;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -20,10 +21,7 @@ import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -195,7 +193,7 @@ public class DrawMachine extends SlimefunItem implements EnergyNetComponent {
         displayItem.setInvulnerable(true);
         displayItem.setGravity(false);
         displayItem.setVelocity(new Vector(0, 0, 0));
-        displayItem.setMetadata("draw-machine-hologram", new org.bukkit.metadata.FixedMetadataValue(io.github.thebusybiscuit.slimefun4.implementation.Slimefun.instance(), true));
+        displayItem.setMetadata("draw-machine-hologram", new org.bukkit.metadata.FixedMetadataValue(MagicExpansion.getInstance(), true));
 
         // 创建三行文字显示的盔甲架
         ArmorStand line1 = createTextArmorStand(line1Loc, "§c未设置模板");
@@ -206,6 +204,8 @@ public class DrawMachine extends SlimefunItem implements EnergyNetComponent {
         textDisplayMap.put(block.getLocation(), line1); // 主文本存储
 
         // 存储额外的文本行
+        BlockStorage.addBlockInfo(block, "hologram_line", displayItem.getUniqueId().toString());
+        BlockStorage.addBlockInfo(block, "hologram_line1", line1.getUniqueId().toString());
         BlockStorage.addBlockInfo(block, "hologram_line2", line2.getUniqueId().toString());
         BlockStorage.addBlockInfo(block, "hologram_line3", line3.getUniqueId().toString());
     }
@@ -310,6 +310,22 @@ public class DrawMachine extends SlimefunItem implements EnergyNetComponent {
         }
         return null;
     }
+    private Entity getHologramEntityLine(Block block, String storageKey) {
+        String uuidStr = BlockStorage.getLocationInfo(block.getLocation(), storageKey);
+        if (uuidStr == null) return null;
+
+        try {
+            UUID uuid = UUID.fromString(uuidStr);
+            for (Entity entity : block.getWorld().getNearbyEntities(block.getLocation(), 2, 2, 2)) {
+                if (entity.getUniqueId().equals(uuid)) {
+                    return entity;
+                }
+            }
+        } catch (IllegalArgumentException e) {
+            // UUID格式无效
+        }
+        return null;
+    }
 
 
     // 移除悬浮物 - 修改为移除两个实体
@@ -318,6 +334,8 @@ public class DrawMachine extends SlimefunItem implements EnergyNetComponent {
         ArmorStand textEntity = textDisplayMap.remove(block.getLocation());
 
         // 移除其他行的盔甲架
+        Entity line = getHologramEntityLine(block, "hologram_line");
+        ArmorStand line1 = getHologramLine(block, "hologram_line1");
         ArmorStand line2 = getHologramLine(block, "hologram_line2");
         ArmorStand line3 = getHologramLine(block, "hologram_line3");
 
@@ -327,6 +345,12 @@ public class DrawMachine extends SlimefunItem implements EnergyNetComponent {
         if (textEntity != null && !textEntity.isDead()) {
             textEntity.remove();
         }
+        if (line != null && !line.isDead()) {
+            line.remove();
+        }
+        if (line1 != null && !line1.isDead()) {
+            line1.remove();
+        }
         if (line2 != null && !line2.isDead()) {
             line2.remove();
         }
@@ -335,6 +359,8 @@ public class DrawMachine extends SlimefunItem implements EnergyNetComponent {
         }
 
         // 清除存储的UUID
+        BlockStorage.addBlockInfo(block, "hologram_line", null);
+        BlockStorage.addBlockInfo(block, "hologram_line1", null);
         BlockStorage.addBlockInfo(block, "hologram_line2", null);
         BlockStorage.addBlockInfo(block, "hologram_line3", null);
     }
@@ -964,6 +990,19 @@ public class DrawMachine extends SlimefunItem implements EnergyNetComponent {
                 // 触发奖励喷射
                 for (int i = 0; i < multiplier; i++) {
                     triggerReward(block, menu);
+                }
+            }
+        }
+    }
+
+    public static void cleanupAllHolograms() {
+        for (World world : Bukkit.getWorlds()) {
+            for (Entity entity : world.getEntities()) {
+                if (entity instanceof Item) {
+                    Item item = (Item) entity;
+                    if (item.hasMetadata("draw-machine-hologram")) {
+                        item.remove();
+                    }
                 }
             }
         }

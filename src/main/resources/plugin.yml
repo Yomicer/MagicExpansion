@@ -31,15 +31,24 @@ commands:
     permission: mxai.use
     permission-message: 你没有使用AI命令的权限！
 
-  record:
-    description: 开始或停止录制玩家行为
-    usage: /<command> start|stop
-    permission: magicexpansion.record
+#  record:
+#    description: 开始或停止录制玩家行为
+#    usage: /<command> start|stop
+#    permission: magicexpansion.record
+#
+#  playback:
+#    description: 回放之前录制的行为
+#    usage: /<command> [stop]
+#    permission: magicexpansion.playback
 
-  playback:
-    description: 回放之前录制的行为
-    usage: /<command> [stop]
-    permission: magicexpansion.playback
+  mxwand:
+    description: 魔法祭坛相关命令
+    usage: /<command> wand
+    permission: mxwand.wand
+
+  mxalter:
+    description: 获取配方书命令
+    usage: /<command> <guide|open_guide>
 
 
 permissions:
@@ -54,10 +63,15 @@ permissions:
     description: 可以控制全服AI模式开关
     default: op  # 只有OP或有此权限的玩家可用
 
-  magicexpansion.record:
-    description: 可以使用 /record 命令
+  mxwand.wand:
+    description: 获取魔法祭坛魔杖
     default: op
 
-  magicexpansion.playback:
-    description: 可以使用 /playback 命令
-    default: op
+
+#  magicexpansion.record:
+#    description: 可以使用 /record 命令
+#    default: op
+#
+#  magicexpansion.playback:
+#    description: 可以使用 /playback 命令
+#    default: op

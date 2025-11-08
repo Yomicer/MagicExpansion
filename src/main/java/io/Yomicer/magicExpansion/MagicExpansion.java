@@ -11,6 +11,8 @@ import io.Yomicer.magicExpansion.Listener.magicItemEffectManager.ArrowHitLocatio
 import io.Yomicer.magicExpansion.Listener.magicItemEffectManager.ItemEffectAttackListener;
 import io.Yomicer.magicExpansion.Listener.miscListener.ItemFrameListener;
 import io.Yomicer.magicExpansion.Listener.worldListener.Events;
+import io.Yomicer.magicExpansion.items.misc.DrawMachine;
+import io.Yomicer.magicExpansion.items.misc.magicAlter.PluginInitializer;
 import io.Yomicer.magicExpansion.specialActions.Command.AIChat;
 import io.Yomicer.magicExpansion.specialActions.Command.FishingGuideCommand;
 import io.Yomicer.magicExpansion.specialActions.Command.MagicExpansionCommand;
@@ -34,6 +36,7 @@ public class MagicExpansion extends JavaPlugin implements SlimefunAddon {
         return testmod;
     }
     private static MagicExpansion instance;
+    private PluginInitializer pluginInitializer;
 
 
 
@@ -60,6 +63,11 @@ public class MagicExpansion extends JavaPlugin implements SlimefunAddon {
         Language.loadConfig(ConfigLoader.LANGUAGE);
         getLogger().info("§b语言包加载完毕！");
 
+        // 魔法祭坛
+        pluginInitializer = new PluginInitializer(this);
+        pluginInitializer.initialize();
+        getLogger().info("魔法2.0-魔法祭坛 已启用!");
+
         // Registering Items
         MagicExpansionItemSetup.setup(this);
         MagicExpansionRecipeMachineSetup.setup(this);
@@ -73,7 +81,6 @@ public class MagicExpansion extends JavaPlugin implements SlimefunAddon {
         AIManager aiManager = new AIManager(this);
         aiManager.onEnable();  // ✅ 启动 AI 模块
         getLogger().info("✅ 魔法2.0 ai聊天功能加载完毕！使用 /mxai chaton 开启AI聊天。");
-
 
 
         // Registering Command
@@ -132,8 +139,17 @@ public class MagicExpansion extends JavaPlugin implements SlimefunAddon {
 
     @Override
     public void onDisable() {
+        if (pluginInitializer != null) {
+            pluginInitializer.getAltarManager().cancelAllTasks();
+        }
+        getLogger().info("魔法2.0-魔法祭坛 已禁用!");
+        DrawMachine.cleanupAllHolograms();
+        getLogger().info("已清理所有抽奖机悬浮物");
         // Plugin shutdown logic
         getLogger().info("§b魔法拓展已成功卸载！");
+    }
+    public PluginInitializer getPluginInitializer() {
+        return pluginInitializer;
     }
     @Nonnull
     @Override
