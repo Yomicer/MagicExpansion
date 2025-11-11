@@ -646,7 +646,8 @@ public enum Fish {
     public enum WeightRarity {
         COMMON_FISH("§f普通鱼", "§f",1),
         RARE_FISH("§e稀有鱼", "§e",4),
-        SUPER_RARE_FISH("§b超级稀有鱼", "§b",11);
+        SUPER_RARE_FISH("§b超级稀有鱼", "§b",11),
+        MAX_WEIGHT_FISH("§c§l鱼皇", "§c§l", 999);
 
         private final String displayName;
         private final String colorCode;
@@ -681,7 +682,10 @@ public enum Fish {
          * 注意：越轻越稀有 → 百分比越小越稀有
          */
         public static WeightRarity fromPercent(double percent) {
-            if (percent > 0.93) {
+            if (percent == 1){
+                return MAX_WEIGHT_FISH;  //满重量
+            }
+            else if (percent > 0.93) {
                 return SUPER_RARE_FISH;  // 最重的 7% → 超级稀有
             } else if (percent > 0.85) {
                 return RARE_FISH;        // 中间的 8% → 稀有鱼

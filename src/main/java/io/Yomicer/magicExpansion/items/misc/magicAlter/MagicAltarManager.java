@@ -1,7 +1,9 @@
 package io.Yomicer.magicExpansion.items.misc.magicAlter;
 
 import io.Yomicer.magicExpansion.MagicExpansion;
+import io.Yomicer.magicExpansion.utils.log.Debug;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
+import net.guizhanss.guizhanlib.minecraft.helper.inventory.ItemStackHelper;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -23,99 +25,53 @@ public class MagicAltarManager {
     private final HashMap<Location, BukkitTask> altarTasks;
     private final HashMap<Location, BukkitTask> particleTasks;
     private final Material[][][] altarPatterns;
-    private final HashMap<String, MagicAltarRecipe> recipes;
+    private final LinkedHashMap<String, MagicAltarRecipe> recipes;
 
     public MagicAltarManager(MagicExpansion plugin) {
         this.plugin = plugin;
         this.activeAltars = new HashSet<>();
         this.altarTasks = new HashMap<>();
         this.particleTasks = new HashMap<>();
-        this.recipes = new HashMap<>();
+        this.recipes = new LinkedHashMap<>();
         this.altarPatterns = loadAltarPatterns();
     }
+
+    Material[][] pattern1 = {
+            {Material.OBSIDIAN, Material.OBSIDIAN, Material.OBSIDIAN, Material.OBSIDIAN, Material.OBSIDIAN},
+            {Material.OBSIDIAN, Material.GOLD_BLOCK, Material.GOLD_BLOCK, Material.GOLD_BLOCK, Material.OBSIDIAN},
+            {Material.OBSIDIAN, Material.GOLD_BLOCK, Material.DIAMOND_BLOCK, Material.GOLD_BLOCK, Material.OBSIDIAN},
+            {Material.OBSIDIAN, Material.GOLD_BLOCK, Material.GOLD_BLOCK, Material.GOLD_BLOCK, Material.OBSIDIAN},
+            {Material.OBSIDIAN, Material.OBSIDIAN, Material.OBSIDIAN, Material.OBSIDIAN, Material.OBSIDIAN}
+    };
+
+    Material[][] customBase = {
+            {Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK},
+            {Material.NETHERRACK, Material.MAGMA_BLOCK, Material.MAGMA_BLOCK, Material.MAGMA_BLOCK, Material.NETHERRACK},
+            {Material.NETHERRACK, Material.MAGMA_BLOCK, Material.OBSIDIAN, Material.MAGMA_BLOCK, Material.NETHERRACK},
+            {Material.NETHERRACK, Material.MAGMA_BLOCK, Material.MAGMA_BLOCK, Material.MAGMA_BLOCK, Material.NETHERRACK},
+            {Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK}
+    };
+
+    Material[][] enchantAlter = {
+            {Material.LAPIS_BLOCK, Material.LAPIS_BLOCK, Material.LAPIS_BLOCK, Material.LAPIS_BLOCK, Material.LAPIS_BLOCK},
+            {Material.LAPIS_BLOCK, Material.BLUE_CONCRETE, Material.BLUE_TERRACOTTA, Material.BLUE_CONCRETE, Material.LAPIS_BLOCK},
+            {Material.LAPIS_BLOCK, Material.BLUE_TERRACOTTA, Material.ENCHANTING_TABLE, Material.BLUE_TERRACOTTA, Material.LAPIS_BLOCK},
+            {Material.LAPIS_BLOCK, Material.BLUE_CONCRETE, Material.BLUE_TERRACOTTA, Material.BLUE_CONCRETE, Material.LAPIS_BLOCK},
+            {Material.LAPIS_BLOCK, Material.LAPIS_BLOCK, Material.LAPIS_BLOCK, Material.LAPIS_BLOCK, Material.LAPIS_BLOCK},
+    };
 
     // 定义祭坛的方块布局模式
     private Material[][][] loadAltarPatterns() {
         List<Material[][]> patternList = new ArrayList<>();
-        Material[][] pattern1 = {
-                {Material.OBSIDIAN, Material.OBSIDIAN, Material.OBSIDIAN, Material.OBSIDIAN, Material.OBSIDIAN},
-                {Material.OBSIDIAN, Material.GOLD_BLOCK, Material.GOLD_BLOCK, Material.GOLD_BLOCK, Material.OBSIDIAN},
-                {Material.OBSIDIAN, Material.GOLD_BLOCK, Material.DIAMOND_BLOCK, Material.GOLD_BLOCK, Material.OBSIDIAN},
-                {Material.OBSIDIAN, Material.GOLD_BLOCK, Material.GOLD_BLOCK, Material.GOLD_BLOCK, Material.OBSIDIAN},
-                {Material.OBSIDIAN, Material.OBSIDIAN, Material.OBSIDIAN, Material.OBSIDIAN, Material.OBSIDIAN}
-        };
-
-        Material[][] customBase = {
-                {Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK},
-                {Material.NETHERRACK, Material.MAGMA_BLOCK, Material.MAGMA_BLOCK, Material.MAGMA_BLOCK, Material.NETHERRACK},
-                {Material.NETHERRACK, Material.MAGMA_BLOCK, Material.OBSIDIAN, Material.MAGMA_BLOCK, Material.NETHERRACK},
-                {Material.NETHERRACK, Material.MAGMA_BLOCK, Material.MAGMA_BLOCK, Material.MAGMA_BLOCK, Material.NETHERRACK},
-                {Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK}
-        };
-
-        // 自动添加所有图案到列表
-        patternList.add(pattern1);
-        patternList.add(customBase);
-
+        new DefaultRecipes().registerAltarPatterns(patternList);
         return patternList.toArray(new Material[0][][]);
     }
 
     // 加载配方
     public void loadRecipes() {
-        // 示例配方1
-        ItemStack[][] recipe1 = new ItemStack[9][9];
-
-//        recipe1[0][0] = new ItemStack(Material.GOLD_BLOCK, 64);
-//        recipe1[0][1] = new ItemStack(Material.GOLD_BLOCK, 64);
-//        recipe1[0][2] = new ItemStack(Material.GOLD_BLOCK, 64);
-//        recipe1[0][3] = new ItemStack(Material.GOLD_BLOCK, 64);
-//        recipe1[0][4] = new ItemStack(Material.GOLD_BLOCK, 64);
-//        recipe1[0][5] = new ItemStack(Material.GOLD_BLOCK, 64);
-//        recipe1[0][6] = new ItemStack(Material.GOLD_BLOCK, 64);
-//        recipe1[0][7] = new ItemStack(Material.GOLD_BLOCK, 64);
-//        recipe1[0][8] = new ItemStack(Material.GOLD_BLOCK, 64);
-//        recipe1[1][0] = new ItemStack(Material.GOLD_BLOCK, 64);
-
-        for(int i=0; i < 9; i++){
-            if (i == 4){
-                continue;
-            }
-            for(int j=0; j < 9; j++){
-                recipe1[i][j] = new ItemStack(Material.GOLD_BLOCK, 64);
-            }
-        }
-        for(int i=0; i < 9; i++){
-            recipe1[4][i] = new ItemStack(Material.APPLE, 64);
-        }
-
-
-        ItemStack result1 = new CustomItemStack(Material.ENCHANTED_GOLDEN_APPLE,"§e这是一个神奇的苹果","§b很好吃");
-        result1.setAmount(1314);
-        recipes.put("enchanted_apple", new MagicAltarRecipe(recipe1, result1));
-
-        // 示例配方2 - 火焰配方
-        ItemStack[][] recipe2 = new ItemStack[9][9];
-
-        for (int i = 0; i < 9; i++) {
-            if (i != 4) {
-                recipe2[i][0] = new ItemStack(Material.BLAZE_POWDER, 4);
-            }
-        }
-        recipe2[4][0] = new ItemStack(Material.MAGMA_CREAM, 1);
-
-        ItemStack result2 = new ItemStack(Material.FIRE_CHARGE, 16);
-
-        Material[][] customBase = {
-                {Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK},
-                {Material.NETHERRACK, Material.MAGMA_BLOCK, Material.MAGMA_BLOCK, Material.MAGMA_BLOCK, Material.NETHERRACK},
-                {Material.NETHERRACK, Material.MAGMA_BLOCK, Material.OBSIDIAN, Material.MAGMA_BLOCK, Material.NETHERRACK},
-                {Material.NETHERRACK, Material.MAGMA_BLOCK, Material.MAGMA_BLOCK, Material.MAGMA_BLOCK, Material.NETHERRACK},
-                {Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK}
-        };
-
-        recipes.put("fire_recipe", new MagicAltarRecipe(recipe2, result2, customBase));
-
-        Bukkit.getLogger().info("已加载 " + recipes.size() + " 个配方");
+        recipes.clear();
+        new DefaultRecipes().registerRecipes(recipes);
+        Debug.logInfo("已加载 " + recipes.size() + " 个魔法祭坛配方");
     }
 
     // 检查祭坛结构是否正确
@@ -457,7 +413,7 @@ public class MagicAltarManager {
                 if (items[i][slot] != null) {
                     hasItems = true;
                     if (itemList.length() > 0) itemList.append(", ");
-                    itemList.append(items[i][slot].getType()).append("x").append(items[i][slot].getAmount());
+                    itemList.append(ItemStackHelper.getDisplayName(items[i][slot])).append("x").append(items[i][slot].getAmount());
                 }
             }
 

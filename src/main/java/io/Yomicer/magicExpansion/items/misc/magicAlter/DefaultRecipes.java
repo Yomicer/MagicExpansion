@@ -1,0 +1,161 @@
+package io.Yomicer.magicExpansion.items.misc.magicAlter;
+
+import io.Yomicer.magicExpansion.core.MagicExpansionItems;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.List;
+import java.util.Map;
+
+import static io.Yomicer.magicExpansion.utils.itemUtils.sfItemUtils.sfItemAmount;
+
+public class DefaultRecipes implements RecipeProvider{
+
+
+    Material[][] pattern1 = {
+            {Material.OBSIDIAN, Material.OBSIDIAN, Material.OBSIDIAN, Material.OBSIDIAN, Material.OBSIDIAN},
+            {Material.OBSIDIAN, Material.GOLD_BLOCK, Material.GOLD_BLOCK, Material.GOLD_BLOCK, Material.OBSIDIAN},
+            {Material.OBSIDIAN, Material.GOLD_BLOCK, Material.DIAMOND_BLOCK, Material.GOLD_BLOCK, Material.OBSIDIAN},
+            {Material.OBSIDIAN, Material.GOLD_BLOCK, Material.GOLD_BLOCK, Material.GOLD_BLOCK, Material.OBSIDIAN},
+            {Material.OBSIDIAN, Material.OBSIDIAN, Material.OBSIDIAN, Material.OBSIDIAN, Material.OBSIDIAN}
+    };
+
+    Material[][] customBase = {
+            {Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK},
+            {Material.NETHERRACK, Material.MAGMA_BLOCK, Material.MAGMA_BLOCK, Material.MAGMA_BLOCK, Material.NETHERRACK},
+            {Material.NETHERRACK, Material.MAGMA_BLOCK, Material.OBSIDIAN, Material.MAGMA_BLOCK, Material.NETHERRACK},
+            {Material.NETHERRACK, Material.MAGMA_BLOCK, Material.MAGMA_BLOCK, Material.MAGMA_BLOCK, Material.NETHERRACK},
+            {Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK}
+    };
+
+    Material[][] enchantAlter = {
+            {Material.LAPIS_BLOCK, Material.LAPIS_BLOCK, Material.LAPIS_BLOCK, Material.LAPIS_BLOCK, Material.LAPIS_BLOCK},
+            {Material.LAPIS_BLOCK, Material.BLUE_CONCRETE, Material.BLUE_TERRACOTTA, Material.BLUE_CONCRETE, Material.LAPIS_BLOCK},
+            {Material.LAPIS_BLOCK, Material.BLUE_TERRACOTTA, Material.ENCHANTING_TABLE, Material.BLUE_TERRACOTTA, Material.LAPIS_BLOCK},
+            {Material.LAPIS_BLOCK, Material.BLUE_CONCRETE, Material.BLUE_TERRACOTTA, Material.BLUE_CONCRETE, Material.LAPIS_BLOCK},
+            {Material.LAPIS_BLOCK, Material.LAPIS_BLOCK, Material.LAPIS_BLOCK, Material.LAPIS_BLOCK, Material.LAPIS_BLOCK},
+    };
+
+
+    @Override
+    public void registerRecipes(Map<String, MagicAltarRecipe> recipes) {
+        // 配方1：附魔金苹果x1314
+        ItemStack[][] recipe1 = new ItemStack[9][9];
+        for (int i = 0; i < 9; i++) {
+            if (i == 4) continue;
+            for (int j = 0; j < 9; j++) {
+                recipe1[i][j] = new ItemStack(Material.GOLD_BLOCK, 64);
+            }
+        }
+        for (int j = 0; j < 9; j++) {
+            recipe1[4][j] = new ItemStack(Material.APPLE, 64);
+        }
+
+        ItemStack result1 = new CustomItemStack(Material.ENCHANTED_GOLDEN_APPLE, "§e这是一个神奇的苹果", "§b很好吃");
+        result1.setAmount(1314);
+        recipes.put("enchanted_apple", new MagicAltarRecipe(recipe1, result1));
+
+        // 配方2：烈焰弹x16
+        ItemStack[][] recipe2 = new ItemStack[9][9];
+        for (int i = 0; i < 9; i++) {
+            if (i != 4) {
+                recipe2[i][0] = new ItemStack(Material.BLAZE_POWDER, 4);
+            }
+        }
+        recipe2[4][0] = new ItemStack(Material.MAGMA_CREAM, 1);
+
+        ItemStack result2 = new ItemStack(Material.FIRE_CHARGE, 16);
+
+        recipes.put("fire_recipe", new MagicAltarRecipe(recipe2, result2, customBase));
+
+        // 配方3：锋利1314520附魔书
+        ItemStack[] [] recipe3 = new ItemStack[9][9];
+        for (int i = 0; i < 9; i++){
+            if(i == 0 || i == 2 || i == 6 || i == 8){
+                for (int j = 0; j < 9; j++){
+                    recipe3[i][j] = new ItemStack(Material.EXPERIENCE_BOTTLE, 64);
+                }
+            }
+        }
+        for (int i = 0; i < 9; i++){
+            if(i == 1 || i == 3 || i == 5 || i == 7){
+                for (int j = 0; j < 9; j++){
+                    recipe3[i][j] = new CustomItemStack(Material.NETHERITE_SWORD,"短剑重铸之日，骑士归来之时");
+                }
+            }
+        }
+        recipe3 [4][0] = sfItemAmount(MagicExpansionItems.WIND_ELF_HEAD,64);
+        recipe3 [4][1] = sfItemAmount(MagicExpansionItems.DEATH_LIFE_BOOK,8);
+        recipe3 [4][2] = sfItemAmount(MagicExpansionItems.FIREZOMBIE_HEAD,64);
+        recipe3 [4][3] = sfItemAmount(MagicExpansionItems.PURE_ELEMENT_GOLD,64);
+        recipe3 [4][4] = new ItemStack(Material.BOOK);
+        recipe3 [4][5] = sfItemAmount(MagicExpansionItems.PURE_ELEMENT_GOLD,64);
+        recipe3 [4][6] = sfItemAmount(MagicExpansionItems.PURE_FIVE_ELEMENT,64);
+        recipe3 [4][7] = sfItemAmount(MagicExpansionItems.PURE_ELEMENT_GOLD,64);
+        recipe3 [4][8] = sfItemAmount(MagicExpansionItems.PURE_FIVE_ELEMENT,64);
+
+        Map<Enchantment, Integer> sharpnessEnchantments = Map.of(
+                Enchantment.DAMAGE_ALL, 255
+        );
+        List<String> sharpnessLore = List.of(
+                "§7这是一本蕴含着无尽力量的附魔书",
+                "§7据说只有真正的勇士才能驾驭它的力量",
+                "§e§l★ §c锋利 §fCCLV §7(255)",
+                "§8[§6传说级物品§8]",
+                "§7使用可为武器注入此附魔"
+        );
+        ItemStack result3 = createCustomEnchantedBook(
+                "§d§l传奇之刃§r §7[§c§lLv.255§7]",
+                sharpnessLore,
+                sharpnessEnchantments
+        );
+//        ItemStack[][] recipeNull = new ItemStack[9][9];
+        recipes.put("ultra_sharpness", new MagicAltarRecipe(recipe3, result3, enchantAlter));
+    }
+
+    @Override
+    public void registerAltarPatterns(List<Material[][]> patternList) {
+        patternList.add(pattern1);
+        patternList.add(customBase);
+        patternList.add(enchantAlter);
+    }
+
+
+    private ItemStack createCustomEnchantedBook(
+            String displayName,
+            List<String> lore,
+            Map<Enchantment, Integer> enchantments
+    ) {
+        // 创建一本附魔书
+        ItemStack enchantedBook = new ItemStack(Material.ENCHANTED_BOOK);
+        ItemMeta meta = enchantedBook.getItemMeta();
+
+        if (meta instanceof EnchantmentStorageMeta) {
+            EnchantmentStorageMeta storageMeta = (EnchantmentStorageMeta) meta;
+
+            // 添加所有附魔
+            for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
+                Enchantment enchantment = entry.getKey();
+                int level = entry.getValue();
+                storageMeta.addStoredEnchant(enchantment, level, true);
+            }
+        }
+
+        // 设置自定义名称
+        meta.setDisplayName(displayName);
+
+        // 设置 Lore
+        meta.setLore(lore);
+
+        // 应用元数据
+        enchantedBook.setItemMeta(meta);
+        return enchantedBook;
+    }
+
+
+
+}

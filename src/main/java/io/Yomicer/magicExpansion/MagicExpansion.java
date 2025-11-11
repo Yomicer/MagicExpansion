@@ -11,6 +11,7 @@ import io.Yomicer.magicExpansion.Listener.magicItemEffectManager.ArrowHitLocatio
 import io.Yomicer.magicExpansion.Listener.magicItemEffectManager.ItemEffectAttackListener;
 import io.Yomicer.magicExpansion.Listener.miscListener.ItemFrameListener;
 import io.Yomicer.magicExpansion.Listener.worldListener.Events;
+import io.Yomicer.magicExpansion.items.misc.CargoFragmentDistributor;
 import io.Yomicer.magicExpansion.items.misc.DrawMachine;
 import io.Yomicer.magicExpansion.items.misc.magicAlter.PluginInitializer;
 import io.Yomicer.magicExpansion.specialActions.Command.AIChat;
@@ -144,7 +145,15 @@ public class MagicExpansion extends JavaPlugin implements SlimefunAddon {
         }
         getLogger().info("魔法2.0-魔法祭坛 已禁用!");
         DrawMachine.cleanupAllHolograms();
-        getLogger().info("已清理所有抽奖机悬浮物");
+        getLogger().info("已清理所有抽奖机悬浮物！");
+
+        if (CargoFragmentDistributor.globalTickTask != null) {
+            CargoFragmentDistributor.globalTickTask.cancel();
+            CargoFragmentDistributor.globalTickTask = null;
+        }
+        CargoFragmentDistributor.machineStates.clear();
+        getLogger().info("已结束所有以太秘匣传输器进程！");
+
         // Plugin shutdown logic
         getLogger().info("§b魔法拓展已成功卸载！");
     }

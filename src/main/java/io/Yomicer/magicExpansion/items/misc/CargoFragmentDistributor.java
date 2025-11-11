@@ -45,10 +45,10 @@ public class CargoFragmentDistributor extends SlimefunItem implements EnergyNetC
     private final int[] infoSlots = {27, 28, 29, 30, 31, 32, 33, 34, 35}; // 信息显示槽
 
     // 存储每个机器的状态
-    private static final Map<Location, MachineState> machineStates = new HashMap<>();
+    public static final Map<Location, MachineState> machineStates = new HashMap<>();
     private static final int SLOW_CHECK_INTERVAL = 100; // 慢速检测：60 tick = 5 秒
     private static final int FAST_CHECK_INTERVAL = 1;   // 快速检测：1 tick = 0.1秒
-    private static BukkitRunnable globalTickTask;
+    public static BukkitRunnable globalTickTask;
 
 
     // 头颅皮肤缓存

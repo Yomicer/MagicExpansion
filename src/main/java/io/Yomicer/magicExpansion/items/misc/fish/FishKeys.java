@@ -122,6 +122,14 @@ public class FishKeys {
                     " Z: " + String.format("%.2f",player.getLocation().getZ()) + " §a附近捕获了 §b超级稀有鱼 "+chosenFish.getDisplayName());
             weightRareThis = "§b§l\uD83D\uDC8E";
         }
+        if (weightRarity == WeightRarity.MAX_WEIGHT_FISH) {
+            Bukkit.broadcastMessage("§a恭喜玩家 §e"+player.getName()+" §a在 §d"+ player.getWorld().getName() + " §a中垂钓意外捕获了一条§b§l鱼皇！");
+            Bukkit.broadcastMessage("§a恭喜玩家 §e"+player.getName()+
+                    " §a在坐标 §dX: "+ String.format("%.2f",player.getLocation().getX())+
+                    " Y: " + String.format("%.2f",player.getLocation().getY())+
+                    " Z: " + String.format("%.2f",player.getLocation().getZ()) + " §a附近捕获了 §c§l鱼皇 "+chosenFish.getDisplayName());
+            weightRareThis = "§c§l🎶";
+        }
 
         // --- 修改显示名 ---
         meta.setDisplayName(chosenFish.getDisplayName() + " " +weightRareThis);

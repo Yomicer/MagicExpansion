@@ -80,6 +80,9 @@ public class RecipeBookManager {
 
             if (meta != null) {
                 List<String> lore = new ArrayList<>();
+                if(meta.hasLore()) {
+                    lore.addAll(Objects.requireNonNull(meta.getLore()));
+                }
                 lore.add("§7点击查看合成配方");
                 lore.add("§e配方ID: " + recipeId);
                 meta.setLore(lore);
@@ -105,23 +108,19 @@ public class RecipeBookManager {
     }
 
     // 计算真实数量的方法
-    private String calculateRealAmount(ItemStack item) {
-        int displayedAmount = item.getAmount(); // 显示的数量
-        int realAmount = 0; // 从0开始累加
+    private int calculateRealAmount(ItemStack item) {
+        int totalAmount = item.getAmount(); // 这就是原始总数量
+        int maxStackSize = 64;
+        int realAmount = 0;
 
-        // 创建一个临时副本来模拟减法过程
-        ItemStack temp = item.clone();
-
-        // 不断尝试减去64，直到不能再减
-        while (temp.getAmount() >= 64) {
-            temp.setAmount(temp.getAmount() - 64);
-            realAmount += 64; // 每减一次64，实际数量加64
+        // 模拟 dropItemInBatches 的分批逻辑，累加每一批的数量
+        while (totalAmount > 0) {
+            int batchSize = Math.min(totalAmount, maxStackSize);
+            realAmount += batchSize;      // 累加这一批
+            totalAmount -= batchSize;     // 减去已处理的
         }
 
-        // 最后加上剩余的数量
-        realAmount += temp.getAmount();
-
-        return String.valueOf(realAmount);
+        return realAmount;
     }
 
     // 打开配方详情界面
@@ -191,7 +190,7 @@ public class RecipeBookManager {
         ItemStack frameButton = createButton(
                 Material.ITEM_FRAME,
                 "§e物品展示框",
-                Arrays.asList("§7放置在中心发射器上方", "§7用于显示合成结果", "§c必须为空!")
+                Arrays.asList("§7放置在中心发射器上方", "§7用于输出合成结果", "若数量＞1，则多余部分将在祭坛中央喷出", "§c必须为空!")
         );
         gui.setItem(33, frameButton);
 
@@ -661,7 +660,10 @@ public class RecipeBookManager {
                     new NamespacedKey(plugin, "recipe_id"),
                     PersistentDataType.STRING
             );
-            openRecipeDetail(player, recipeId, clickedItem);
+            MagicAltarRecipe recipe = plugin.getPluginInitializer().getAltarManager().getRecipes().get(recipeId);
+            if (recipe != null) {
+                openRecipeDetail(player, recipeId, recipe.getResult());
+            }
         }
     }
 }
