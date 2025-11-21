@@ -1,6 +1,7 @@
 package io.Yomicer.magicExpansion.items.misc.magicAlter;
 
 import io.Yomicer.magicExpansion.MagicExpansion;
+import io.Yomicer.magicExpansion.utils.ColorGradient;
 import net.guizhanss.guizhanlib.minecraft.helper.inventory.ItemStackHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -190,7 +191,7 @@ public class RecipeBookManager {
         ItemStack frameButton = createButton(
                 Material.ITEM_FRAME,
                 "§e物品展示框",
-                Arrays.asList("§7放置在中心发射器上方", "§7用于输出合成结果", "若数量＞1，则多余部分将在祭坛中央喷出", "§c必须为空!")
+                Arrays.asList("§7放置在中心发射器上方", "§7用于输出合成结果", "§d若数量＞1，则多余部分将在祭坛中央喷出", "§c必须为空!")
         );
         gui.setItem(33, frameButton);
 
@@ -294,6 +295,42 @@ public class RecipeBookManager {
         );
         gui.setItem(49, infoButton);
 
+        // 添加说明
+        ItemStack dispenserInfoButton = createButton(
+                Material.NETHER_STAR,
+                "§e点击发射器查看详细配置",
+                Arrays.asList(
+                        "§7每个发射器要严格对应坐标",
+                        "§7暂不支持旋转匹配",
+                        ColorGradient.getRandomGradientName("合成时请使用魔法祭坛法杖右键中心发射器"),
+                        "§b左上角为原点(-1,-1)坐标",
+                        "§b右上角为原点(1,-1)坐标",
+                        "§b左下角为原点(-1,1)坐标",
+                        "§b右下角为原点(1,1)坐标"
+                )
+        );
+        gui.setItem(24, dispenserInfoButton);
+        ItemStack pinkGlass = createButton(
+                Material.PINK_STAINED_GLASS_PANE,
+                "§e",
+                Arrays.asList(
+                        "§e"
+                )
+        );
+        gui.setItem(14, pinkGlass);
+        gui.setItem(15, pinkGlass);
+        gui.setItem(16, pinkGlass);
+        gui.setItem(23, pinkGlass);
+        gui.setItem(25, pinkGlass);
+        gui.setItem(32, pinkGlass);
+        gui.setItem(33, pinkGlass);
+        gui.setItem(34, pinkGlass);
+
+
+
+
+
+
         // 返回按钮
         ItemStack backButton = createHeadButton(
                 "MHF_ArrowLeft",
@@ -360,6 +397,10 @@ public class RecipeBookManager {
                 ItemMeta meta = displayItem.getItemMeta();
                 if (meta != null) {
                     List<String> lore = new ArrayList<>();
+                    if(meta.hasLore()){
+                        lore.addAll(meta.getLore());
+                    }
+                    lore.add("§7--------分割线--------");
                     lore.add("§6需要的物品");
                     lore.add("§7槽位: " + (slotIndex + 1));
                     lore.add("§7数量: " + requiredItem.getAmount());

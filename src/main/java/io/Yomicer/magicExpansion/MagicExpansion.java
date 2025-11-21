@@ -29,6 +29,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.File;
+import java.util.logging.Level;
 
 public class MagicExpansion extends JavaPlugin implements SlimefunAddon {
     public static boolean testmod=false;
@@ -52,6 +53,13 @@ public class MagicExpansion extends JavaPlugin implements SlimefunAddon {
         Config cfg = new Config(this);
 
         getLogger().info("§b魔法拓展加载中！");
+
+        if (!getServer().getPluginManager().isPluginEnabled("GuizhanLibPlugin")) {
+            getLogger().log(Level.SEVERE, "本插件需要 鬼斩前置库插件(GuizhanLibPlugin) 才能运行!");
+            getLogger().log(Level.SEVERE, "从此处下载: https://50l.cc/gzlib");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
 
         if (cfg.getBoolean("options.auto-update") && getDescription().getVersion().startsWith("Build ")) {
             getLogger().info("§b正在加载更新！");

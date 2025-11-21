@@ -1,6 +1,7 @@
 package io.Yomicer.magicExpansion.items.misc.magicAlter;
 
 import io.Yomicer.magicExpansion.core.MagicExpansionItems;
+import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -84,7 +85,11 @@ public class DefaultRecipes implements RecipeProvider{
         for (int i = 0; i < 9; i++){
             if(i == 1 || i == 3 || i == 5 || i == 7){
                 for (int j = 0; j < 9; j++){
-                    recipe3[i][j] = new CustomItemStack(Material.NETHERITE_SWORD,"短剑重铸之日，骑士归来之时");
+                    if(j == 0 || j == 2 || j == 4 || j == 6 || j == 8) {
+                        recipe3[i][j] = new CustomItemStack(Material.NETHERITE_SWORD, "断剑重铸之日，骑士归来之时");
+                    }else {
+                        recipe3[i][j] = SlimefunItems.STAFF_STORM;
+                    }
                 }
             }
         }
@@ -115,6 +120,56 @@ public class DefaultRecipes implements RecipeProvider{
         );
 //        ItemStack[][] recipeNull = new ItemStack[9][9];
         recipes.put("ultra_sharpness", new MagicAltarRecipe(recipe3, result3, enchantAlter));
+
+
+        // 配方3：抢夺1314520附魔书
+        ItemStack[] [] recipe4 = new ItemStack[9][9];
+        for (int i = 0; i < 9; i++){
+            if(i == 0 || i == 2 || i == 6 || i == 8){
+                for (int j = 0; j < 9; j++){
+                    recipe4[i][j] = new ItemStack(Material.EXPERIENCE_BOTTLE, 64);
+                }
+            }
+        }
+        for (int i = 0; i < 9; i++){
+            if(i == 1 || i == 3 || i == 5 || i == 7){
+                for (int j = 0; j < 9; j++){
+                    if(j == 0 || j == 2 || j == 4 || j == 6 || j == 8) {
+                        recipe4[i][j] = new CustomItemStack(Material.NETHERITE_SWORD, "铭刻禁忌之力的残页，藏于剑脊之中");
+                    }else{
+                        recipe4[i][j] = SlimefunItems.SWORD_OF_BEHEADING;
+                    }
+                }
+            }
+        }
+        recipe4 [4][0] = sfItemAmount(MagicExpansionItems.WIND_ELF_HEAD,64);
+        recipe4 [4][1] = sfItemAmount(MagicExpansionItems.BASIC_ENCHANT_STONE,1);
+        recipe4 [4][2] = sfItemAmount(MagicExpansionItems.FIREZOMBIE_HEAD,64);
+        recipe4 [4][3] = sfItemAmount(MagicExpansionItems.PURE_ELEMENT_GOLD,64);
+        recipe4 [4][4] = new ItemStack(Material.BOOK);
+        recipe4 [4][5] = sfItemAmount(MagicExpansionItems.PURE_ELEMENT_GOLD,64);
+        recipe4 [4][6] = sfItemAmount(MagicExpansionItems.PURE_FIVE_ELEMENT,64);
+        recipe4 [4][7] = sfItemAmount(MagicExpansionItems.PURE_ELEMENT_GOLD,64);
+        recipe4 [4][8] = sfItemAmount(MagicExpansionItems.PURE_FIVE_ELEMENT,64);
+
+        Map<Enchantment, Integer> LootingEnchantments = Map.of(
+                Enchantment.LOOT_BONUS_MOBS, 255
+        );
+        List<String> lootingLore = List.of(
+                "§7这是一本被禁忌之力浸染的附魔书",
+                "§7持有者将从敌人的尸骸中攫取远超常理的战利品",
+                "§e§l★ §c抢夺 §fCCLV §7(255)",
+                "§8[§6传说级物品§8]",
+                "§7使用可为武器注入此附魔"
+        );
+        ItemStack result4 = createCustomEnchantedBook(
+                "§d§l贪婪圣典§§r §7[§c§lLv.255§7]",
+                lootingLore,
+                LootingEnchantments
+        );
+        recipes.put("ultra_looting", new MagicAltarRecipe(recipe4, result4, enchantAlter));
+
+
     }
 
     @Override
