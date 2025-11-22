@@ -161,7 +161,7 @@ public class WindElf extends SimpleSlimefunItem<ItemUseHandler> implements NotPl
                 // 传送怪物到新位置
                 mob.teleport(newLocation);
             }
-        }.runTaskTimer(MagicExpansion.getInstance(), 0L, 10L); // 每0.5秒执行一次
+        }.runTaskTimer(MagicExpansion.getInstance(), 0L, 40L); // 每2秒执行一次
 
 
 

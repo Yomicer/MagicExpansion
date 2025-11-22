@@ -28,7 +28,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 41"),
+            getGradientName("Version: Build 42"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -595,15 +595,15 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack POWER_CORE = themed("POWER_CORE",new CustomItemStack(CustomHead.getHead("96e0c954d5cab4b9714b8a7eaf9742eeaab7dda7fc2effefb1530099ae1309ac")),
             get("Resource.POWER_CORE.Name"),getList("Resource.POWER_CORE.Lore"));
 
-    public static final SlimefunItemStack PURE_INGOT_POWER_CORE = themed("PURE_INGOT_POWER_CORE",new CustomItemStack(CustomHead.getHead("5b0a0629a74a20cf419c1a12fca49f872b78524bb25dd8b9d74c1d26e7b09268")),
+    public static final SlimefunItemStack PURE_INGOT_POWER_CORE = themed("PURE_INGOT_POWER_CORE",new CustomItemStack(CustomHead.getHead("b2d47d4f7042f0abe73aa50189baae2343964964a36bb868b444091876b9031b")),
             get("Resource.PURE_INGOT_POWER_CORE.Name"),getList("Resource.PURE_INGOT_POWER_CORE.Lore"));
-    public static final SlimefunItemStack BAD_LUCK_CAPACITY = themed("BAD_LUCK_CAPACITY",new CustomItemStack(CustomHead.getHead("5b0a0629a74a20cf419c1a12fca49f872b78524bb25dd8b9d74c1d26e7b09268")),
+    public static final SlimefunItemStack BAD_LUCK_CAPACITY = themed("BAD_LUCK_CAPACITY",new CustomItemStack(CustomHead.getHead("52406e3a7fc1af63e45744b6e122ca23c204145f3889f6ea702173f0f045071c")),
             get("Resource.BAD_LUCK_CAPACITY.Name"),getList("Resource.BAD_LUCK_CAPACITY.Lore"));
-    public static final SlimefunItemStack PANDORA_CAPACITY = themed("PANDORA_CAPACITY",new CustomItemStack(CustomHead.getHead("5b0a0629a74a20cf419c1a12fca49f872b78524bb25dd8b9d74c1d26e7b09268")),
+    public static final SlimefunItemStack PANDORA_CAPACITY = themed("PANDORA_CAPACITY",new CustomItemStack(CustomHead.getHead("2c0e552c1f1dbe3f5782f0fbb9c63d7965b7347a5c2f959a1120527a65bac17f")),
             get("Resource.PANDORA_CAPACITY.Name"),getList("Resource.PANDORA_CAPACITY.Lore"));
-    public static final SlimefunItemStack MAGIC_CAPACITY_BASIC = themed("MAGIC_CAPACITY_BASIC",new CustomItemStack(CustomHead.getHead("5b0a0629a74a20cf419c1a12fca49f872b78524bb25dd8b9d74c1d26e7b09268")),
+    public static final SlimefunItemStack MAGIC_CAPACITY_BASIC = themed("MAGIC_CAPACITY_BASIC",new CustomItemStack(CustomHead.getHead("1e31daea30e571bb8bdfa0c6d2c8ea1bc721a4b12accf7da438b6f0598bf0886")),
             get("Resource.MAGIC_CAPACITY_BASIC.Name"),getList("Resource.MAGIC_CAPACITY_BASIC.Lore"));
-    public static final SlimefunItemStack MAGIC_CAPACITY_ULTRA = themed("MAGIC_CAPACITY_ULTRA",new CustomItemStack(CustomHead.getHead("5b0a0629a74a20cf419c1a12fca49f872b78524bb25dd8b9d74c1d26e7b09268")),
+    public static final SlimefunItemStack MAGIC_CAPACITY_ULTRA = themed("MAGIC_CAPACITY_ULTRA",new CustomItemStack(CustomHead.getHead("5b10ed94080a07546a245ec837cfc5814c7658c7ef337be035a11b2e1e03ba16")),
             get("Resource.MAGIC_CAPACITY_ULTRA.Name"),getList("Resource.MAGIC_CAPACITY_ULTRA.Lore"));
 
 
@@ -743,6 +743,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2025_11_08 = createDefaultItemGlow("UPDATE_LOG_2025_11_08",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_11_12 = createDefaultItemGlow("UPDATE_LOG_2025_11_12",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_11_21 = createDefaultItemGlow("UPDATE_LOG_2025_11_21",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2025_11_22 = createDefaultItemGlow("UPDATE_LOG_2025_11_22",Material.PAPER);
 
 
 
@@ -789,6 +790,7 @@ public class MagicExpansionItems {
 
 
     public static final SlimefunItemStack SEND_ITEMS_TO_PLAYER_MACHINE = createDefaultItem("SEND_ITEMS_TO_PLAYER_MACHINE",Material.BEACON);
+    public static final SlimefunItemStack SEND_ITEMS_TO_PLAYER_MACHINE_SF = createDefaultItem("SEND_ITEMS_TO_PLAYER_MACHINE_SF",Material.SLIME_BLOCK);
 
 
     public static final SlimefunItemStack CUSTOM_SEQUENCE_TOOL = createDefaultItem("CUSTOM_SEQUENCE_TOOL",Material.HEART_OF_THE_SEA);
@@ -831,6 +833,49 @@ public class MagicExpansionItems {
             get("Items.FISH_LURE_ORE.Name"),getList("Items.FISH_LURE_ORE.Lore"));
     public static final SlimefunItemStack FISH_LURE_ALLOY_INGOT = themed("FISH_LURE_ALLOY_INGOT",Material.BROWN_DYE,
             get("Items.FISH_LURE_ALLOY_INGOT.Name"),getList("Items.FISH_LURE_ALLOY_INGOT.Lore"));
+
+
+
+
+    public static final SlimefunItemStack ENERGY_CONNECTOR_GLASS_INFO = createDefaultItemGlow("ENERGY_CONNECTOR_GLASS_INFO",Material.GLASS);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_GLASS = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS",Material.GLASS);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_GLASS_PANE = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS",Material.GLASS_PANE);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_TINTED_GLASS = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS",Material.TINTED_GLASS);
+    // 染色玻璃（16种）
+    public static final SlimefunItemStack ENERGY_CONNECTOR_WHITE_STAINED_GLASS = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS",Material.WHITE_STAINED_GLASS);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_LIGHT_GRAY_STAINED_GLASS = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS",Material.LIGHT_GRAY_STAINED_GLASS);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_ORANGE_STAINED_GLASS = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.ORANGE_STAINED_GLASS);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_MAGENTA_STAINED_GLASS = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.MAGENTA_STAINED_GLASS);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_LIGHT_BLUE_STAINED_GLASS = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.LIGHT_BLUE_STAINED_GLASS);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_YELLOW_STAINED_GLASS = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.YELLOW_STAINED_GLASS);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_LIME_STAINED_GLASS = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.LIME_STAINED_GLASS);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_PINK_STAINED_GLASS = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.PINK_STAINED_GLASS);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_GRAY_STAINED_GLASS = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.GRAY_STAINED_GLASS);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_CYAN_STAINED_GLASS = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.CYAN_STAINED_GLASS);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_PURPLE_STAINED_GLASS = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.PURPLE_STAINED_GLASS);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_BLUE_STAINED_GLASS = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.BLUE_STAINED_GLASS);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_BROWN_STAINED_GLASS = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.BROWN_STAINED_GLASS);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_GREEN_STAINED_GLASS = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.GREEN_STAINED_GLASS);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_RED_STAINED_GLASS = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.RED_STAINED_GLASS);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_BLACK_STAINED_GLASS = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.BLACK_STAINED_GLASS);
+    // 染色玻璃板（16种）
+    public static final SlimefunItemStack ENERGY_CONNECTOR_WHITE_STAINED_GLASS_PANE = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.WHITE_STAINED_GLASS_PANE);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_ORANGE_STAINED_GLASS_PANE = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.ORANGE_STAINED_GLASS_PANE);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_MAGENTA_STAINED_GLASS_PANE = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.MAGENTA_STAINED_GLASS_PANE);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_LIGHT_BLUE_STAINED_GLASS_PANE = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.LIGHT_BLUE_STAINED_GLASS_PANE);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_YELLOW_STAINED_GLASS_PANE = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.YELLOW_STAINED_GLASS_PANE);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_LIME_STAINED_GLASS_PANE = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.LIME_STAINED_GLASS_PANE);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_PINK_STAINED_GLASS_PANE = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.PINK_STAINED_GLASS_PANE);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_GRAY_STAINED_GLASS_PANE = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.GRAY_STAINED_GLASS_PANE);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_LIGHT_GRAY_STAINED_GLASS_PANE = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.LIGHT_GRAY_STAINED_GLASS_PANE);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_CYAN_STAINED_GLASS_PANE = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.CYAN_STAINED_GLASS_PANE);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_PURPLE_STAINED_GLASS_PANE = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.PURPLE_STAINED_GLASS_PANE);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_BLUE_STAINED_GLASS_PANE = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.BLUE_STAINED_GLASS_PANE);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_BROWN_STAINED_GLASS_PANE = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.BROWN_STAINED_GLASS_PANE);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_GREEN_STAINED_GLASS_PANE = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.GREEN_STAINED_GLASS_PANE);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_RED_STAINED_GLASS_PANE = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.RED_STAINED_GLASS_PANE);
+    public static final SlimefunItemStack ENERGY_CONNECTOR_BLACK_STAINED_GLASS_PANE = createDefaultItemGlowGlass("ENERGY_CONNECTOR_GLASS", Material.BLACK_STAINED_GLASS_PANE);
+
 
 
 
@@ -1098,6 +1143,14 @@ public class MagicExpansionItems {
     public static SlimefunItemStack createDefaultItemGlow(String id,Material material) {
         return themed(
                 id,
+                doGlow(material),
+                get("Items." + id + ".Name"),
+                getList("Items." + id + ".Lore")
+        );
+    }
+    public static SlimefunItemStack createDefaultItemGlowGlass(String id,Material material) {
+        return themed(
+                id + "_" + material.name(),
                 doGlow(material),
                 get("Items." + id + ".Name"),
                 getList("Items." + id + ".Lore")

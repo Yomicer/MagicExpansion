@@ -38,6 +38,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.implementation.items.HiddenItem;
 import io.github.thebusybiscuit.slimefun4.implementation.items.blocks.UnplaceableBlock;
 import io.github.thebusybiscuit.slimefun4.implementation.items.electric.Capacitor;
+import io.github.thebusybiscuit.slimefun4.implementation.items.electric.EnergyConnector;
 import io.github.thebusybiscuit.slimefun4.implementation.items.geo.GEOMiner;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
@@ -470,6 +471,11 @@ public final class MagicExpansionItemSetup {
                 null, null, null
         }).register(plugin);
         new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2025_11_21, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
+        new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2025_11_22, SPECIAL_RECIPE_TYPE, new ItemStack[] {
                 null, null, null,
                 null, null, null,
                 null, null, null
@@ -1387,7 +1393,62 @@ public final class MagicExpansionItemSetup {
         },sfItemAmount(FISH_LURE_ALLOY_INGOT,8)).register(plugin);
 
 
+        //新增35种能源连接器（玻璃相关形态）
+        new EnergyConnectorHidden(magicexpansionpower, ENERGY_CONNECTOR_GLASS, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                new ItemStack(Material.GLASS),new ItemStack(Material.GLASS),new ItemStack(Material.GLASS),
+                new ItemStack(Material.GLASS),sfItemAmount(SlimefunItems.ENERGY_CONNECTOR,1),new ItemStack(Material.GLASS),
+                new ItemStack(Material.GLASS),new ItemStack(Material.GLASS),new ItemStack(Material.GLASS)
+        },sfItemAmount(ENERGY_CONNECTOR_GLASS,8)).register(plugin);
 
+        new EnergyConnector(magicexpansionpower, ENERGY_CONNECTOR_GLASS_INFO, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                SlimefunItems.RAINBOW_GLASS,SlimefunItems.RAINBOW_GLASS,SlimefunItems.RAINBOW_GLASS,
+                SlimefunItems.RAINBOW_GLASS,sfItemAmount(SlimefunItems.ENERGY_CONNECTOR,1),SlimefunItems.RAINBOW_GLASS,
+                SlimefunItems.RAINBOW_GLASS,SlimefunItems.RAINBOW_GLASS,SlimefunItems.RAINBOW_GLASS
+        },sfItemAmount(ENERGY_CONNECTOR_GLASS,8)).register(plugin);
+        /*
+        new EnergyConnectorHidden(magicexpansionpower, ENERGY_CONNECTOR_TINTED_GLASS, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                new ItemStack(Material.TINTED_GLASS),new ItemStack(Material.TINTED_GLASS),new ItemStack(Material.TINTED_GLASS),
+                new ItemStack(Material.TINTED_GLASS),sfItemAmount(SlimefunItems.ENERGY_CONNECTOR,64),new ItemStack(Material.TINTED_GLASS),
+                new ItemStack(Material.TINTED_GLASS),new ItemStack(Material.TINTED_GLASS),new ItemStack(Material.TINTED_GLASS)
+        },sfItemAmount(ENERGY_CONNECTOR_TINTED_GLASS,64)).register(plugin);
+        */
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_GLASS_PANE);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_TINTED_GLASS);
+        // 染色玻璃
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_WHITE_STAINED_GLASS);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_ORANGE_STAINED_GLASS);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_MAGENTA_STAINED_GLASS);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_LIGHT_BLUE_STAINED_GLASS);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_YELLOW_STAINED_GLASS);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_LIME_STAINED_GLASS);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_PINK_STAINED_GLASS);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_GRAY_STAINED_GLASS);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_LIGHT_GRAY_STAINED_GLASS);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_CYAN_STAINED_GLASS);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_PURPLE_STAINED_GLASS);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_BLUE_STAINED_GLASS);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_BROWN_STAINED_GLASS);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_GREEN_STAINED_GLASS);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_RED_STAINED_GLASS);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_BLACK_STAINED_GLASS);
+
+        // 染色玻璃板
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_WHITE_STAINED_GLASS_PANE);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_ORANGE_STAINED_GLASS_PANE);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_MAGENTA_STAINED_GLASS_PANE);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_LIGHT_BLUE_STAINED_GLASS_PANE);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_YELLOW_STAINED_GLASS_PANE);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_LIME_STAINED_GLASS_PANE);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_PINK_STAINED_GLASS_PANE);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_GRAY_STAINED_GLASS_PANE);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_LIGHT_GRAY_STAINED_GLASS_PANE);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_CYAN_STAINED_GLASS_PANE);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_PURPLE_STAINED_GLASS_PANE);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_BLUE_STAINED_GLASS_PANE);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_BROWN_STAINED_GLASS_PANE);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_GREEN_STAINED_GLASS_PANE);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_RED_STAINED_GLASS_PANE);
+        registerHiddenRecipe(plugin, magicexpansionpower, ENERGY_CONNECTOR_BLACK_STAINED_GLASS_PANE);
 
 
 
@@ -1422,6 +1483,12 @@ public final class MagicExpansionItemSetup {
                 new ItemStack(Material.HOPPER),CARGO_TERMINAL,new ItemStack(Material.HOPPER),
                 new ItemStack(Material.HOPPER),FIVE_ELEMENT_TOUCH,new ItemStack(Material.HOPPER),
                 new ItemStack(Material.HOPPER),new ItemStack(Material.HOPPER),new ItemStack(Material.HOPPER)
+        }).register(plugin);
+        // 以太秘匣传输器
+        new SfCargoFragmentDistributor(magicexpansionenergy, MagicExpansionItems.SEND_ITEMS_TO_PLAYER_MACHINE_SF, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                new ItemStack(Material.HOPPER),CARGO_TERMINAL,new ItemStack(Material.HOPPER),
+                new ItemStack(Material.HOPPER),FIVE_ELEMENT_TOUCH,new ItemStack(Material.HOPPER),
+                new ItemStack(Material.HOPPER),new ItemStack(Material.SLIME_BALL),new ItemStack(Material.HOPPER)
         }).register(plugin);
 
         // 脚本序列化工具
@@ -3442,6 +3509,21 @@ public final class MagicExpansionItemSetup {
                         null, null, null
                 }
         ).register(plugin);
+    }
+
+
+
+    private static void registerHiddenRecipe(MagicExpansion plugin, ItemGroup itemGroup, SlimefunItemStack item) {
+        Material type = item.getType();
+
+        ItemStack[] recipe = {
+                new ItemStack(type), new ItemStack(type), new ItemStack(type),
+                new ItemStack(type), sfItemAmount(SlimefunItems.ENERGY_CONNECTOR, 1), new ItemStack(type),
+                new ItemStack(type), new ItemStack(type), new ItemStack(type)
+        };
+
+        new EnergyConnectorHidden(itemGroup, item, RecipeType.ENHANCED_CRAFTING_TABLE, recipe, sfItemAmount(item, 8))
+                .register(plugin);
     }
 
 
