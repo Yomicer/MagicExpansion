@@ -28,7 +28,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 42"),
+            getGradientName("Version: Build 43"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -744,6 +744,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2025_11_12 = createDefaultItemGlow("UPDATE_LOG_2025_11_12",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_11_21 = createDefaultItemGlow("UPDATE_LOG_2025_11_21",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_11_22 = createDefaultItemGlow("UPDATE_LOG_2025_11_22",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2025_11_23 = createDefaultItemGlow("UPDATE_LOG_2025_11_23",Material.PAPER);
 
 
 
@@ -776,7 +777,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack FISHING_ROD_NEW_PLAYER = createDefaultItem("FISHING_ROD_NEW_PLAYER",Material.FISHING_ROD);
     public static final SlimefunItemStack FISHING_STICK_STAR_IRON = createDefaultItem("FISHING_STICK_STAR_IRON",Material.STICK);
     public static final SlimefunItemStack FISHING_ROD_WIND_SPEAKER = createDefaultItem("FISHING_ROD_WIND_SPEAKER",Material.FISHING_ROD);
-    public static final SlimefunItemStack FISHING_ROD_FINAL_STICK = createDefaultItem("FISHING_ROD_FINAL_STICK",Material.FISHING_ROD);
+    public static final SlimefunItemStack FISHING_ROD_FINAL_STICK = createDefaultItem("南柯一梦终须醒_浮生若梦皆是空",Material.FISHING_ROD);
     public static final SlimefunItemStack FISHING_ROD_FINAL_STRING = createDefaultItem("FISHING_ROD_FINAL_STRING",Material.STRING);
     public static final SlimefunItemStack FISHING_ROD_FINAL_HOOK = createDefaultItem("FISHING_ROD_FINAL_HOOK",Material.DIAMOND_PICKAXE);
 
