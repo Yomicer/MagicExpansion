@@ -41,7 +41,7 @@ public class newItem {
     public static SlimefunItemStack themed(String id, Material itemStack, String name, String... lore){
         return themed(id,new ItemStack(itemStack),name,lore);
     }
-    public static  SlimefunItemStack themed(String id, ItemStack itemStack, String name, String... lore){
+    public static SlimefunItemStack themed(String id, ItemStack itemStack, String name, String... lore){
         return themed(id, itemStack, name, Arrays.asList(lore));
     }
     public static SlimefunItemStack themed(String id , Material itemStack , String name, List<String> lore){
@@ -57,6 +57,24 @@ public class newItem {
                 itemStack,
                 getGradientName(name),
                 coloredLore.toArray(String[]::new)
+        );
+    }
+
+    public static SlimefunItemStack themedOrigin(String id, Material itemStack, String name, String... lore){
+        return themed(id,new ItemStack(itemStack),name,lore);
+    }
+    public static SlimefunItemStack themedOrigin(String id, ItemStack itemStack, String name, String... lore){
+        return themed(id, itemStack, name, Arrays.asList(lore));
+    }
+    public static SlimefunItemStack themedOrigin(String id , Material itemStack , String name, List<String> lore){
+        return themed(id,new ItemStack(itemStack),name,lore);
+    }
+    public static  SlimefunItemStack themedOrigin(String id, ItemStack itemStack, String name, List<String> lore){
+        return new SlimefunItemStack(
+                idDecorator(id),
+                itemStack,
+                name,
+                lore.toArray(String[]::new)
         );
     }
 

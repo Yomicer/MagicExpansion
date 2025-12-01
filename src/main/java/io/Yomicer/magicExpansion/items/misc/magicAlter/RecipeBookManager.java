@@ -140,6 +140,9 @@ public class RecipeBookManager {
         if (meta != null) {
             meta.setDisplayName(ItemStackHelper.getDisplayName(displayResult) + "§r§b x " + calculateRealAmount(displayResult));
             List<String> lore = new ArrayList<>();
+            if(meta.hasLore()) {
+                lore.addAll(Objects.requireNonNull(meta.getLore()));
+            }
             lore.add("§6合成结果");
             lore.add("§7配方: " + recipeId);
             meta.setLore(lore);

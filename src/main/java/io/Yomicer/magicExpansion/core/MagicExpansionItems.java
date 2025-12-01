@@ -10,9 +10,11 @@ import org.bukkit.inventory.ItemStack;
 
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
 import static io.Yomicer.magicExpansion.utils.Utils.doGlow;
+import static io.Yomicer.magicExpansion.utils.Utils.doGlowDisplayEnchant;
 import static io.Yomicer.magicExpansion.utils.itemUtils.newItem.themed;
 import static io.Yomicer.magicExpansion.utils.Language.get;
 import static io.Yomicer.magicExpansion.utils.Language.getList;
+import static io.Yomicer.magicExpansion.utils.itemUtils.newItem.themedOrigin;
 
 
 public class MagicExpansionItems {
@@ -28,7 +30,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 43"),
+            getGradientName("Version: Build 44"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -284,6 +286,21 @@ public class MagicExpansionItems {
 
 
 
+
+    //武器类↓↓↓↓↓
+
+
+
+    public static final SlimefunItemStack WEAPON_STAR_SHARDS_SWORD = themedOrigin("WEAPON_STAR_SHARDS_SWORD",doGlowDisplayEnchant(Material.NETHERITE_SWORD),
+            get("Items.WEAPON_STAR_SHARDS_SWORD.Name"),getList("Items.WEAPON_STAR_SHARDS_SWORD.Lore"));
+
+
+
+
+
+
+
+    //武器类↑↑↑↑↑
 
 
 
@@ -745,6 +762,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2025_11_21 = createDefaultItemGlow("UPDATE_LOG_2025_11_21",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_11_22 = createDefaultItemGlow("UPDATE_LOG_2025_11_22",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_11_23 = createDefaultItemGlow("UPDATE_LOG_2025_11_23",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2025_12_01 = createDefaultItemGlow("UPDATE_LOG_2025_12_01",Material.PAPER);
 
 
 

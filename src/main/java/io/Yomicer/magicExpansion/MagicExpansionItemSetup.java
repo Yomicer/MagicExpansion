@@ -16,6 +16,7 @@ import io.Yomicer.magicExpansion.items.misc.fish.CommonFishHidden;
 import io.Yomicer.magicExpansion.items.misc.fish.FishingBook;
 import io.Yomicer.magicExpansion.items.misc.fish.PowerEel;
 import io.Yomicer.magicExpansion.items.misc.magicAlter.MagicWand;
+import io.Yomicer.magicExpansion.items.misc.weapon.StarShardsSword;
 import io.Yomicer.magicExpansion.items.preBuildings.PreBuildingTree;
 import io.Yomicer.magicExpansion.items.quickMachine.*;
 import io.Yomicer.magicExpansion.items.skyBlock.SingleCubeOre;
@@ -481,6 +482,11 @@ public final class MagicExpansionItemSetup {
                 null, null, null
         }).register(plugin);
         new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2025_11_23, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
+        new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2025_12_01, SPECIAL_RECIPE_TYPE, new ItemStack[] {
                 null, null, null,
                 null, null, null,
                 null, null, null
@@ -1583,6 +1589,16 @@ public final class MagicExpansionItemSetup {
                 null, newItem.themed(Material.ALLAY_SPAWN_EGG, get("Items.WIND_SPIRIT_DROP.Name"), getList("Items.WIND_SPIRIT_DROP.Lore")),null,
                 null, null,null
         }).register(plugin);
+
+
+        new StarShardsSword(magicexpansionforge, MagicExpansionItems.WEAPON_STAR_SHARDS_SWORD, RecipeType.NULL, new ItemStack[] {
+                null, null, null,
+                null,new CustomItemStack(new ItemStack(Material.ENCHANTING_TABLE), "§x§E§8§4§2§3§D终极魔法祭坛","§a多方块结构","§b/mxalter guide获取相关配方书") ,null,
+                null, null,null
+        }).register(plugin);
+
+
+
 
 
 

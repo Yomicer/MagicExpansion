@@ -41,6 +41,14 @@ public class DefaultRecipes implements RecipeProvider{
             {Material.LAPIS_BLOCK, Material.LAPIS_BLOCK, Material.LAPIS_BLOCK, Material.LAPIS_BLOCK, Material.LAPIS_BLOCK},
     };
 
+    Material[][] anvilAlter = {
+            {Material.ANVIL, Material.FURNACE, Material.ENCHANTING_TABLE, Material.FURNACE, Material.ANVIL},
+            {Material.FURNACE, Material.CRYING_OBSIDIAN, Material.CARTOGRAPHY_TABLE, Material.CRYING_OBSIDIAN, Material.FURNACE},
+            {Material.ENCHANTING_TABLE, Material.CARTOGRAPHY_TABLE, Material.EMERALD_BLOCK, Material.CARTOGRAPHY_TABLE, Material.ENCHANTING_TABLE},
+            {Material.FURNACE, Material.CRYING_OBSIDIAN, Material.CARTOGRAPHY_TABLE, Material.CRYING_OBSIDIAN, Material.FURNACE},
+            {Material.ANVIL, Material.FURNACE, Material.ENCHANTING_TABLE, Material.FURNACE, Material.ANVIL},
+    };
+
 
     @Override
     public void registerRecipes(Map<String, MagicAltarRecipe> recipes) {
@@ -122,7 +130,7 @@ public class DefaultRecipes implements RecipeProvider{
         recipes.put("ultra_sharpness", new MagicAltarRecipe(recipe3, result3, enchantAlter));
 
 
-        // 配方3：抢夺1314520附魔书
+        // 配方4：抢夺1314520附魔书
         ItemStack[] [] recipe4 = new ItemStack[9][9];
         for (int i = 0; i < 9; i++){
             if(i == 0 || i == 2 || i == 6 || i == 8){
@@ -169,6 +177,48 @@ public class DefaultRecipes implements RecipeProvider{
         );
         recipes.put("ultra_looting", new MagicAltarRecipe(recipe4, result4, enchantAlter));
 
+
+        // 配方5：抢夺1314520附魔书
+        ItemStack[] [] recipe5 = new ItemStack[9][9];
+
+        for (int j = 0; j < 9; j++){
+            if(j != 4) {
+                recipe5[1][j] = sfItemAmount(MagicExpansionItems.PURE_ELEMENT_INGOT, 32);
+                recipe5[3][j] = sfItemAmount(MagicExpansionItems.PURE_ELEMENT_INGOT, 32);
+                recipe5[5][j] = sfItemAmount(MagicExpansionItems.PURE_ELEMENT_INGOT, 32);
+            } else {
+                recipe5[1][j] = sfItemAmount(MagicExpansionItems.PURE_FIVE_ELEMENT, 8);
+                recipe5[3][j] = sfItemAmount(MagicExpansionItems.PURE_FIVE_ELEMENT, 8);
+                recipe5[5][j] = sfItemAmount(MagicExpansionItems.PURE_FIVE_ELEMENT, 8);
+            }
+        }
+
+        for (int j = 0; j < 9; j++){
+            if(j != 4) {
+                recipe5[0][j] = sfItemAmount(SlimefunItems.STAFF_FIRE, 64);
+                recipe5[2][j] = sfItemAmount(SlimefunItems.STAFF_FIRE, 64);
+            } else {
+                recipe5[0][j] = sfItemAmount(MagicExpansionItems.PURE_ELEMENT_FIRE, 32);
+                recipe5[2][j] = sfItemAmount(MagicExpansionItems.PURE_ELEMENT_FIRE, 32);
+            }
+        }
+
+        recipe5 [6][4] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_12;
+        recipe5 [7][4] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_12;
+        recipe5 [8][4] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_12;
+
+        recipe5 [4][0] = sfItemAmount(MagicExpansionItems.PURE_FIVE_ELEMENT,64);
+        recipe5 [4][1] = sfItemAmount(MagicExpansionItems.PURE_FIVE_ELEMENT,64);
+        recipe5 [4][2] = sfItemAmount(MagicExpansionItems.PURE_FIVE_ELEMENT,64);
+        recipe5 [4][3] = sfItemAmount(MagicExpansionItems.PURE_FIVE_ELEMENT,64);
+        recipe5 [4][4] = new ItemStack(Material.NETHERITE_SWORD);
+        recipe5 [4][5] = sfItemAmount(MagicExpansionItems.PURE_FIVE_ELEMENT,64);
+        recipe5 [4][6] = sfItemAmount(MagicExpansionItems.PURE_FIVE_ELEMENT,64);
+        recipe5 [4][7] = sfItemAmount(MagicExpansionItems.PURE_FIVE_ELEMENT,64);
+        recipe5 [4][8] = sfItemAmount(MagicExpansionItems.PURE_FIVE_ELEMENT,64);
+
+
+        recipes.put("weapon_star_shards_sword", new MagicAltarRecipe(recipe5, MagicExpansionItems.WEAPON_STAR_SHARDS_SWORD, anvilAlter));
 
     }
 
