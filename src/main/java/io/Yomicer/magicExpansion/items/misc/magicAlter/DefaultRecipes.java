@@ -203,9 +203,17 @@ public class DefaultRecipes implements RecipeProvider{
             }
         }
 
-        recipe5 [6][4] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_12;
-        recipe5 [7][4] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_12;
-        recipe5 [8][4] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_12;
+        for (int i = 6; i < 9; i++){
+        recipe5 [i][0] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_9;
+        recipe5 [i][1] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_10;
+        recipe5 [i][2] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_11;
+        recipe5 [i][3] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_12;
+        recipe5 [i][4] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_13;
+        recipe5 [i][5] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_14;
+        recipe5 [i][6] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_15;
+        recipe5 [i][7] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_16;
+        recipe5 [i][8] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_17;
+        }
 
         recipe5 [4][0] = sfItemAmount(MagicExpansionItems.PURE_FIVE_ELEMENT,64);
         recipe5 [4][1] = sfItemAmount(MagicExpansionItems.PURE_FIVE_ELEMENT,64);
@@ -227,6 +235,7 @@ public class DefaultRecipes implements RecipeProvider{
         patternList.add(pattern1);
         patternList.add(customBase);
         patternList.add(enchantAlter);
+        patternList.add(anvilAlter);
     }
 
 
