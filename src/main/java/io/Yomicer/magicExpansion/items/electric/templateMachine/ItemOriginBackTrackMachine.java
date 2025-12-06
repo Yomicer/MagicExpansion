@@ -194,8 +194,11 @@ public class ItemOriginBackTrackMachine extends AbstractElectricRecipeMachine {
         ItemStack OriginItem = findFirstSfItem(menu);
         if (OriginItem != null) {
             SlimefunItem OriginSfItem = getByItem(OriginItem);
-            ItemStack [] recipe = OriginSfItem.getRecipe().clone();
-            if (recipe.length == 0) {
+            ItemStack [] recipe = null;
+            if (OriginSfItem != null) {
+                recipe = OriginSfItem.getRecipe();
+            }
+            if (recipe != null && recipe.length == 0) {
                 return null;
             }
             return new MachineRecipe(5, new ItemStack[]{new ItemStack(Material.BARRIER)}, new ItemStack[]{new ItemStack(Material.BARRIER)});
