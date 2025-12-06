@@ -203,17 +203,28 @@ public class DefaultRecipes implements RecipeProvider{
             }
         }
 
-        for (int i = 6; i < 9; i++){
-        recipe5 [i][0] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_9;
-        recipe5 [i][1] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_10;
-        recipe5 [i][2] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_11;
-        recipe5 [i][3] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_12;
-        recipe5 [i][4] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_13;
-        recipe5 [i][5] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_14;
-        recipe5 [i][6] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_15;
-        recipe5 [i][7] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_16;
-        recipe5 [i][8] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_17;
+        for (int i = 6; i < 9; i++) {
+            if (i != 7) {
+                recipe5[i][0] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_9;
+                recipe5[i][1] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_10;
+                recipe5[i][2] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_11;
+                recipe5[i][3] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_12;
+                recipe5[i][4] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_13;
+                recipe5[i][5] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_14;
+                recipe5[i][6] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_15;
+                recipe5[i][7] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_16;
+                recipe5[i][8] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_17;
+            }
         }
+        recipe5[7][0] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_18;
+        recipe5[7][1] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_19;
+        recipe5[7][2] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_20;
+        recipe5[7][3] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_21;
+        recipe5[7][4] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_22;
+        recipe5[7][5] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_23;
+        recipe5[7][6] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_24;
+        recipe5[7][7] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_25;
+        recipe5[7][8] = MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_26;
 
         recipe5 [4][0] = sfItemAmount(MagicExpansionItems.PURE_FIVE_ELEMENT,64);
         recipe5 [4][1] = sfItemAmount(MagicExpansionItems.PURE_FIVE_ELEMENT,64);
@@ -227,6 +238,23 @@ public class DefaultRecipes implements RecipeProvider{
 
 
         recipes.put("weapon_star_shards_sword", new MagicAltarRecipe(recipe5, MagicExpansionItems.WEAPON_STAR_SHARDS_SWORD, anvilAlter));
+
+
+        // 配方6：创世核心
+        ItemStack[] [] recipe6 = new ItemStack[9][9];
+        for (int i = 0; i < 9; i++) {
+            recipe6[i][0] = sfItemAmount(MagicExpansionItems.PURE_ELEMENT_EARTH,64);
+            recipe6[i][1] = sfItemAmount(MagicExpansionItems.PURE_ELEMENT_WOOD,64);
+            recipe6[i][2] = sfItemAmount(MagicExpansionItems.PURE_ELEMENT_FIRE,64);
+            recipe6[i][3] = sfItemAmount(MagicExpansionItems.PURE_ELEMENT_WATER,64);
+            recipe6[i][4] = sfItemAmount(MagicExpansionItems.PURE_FIVE_ELEMENT,64);
+            recipe6[i][5] = sfItemAmount(MagicExpansionItems.PURE_ELEMENT_GOLD,64);
+            recipe6[i][6] = sfItemAmount(MagicExpansionItems.MAGIC_CAPACITY_ULTRA,15);
+            recipe6[i][7] = sfItemAmount(MagicExpansionItems.FISHING_ROD_FINAL_STRING,3);
+            recipe6[i][8] = sfItemAmount(MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_37,15);
+        }
+
+        recipes.put("weapon_star_shards_sword", new MagicAltarRecipe(recipe6, MagicExpansionItems.WORLD_CORE, pattern1));
 
     }
 

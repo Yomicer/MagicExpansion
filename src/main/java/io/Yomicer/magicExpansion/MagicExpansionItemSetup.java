@@ -1509,6 +1509,13 @@ public final class MagicExpansionItemSetup {
                 SlimefunItems.PROGRAMMABLE_ANDROID_3,MAGIC_EXPANSION_MAGIC_SUGAR_3,SlimefunItems.PROGRAMMABLE_ANDROID_3
         }).register(plugin);
 
+        // 脚本序列化工具
+        new UnplaceableBlock(magicexpansionresource, MagicExpansionItems.WORLD_CORE, RecipeType.NULL, new ItemStack[] {
+                null, null, null,
+                null,new CustomItemStack(new ItemStack(Material.ENCHANTING_TABLE), "§x§E§8§4§2§3§D终极魔法祭坛","§a多方块结构","§b/mxalter guide获取相关配方书") ,null,
+                null, null,null
+        }).register(plugin);
+
 
 
 

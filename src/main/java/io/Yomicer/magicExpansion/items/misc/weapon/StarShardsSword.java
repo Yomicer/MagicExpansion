@@ -84,7 +84,7 @@ public class StarShardsSword extends SimpleSlimefunItem<ItemUseHandler> implemen
             UUID moveSpeedId = UUID.nameUUIDFromBytes((namespace + "_move_speed").getBytes());
             meta.addAttributeModifier(
                     Attribute.GENERIC_MOVEMENT_SPEED,
-                    new AttributeModifier(moveSpeedId, "StarShards_MoveSpeed", 13.14, AttributeModifier.Operation.MULTIPLY_SCALAR_1)
+                    new AttributeModifier(moveSpeedId, "StarShards_MoveSpeed", 1.314, AttributeModifier.Operation.MULTIPLY_SCALAR_1)
             );
 
             // 🛡️ 护甲值 +200（固定值）

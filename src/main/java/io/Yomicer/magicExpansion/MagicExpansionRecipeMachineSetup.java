@@ -3,10 +3,13 @@ package io.Yomicer.magicExpansion;
 import io.Yomicer.magicExpansion.core.MagicExpansionItems;
 import io.Yomicer.magicExpansion.items.electric.recipeMachine.RecipeMachine;
 import io.Yomicer.magicExpansion.items.electric.recipeMachine.RecipeMachinePreBuilding;
+import io.Yomicer.magicExpansion.items.electric.templateMachine.ItemOriginBackTrackMachine;
 import io.Yomicer.magicExpansion.items.electric.templateMachine.TemplateMachine;
+import io.Yomicer.magicExpansion.utils.ColorGradient;
 import io.Yomicer.magicExpansion.utils.itemUtils.NamedTagBuilder;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -14,6 +17,7 @@ import javax.annotation.Nonnull;
 
 import static io.Yomicer.magicExpansion.MagicExpansionItemSetup.*;
 import static io.Yomicer.magicExpansion.utils.ConvertItem.*;
+import static io.Yomicer.magicExpansion.utils.Utils.doGlow;
 import static io.Yomicer.magicExpansion.utils.itemUtils.sfItemUtils.sfItemAmount;
 
 public class MagicExpansionRecipeMachineSetup {
@@ -385,7 +389,18 @@ public class MagicExpansionRecipeMachineSetup {
 
 
 
-
+        //泥土园
+        new ItemOriginBackTrackMachine(magicexpansionenergy, MagicExpansionItems.ITEM_ORIGIN_BACK_TRACK, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MagicExpansionItems.PURE_ELEMENT_INGOT, MagicExpansionItems.PURE_ELEMENT_INGOT,MagicExpansionItems.PURE_ELEMENT_INGOT,
+                MagicExpansionItems.PURE_ELEMENT_INGOT,MagicExpansionItems.WORLD_CORE,MagicExpansionItems.PURE_ELEMENT_INGOT,
+                MagicExpansionItems.BASIC_ENCHANT_STONE,MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_37,MagicExpansionItems.WIND_SPIRIT
+        })
+                .setCapacity(2147483647)
+                .setConsumption(2147483646)
+                .setProcessingSpeed(1)
+                .addRecipe(5,new ItemStack[] {new CustomItemStack(doGlow(Material.LIGHT), ColorGradient.getGradientName("放入任意粘液物品"),ColorGradient.getGradientName("即可对物品配方进行溯源"))},
+                        new ItemStack[] {new CustomItemStack(doGlow(Material.NETHER_STAR), ColorGradient.getGradientName("在等待一定时间后，机器会产出源材料"))})
+                .register(plugin);
 
 
 

@@ -30,7 +30,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 45"),
+            getGradientName("Version: Build 46"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -813,6 +813,10 @@ public class MagicExpansionItems {
 
 
     public static final SlimefunItemStack CUSTOM_SEQUENCE_TOOL = createDefaultItem("CUSTOM_SEQUENCE_TOOL",Material.HEART_OF_THE_SEA);
+
+
+    public static final SlimefunItemStack WORLD_CORE = createDefaultItem("WORLD_CORE",Material.FIREWORK_STAR);
+    public static final SlimefunItemStack ITEM_ORIGIN_BACK_TRACK = createDefaultItem("ITEM_ORIGIN_BACK_TRACK",Material.BEACON);
 
 
     public static final SlimefunItemStack FISHING_INFO = createDefaultItemGlow("FISHING_INFO",Material.PAPER);
