@@ -1495,11 +1495,17 @@ public final class MagicExpansionItemSetup {
                 new ItemStack(Material.HOPPER),FIVE_ELEMENT_TOUCH,new ItemStack(Material.HOPPER),
                 new ItemStack(Material.HOPPER),new ItemStack(Material.HOPPER),new ItemStack(Material.HOPPER)
         }).register(plugin);
-        // 以太秘匣传输器
+        // 以太秘匣传输器-SF
         new SfCargoFragmentDistributor(magicexpansionenergy, MagicExpansionItems.SEND_ITEMS_TO_PLAYER_MACHINE_SF, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 new ItemStack(Material.HOPPER),CARGO_TERMINAL,new ItemStack(Material.HOPPER),
                 new ItemStack(Material.HOPPER),FIVE_ELEMENT_TOUCH,new ItemStack(Material.HOPPER),
                 new ItemStack(Material.HOPPER),new ItemStack(Material.SLIME_BALL),new ItemStack(Material.HOPPER)
+        }).register(plugin);
+        //便携式以太秘匣传输器
+        new PortableCargoTransporter(magicexpansionspecialitem, MagicExpansionItems.PORTABLE_CARGO_TRANSPORTER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                new ItemStack(Material.HOPPER),CARGO_TERMINAL,new ItemStack(Material.HOPPER),
+                new ItemStack(Material.HOPPER),FIVE_ELEMENT_TOUCH,new ItemStack(Material.HOPPER),
+                new ItemStack(Material.HOPPER),new ItemStack(Material.REDSTONE_BLOCK),new ItemStack(Material.HOPPER)
         }).register(plugin);
 
         // 脚本序列化工具

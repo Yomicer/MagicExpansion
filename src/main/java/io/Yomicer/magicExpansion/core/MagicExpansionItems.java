@@ -810,6 +810,7 @@ public class MagicExpansionItems {
 
     public static final SlimefunItemStack SEND_ITEMS_TO_PLAYER_MACHINE = createDefaultItem("SEND_ITEMS_TO_PLAYER_MACHINE",Material.BEACON);
     public static final SlimefunItemStack SEND_ITEMS_TO_PLAYER_MACHINE_SF = createDefaultItem("SEND_ITEMS_TO_PLAYER_MACHINE_SF",Material.SLIME_BLOCK);
+    public static final SlimefunItemStack PORTABLE_CARGO_TRANSPORTER = createDefaultItem("PORTABLE_CARGO_TRANSPORTER",Material.NETHER_STAR);
 
 
     public static final SlimefunItemStack CUSTOM_SEQUENCE_TOOL = createDefaultItem("CUSTOM_SEQUENCE_TOOL",Material.HEART_OF_THE_SEA);
