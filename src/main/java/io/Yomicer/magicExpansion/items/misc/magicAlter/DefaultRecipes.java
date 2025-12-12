@@ -254,7 +254,7 @@ public class DefaultRecipes implements RecipeProvider{
             recipe6[i][8] = sfItemAmount(MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_37,15);
         }
 
-        recipes.put("weapon_star_shards_sword", new MagicAltarRecipe(recipe6, MagicExpansionItems.WORLD_CORE, pattern1));
+        recipes.put("the_creation_star", new MagicAltarRecipe(recipe6, MagicExpansionItems.WORLD_CORE, pattern1));
 
     }
 
