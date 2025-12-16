@@ -36,7 +36,7 @@ public class ItemOriginBackTrackMachine extends AbstractElectricRecipeMachine {
     private static final int[] BACKGROUND_SLOTS = new int[] { 4, 49 };
 
     private static final ItemStack PROGRESS_ITEM = new ItemStack(Material.SOUL_LANTERN);
-    private static final ItemStack PROGRESS_STACK = new CustomItemStack(Material.SOUL_CAMPFIRE, getGradientName("信息"), getGradientName("类型：非完全消耗型机器"), getGradientName("所属附属：魔法"));
+    private static final ItemStack PROGRESS_STACK = new CustomItemStack(Material.SOUL_CAMPFIRE, getGradientName("信息"), getGradientName("类型：模板机器机器"), getGradientName("所属附属：魔法"));
 
     public ItemOriginBackTrackMachine(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);

@@ -30,7 +30,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 47"),
+            getGradientName("Version: Build 48"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -95,6 +95,9 @@ public class MagicExpansionItems {
     //虚空之触
     public static final SlimefunItemStack VOID_TOUCH = themed("VOID_TOUCH",doGlow(Material.WEEPING_VINES),
             get("Items.VOID_TOUCH.Name"),getList("Items.VOID_TOUCH.Lore"));
+    //虚空之触-脚本专用
+    public static final SlimefunItemStack VOID_TOUCH_SCRIPT = themed("VOID_TOUCH_SCRIPT",doGlow(Material.WEEPING_VINES),
+            get("Items.VOID_TOUCH_SCRIPT.Name"),getList("Items.VOID_TOUCH_SCRIPT.Lore"));
     //虚空之触
     public static final SlimefunItemStack FIVE_ELEMENT_TOUCH = themed("FIVE_ELEMENT_TOUCH",doGlow(Material.TWISTING_VINES),
             get("Items.FIVE_ELEMENT_TOUCH.Name"),getList("Items.FIVE_ELEMENT_TOUCH.Lore"));
@@ -763,6 +766,9 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2025_11_22 = createDefaultItemGlow("UPDATE_LOG_2025_11_22",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_11_23 = createDefaultItemGlow("UPDATE_LOG_2025_11_23",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_12_01 = createDefaultItemGlow("UPDATE_LOG_2025_12_01",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2025_12_06 = createDefaultItemGlow("UPDATE_LOG_2025_12_06",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2025_12_13 = createDefaultItemGlow("UPDATE_LOG_2025_12_13",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2025_12_16 = createDefaultItemGlow("UPDATE_LOG_2025_12_16",Material.PAPER);
 
 
 
@@ -1063,7 +1069,8 @@ public class MagicExpansionItems {
 
 
     public static final SlimefunItemStack POWER_FISH_ELECTRIC = createDefaultPowerMachine("POWER_FISH_ELECTRIC",Material.SEA_LANTERN);
-    public static final SlimefunItemStack FISH_VIVARIUM = createDefaultPowerMachine("FISH_VIVARIUM",Material.LIGHT_BLUE_STAINED_GLASS_PANE);
+    public static final SlimefunItemStack FISH_VIVARIUM_EASY = createDefaultPowerMachine("FISH_VIVARIUM_EASY",Material.LIGHT_BLUE_STAINED_GLASS_PANE);
+    public static final SlimefunItemStack FISH_VIVARIUM = createDefaultPowerMachine("FISH_VIVARIUM",Material.LIGHT_BLUE_STAINED_GLASS);
     public static final SlimefunItemStack MAGIC_POWER_INPUT_MACHINE = createDefaultPowerMachine("MAGIC_POWER_INPUT_MACHINE",Material.TINTED_GLASS);
     public static final SlimefunItemStack MAGIC_POWER_OUTPUT_MACHINE = createDefaultPowerMachine("MAGIC_POWER_OUTPUT_MACHINE",Material.YELLOW_STAINED_GLASS);
 

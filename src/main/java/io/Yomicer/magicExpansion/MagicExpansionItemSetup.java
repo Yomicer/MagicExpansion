@@ -491,6 +491,21 @@ public final class MagicExpansionItemSetup {
                 null, null, null,
                 null, null, null
         }).register(plugin);
+        new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2025_12_06, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
+        new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2025_12_13, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
+        new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2025_12_16, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
 
 
 
@@ -548,9 +563,15 @@ public final class MagicExpansionItemSetup {
 
         //虚空之触
         new VoidTouch(magicexpansionspecialitem, MagicExpansionItems.VOID_TOUCH, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                MagicExpansionItems.AMETHYST_SHARD, MagicExpansionItems.PURE_ELEMENT_INGOT, MagicExpansionItems.AMETHYST_SHARD,
+                PURE_ELEMENT_EARTH, MagicExpansionItems.PURE_ELEMENT_INGOT, PURE_ELEMENT_EARTH,
                 MagicExpansionItems.AMETHYST_SHARD, MagicExpansionItems.MAGIC_EXPANSION_RANDOM_SPAWNER, MagicExpansionItems.AMETHYST_SHARD,
-                MagicExpansionItems.AMETHYST_SHARD, MagicExpansionItems.BASIC_ENCHANT_STONE, MagicExpansionItems.AMETHYST_SHARD
+                PURE_ELEMENT_EARTH, MagicExpansionItems.BASIC_ENCHANT_STONE, PURE_ELEMENT_EARTH
+        }).register(plugin);
+        //虚空之触-脚本专用
+        new VoidTouchScript(magicexpansionspecialitem, MagicExpansionItems.VOID_TOUCH_SCRIPT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                PURE_ELEMENT_WATER, MagicExpansionItems.PURE_ELEMENT_INGOT, PURE_ELEMENT_WATER,
+                MagicExpansionItems.AMETHYST_SHARD, MagicExpansionItems.MAGIC_EXPANSION_RANDOM_SPAWNER, MagicExpansionItems.AMETHYST_SHARD,
+                PURE_ELEMENT_WATER, MagicExpansionItems.BASIC_ENCHANT_STONE, PURE_ELEMENT_WATER
         }).register(plugin);
         //五行之触
         new FiveElementTouch(magicexpansionspecialitem, MagicExpansionItems.FIVE_ELEMENT_TOUCH, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {

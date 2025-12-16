@@ -27,9 +27,9 @@ import java.util.List;
 
 import static io.Yomicer.magicExpansion.utils.ItemPermissionUtils.hasPermissionRe;
 
-public class VoidTouch extends SimpleSlimefunItem<ItemUseHandler> implements NotPlaceable {
+public class VoidTouchScript extends SimpleSlimefunItem<ItemUseHandler> implements NotPlaceable {
 
-    public VoidTouch(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    public VoidTouchScript(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
     }
 
@@ -48,7 +48,6 @@ public class VoidTouch extends SimpleSlimefunItem<ItemUseHandler> implements Not
             if (e.getHand() != EquipmentSlot.HAND) {
                 return;
             }
-            if (!hasPermissionRe(player)) return;
 
             ItemStack item = e.getItem();
             ItemMeta meta = item.getItemMeta();
