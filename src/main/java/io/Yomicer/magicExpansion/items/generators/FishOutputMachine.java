@@ -352,7 +352,7 @@ public class FishOutputMachine extends MenuBlock implements EnergyNetComponent, 
         display.add(new CustomItemStack(Material.KNOWLEDGE_BOOK, getGradientName("使用说明⇩"),getGradientName("请务必仔细阅读")));
         display.add(new CustomItemStack(Material.BOOK, getGradientName("产出量算法："),getGradientName("每个机器只能放置一条魔法鱼")
                 ,getGradientName("产出量 = 重量(向下取整) * 魔法鱼稀有程度")
-                ,getGradientName("普通/稀有/超级稀有/鱼皇 : 1/4/11/999")));
+                ,getGradientName("普通/稀有/超级稀有/鱼皇 : 1/7/15/9999")));
         display.add(new CustomItemStack(CustomHead.getHead("26314d31b095e4d421760497be6a156f459d8c9957b7e6b1c12deb4e47860d71"),getGradientName("支持的鱼类 ⇨")));
         display.add(new CustomItemStack(CustomHead.getHead("26314d31b095e4d421760497be6a156f459d8c9957b7e6b1c12deb4e47860d71"),getGradientName("产出的产物 ⇨")));
 

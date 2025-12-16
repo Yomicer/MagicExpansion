@@ -645,9 +645,9 @@ public enum Fish {
     // ======================
     public enum WeightRarity {
         COMMON_FISH("§f普通鱼", "§f",1),
-        RARE_FISH("§e稀有鱼", "§e",4),
-        SUPER_RARE_FISH("§b超级稀有鱼", "§b",11),
-        MAX_WEIGHT_FISH("§c§l鱼皇", "§c§l", 999);
+        RARE_FISH("§e稀有鱼", "§e",7),
+        SUPER_RARE_FISH("§b超级稀有鱼", "§b",15),
+        MAX_WEIGHT_FISH("§c§l鱼皇", "§c§l", 9999);
 
         private final String displayName;
         private final String colorCode;

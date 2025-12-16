@@ -228,8 +228,9 @@ public class FishOutputMachineEasy extends MenuBlock implements EnergyNetCompone
                 if (baseOutput != null) {
 
                     int multiplier = WeightRarity.getMultiplierByName(weightRarityName);
-                    if (multiplier == 4) multiplier = 2;
-                    if (multiplier == 11) multiplier = 3;
+                    if (multiplier == 7) multiplier = 3;
+                    if (multiplier == 15) multiplier = 8;
+                    if (multiplier == 9999) multiplier = 888;
                     int amount = (int) (weight * multiplier);
                     if (amount <= 0) amount = 1;
 
@@ -355,7 +356,7 @@ public class FishOutputMachineEasy extends MenuBlock implements EnergyNetCompone
         display.add(new CustomItemStack(Material.KNOWLEDGE_BOOK, getGradientName("使用说明⇩"),getGradientName("请务必仔细阅读")));
         display.add(new CustomItemStack(Material.BOOK, getGradientName("产出量算法："),getGradientName("每个机器只能放置一条魔法鱼")
                 ,getGradientName("产出量 = 重量(向下取整) * 魔法鱼稀有程度")
-                ,getGradientName("普通/稀有/超级稀有/鱼皇 : 1/2/3/999")));
+                ,getGradientName("普通/稀有/超级稀有/鱼皇 : 1/4/8/888")));
         display.add(new CustomItemStack(CustomHead.getHead("26314d31b095e4d421760497be6a156f459d8c9957b7e6b1c12deb4e47860d71"),getGradientName("支持的鱼类 ⇨")));
         display.add(new CustomItemStack(CustomHead.getHead("26314d31b095e4d421760497be6a156f459d8c9957b7e6b1c12deb4e47860d71"),getGradientName("产出的产物 ⇨")));
 
