@@ -77,6 +77,13 @@ public class MagicExpansionPowerMachineSetup {
         },131452)
                 .setPowerType("生态缸")
                 .register(plugin);
+        new FishOutputMachineStack(magicexpansionresourcegenerator, MagicExpansionItems.FISH_VIVARIUM_STACK, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MagicExpansionItems.FISH_VIVARIUM_EASY, MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_3,MagicExpansionItems.FISH_VIVARIUM_EASY,
+                MagicExpansionItems.AMETHYST_SHARD,MagicExpansionItems.SPACE_INFINITY_MAGIC,MagicExpansionItems.AMETHYST_SHARD,
+                MagicExpansionItems.FISH_VIVARIUM_EASY,MagicExpansionItems.PURE_ELEMENT_WATER,MagicExpansionItems.FISH_VIVARIUM_EASY
+        },1314520)
+                .setPowerType("以太生态阵列")
+                .register(plugin);
 
 
         new EnergyInputGenerator(magicexpansionpower, MagicExpansionItems.MAGIC_POWER_INPUT_MACHINE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {

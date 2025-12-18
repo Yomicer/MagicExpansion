@@ -2,9 +2,13 @@ package io.Yomicer.magicExpansion.items.generators;
 
 import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
+import io.Yomicer.magicExpansion.MagicExpansion;
 import io.Yomicer.magicExpansion.items.abstracts.MenuBlock;
+import io.Yomicer.magicExpansion.items.misc.CargoCore;
+import io.Yomicer.magicExpansion.items.misc.CargoCoreMore;
 import io.Yomicer.magicExpansion.items.misc.fish.Fish;
 import io.Yomicer.magicExpansion.items.misc.fish.FishKeys;
+import io.Yomicer.magicExpansion.items.tools.VoidTouch;
 import io.Yomicer.magicExpansion.utils.CustomHeadUtils.CustomHead;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
@@ -15,12 +19,13 @@ import io.github.thebusybiscuit.slimefun4.core.attributes.RecipeDisplayItem;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
+import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.inventory.DirtyChestMenu;
 import net.guizhanss.guizhanlib.minecraft.helper.inventory.ItemStackHelper;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -29,14 +34,14 @@ import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import static io.Yomicer.magicExpansion.items.generators.FishOutputMachine.FISH_OUTPUT_MAP;
 import static io.Yomicer.magicExpansion.items.misc.fish.Fish.WeightRarity;
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getRandomGradientName;
+import static io.Yomicer.magicExpansion.utils.SameItemJudge.itemFromBase64;
+import static io.Yomicer.magicExpansion.utils.SameItemJudge.itemToBase64;
 import static io.Yomicer.magicExpansion.utils.Utils.doGlow;
 
 public class FishOutputMachineEasy extends MenuBlock implements EnergyNetComponent, RecipeDisplayItem {
@@ -44,124 +49,129 @@ public class FishOutputMachineEasy extends MenuBlock implements EnergyNetCompone
     private final int Capacity;
     public static final int ENERGY_CONSUMPTION = 260;
     private static final int FishSlot = 49;
+    private static final int VoidTouchSlot = 50;
+    private static final NamespacedKey KEY_X = new NamespacedKey(MagicExpansion.getInstance(), "touch_x");
+    private static final NamespacedKey KEY_Y = new NamespacedKey(MagicExpansion.getInstance(), "touch_y");
+    private static final NamespacedKey KEY_Z = new NamespacedKey(MagicExpansion.getInstance(), "touch_z");
+    private static final NamespacedKey KEY_WORLD = new NamespacedKey(MagicExpansion.getInstance(), "touch_world");
 
-    // 1. 定义所有鱼类型与输出物品的映射（集中管理，易扩展）
-    private final Map<String, ItemStack> FISH_OUTPUT_MAP = new LinkedHashMap<>() {{
-        put("CopperDustFish",     SlimefunItems.COPPER_DUST);
-        put("GoldDustFish",       SlimefunItems.GOLD_DUST);
-        put("IronDustFish",       SlimefunItems.IRON_DUST);
-        put("TinDustFish",        SlimefunItems.TIN_DUST);
-        put("SilverDustFish",     SlimefunItems.SILVER_DUST);
-        put("AluminumDustFish",   SlimefunItems.ALUMINUM_DUST);
-        put("LeadDustFish",       SlimefunItems.LEAD_DUST);
-        put("ZincDustFish",       SlimefunItems.ZINC_DUST);
-        put("MagnesiumDustFish",  SlimefunItems.MAGNESIUM_DUST);
-        // 🔶 煤晶鱼 → 煤炭
-        put("CoalFish", new ItemStack(Material.COAL));
-        // 💚 翠宝鱼 → 绿宝石
-        put("EmeraldFish", new ItemStack(Material.EMERALD));
-        // 🔷 靛灵鱼 → 青金石
-        put("LapisFish", new ItemStack(Material.LAPIS_LAZULI));
-        // 💎 晶耀鱼 → 钻石
-        put("DiamondFish", new ItemStack(Material.DIAMOND));
-        // 🔴 焰晶鱼 → 下界石英
-        put("QuartzFish", new ItemStack(Material.QUARTZ));
-        // 🟣 震颤鱼 → 紫水晶碎片
-        put("AmethystFish", new ItemStack(Material.AMETHYST_SHARD));
-        // ⚫ 铁核鱼 → 铁锭
-        put("IronFish", new ItemStack(Material.IRON_INGOT));
-        // 🟡 鎏核鱼 → 金锭
-        put("GoldFish", new ItemStack(Material.GOLD_INGOT));
-        // 🟠 铜脉鱼 → 铜锭
-        put("CopperFish", new ItemStack(Material.COPPER_INGOT));
-        // 🟠 赤脉鱼 → 红石
-        put("RedstoneFish", new ItemStack(Material.REDSTONE));
-        // ⚔️ 狱铸鱼 → 下界合金锭
-        put("NetheriteFish", new ItemStack(Material.NETHERITE_INGOT));
-        // ⚔️ 灯笼鱼 → 萤石粉
-        put("GlowStoneDustFish", new ItemStack(Material.GLOWSTONE_DUST));
-        // ⚔️ 塑灵鱼 → 塑料纸
-        put("ShuLingYu", SlimefunItems.PLASTIC_SHEET);
-        // ⚔️ 铀核鱼 → U
-        put("UraniumFish", SlimefunItems.URANIUM);
-        // ⚔️ 油岩鱼 → 原油桶
-        put("OilRockFish", SlimefunItems.OIL_BUCKET);
-        // ⚔️ 泡晶鱼 → 起泡锭
-        put("FoamCrystalFish", SlimefunItems.BLISTERING_INGOT_3);
-        // ⚔️ 黑曜鱼 → 黑金刚石
-        put("BlackDiamondFish", SlimefunItems.CARBONADO);
-        // ⚔️ 灵咒鱼 → 附魔之瓶
-        put("EnchantedBottleFish", new ItemStack(Material.EXPERIENCE_BOTTLE));
-        // ⚔️ 晶鳞鱼 → 硫酸盐
-        put("SulfateFish", SlimefunItems.SULFATE);
-        // ⚔️ 酸晶鱼 → 硅
-        put("SiliconFish", SlimefunItems.SILICON);
-
-        // 【合金灵鱼】用于生产：强化合金锭
-        put("ReinforcedAlloyFish", SlimefunItems.REINFORCED_ALLOY_INGOT);
-
-        // 【硬化灵鱼】用于生产：硬化金属
-        put("HardenedMetalFish", SlimefunItems.HARDENED_METAL_INGOT);
-
-        // 【大马士革灵鱼】用于生产：大马士革钢锭
-        put("DamascusSoulFish", SlimefunItems.DAMASCUS_STEEL_INGOT);
-
-        // 【钢魄鱼】用于生产：钢锭
-        put("SteelSoulFish", SlimefunItems.STEEL_INGOT);
-
-        // 【青铜古影鱼】用于生产：青铜锭
-        put("BronzeAncientFish", SlimefunItems.BRONZE_INGOT);
-
-        // 【硬铝天翔鱼】用于生产：硬铝锭
-        put("HardlightAluFish", SlimefunItems.DURALUMIN_INGOT);
-
-        // 【银铜灵鱼】用于生产：银铜合金锭
-        put("SilverCopperFish", SlimefunItems.BILLON_INGOT);
-
-        // 【黄铜鸣音鱼】用于生产：黄铜锭
-        put("BrassResonanceFish", SlimefunItems.BRASS_INGOT);
-
-        // 【铝黄铜灵鱼】用于生产：铝黄铜锭
-        put("AluminumBrassFish", SlimefunItems.ALUMINUM_BRASS_INGOT);
-
-        // 【铝青铜灵鱼】用于生产：铝青铜锭
-        put("AluminumBronzeFish", SlimefunItems.ALUMINUM_BRONZE_INGOT);
-
-        // 【科林斯青铜灵鱼】用于生产：科林斯青铜锭
-        put("CorinthianBronzeFish", SlimefunItems.CORINTHIAN_BRONZE_INGOT);
-
-        // 【焊锡灵鱼】用于生产：焊锡锭
-        put("SolderFlowFish", SlimefunItems.SOLDER_INGOT);
-
-        // 【镍魄鱼】用于生产：镍锭
-        put("NickelSpiritFish", SlimefunItems.NICKEL_INGOT);
-
-        // 【钴焰鱼】用于生产：钴锭
-        put("CobaltFlameFish", SlimefunItems.COBALT_INGOT);
-
-        // 【硅铁灵鱼】用于生产：硅铁
-        put("SiliconIronFish", SlimefunItems.FERROSILICON);
-
-        // 【碳魂鱼】用于生产：碳块
-        put("CarbonSoulFish", SlimefunItems.CARBON_CHUNK);
-
-        // 【镀金灵鱼】用于生产：镀金铁锭
-        put("GildedIronFish", SlimefunItems.GILDED_IRON);
-
-        // 【红石合金灵鱼】用于生产：红石合金锭
-        put("RedstoneAlloyFish", SlimefunItems.REDSTONE_ALLOY);
-
-        // 【镎影鱼】用于生产：镎
-        put("NeptuniumShadowFish", SlimefunItems.NEPTUNIUM);
-
-        // 【钚心鱼】用于生产：钚
-        put("PlutoniumCoreFish", SlimefunItems.PLUTONIUM);
-
-
-
-
-
-    }};
+//    // 1. 定义所有鱼类型与输出物品的映射（集中管理，易扩展）
+//    private final Map<String, ItemStack> FISH_OUTPUT_MAP = new LinkedHashMap<>() {{
+//        put("CopperDustFish",     SlimefunItems.COPPER_DUST);
+//        put("GoldDustFish",       SlimefunItems.GOLD_DUST);
+//        put("IronDustFish",       SlimefunItems.IRON_DUST);
+//        put("TinDustFish",        SlimefunItems.TIN_DUST);
+//        put("SilverDustFish",     SlimefunItems.SILVER_DUST);
+//        put("AluminumDustFish",   SlimefunItems.ALUMINUM_DUST);
+//        put("LeadDustFish",       SlimefunItems.LEAD_DUST);
+//        put("ZincDustFish",       SlimefunItems.ZINC_DUST);
+//        put("MagnesiumDustFish",  SlimefunItems.MAGNESIUM_DUST);
+//        // 🔶 煤晶鱼 → 煤炭
+//        put("CoalFish", new ItemStack(Material.COAL));
+//        // 💚 翠宝鱼 → 绿宝石
+//        put("EmeraldFish", new ItemStack(Material.EMERALD));
+//        // 🔷 靛灵鱼 → 青金石
+//        put("LapisFish", new ItemStack(Material.LAPIS_LAZULI));
+//        // 💎 晶耀鱼 → 钻石
+//        put("DiamondFish", new ItemStack(Material.DIAMOND));
+//        // 🔴 焰晶鱼 → 下界石英
+//        put("QuartzFish", new ItemStack(Material.QUARTZ));
+//        // 🟣 震颤鱼 → 紫水晶碎片
+//        put("AmethystFish", new ItemStack(Material.AMETHYST_SHARD));
+//        // ⚫ 铁核鱼 → 铁锭
+//        put("IronFish", new ItemStack(Material.IRON_INGOT));
+//        // 🟡 鎏核鱼 → 金锭
+//        put("GoldFish", new ItemStack(Material.GOLD_INGOT));
+//        // 🟠 铜脉鱼 → 铜锭
+//        put("CopperFish", new ItemStack(Material.COPPER_INGOT));
+//        // 🟠 赤脉鱼 → 红石
+//        put("RedstoneFish", new ItemStack(Material.REDSTONE));
+//        // ⚔️ 狱铸鱼 → 下界合金锭
+//        put("NetheriteFish", new ItemStack(Material.NETHERITE_INGOT));
+//        // ⚔️ 灯笼鱼 → 萤石粉
+//        put("GlowStoneDustFish", new ItemStack(Material.GLOWSTONE_DUST));
+//        // ⚔️ 塑灵鱼 → 塑料纸
+//        put("ShuLingYu", SlimefunItems.PLASTIC_SHEET);
+//        // ⚔️ 铀核鱼 → U
+//        put("UraniumFish", SlimefunItems.URANIUM);
+//        // ⚔️ 油岩鱼 → 原油桶
+//        put("OilRockFish", SlimefunItems.OIL_BUCKET);
+//        // ⚔️ 泡晶鱼 → 起泡锭
+//        put("FoamCrystalFish", SlimefunItems.BLISTERING_INGOT_3);
+//        // ⚔️ 黑曜鱼 → 黑金刚石
+//        put("BlackDiamondFish", SlimefunItems.CARBONADO);
+//        // ⚔️ 灵咒鱼 → 附魔之瓶
+//        put("EnchantedBottleFish", new ItemStack(Material.EXPERIENCE_BOTTLE));
+//        // ⚔️ 晶鳞鱼 → 硫酸盐
+//        put("SulfateFish", SlimefunItems.SULFATE);
+//        // ⚔️ 酸晶鱼 → 硅
+//        put("SiliconFish", SlimefunItems.SILICON);
+//
+//        // 【合金灵鱼】用于生产：强化合金锭
+//        put("ReinforcedAlloyFish", SlimefunItems.REINFORCED_ALLOY_INGOT);
+//
+//        // 【硬化灵鱼】用于生产：硬化金属
+//        put("HardenedMetalFish", SlimefunItems.HARDENED_METAL_INGOT);
+//
+//        // 【大马士革灵鱼】用于生产：大马士革钢锭
+//        put("DamascusSoulFish", SlimefunItems.DAMASCUS_STEEL_INGOT);
+//
+//        // 【钢魄鱼】用于生产：钢锭
+//        put("SteelSoulFish", SlimefunItems.STEEL_INGOT);
+//
+//        // 【青铜古影鱼】用于生产：青铜锭
+//        put("BronzeAncientFish", SlimefunItems.BRONZE_INGOT);
+//
+//        // 【硬铝天翔鱼】用于生产：硬铝锭
+//        put("HardlightAluFish", SlimefunItems.DURALUMIN_INGOT);
+//
+//        // 【银铜灵鱼】用于生产：银铜合金锭
+//        put("SilverCopperFish", SlimefunItems.BILLON_INGOT);
+//
+//        // 【黄铜鸣音鱼】用于生产：黄铜锭
+//        put("BrassResonanceFish", SlimefunItems.BRASS_INGOT);
+//
+//        // 【铝黄铜灵鱼】用于生产：铝黄铜锭
+//        put("AluminumBrassFish", SlimefunItems.ALUMINUM_BRASS_INGOT);
+//
+//        // 【铝青铜灵鱼】用于生产：铝青铜锭
+//        put("AluminumBronzeFish", SlimefunItems.ALUMINUM_BRONZE_INGOT);
+//
+//        // 【科林斯青铜灵鱼】用于生产：科林斯青铜锭
+//        put("CorinthianBronzeFish", SlimefunItems.CORINTHIAN_BRONZE_INGOT);
+//
+//        // 【焊锡灵鱼】用于生产：焊锡锭
+//        put("SolderFlowFish", SlimefunItems.SOLDER_INGOT);
+//
+//        // 【镍魄鱼】用于生产：镍锭
+//        put("NickelSpiritFish", SlimefunItems.NICKEL_INGOT);
+//
+//        // 【钴焰鱼】用于生产：钴锭
+//        put("CobaltFlameFish", SlimefunItems.COBALT_INGOT);
+//
+//        // 【硅铁灵鱼】用于生产：硅铁
+//        put("SiliconIronFish", SlimefunItems.FERROSILICON);
+//
+//        // 【碳魂鱼】用于生产：碳块
+//        put("CarbonSoulFish", SlimefunItems.CARBON_CHUNK);
+//
+//        // 【镀金灵鱼】用于生产：镀金铁锭
+//        put("GildedIronFish", SlimefunItems.GILDED_IRON);
+//
+//        // 【红石合金灵鱼】用于生产：红石合金锭
+//        put("RedstoneAlloyFish", SlimefunItems.REDSTONE_ALLOY);
+//
+//        // 【镎影鱼】用于生产：镎
+//        put("NeptuniumShadowFish", SlimefunItems.NEPTUNIUM);
+//
+//        // 【钚心鱼】用于生产：钚
+//        put("PlutoniumCoreFish", SlimefunItems.PLUTONIUM);
+//
+//
+//
+//
+//
+//    }};
 
 
     public FishOutputMachineEasy(ItemGroup category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int Capacity) {
@@ -189,8 +199,8 @@ public class FishOutputMachineEasy extends MenuBlock implements EnergyNetCompone
 
         if(inv != null && inv.hasViewer()) {
             if (getCharge(block.getLocation()) < getEnergyConsumption()) {
-                inv.addItem(40, new CustomItemStack(doGlow(Material.LANTERN), getGradientName("⚡机器停止运行⚡"),
-                                getGradientName("请检查电力供应是否充足或鱼种是否符合")),
+                inv.addItem(48, new CustomItemStack(doGlow(Material.LANTERN), getGradientName("⚡机器停止运行⚡"),
+                                getGradientName("请检查电力供应是否充足")),
                         (player1, slot, item, action) -> false);
                 return;
             }
@@ -231,33 +241,198 @@ public class FishOutputMachineEasy extends MenuBlock implements EnergyNetCompone
                     if (multiplier == 7) multiplier = 3;
                     if (multiplier == 15) multiplier = 8;
                     if (multiplier == 9999) multiplier = 888;
-                    int amount = (int) (weight * multiplier);
-                    if (amount <= 0) amount = 1;
+                    long amount = (long) (weight * multiplier); // 使用 long 防止中间结果溢出
+                    if (amount <= 0) {
+                        amount = 1;
+                    } else if (amount > Integer.MAX_VALUE) {
+                        amount = Integer.MAX_VALUE; // 超过上限则截断
+                    }
 
-                    baseOutput.setAmount(amount);
+                    baseOutput.setAmount((int) amount);
                     outItems = baseOutput;
 
                 }
             }
 
         }
+        if (inv != null && inv.hasViewer() && outItems != null) {
+            inv.addItem(48, new CustomItemStack(doGlow(Material.SOUL_LANTERN), getGradientName("⚡机器正在运行⚡"),
+                            getGradientName("本机器会源源不断地生产，即使输出槽已经填满了"),
+                            getGradientName("当前产出: ")+ ItemStackHelper.getDisplayName(outItems),
+                            getGradientName("当前效率: ")+ "§r" +getRandomGradientName(calculateRealAmount(outItems) + "个/tick")),
+                    (player1, slot, item, action) -> false);
+        } else {
+            if (inv != null && inv.hasViewer()) {
+                inv.addItem(48, new CustomItemStack(doGlow(Material.LANTERN), getGradientName("⚡机器停止运行⚡"),
+                                getGradientName("请检查鱼种是否符合")),
+                        (player1, slot, item, action) -> false);
+            }
+        }
+
+        ItemStack VoidTouchSlotItem = inv.getItemInSlot(VoidTouchSlot);
+        if (VoidTouchSlotItem != null && !VoidTouchSlotItem.getType().isAir() && outItems != null){
+            SlimefunItem VoidTouchItem = SlimefunItem.getByItem(VoidTouchSlotItem);
+            if (VoidTouchItem != null && VoidTouchItem instanceof VoidTouch) {
+                ItemMeta VoidTouchMeta = VoidTouchSlotItem.getItemMeta();
+                if (VoidTouchMeta != null) {
+                    PersistentDataContainer container = VoidTouchMeta.getPersistentDataContainer();
+                    if (container.has(KEY_X, PersistentDataType.INTEGER) &&
+                            container.has(KEY_Y, PersistentDataType.INTEGER) &&
+                            container.has(KEY_Z, PersistentDataType.INTEGER) &&
+                            container.has(KEY_WORLD, PersistentDataType.STRING)) {
+
+                        String worldName = container.get(KEY_WORLD, PersistentDataType.STRING);
+                        World world = Bukkit.getWorld(worldName);
+
+                        if (world != null) {
+                            int x = container.get(KEY_X, PersistentDataType.INTEGER);
+                            int y = container.get(KEY_Y, PersistentDataType.INTEGER);
+                            int z = container.get(KEY_Z, PersistentDataType.INTEGER);
+
+                            Location targetLocation = new Location(world, x, y, z);
+                            SlimefunItem sfItem = StorageCacheUtils.getSfItem(targetLocation);
+
+                            if (sfItem != null) {
+                                if (sfItem instanceof CargoCoreMore) {
+                                    if (pushItemToCargoCore(targetLocation, outItems)){
+                                        removeCharge(block.getLocation(), getEnergyConsumption());
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         if (outItems != null && inv != null) {
             removeCharge(block.getLocation(), getEnergyConsumption());
-            inv.addItem(40, new CustomItemStack(doGlow(Material.SOUL_LANTERN), getGradientName("⚡机器正在运行⚡"),
-                            getGradientName("本机器会源源不断地生产，即使输出槽已经填满了"),
-                            getRandomGradientName("当前产出: ")+ ItemStackHelper.getDisplayName(outItems),
-                            getRandomGradientName("当前效率: "+ calculateRealAmount(outItems) + "个/tick")),
-                    (player1, slot, item, action) -> false);
             pushAllItems(inv,outItems, getOutputSlots());
-            return;
-        }
-        if (inv != null) {
-            inv.addItem(40, new CustomItemStack(doGlow(Material.LANTERN), getGradientName("⚡机器停止运行⚡"),
-                            getGradientName("请检查电力供应是否充足或鱼种是否符合")),
-                    (player1, slot, item, action) -> false);
         }
 
     }
+
+    private boolean pushItemToCargoCore (Location loc, ItemStack item) {
+        BlockMenu inv = StorageCacheUtils.getMenu(loc);
+        if (inv != null) {
+            SlimefunBlockData data = StorageCacheUtils.getBlock(loc);
+            if (data == null) return false;
+            if (hasStoredItem(data, item)) {
+                storeItemToExistingSlot(data, item);
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+    /**
+     * 检查CargoCore中是否已经有该物品
+     */
+    private boolean hasStoredItem(SlimefunBlockData data, ItemStack item) {
+        if (item == null || item.getType() == Material.AIR) return false;
+
+        ItemStack prototype = item.clone();
+        prototype.setAmount(1);
+
+        // 遍历所有存储槽位
+        for (int i = 0; i < MAX_STORED_ITEMS; i++) {
+            String jsonData = data.getData("item_type_" + i);
+            if (jsonData == null || jsonData.isEmpty()) continue;
+
+            try {
+                ItemStack storedItem = itemFromBase64(jsonData);
+                if (storedItem != null && storedItem.getType() != Material.AIR) {
+                    storedItem.setAmount(1); // 确保只比较类型
+
+                    // 比较物品是否相同
+                    if (SlimefunUtils.isItemSimilar(prototype, storedItem, true)) {
+                        // 检查当前数量
+                        String countStr = data.getData("item_count_" + i);
+                        if (countStr != null && !countStr.isEmpty()) {
+                            try {
+                                long count = Long.parseLong(countStr);
+                                if (count > 0) {
+                                    return true; // 有该物品且数量>0
+                                }
+                            } catch (Exception e) {
+                                continue;
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                continue;
+            }
+        }
+
+        return false;
+    }
+    /**
+     * 只向已有物品的槽位存储（不创建新槽位）
+     */
+    private void storeItemToExistingSlot(SlimefunBlockData data, ItemStack item) {
+        if (item == null || item.getType() == Material.AIR) return;
+
+        ItemStack prototype = item.clone();
+        prototype.setAmount(1);
+        int amountToStore = item.getAmount();
+
+        // 查找匹配的已有槽位
+        for (int i = 0; i < MAX_STORED_ITEMS; i++) {
+            String jsonData = data.getData("item_type_" + i);
+            if (jsonData == null || jsonData.isEmpty()) continue;
+
+            try {
+                ItemStack storedItem = itemFromBase64(jsonData);
+                if (storedItem != null && storedItem.getType() != Material.AIR) {
+                    storedItem.setAmount(1); // 确保只比较类型
+
+                    if (SlimefunUtils.isItemSimilar(prototype, storedItem, true)) {
+                        // 找到匹配的槽位，增加数量
+                        long currentCount = 0;
+                        String countStr = data.getData("item_count_" + i);
+                        if (countStr != null && !countStr.isEmpty()) {
+                            try {
+                                currentCount = Long.parseLong(countStr);
+                            } catch (Exception e) {
+                                continue;
+                            }
+                        }
+
+                        // 计算新数量
+                        long newCount = currentCount + amountToStore;
+                        data.setData("item_count_" + i, String.valueOf(newCount));
+
+                        // 检查是否有数量限制
+                        String maxStr = data.getData("item_max_" + i);
+                        if (maxStr != null && !maxStr.isEmpty()) {
+                            try {
+                                long maxCount = Long.parseLong(maxStr);
+                                if (maxCount != -1 && newCount > maxCount) {
+                                    // 如果超过上限，调整到上限
+                                    newCount = maxCount;
+                                    data.setData("item_count_" + i, String.valueOf(newCount));
+                                }
+                            } catch (Exception e) {
+                                // 最大数量解析失败，忽略
+                            }
+                        }
+
+                        // 存储成功，返回
+                        return;
+                    }
+                }
+            } catch (Exception e) {
+                continue;
+            }
+        }
+
+        // 如果没有找到匹配的槽位，什么也不做（不存储新物品）
+    }
+
+    private static final int MAX_STORED_ITEMS = 1145; // 最多支持 18 种不同物品
 
     private int calculateRealAmount(ItemStack item) {
         int totalAmount = item.getAmount(); // 这就是原始总数量
@@ -300,26 +475,31 @@ public class FishOutputMachineEasy extends MenuBlock implements EnergyNetCompone
 
     @Override
     protected void setup(BlockMenuPreset var1) {
-        var1.drawBackground(new CustomItemStack(Material.PINK_STAINED_GLASS_PANE,"§b请将鱼放入到该槽位中"),new int[] {
+        var1.drawBackground(new CustomItemStack(Material.LIGHT_BLUE_STAINED_GLASS_PANE,getGradientName("请将鱼放入到该槽位中")),new int[] {
 
-                48,  50
+                40
         });
-        var1.drawBackground(new CustomItemStack(Material.LIME_STAINED_GLASS_PANE,"§b机器工作状态"),new int[] {
+        var1.drawBackground(new CustomItemStack(Material.CHAIN,getGradientName("虚空之触槽位")),new int[] {
 
-                39, 40, 41
+                41
         });
+        var1.drawBackground(new CustomItemStack(Material.END_CRYSTAL,getGradientName("机器工作状态")),new int[] {
+
+                39, 48
+        });
+
 
     }
     @Nonnull
     @Override
     protected int[] getInputSlots(DirtyChestMenu dirtyChestMenu, ItemStack itemStack) {
-        return new int[]{49};
+        return new int[]{49, 50};
     }
 
     @Override
     protected int[] getInputSlots() {
         return new int[]{
-                49
+                49, 50
         };
     }
 

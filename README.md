@@ -70,3 +70,15 @@ This is Yomicer‘s first Slimefun addon project
 - **More Future（更多未来）**
   - In Update Log（更多内容见更新日志）
 
+
+
+**问题反馈**
+
+- 直接向本仓库提出issue
+  - 请确保使用的是最新版构建
+- 企鹅交流群: 770346419
+
+
+
+
+

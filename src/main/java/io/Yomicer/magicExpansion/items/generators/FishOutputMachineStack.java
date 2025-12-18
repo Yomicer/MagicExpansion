@@ -3,8 +3,10 @@ package io.Yomicer.magicExpansion.items.generators;
 import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 import io.Yomicer.magicExpansion.MagicExpansion;
+import io.Yomicer.magicExpansion.core.MagicExpansionItems;
 import io.Yomicer.magicExpansion.items.abstracts.MenuBlock;
 import io.Yomicer.magicExpansion.items.misc.CargoCoreMore;
+import io.Yomicer.magicExpansion.items.misc.CargoFragment;
 import io.Yomicer.magicExpansion.items.misc.fish.Fish;
 import io.Yomicer.magicExpansion.items.misc.fish.FishKeys;
 import io.Yomicer.magicExpansion.items.tools.VoidTouch;
@@ -14,7 +16,6 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
-import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetProvider;
 import io.github.thebusybiscuit.slimefun4.core.attributes.RecipeDisplayItem;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
@@ -27,7 +28,6 @@ import me.mrCookieSlime.Slimefun.api.inventory.DirtyChestMenu;
 import net.guizhanss.guizhanlib.minecraft.helper.inventory.ItemStackHelper;
 import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -35,145 +35,159 @@ import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
-import static io.Yomicer.magicExpansion.items.misc.fish.Fish.*;
+import static io.Yomicer.magicExpansion.items.generators.FishOutputMachine.FISH_OUTPUT_MAP;
+import static io.Yomicer.magicExpansion.items.misc.fish.Fish.WeightRarity;
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getRandomGradientName;
 import static io.Yomicer.magicExpansion.utils.SameItemJudge.itemFromBase64;
 import static io.Yomicer.magicExpansion.utils.Utils.doGlow;
 
-public class FishOutputMachine extends MenuBlock implements EnergyNetComponent, RecipeDisplayItem {
+public class FishOutputMachineStack extends MenuBlock implements EnergyNetComponent, RecipeDisplayItem {
 
     private final int Capacity;
-    public static final int ENERGY_CONSUMPTION = 260;
+    public static final int ENERGY_CONSUMPTION = 26000;
     private static final int FishSlot = 49;
     private static final int VoidTouchSlot = 50;
     private static final NamespacedKey KEY_X = new NamespacedKey(MagicExpansion.getInstance(), "touch_x");
     private static final NamespacedKey KEY_Y = new NamespacedKey(MagicExpansion.getInstance(), "touch_y");
     private static final NamespacedKey KEY_Z = new NamespacedKey(MagicExpansion.getInstance(), "touch_z");
     private static final NamespacedKey KEY_WORLD = new NamespacedKey(MagicExpansion.getInstance(), "touch_world");
+    private static final NamespacedKey KEY_ITEM = new NamespacedKey(MagicExpansion.getInstance(), "cargo_item_json");
+    private static final NamespacedKey KEY_AMOUNT = new NamespacedKey(MagicExpansion.getInstance(), "cargo_amount");
+    private static final int [] MachineSlots = new int [] {
+            0,1,2,3,4,5,6,7,8,
+            9,10,11,12,13,14,15,16,17,
+            18,19,20,21,22,23,24,25,26,
+            27,28,29,30,31,32,33,34,35,
+            36,37,38, 42,43,44,
+            45,46,47, 51,52,53
+    };
 
-    // 1. 定义所有鱼类型与输出物品的映射（集中管理，易扩展）
-    public static final Map<String, ItemStack> FISH_OUTPUT_MAP = new LinkedHashMap<>() {{
-        put("CopperDustFish",     SlimefunItems.COPPER_DUST);
-        put("GoldDustFish",       SlimefunItems.GOLD_DUST);
-        put("IronDustFish",       SlimefunItems.IRON_DUST);
-        put("TinDustFish",        SlimefunItems.TIN_DUST);
-        put("SilverDustFish",     SlimefunItems.SILVER_DUST);
-        put("AluminumDustFish",   SlimefunItems.ALUMINUM_DUST);
-        put("LeadDustFish",       SlimefunItems.LEAD_DUST);
-        put("ZincDustFish",       SlimefunItems.ZINC_DUST);
-        put("MagnesiumDustFish",  SlimefunItems.MAGNESIUM_DUST);
-        // 🔶 煤晶鱼 → 煤炭
-        put("CoalFish", new ItemStack(Material.COAL));
-        // 💚 翠宝鱼 → 绿宝石
-        put("EmeraldFish", new ItemStack(Material.EMERALD));
-        // 🔷 靛灵鱼 → 青金石
-        put("LapisFish", new ItemStack(Material.LAPIS_LAZULI));
-        // 💎 晶耀鱼 → 钻石
-        put("DiamondFish", new ItemStack(Material.DIAMOND));
-        // 🔴 焰晶鱼 → 下界石英
-        put("QuartzFish", new ItemStack(Material.QUARTZ));
-        // 🟣 震颤鱼 → 紫水晶碎片
-        put("AmethystFish", new ItemStack(Material.AMETHYST_SHARD));
-        // ⚫ 铁核鱼 → 铁锭
-        put("IronFish", new ItemStack(Material.IRON_INGOT));
-        // 🟡 鎏核鱼 → 金锭
-        put("GoldFish", new ItemStack(Material.GOLD_INGOT));
-        // 🟠 铜脉鱼 → 铜锭
-        put("CopperFish", new ItemStack(Material.COPPER_INGOT));
-        // 🟠 赤脉鱼 → 红石
-        put("RedstoneFish", new ItemStack(Material.REDSTONE));
-        // ⚔️ 狱铸鱼 → 下界合金锭
-        put("NetheriteFish", new ItemStack(Material.NETHERITE_INGOT));
-        // ⚔️ 灯笼鱼 → 萤石粉
-        put("GlowStoneDustFish", new ItemStack(Material.GLOWSTONE_DUST));
-        // ⚔️ 塑灵鱼 → 塑料纸
-        put("ShuLingYu", SlimefunItems.PLASTIC_SHEET);
-        // ⚔️ 铀核鱼 → U
-        put("UraniumFish", SlimefunItems.URANIUM);
-        // ⚔️ 油岩鱼 → 原油桶
-        put("OilRockFish", SlimefunItems.OIL_BUCKET);
-        // ⚔️ 泡晶鱼 → 起泡锭
-        put("FoamCrystalFish", SlimefunItems.BLISTERING_INGOT_3);
-        // ⚔️ 黑曜鱼 → 黑金刚石
-        put("BlackDiamondFish", SlimefunItems.CARBONADO);
-        // ⚔️ 灵咒鱼 → 附魔之瓶
-        put("EnchantedBottleFish", new ItemStack(Material.EXPERIENCE_BOTTLE));
-        // ⚔️ 晶鳞鱼 → 硫酸盐
-        put("SulfateFish", SlimefunItems.SULFATE);
-        // ⚔️ 酸晶鱼 → 硅
-        put("SiliconFish", SlimefunItems.SILICON);
+//    // 1. 定义所有鱼类型与输出物品的映射（集中管理，易扩展）
+//    private final Map<String, ItemStack> FISH_OUTPUT_MAP = new LinkedHashMap<>() {{
+//        put("CopperDustFish",     SlimefunItems.COPPER_DUST);
+//        put("GoldDustFish",       SlimefunItems.GOLD_DUST);
+//        put("IronDustFish",       SlimefunItems.IRON_DUST);
+//        put("TinDustFish",        SlimefunItems.TIN_DUST);
+//        put("SilverDustFish",     SlimefunItems.SILVER_DUST);
+//        put("AluminumDustFish",   SlimefunItems.ALUMINUM_DUST);
+//        put("LeadDustFish",       SlimefunItems.LEAD_DUST);
+//        put("ZincDustFish",       SlimefunItems.ZINC_DUST);
+//        put("MagnesiumDustFish",  SlimefunItems.MAGNESIUM_DUST);
+//        // 🔶 煤晶鱼 → 煤炭
+//        put("CoalFish", new ItemStack(Material.COAL));
+//        // 💚 翠宝鱼 → 绿宝石
+//        put("EmeraldFish", new ItemStack(Material.EMERALD));
+//        // 🔷 靛灵鱼 → 青金石
+//        put("LapisFish", new ItemStack(Material.LAPIS_LAZULI));
+//        // 💎 晶耀鱼 → 钻石
+//        put("DiamondFish", new ItemStack(Material.DIAMOND));
+//        // 🔴 焰晶鱼 → 下界石英
+//        put("QuartzFish", new ItemStack(Material.QUARTZ));
+//        // 🟣 震颤鱼 → 紫水晶碎片
+//        put("AmethystFish", new ItemStack(Material.AMETHYST_SHARD));
+//        // ⚫ 铁核鱼 → 铁锭
+//        put("IronFish", new ItemStack(Material.IRON_INGOT));
+//        // 🟡 鎏核鱼 → 金锭
+//        put("GoldFish", new ItemStack(Material.GOLD_INGOT));
+//        // 🟠 铜脉鱼 → 铜锭
+//        put("CopperFish", new ItemStack(Material.COPPER_INGOT));
+//        // 🟠 赤脉鱼 → 红石
+//        put("RedstoneFish", new ItemStack(Material.REDSTONE));
+//        // ⚔️ 狱铸鱼 → 下界合金锭
+//        put("NetheriteFish", new ItemStack(Material.NETHERITE_INGOT));
+//        // ⚔️ 灯笼鱼 → 萤石粉
+//        put("GlowStoneDustFish", new ItemStack(Material.GLOWSTONE_DUST));
+//        // ⚔️ 塑灵鱼 → 塑料纸
+//        put("ShuLingYu", SlimefunItems.PLASTIC_SHEET);
+//        // ⚔️ 铀核鱼 → U
+//        put("UraniumFish", SlimefunItems.URANIUM);
+//        // ⚔️ 油岩鱼 → 原油桶
+//        put("OilRockFish", SlimefunItems.OIL_BUCKET);
+//        // ⚔️ 泡晶鱼 → 起泡锭
+//        put("FoamCrystalFish", SlimefunItems.BLISTERING_INGOT_3);
+//        // ⚔️ 黑曜鱼 → 黑金刚石
+//        put("BlackDiamondFish", SlimefunItems.CARBONADO);
+//        // ⚔️ 灵咒鱼 → 附魔之瓶
+//        put("EnchantedBottleFish", new ItemStack(Material.EXPERIENCE_BOTTLE));
+//        // ⚔️ 晶鳞鱼 → 硫酸盐
+//        put("SulfateFish", SlimefunItems.SULFATE);
+//        // ⚔️ 酸晶鱼 → 硅
+//        put("SiliconFish", SlimefunItems.SILICON);
+//
+//        // 【合金灵鱼】用于生产：强化合金锭
+//        put("ReinforcedAlloyFish", SlimefunItems.REINFORCED_ALLOY_INGOT);
+//
+//        // 【硬化灵鱼】用于生产：硬化金属
+//        put("HardenedMetalFish", SlimefunItems.HARDENED_METAL_INGOT);
+//
+//        // 【大马士革灵鱼】用于生产：大马士革钢锭
+//        put("DamascusSoulFish", SlimefunItems.DAMASCUS_STEEL_INGOT);
+//
+//        // 【钢魄鱼】用于生产：钢锭
+//        put("SteelSoulFish", SlimefunItems.STEEL_INGOT);
+//
+//        // 【青铜古影鱼】用于生产：青铜锭
+//        put("BronzeAncientFish", SlimefunItems.BRONZE_INGOT);
+//
+//        // 【硬铝天翔鱼】用于生产：硬铝锭
+//        put("HardlightAluFish", SlimefunItems.DURALUMIN_INGOT);
+//
+//        // 【银铜灵鱼】用于生产：银铜合金锭
+//        put("SilverCopperFish", SlimefunItems.BILLON_INGOT);
+//
+//        // 【黄铜鸣音鱼】用于生产：黄铜锭
+//        put("BrassResonanceFish", SlimefunItems.BRASS_INGOT);
+//
+//        // 【铝黄铜灵鱼】用于生产：铝黄铜锭
+//        put("AluminumBrassFish", SlimefunItems.ALUMINUM_BRASS_INGOT);
+//
+//        // 【铝青铜灵鱼】用于生产：铝青铜锭
+//        put("AluminumBronzeFish", SlimefunItems.ALUMINUM_BRONZE_INGOT);
+//
+//        // 【科林斯青铜灵鱼】用于生产：科林斯青铜锭
+//        put("CorinthianBronzeFish", SlimefunItems.CORINTHIAN_BRONZE_INGOT);
+//
+//        // 【焊锡灵鱼】用于生产：焊锡锭
+//        put("SolderFlowFish", SlimefunItems.SOLDER_INGOT);
+//
+//        // 【镍魄鱼】用于生产：镍锭
+//        put("NickelSpiritFish", SlimefunItems.NICKEL_INGOT);
+//
+//        // 【钴焰鱼】用于生产：钴锭
+//        put("CobaltFlameFish", SlimefunItems.COBALT_INGOT);
+//
+//        // 【硅铁灵鱼】用于生产：硅铁
+//        put("SiliconIronFish", SlimefunItems.FERROSILICON);
+//
+//        // 【碳魂鱼】用于生产：碳块
+//        put("CarbonSoulFish", SlimefunItems.CARBON_CHUNK);
+//
+//        // 【镀金灵鱼】用于生产：镀金铁锭
+//        put("GildedIronFish", SlimefunItems.GILDED_IRON);
+//
+//        // 【红石合金灵鱼】用于生产：红石合金锭
+//        put("RedstoneAlloyFish", SlimefunItems.REDSTONE_ALLOY);
+//
+//        // 【镎影鱼】用于生产：镎
+//        put("NeptuniumShadowFish", SlimefunItems.NEPTUNIUM);
+//
+//        // 【钚心鱼】用于生产：钚
+//        put("PlutoniumCoreFish", SlimefunItems.PLUTONIUM);
+//
+//
+//
+//
+//
+//    }};
 
-        // 【合金灵鱼】用于生产：强化合金锭
-        put("ReinforcedAlloyFish", SlimefunItems.REINFORCED_ALLOY_INGOT);
 
-        // 【硬化灵鱼】用于生产：硬化金属
-        put("HardenedMetalFish", SlimefunItems.HARDENED_METAL_INGOT);
-
-        // 【大马士革灵鱼】用于生产：大马士革钢锭
-        put("DamascusSoulFish", SlimefunItems.DAMASCUS_STEEL_INGOT);
-
-        // 【钢魄鱼】用于生产：钢锭
-        put("SteelSoulFish", SlimefunItems.STEEL_INGOT);
-
-        // 【青铜古影鱼】用于生产：青铜锭
-        put("BronzeAncientFish", SlimefunItems.BRONZE_INGOT);
-
-        // 【硬铝天翔鱼】用于生产：硬铝锭
-        put("HardlightAluFish", SlimefunItems.DURALUMIN_INGOT);
-
-        // 【银铜灵鱼】用于生产：银铜合金锭
-        put("SilverCopperFish", SlimefunItems.BILLON_INGOT);
-
-        // 【黄铜鸣音鱼】用于生产：黄铜锭
-        put("BrassResonanceFish", SlimefunItems.BRASS_INGOT);
-
-        // 【铝黄铜灵鱼】用于生产：铝黄铜锭
-        put("AluminumBrassFish", SlimefunItems.ALUMINUM_BRASS_INGOT);
-
-        // 【铝青铜灵鱼】用于生产：铝青铜锭
-        put("AluminumBronzeFish", SlimefunItems.ALUMINUM_BRONZE_INGOT);
-
-        // 【科林斯青铜灵鱼】用于生产：科林斯青铜锭
-        put("CorinthianBronzeFish", SlimefunItems.CORINTHIAN_BRONZE_INGOT);
-
-        // 【焊锡灵鱼】用于生产：焊锡锭
-        put("SolderFlowFish", SlimefunItems.SOLDER_INGOT);
-
-        // 【镍魄鱼】用于生产：镍锭
-        put("NickelSpiritFish", SlimefunItems.NICKEL_INGOT);
-
-        // 【钴焰鱼】用于生产：钴锭
-        put("CobaltFlameFish", SlimefunItems.COBALT_INGOT);
-
-        // 【硅铁灵鱼】用于生产：硅铁
-        put("SiliconIronFish", SlimefunItems.FERROSILICON);
-
-        // 【碳魂鱼】用于生产：碳块
-        put("CarbonSoulFish", SlimefunItems.CARBON_CHUNK);
-
-        // 【镀金灵鱼】用于生产：镀金铁锭
-        put("GildedIronFish", SlimefunItems.GILDED_IRON);
-
-        // 【红石合金灵鱼】用于生产：红石合金锭
-        put("RedstoneAlloyFish", SlimefunItems.REDSTONE_ALLOY);
-
-        // 【镎影鱼】用于生产：镎
-        put("NeptuniumShadowFish", SlimefunItems.NEPTUNIUM);
-
-        // 【钚心鱼】用于生产：钚
-        put("PlutoniumCoreFish", SlimefunItems.PLUTONIUM);
-
-
-
-
-
-    }};
-
-
-    public FishOutputMachine(ItemGroup category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int Capacity) {
+    public FishOutputMachineStack(ItemGroup category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int Capacity) {
         super(category, item, recipeType, recipe);
         this.Capacity = Capacity;
     }
@@ -184,7 +198,7 @@ public class FishOutputMachine extends MenuBlock implements EnergyNetComponent, 
 
             @Override
             public void tick(Block b, SlimefunItem sf, SlimefunBlockData data) {
-                FishOutputMachine.this.tick(b);
+                FishOutputMachineStack.this.tick(b);
             }
 
             @Override
@@ -204,6 +218,55 @@ public class FishOutputMachine extends MenuBlock implements EnergyNetComponent, 
                 return;
             }
         }
+        int totalNormalAmount = 0;
+        int totalEasyAmount = 0;
+
+        for (int slot : MachineSlots) {
+            ItemStack item = inv.getItemInSlot(slot);
+            if (item == null || item.getType().isAir()) {
+                continue;
+            }
+
+            SlimefunItem sfItem = SlimefunItem.getByItem(item);
+            if (sfItem == null) {
+                continue;
+            }
+
+            int amount = item.getAmount(); // 获取该格子中物品的堆叠数量
+
+            if (sfItem instanceof FishOutputMachine) {
+                totalNormalAmount += amount;
+            } else if (sfItem instanceof FishOutputMachineEasy) {
+                totalEasyAmount += amount;
+            }
+            // === 第二步：检查是否为 CargoFragment 并解析内部物品 ===
+            if (sfItem instanceof CargoFragment){
+            ItemMeta meta = item.getItemMeta();
+            if (meta != null) {
+                PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+                if (pdc.has(KEY_ITEM, PersistentDataType.STRING) && pdc.has(KEY_AMOUNT, PersistentDataType.INTEGER)) {
+                    String json = pdc.get(KEY_ITEM, PersistentDataType.STRING);
+                    Integer fragmentAmount = pdc.get(KEY_AMOUNT, PersistentDataType.INTEGER);
+
+                    if (json != null && fragmentAmount != null && fragmentAmount > 0) {
+                        ItemStack originalItem = itemFromBase64(json);
+                        if (originalItem != null) {
+                            SlimefunItem originalSfItem = SlimefunItem.getByItem(originalItem);
+                            if (originalSfItem != null) {
+                                if (originalSfItem instanceof FishOutputMachine) {
+                                    totalNormalAmount += fragmentAmount;
+                                } else if (originalSfItem instanceof FishOutputMachineEasy) {
+                                    totalEasyAmount += fragmentAmount;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            }
+        }
+
 
         ItemStack fish = null;
         ItemMeta meta = null;
@@ -230,21 +293,30 @@ public class FishOutputMachine extends MenuBlock implements EnergyNetComponent, 
                 return ;
             }
 
-            // 从映射中查找对应输出物品
             ItemStack baseOutputOrigin = FISH_OUTPUT_MAP.get(fishType);
             if(baseOutputOrigin != null) {
                 ItemStack baseOutput = FISH_OUTPUT_MAP.get(fishType).clone();
                 if (baseOutput != null) {
+                    int multiplier = WeightRarity.getMultiplierByName(weightRarityName);
+                    int multiplierEasy = 0;
+                    if (multiplier == 7) multiplierEasy = 3;
+                    if (multiplier == 15) multiplierEasy = 8;
+                    if (multiplier == 9999) multiplierEasy = 888;
 
-                    int multiplier = Fish.WeightRarity.getMultiplierByName(weightRarityName);
-                    long amount = (long) (weight * multiplier); // 使用 long 防止中间结果溢出
-                    if (amount <= 0) {
-                        amount = 1;
-                    } else if (amount > Integer.MAX_VALUE) {
-                        amount = Integer.MAX_VALUE; // 超过上限则截断
+                    long amount = (long) (weight * multiplier);
+                    long amountEasy = (long) (weight * multiplierEasy);
+                    if (amount <= 0) amount = 1;
+                    if (amountEasy <= 0) amountEasy = 1;
+                    long finalAmount = amount * totalNormalAmount;
+                    long finalAmountEasy = amountEasy * totalEasyAmount;
+                    long finalAmountTotal = finalAmount + finalAmountEasy;
+                    if (finalAmountTotal > Integer.MAX_VALUE) {
+                        finalAmountTotal = Integer.MAX_VALUE;
+                    } else if (finalAmountTotal <= 0) {
+                        finalAmountTotal = 1;
                     }
 
-                    baseOutput.setAmount((int) amount);
+                    baseOutput.setAmount((int)finalAmountTotal);
                     outItems = baseOutput;
 
                 }
@@ -254,9 +326,11 @@ public class FishOutputMachine extends MenuBlock implements EnergyNetComponent, 
 
         if (inv != null && inv.hasViewer() && outItems != null) {
             inv.addItem(48, new CustomItemStack(doGlow(Material.SOUL_LANTERN), getGradientName("⚡机器正在运行⚡"),
-                            getGradientName("本机器会源源不断地生产，即使输出槽已经填满了"),
+                            getGradientName("本机器已取消常规输出口"),
                             getGradientName("当前产出: ")+ ItemStackHelper.getDisplayName(outItems),
-                            getGradientName("当前效率: ")+ "§r" +getRandomGradientName(calculateRealAmount(outItems) + "个/tick")),
+                            ItemStackHelper.getDisplayName(MagicExpansionItems.FISH_VIVARIUM_EASY)+getRandomGradientName("：" + totalEasyAmount + "个"),
+                            ItemStackHelper.getDisplayName(MagicExpansionItems.FISH_VIVARIUM)+getRandomGradientName("：" + totalNormalAmount + "个"),
+                            getGradientName("当前效率")+ "§r" +getRandomGradientName(": " + calculateRealAmount(outItems) + "个/tick")),
                     (player1, slot, item, action) -> false);
         } else {
             if (inv != null && inv.hasViewer()) {
@@ -265,7 +339,6 @@ public class FishOutputMachine extends MenuBlock implements EnergyNetComponent, 
                         (player1, slot, item, action) -> false);
             }
         }
-
         ItemStack VoidTouchSlotItem = inv.getItemInSlot(VoidTouchSlot);
         if (VoidTouchSlotItem != null && !VoidTouchSlotItem.getType().isAir() && outItems != null){
             SlimefunItem VoidTouchItem = SlimefunItem.getByItem(VoidTouchSlotItem);
@@ -293,7 +366,6 @@ public class FishOutputMachine extends MenuBlock implements EnergyNetComponent, 
                                 if (sfItem instanceof CargoCoreMore) {
                                     if (pushItemToCargoCore(targetLocation, outItems)){
                                         removeCharge(block.getLocation(), getEnergyConsumption());
-                                        return;
                                     }
                                 }
                             }
@@ -301,11 +373,6 @@ public class FishOutputMachine extends MenuBlock implements EnergyNetComponent, 
                     }
                 }
             }
-        }
-
-        if (outItems != null && inv != null) {
-            removeCharge(block.getLocation(), getEnergyConsumption());
-            pushAllItems(inv,outItems, getOutputSlots());
         }
 
     }
@@ -489,25 +556,32 @@ public class FishOutputMachine extends MenuBlock implements EnergyNetComponent, 
     @Nonnull
     @Override
     protected int[] getInputSlots(DirtyChestMenu dirtyChestMenu, ItemStack itemStack) {
-        return new int[]{49, 50};
+        return new int[]{49, 50,
+                0,1,2,3,4,5,6,7,8,
+                9,10,11,12,13,14,15,16,17,
+                18,19,20,21,22,23,24,25,26,
+                27,28,29,30,31,32,33,34,35,
+                36,37,38, 42,43,44,
+                45,46,47, 51,52,53};
     }
 
     @Override
     protected int[] getInputSlots() {
         return new int[]{
-                49, 50
-        };
-    }
-
-    @Override
-    protected int[] getOutputSlots() {
-        return new int[]{
+                49, 50,
                 0,1,2,3,4,5,6,7,8,
                 9,10,11,12,13,14,15,16,17,
                 18,19,20,21,22,23,24,25,26,
                 27,28,29,30,31,32,33,34,35,
                 36,37,38, 42,43,44,
                 45,46,47, 51,52,53
+        };
+    }
+
+    @Override
+    protected int[] getOutputSlots() {
+        return new int[]{
+
         };
     }
 

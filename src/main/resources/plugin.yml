@@ -8,6 +8,7 @@ depend: [Slimefun]
 softdepend:
   - RykenSlimeCustomizer
   - GuizhanLibPlugin
+#  - Networks
 ## CHANGE this to a meaninful but short description of your plugin.
 description: Have fun
 
