@@ -218,8 +218,8 @@ public class FishOutputMachineStack extends MenuBlock implements EnergyNetCompon
                 return;
             }
         }
-        int totalNormalAmount = 0;
-        int totalEasyAmount = 0;
+        long totalNormalAmount = 0;
+        long totalEasyAmount = 0;
 
         for (int slot : MachineSlots) {
             ItemStack item = inv.getItemInSlot(slot);
