@@ -30,7 +30,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 52"),
+            getGradientName("Version: Build 53"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -1080,6 +1080,7 @@ public class MagicExpansionItems {
 
 
     public static final SlimefunItemStack WHITE_SLOTS_CHEST_53 = createDefaultPowerMachine("WHITE_SLOTS_CHEST_53",Material.CHEST);
+    public static final SlimefunItemStack CARGO_FRAGMENT_EXTRACT = createDefaultPowerMachine("CARGO_FRAGMENT_EXTRACT",Material.STICK);
 
 
 

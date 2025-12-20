@@ -1843,6 +1843,12 @@ public final class MagicExpansionItemSetup {
                 null, null, null,
                 null, null, null,
         }).register(plugin);
+        //以太秘匣提取器
+        new CargoFragmentExtract(magicexpansionspecialitem, CARGO_FRAGMENT_EXTRACT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                AMETHYST_SHARD,SEND_ITEMS_TO_PLAYER_MACHINE,AMETHYST_SHARD,
+                null, null, null,
+                null, null, null,
+        }).register(plugin);
 
 
 
