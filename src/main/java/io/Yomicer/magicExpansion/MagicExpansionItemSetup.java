@@ -511,6 +511,11 @@ public final class MagicExpansionItemSetup {
                 null, null, null,
                 null, null, null
         }).register(plugin);
+        new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2025_12_20, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
 
 
 
@@ -1830,6 +1835,14 @@ public final class MagicExpansionItemSetup {
                 POWER_CARD,SlimefunItems.SMALL_CAPACITOR,POWER_CARD,
                 MAGIC_EXPANSION_MAGIC_SUGAR_11,PURE_FIVE_ELEMENT,MAGIC_EXPANSION_MAGIC_SUGAR_11,
         },Integer.MAX_VALUE,Integer.MAX_VALUE,1).register(plugin);
+
+
+        //53格空白容器
+        new CHEST_BLOCK(magicexpansionenergy, WHITE_SLOTS_CHEST_53, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                new ItemStack(Material.CHEST),REDSTONE,new ItemStack(Material.CHEST),
+                null, null, null,
+                null, null, null,
+        }).register(plugin);
 
 
 

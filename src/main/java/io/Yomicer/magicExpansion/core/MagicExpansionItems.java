@@ -30,7 +30,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 50"),
+            getGradientName("Version: Build 52"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -770,6 +770,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2025_12_13 = createDefaultItemGlow("UPDATE_LOG_2025_12_13",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_12_16 = createDefaultItemGlow("UPDATE_LOG_2025_12_16",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_12_19 = createDefaultItemGlow("UPDATE_LOG_2025_12_19",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2025_12_20 = createDefaultItemGlow("UPDATE_LOG_2025_12_20",Material.PAPER);
 
 
 
@@ -1075,6 +1076,10 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack FISH_VIVARIUM_STACK = createDefaultPowerMachine("FISH_VIVARIUM_STACK",Material.PINK_STAINED_GLASS);
     public static final SlimefunItemStack MAGIC_POWER_INPUT_MACHINE = createDefaultPowerMachine("MAGIC_POWER_INPUT_MACHINE",Material.TINTED_GLASS);
     public static final SlimefunItemStack MAGIC_POWER_OUTPUT_MACHINE = createDefaultPowerMachine("MAGIC_POWER_OUTPUT_MACHINE",Material.YELLOW_STAINED_GLASS);
+
+
+
+    public static final SlimefunItemStack WHITE_SLOTS_CHEST_53 = createDefaultPowerMachine("WHITE_SLOTS_CHEST_53",Material.CHEST);
 
 
 
