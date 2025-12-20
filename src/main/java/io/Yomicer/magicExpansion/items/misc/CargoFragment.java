@@ -63,6 +63,7 @@ public class CargoFragment extends SimpleSlimefunItem<ItemUseHandler> implements
             ItemStack fragmentItem = e.getItem(); // 主手的CargoFragment
             ItemStack offhandItem = player.getInventory().getItemInOffHand(); // 副手物品
 
+            // 检查主手和副手物品数量必须为1
             if (fragmentItem.getAmount() != 1 || offhandItem.getAmount() != 1) {
                 if (fragmentItem.getAmount() != 1) {
                     player.sendMessage(ChatColor.RED + "主手CargoFragment的数量必须为1！");
@@ -233,11 +234,19 @@ public class CargoFragment extends SimpleSlimefunItem<ItemUseHandler> implements
                 return;
             }
 
+            // === 新增：验证物品是否发生变化 ===
+            if (!validateItemsUnchanged(player, transfer)) {
+                player.sendMessage(ChatColor.RED + "操作失败：物品已发生变化！");
+                pendingTransfers.remove(player.getUniqueId());
+                cleanupListenerIfNeeded();
+                return;
+            }
+
             int transferAmount;
 
             // 处理"all"
             if (input.equalsIgnoreCase("all")) {
-                transferAmount = (int)(transfer.maxTransfer);
+                transferAmount = (int) transfer.maxTransfer;
             } else {
                 // 解析数字
                 try {
@@ -266,6 +275,216 @@ public class CargoFragment extends SimpleSlimefunItem<ItemUseHandler> implements
             pendingTransfers.remove(player.getUniqueId());
             cleanupListenerIfNeeded();
         }
+    }
+
+    /**
+     * 验证物品在等待输入期间是否发生变化
+     */
+    private boolean validateItemsUnchanged(Player player, FragmentTransfer transfer) {
+        // 1. 检查玩家是否在线
+        if (!player.isOnline()) {
+            return false;
+        }
+
+        // 2. 检查主手物品是否还是碎片
+        ItemStack currentMainHand = player.getInventory().getItemInMainHand();
+        if (currentMainHand == null || currentMainHand.getType().isAir()) {
+            player.sendMessage(ChatColor.RED + "主手物品已消失！");
+            return false;
+        }
+
+        // 检查数量是否为1
+        if (currentMainHand.getAmount() != 1) {
+            player.sendMessage(ChatColor.RED + "主手物品数量已发生变化！");
+            return false;
+        }
+
+        // 检查是否是同一个碎片物品
+        if (!isSameFragmentItem(currentMainHand, transfer.fragmentItem)) {
+            player.sendMessage(ChatColor.RED + "主手物品已更换！");
+            return false;
+        }
+
+        // 3. 检查副手物品是否还是量子存储物品
+        ItemStack currentOffhand = player.getInventory().getItemInOffHand();
+        if (currentOffhand == null || currentOffhand.getType().isAir()) {
+            player.sendMessage(ChatColor.RED + "副手物品已消失！");
+            return false;
+        }
+
+        // 检查数量是否为1
+        if (currentOffhand.getAmount() != 1) {
+            player.sendMessage(ChatColor.RED + "副手物品数量已发生变化！");
+            return false;
+        }
+
+        // 检查是否是同一个量子存储物品
+        if (!isSameQuantumStorageItem(currentOffhand, transfer.offhandItem)) {
+            player.sendMessage(ChatColor.RED + "副手物品已更换！");
+            return false;
+        }
+
+        // 4. 检查量子存储数据是否发生变化
+        ItemMeta currentOffhandMeta = currentOffhand.getItemMeta();
+        if (currentOffhandMeta == null) {
+            player.sendMessage(ChatColor.RED + "副手物品数据异常！");
+            return false;
+        }
+
+        QuantumCache currentCache = DataTypeMethods.getCustom(currentOffhandMeta,
+                NetworksKeys.QUANTUM_STORAGE_INSTANCE, PersistentQuantumStorageType.TYPE);
+
+        if (currentCache == null) {
+            player.sendMessage(ChatColor.RED + "副手物品的量子存储数据已丢失！");
+            return false;
+        }
+
+        // 检查存储的物品是否相同
+        ItemStack currentCacheItem = currentCache.getItemStack();
+        long currentStoredAmount = currentCache.getAmount();
+        long currentMaxCapacity = currentCache.getLimit();
+
+        if (currentCacheItem == null) {
+            player.sendMessage(ChatColor.RED + "量子存储中的物品已消失！");
+            return false;
+        }
+
+        // 检查碎片数据是否发生变化
+        ItemMeta currentFragmentMeta = currentMainHand.getItemMeta();
+        if (currentFragmentMeta == null) {
+            player.sendMessage(ChatColor.RED + "碎片数据损坏！");
+            return false;
+        }
+
+        PersistentDataContainer fragmentPdc = currentFragmentMeta.getPersistentDataContainer();
+        String currentItemJson = fragmentPdc.get(KEY_CARGO_ITEM, PersistentDataType.STRING);
+        Integer currentFragmentAmount = fragmentPdc.get(KEY_CARGO_AMOUNT, PersistentDataType.INTEGER);
+
+        if (currentItemJson == null || currentFragmentAmount == null) {
+            player.sendMessage(ChatColor.RED + "碎片数据不完整！");
+            return false;
+        }
+
+        // 解析碎片中的物品
+        ItemStack currentStoredItem = SameItemJudge.itemFromBase64(currentItemJson);
+        if (currentStoredItem == null) {
+            player.sendMessage(ChatColor.RED + "碎片中的物品数据损坏！");
+            return false;
+        }
+
+        // 检查物品类型是否匹配
+        if (!SlimefunUtils.isItemSimilar(currentStoredItem, currentCacheItem, true)) {
+            player.sendMessage(ChatColor.RED + "物品类型已不匹配！");
+            return false;
+        }
+
+        // 检查碎片中的物品是否与之前一致
+        if (!SlimefunUtils.isItemSimilar(currentStoredItem, transfer.storedItem, true)) {
+            player.sendMessage(ChatColor.RED + "碎片中的物品已发生变化！");
+            return false;
+        }
+
+        // 检查碎片数量是否减少
+        if (currentFragmentAmount < transfer.fragmentAmount) {
+            player.sendMessage(ChatColor.YELLOW + "碎片数量已减少，更新可转移数量！");
+            transfer.fragmentAmount = currentFragmentAmount;
+        }
+
+        // 检查存储容量是否变化
+        if (currentStoredAmount != transfer.quantumCache.getAmount() ||
+                currentMaxCapacity != transfer.quantumCache.getLimit()) {
+
+            long remainingSpace = currentMaxCapacity - currentStoredAmount;
+            long newMaxTransfer = Math.min(transfer.fragmentAmount, remainingSpace);
+
+            if (remainingSpace <= 0) {
+                player.sendMessage(ChatColor.RED + "量子存储已满！");
+                return false;
+            }
+
+            if (newMaxTransfer < transfer.maxTransfer) {
+                player.sendMessage(ChatColor.YELLOW + "可转移数量已更新为: " + newMaxTransfer);
+                transfer.maxTransfer = newMaxTransfer;
+            }
+
+            transfer.quantumCache = currentCache;
+        }
+
+        return true;
+    }
+
+    /**
+     * 检查是否同一个碎片物品
+     */
+    private boolean isSameFragmentItem(ItemStack item1, ItemStack item2) {
+        // 简单比较：类型和自定义名称
+        if (item1.getType() != item2.getType()) {
+            return false;
+        }
+
+        ItemMeta meta1 = item1.getItemMeta();
+        ItemMeta meta2 = item2.getItemMeta();
+
+        if (meta1 == null || meta2 == null) {
+            return meta1 == meta2;
+        }
+
+        // 比较显示名称（CargoFragment应该有特殊的显示名）
+        String name1 = meta1.getDisplayName();
+        String name2 = meta2.getDisplayName();
+
+        if (name1 == null && name2 == null) {
+            return true;
+        }
+
+        if (name1 == null || name2 == null) {
+            return false;
+        }
+
+        return name1.equals(name2);
+    }
+
+    /**
+     * 检查是否同一个量子存储物品
+     */
+    private boolean isSameQuantumStorageItem(ItemStack item1, ItemStack item2) {
+        // 首先比较基础信息
+        if (item1.getType() != item2.getType()) {
+            return false;
+        }
+
+        // 获取两个物品的PDC数据
+        ItemMeta meta1 = item1.getItemMeta();
+        ItemMeta meta2 = item2.getItemMeta();
+
+        if (meta1 == null || meta2 == null) {
+            return meta1 == meta2;
+        }
+
+        // 从PDC获取QuantumCache进行比较
+        QuantumCache cache1 = DataTypeMethods.getCustom(meta1,
+                NetworksKeys.QUANTUM_STORAGE_INSTANCE, PersistentQuantumStorageType.TYPE);
+
+        QuantumCache cache2 = DataTypeMethods.getCustom(meta2,
+                NetworksKeys.QUANTUM_STORAGE_INSTANCE, PersistentQuantumStorageType.TYPE);
+
+        // 如果有一个没有量子缓存，则不同
+        if (cache1 == null || cache2 == null) {
+            return false;
+        }
+
+        // 比较缓存ID或其他唯一标识（如果QuantumCache有getId方法）
+        try {
+            // 如果有getId方法
+            if (cache1.getItemStack() != null && cache2.getItemStack() != null) {
+                return cache1.getItemStack().equals(cache2.getItemStack());
+            }
+        } catch (Exception e) {
+            // 如果QuantumCache没有getId方法，使用hashCode作为备用
+            return cache1.hashCode() == cache2.hashCode();
+        }
+
+        return false;
     }
 
     /**
@@ -401,9 +620,9 @@ public class CargoFragment extends SimpleSlimefunItem<ItemUseHandler> implements
         final ItemStack fragmentItem;
         final ItemStack offhandItem;
         final ItemStack storedItem;
-        final long fragmentAmount;
-        final QuantumCache quantumCache;
-        final long maxTransfer;
+        long fragmentAmount; // 改为非final，可能更新
+        QuantumCache quantumCache; // 改为非final，可能更新
+        long maxTransfer; // 改为非final，可能更新
 
         FragmentTransfer(UUID playerId, ItemStack fragmentItem, ItemStack offhandItem,
                          ItemStack storedItem, long fragmentAmount,

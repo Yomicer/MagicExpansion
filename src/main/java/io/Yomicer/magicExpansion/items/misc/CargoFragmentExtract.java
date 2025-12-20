@@ -235,6 +235,14 @@ public class CargoFragmentExtract extends SimpleSlimefunItem<ItemUseHandler> imp
                 return;
             }
 
+            // === 新增：验证物品是否发生变化 ===
+            if (!validateItemsUnchanged(player, operation)) {
+                player.sendMessage(ChatColor.RED + "操作失败：物品已发生变化！");
+                pendingExtracts.remove(player.getUniqueId());
+                cleanupListenerIfNeeded();
+                return;
+            }
+
             // 执行提取
             executeExtract(player, operation, extractAmount);
 
@@ -243,6 +251,181 @@ public class CargoFragmentExtract extends SimpleSlimefunItem<ItemUseHandler> imp
             cleanupListenerIfNeeded();
         }
     }
+
+    /**
+     * 验证物品在等待输入期间是否发生变化
+     */
+    private boolean validateItemsUnchanged(Player player, ExtractOperation operation) {
+        // 1. 检查玩家是否在线
+        if (!player.isOnline()) {
+            return false;
+        }
+
+        // 2. 检查主手物品是否还是提取器
+        ItemStack currentMainHand = player.getInventory().getItemInMainHand();
+        if (currentMainHand == null || currentMainHand.getType().isAir()) {
+            player.sendMessage(ChatColor.RED + "主手物品已消失！");
+            return false;
+        }
+
+        // 检查是否是同一个物品（根据类型、名称等）
+        if (!isSameExtractorItem(currentMainHand, operation.extractItem)) {
+            player.sendMessage(ChatColor.RED + "主手物品已更换！");
+            return false;
+        }
+
+        // 检查数量是否为1
+        if (currentMainHand.getAmount() != 1) {
+            player.sendMessage(ChatColor.RED + "主手物品数量已发生变化！");
+            return false;
+        }
+
+        // 3. 检查副手物品是否还是量子存储物品
+        ItemStack currentOffhand = player.getInventory().getItemInOffHand();
+        if (currentOffhand == null || currentOffhand.getType().isAir()) {
+            player.sendMessage(ChatColor.RED + "副手物品已消失！");
+            return false;
+        }
+        // 检查数量是否为1
+        if (currentOffhand.getAmount() != 1) {
+            player.sendMessage(ChatColor.RED + "副手物品数量已发生变化！");
+            return false;
+        }
+
+        // 检查是否是同一个量子存储物品（通过PDC中的唯一标识）
+        if (!isSameQuantumStorageItem(currentOffhand, operation.offhandItem)) {
+            player.sendMessage(ChatColor.RED + "副手物品已更换！");
+            return false;
+        }
+
+        // 4. 检查量子存储数据是否发生变化
+        ItemMeta currentOffhandMeta = currentOffhand.getItemMeta();
+        if (currentOffhandMeta == null) {
+            player.sendMessage(ChatColor.RED + "副手物品数据异常！");
+            return false;
+        }
+
+        QuantumCache currentCache = DataTypeMethods.getCustom(currentOffhandMeta,
+                NetworksKeys.QUANTUM_STORAGE_INSTANCE, PersistentQuantumStorageType.TYPE);
+
+        if (currentCache == null) {
+            player.sendMessage(ChatColor.RED + "副手物品的量子存储数据已丢失！");
+            return false;
+        }
+
+        // 检查存储的物品是否相同
+        ItemStack currentStoredItem = currentCache.getItemStack();
+        long currentStoredAmount = currentCache.getAmount();
+
+        if (currentStoredItem == null) {
+            player.sendMessage(ChatColor.RED + "量子存储中的物品已消失！");
+            return false;
+        }
+
+        // 使用SameItemJudge比较物品是否相同
+        if (!SameItemJudge.isSimilarSafe(currentStoredItem, operation.storedItem)) {
+            player.sendMessage(ChatColor.RED + "量子存储中的物品已发生变化！");
+            return false;
+        }
+
+        // 检查数量是否相同（不能少于之前记录的数量）
+        if (currentStoredAmount < operation.storedAmount) {
+            player.sendMessage(ChatColor.RED + "量子存储中的物品数量已减少！");
+            return false;
+        }
+
+        // 如果数量增加了，使用新的数量进行计算
+        if (currentStoredAmount > operation.storedAmount) {
+            // 更新操作中的数量信息
+            operation.storedAmount = currentStoredAmount;
+            operation.maxExtract = currentStoredAmount - 1;
+
+            // 通知玩家数量已更新
+            player.sendMessage(ChatColor.GREEN + "检测到数量增加，已更新可提取数量！");
+            player.sendMessage(ChatColor.YELLOW + "新的存储总量: " + ChatColor.AQUA + currentStoredAmount + " 个");
+            player.sendMessage(ChatColor.YELLOW + "新的最大可提: " + ChatColor.GOLD + operation.maxExtract + " 个");
+
+            // 更新缓存引用
+            operation.quantumCache = currentCache;
+        }
+
+        return true;
+    }
+
+    /**
+     * 检查是否同一个提取器物品
+     */
+    private boolean isSameExtractorItem(ItemStack item1, ItemStack item2) {
+        // 简单比较：类型和自定义名称
+        if (item1.getType() != item2.getType()) {
+            return false;
+        }
+
+        ItemMeta meta1 = item1.getItemMeta();
+        ItemMeta meta2 = item2.getItemMeta();
+
+        if (meta1 == null || meta2 == null) {
+            return meta1 == meta2;
+        }
+
+        // 比较显示名称
+        String name1 = meta1.getDisplayName();
+        String name2 = meta2.getDisplayName();
+
+        if (name1 == null && name2 == null) {
+            return true;
+        }
+
+        if (name1 == null || name2 == null) {
+            return false;
+        }
+
+        return name1.equals(name2);
+    }
+
+    /**
+     * 检查是否同一个量子存储物品
+     */
+    private boolean isSameQuantumStorageItem(ItemStack item1, ItemStack item2) {
+        // 首先比较基础信息
+        if (item1.getType() != item2.getType()) {
+            return false;
+        }
+
+        // 获取两个物品的PDC数据
+        ItemMeta meta1 = item1.getItemMeta();
+        ItemMeta meta2 = item2.getItemMeta();
+
+        if (meta1 == null || meta2 == null) {
+            return meta1 == meta2;
+        }
+
+        // 从PDC获取QuantumCache进行比较
+        QuantumCache cache1 = DataTypeMethods.getCustom(meta1,
+                NetworksKeys.QUANTUM_STORAGE_INSTANCE, PersistentQuantumStorageType.TYPE);
+
+        QuantumCache cache2 = DataTypeMethods.getCustom(meta2,
+                NetworksKeys.QUANTUM_STORAGE_INSTANCE, PersistentQuantumStorageType.TYPE);
+
+        // 如果有一个没有量子缓存，则不同
+        if (cache1 == null || cache2 == null) {
+            return false;
+        }
+
+        // 比较缓存ID或其他唯一标识（如果QuantumCache有getId方法）
+        try {
+            // 如果有getId方法
+            if (cache1.getItemStack()!= null && cache2.getItemStack() != null) {
+                return cache1.getItemStack().equals(cache2.getItemStack());
+            }
+        } catch (Exception e) {
+            // 如果QuantumCache没有getId方法，使用hashCode作为备用
+            return cache1.hashCode() == cache2.hashCode();
+        }
+
+        return false;
+    }
+
 
     /**
      * 执行提取操作
@@ -426,10 +609,10 @@ public class CargoFragmentExtract extends SimpleSlimefunItem<ItemUseHandler> imp
         final UUID playerId;
         final ItemStack extractItem;
         final ItemStack offhandItem;
-        final ItemStack storedItem;
-        final long storedAmount;
-        final QuantumCache quantumCache;
-        final long maxExtract;
+        ItemStack storedItem; // 改为非final，可能更新
+        long storedAmount; // 改为非final，可能更新
+        QuantumCache quantumCache; // 改为非final，可能更新
+        long maxExtract; // 改为非final，可能更新
 
         ExtractOperation(UUID playerId, ItemStack extractItem, ItemStack offhandItem,
                          ItemStack storedItem, long storedAmount,
