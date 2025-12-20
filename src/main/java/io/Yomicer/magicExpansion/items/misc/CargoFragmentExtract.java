@@ -412,6 +412,10 @@ public class CargoFragmentExtract extends SimpleSlimefunItem<ItemUseHandler> imp
             return false;
         }
 
+        if (cache1.getAmount() != 0 && cache2.getAmount() != 0){
+            return cache1.getAmount() == cache2.getAmount();
+        }
+
         // 比较缓存ID或其他唯一标识（如果QuantumCache有getId方法）
         try {
             // 如果有getId方法
