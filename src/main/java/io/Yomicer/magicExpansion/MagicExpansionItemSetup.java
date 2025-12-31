@@ -168,6 +168,10 @@ public final class MagicExpansionItemSetup {
             new NamespacedKey(MagicExpansion.getInstance(), "nonsensical"), magicexpansion,
             new CustomItemStack(doGlow(Material.DRAGON_EGG), ColorGradient.getRandomGradientName("无厘头-打发时间")), 10
     );
+    public static final ItemGroup magicexpansioncommemorate = new SubItemGroup(
+            new NamespacedKey(MagicExpansion.getInstance(), "commemorate"), magicexpansion,
+            new CustomItemStack(doGlow(Material.FIREWORK_ROCKET), ColorGradient.getRandomGradientName("纪念品")), 10
+    );
 
 
     private static final ItemGroup magicexpansionupdateinfo = new SubItemGroup(
@@ -512,6 +516,11 @@ public final class MagicExpansionItemSetup {
                 null, null, null
         }).register(plugin);
         new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2025_12_20, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
+        new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2025_12_31, SPECIAL_RECIPE_TYPE, new ItemStack[] {
                 null, null, null,
                 null, null, null,
                 null, null, null
@@ -1849,6 +1858,21 @@ public final class MagicExpansionItemSetup {
                 null, null, null,
                 null, null, null,
         }).register(plugin);
+
+
+        //跨年烟花·元旦
+        new NewYearsDayFireworkYuanDan(magicexpansioncommemorate, NEW_YEARS_DAY_FIREWORK_YUAN_DAN, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                new ItemStack(Material.FIREWORK_ROCKET),MAGIC_EXPANSION_MAGIC_SUGAR_1,null,
+                null, null, null,
+                null, null, null,
+        }).register(plugin);
+        new BigFireworksYuanDan(magicexpansioncommemorate, NEW_YEARS_DAY_FIREWORK_YUAN_DAN_2, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                new ItemStack(Material.FIREWORK_ROCKET),new ItemStack(Material.SUGAR),null,
+                null, null, null,
+                null, null, null,
+        }).register(plugin);
+
+
 
 
 

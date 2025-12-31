@@ -30,7 +30,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 55"),
+            getGradientName("Version: Build 57"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -287,6 +287,14 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack QUICK_HEATED_PRESSURE_CHAMBER_BV = themed("QUICK_HEATED_PRESSURE_CHAMBER_BV",doGlow(Material.LIGHT_GRAY_STAINED_GLASS),
             get("Items.QUICK_HEATED_PRESSURE_CHAMBER_BV.Name"),getList("Items.QUICK_HEATED_PRESSURE_CHAMBER_BV.Lore"));
 
+
+
+
+    //元旦烟花
+    public static final SlimefunItemStack NEW_YEARS_DAY_FIREWORK_YUAN_DAN = themedOrigin("NEW_YEARS_DAY_FIREWORK_YUAN_DAN",doGlowDisplayEnchant(Material.FIREWORK_ROCKET),
+            get("Items.NEW_YEARS_DAY_FIREWORK_YUAN_DAN.Name"),getList("Items.NEW_YEARS_DAY_FIREWORK_YUAN_DAN.Lore"));
+    public static final SlimefunItemStack NEW_YEARS_DAY_FIREWORK_YUAN_DAN_2 = themedOrigin("NEW_YEARS_DAY_FIREWORK_YUAN_DAN_2",doGlowDisplayEnchant(Material.FIREWORK_ROCKET),
+            get("Items.NEW_YEARS_DAY_FIREWORK_YUAN_DAN_2.Name"),getList("Items.NEW_YEARS_DAY_FIREWORK_YUAN_DAN_2.Lore"));
 
 
 
@@ -771,6 +779,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2025_12_16 = createDefaultItemGlow("UPDATE_LOG_2025_12_16",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_12_19 = createDefaultItemGlow("UPDATE_LOG_2025_12_19",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_12_20 = createDefaultItemGlow("UPDATE_LOG_2025_12_20",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2025_12_31 = createDefaultItemGlow("UPDATE_LOG_2025_12_31",Material.PAPER);
 
 
 
@@ -826,6 +835,9 @@ public class MagicExpansionItems {
 
     public static final SlimefunItemStack WORLD_CORE = createDefaultItem("WORLD_CORE",Material.FIREWORK_STAR);
     public static final SlimefunItemStack ITEM_ORIGIN_BACK_TRACK = createDefaultItem("ITEM_ORIGIN_BACK_TRACK",Material.BEACON);
+
+
+
 
 
     public static final SlimefunItemStack FISHING_INFO = createDefaultItemGlow("FISHING_INFO",Material.PAPER);
