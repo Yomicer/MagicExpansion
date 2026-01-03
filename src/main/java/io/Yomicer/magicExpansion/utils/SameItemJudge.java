@@ -86,17 +86,6 @@ public class SameItemJudge {
             return item1.getType() == item2.getType();
         }
 
-        // 检查是否是 Slimefun 物品
-        SlimefunItem sf1 = SlimefunItem.getByItem(item1);
-        SlimefunItem sf2 = SlimefunItem.getByItem(item2);
-
-        if (sf1 != null || sf2 != null) {
-            // 如果一个是 SF 物品，另一个不是 → 不同
-            if (sf1 == null || sf2 == null) return false;
-            // 否则比较 Slimefun ID
-            return sf1.getId().equals(sf2.getId());
-        }
-
         // 非 Slimefun 物品：使用 Bukkit 的 isSimilar（忽略数量）
         return item1.isSimilar(item2);
     }

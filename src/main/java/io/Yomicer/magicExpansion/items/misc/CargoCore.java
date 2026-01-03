@@ -545,7 +545,8 @@ public class CargoCore extends SlimefunItem implements EnergyNetComponent{
             if (stored == null) continue;
             stored.setAmount(1); // 确保比较时不被数量干扰
 
-            if (SlimefunUtils.isItemSimilar(prototype, stored, true)) {
+            if (SameItemJudge.isSimilarSafe(prototype, stored)) {
+//            if (SlimefunUtils.isItemSimilar(prototype, stored, true)) {
                 return i;
             }
         }
@@ -733,7 +734,8 @@ public class CargoCore extends SlimefunItem implements EnergyNetComponent{
                         if (item != null && !item.getType().isAir()) {
                             ItemStack itemClone = item.clone();
                             itemClone.setAmount(1);
-                            if (SlimefunUtils.isItemSimilar(itemClone, itemPrototypeClone, true)) {
+                            if (SameItemJudge.isSimilarSafe(itemClone, itemPrototypeClone)) {
+//                            if (SlimefunUtils.isItemSimilar(itemClone, itemPrototypeClone, true)) {
                                 int amount = item.getAmount();
                                 storeItem(data, item.clone());
                                 player.getInventory().removeItem(item);
@@ -763,7 +765,8 @@ public class CargoCore extends SlimefunItem implements EnergyNetComponent{
                             player.getInventory().setItem(invSlot, toGive.clone());
                             itemCount -= giveAmount;
                             filled += giveAmount;
-                        } else if (SlimefunUtils.isItemSimilar(invItem, itemPrototype, true) && invItem.getAmount() < 64) {
+                        } else if (SameItemJudge.isSimilarSafe(invItem, itemPrototype) && invItem.getAmount() < 64) {
+//                        } else if (SlimefunUtils.isItemSimilar(invItem, itemPrototype, true) && invItem.getAmount() < 64) {
                             int space = 64 - invItem.getAmount();
                             int giveAmount = (int) Math.min(space, itemCount);
                             if (giveAmount <= 0) break;
@@ -787,17 +790,55 @@ public class CargoCore extends SlimefunItem implements EnergyNetComponent{
                     // 左键：取出 64 个
                     int take = (int) Math.min(64, itemCount);
                     if (take <= 0) return false;
-                    ItemStack toTake = itemPrototype.clone().asQuantity(take);
-                    if (player.getInventory().addItem(toTake).isEmpty()) {
-                        itemCount -= take;
-                        data.setData("item_count_" + targetDataSlot, String.valueOf(itemCount));
-                        player.sendMessage("§a已取出 §e" + take + " §a个 " + ItemStackHelper.getDisplayName(itemPrototypeClone));
-                        player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5F, 1.0F);
-                        updateStorageDisplay(menu, data);
-                    } else {
+//                    ItemStack toTake = itemPrototype.clone().asQuantity(take);
+//                    if (player.getInventory().addItem(toTake).isEmpty()) {
+//                        itemCount -= take;
+//                        data.setData("item_count_" + targetDataSlot, String.valueOf(itemCount));
+//                        player.sendMessage("§a已取出 §e" + take + " §a个 " + ItemStackHelper.getDisplayName(itemPrototypeClone));
+//                        player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5F, 1.0F);
+//                        updateStorageDisplay(menu, data);
+//                    } else {
+//                        player.sendMessage("§c背包空间不足，无法取出物品。");
+//                        player.playSound(player.getLocation(), Sound.BLOCK_METAL_HIT, 0.3F, 0.5F);
+//                    }
+
+                    ItemStack itemToGive = itemPrototypeClone.clone();
+                    itemToGive.setAmount(take); // 尝试取出的数量
+                    int maxCanHold = player.getInventory().getMaxStackSize();
+                    int totalAvailableSpace = 0;
+                    for (ItemStack stack : player.getInventory().getStorageContents()) { // 只看主背包+快捷栏（不含盔甲）
+                        if (stack == null || stack.getType() == Material.AIR) {
+                            totalAvailableSpace += maxCanHold;
+                        } else if (stack.isSimilar(itemToGive)) {
+                            totalAvailableSpace += maxCanHold - stack.getAmount();
+                        }
+                    }
+                    int actualTake = Math.min(take, totalAvailableSpace);
+                    if (actualTake <= 0) {
                         player.sendMessage("§c背包空间不足，无法取出物品。");
                         player.playSound(player.getLocation(), Sound.BLOCK_METAL_HIT, 0.3F, 0.5F);
+                    } else {
+                        itemToGive.setAmount(actualTake);
+                        Map<Integer, ItemStack> leftover = player.getInventory().addItem(itemToGive);
+                        if (!leftover.isEmpty()) {
+                            itemCount -= actualTake;
+                            data.setData("item_count_" + targetDataSlot, String.valueOf(itemCount));
+                            player.sendMessage("§a已取出 §e" + actualTake + " §a个 " + ItemStackHelper.getDisplayName(itemPrototypeClone));
+                            player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5F, 1.0F);
+                            updateStorageDisplay(menu, data);
+                            player.sendMessage("§c发生异常：部分物品未能放入背包，已掉落在地上。");
+                            for (ItemStack leftoverItem : leftover.values()) {
+                                player.getWorld().dropItem(player.getLocation(), leftoverItem);
+                            }
+                        } else {
+                            itemCount -= actualTake;
+                            data.setData("item_count_" + targetDataSlot, String.valueOf(itemCount));
+                            player.sendMessage("§a已取出 §e" + actualTake + " §a个 " + ItemStackHelper.getDisplayName(itemPrototypeClone));
+                            player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5F, 1.0F);
+                            updateStorageDisplay(menu, data);
+                        }
                     }
+
                 } else {
                     player.playSound(player.getLocation(), Sound.BLOCK_METAL_HIT, 0.3F, 0.5F);
                 }
@@ -963,7 +1004,8 @@ public class CargoCore extends SlimefunItem implements EnergyNetComponent{
                     for (ItemStack item : p.getInventory().getContents()) {
                         if (item != null && !item.getType().isAir()){
                             ItemStack itemClone = item.clone();
-                            if(SlimefunUtils.isItemSimilar(itemClone, itemPrototypeClone, true)){
+                            if(SameItemJudge.isSimilarSafe(itemClone, itemPrototypeClone)){
+//                            if(SlimefunUtils.isItemSimilar(itemClone, itemPrototypeClone, true)){
                             int amount = item.getAmount();
                             storeItem(data, item.clone());
                             p.getInventory().removeItem(item);
@@ -993,7 +1035,8 @@ public class CargoCore extends SlimefunItem implements EnergyNetComponent{
                             p.getInventory().setItem(invSlot, toGive.clone());
                             itemCount1 -= giveAmount;
                             filled += giveAmount;
-                        } else if (SlimefunUtils.isItemSimilar(invItem, itemPrototypeClone, true) && invItem.getAmount() < 64) {
+                        } else if (SameItemJudge.isSimilarSafe(invItem, itemPrototypeClone) && invItem.getAmount() < 64) {
+//                        } else if (SlimefunUtils.isItemSimilar(invItem, itemPrototypeClone, true) && invItem.getAmount() < 64) {
                             int space = 64 - invItem.getAmount();
                             int giveAmount = (int) Math.min(space, itemCount1);
                             if (giveAmount <= 0) break;
@@ -1017,17 +1060,55 @@ public class CargoCore extends SlimefunItem implements EnergyNetComponent{
                     // 左键：取出 64 个
                     int take = (int) Math.min(64, itemCount1);
                     if (take <= 0) return false;
-                    ItemStack toTake = itemPrototype.clone().asQuantity(take);
-                    if (p.getInventory().addItem(toTake).isEmpty()) {
-                        itemCount1 -= take;
-                        data.setData("item_count_" + targetDataSlot, String.valueOf(itemCount1));
-                        p.sendMessage("§a已取出 §e" + take + " §a个 " + ItemStackHelper.getDisplayName(itemPrototypeClone));
-                        p.playSound(p.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5F, 1.0F);
-                        refreshStorageMenu(menu, data, finalCurrentPage2);
-                    } else {
+//                    ItemStack toTake = itemPrototype.clone().asQuantity(take);
+//                    if (p.getInventory().addItem(toTake).isEmpty()) {
+//                        itemCount1 -= take;
+//                        data.setData("item_count_" + targetDataSlot, String.valueOf(itemCount1));
+//                        p.sendMessage("§a已取出 §e" + take + " §a个 " + ItemStackHelper.getDisplayName(itemPrototypeClone));
+//                        p.playSound(p.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5F, 1.0F);
+//                        refreshStorageMenu(menu, data, finalCurrentPage2);
+//                    } else {
+//                        p.sendMessage("§c背包空间不足，无法取出物品。");
+//                        p.playSound(p.getLocation(), Sound.BLOCK_METAL_HIT, 0.3F, 0.5F);
+//                    }
+
+                    ItemStack itemToGive = itemPrototypeClone.clone();
+                    itemToGive.setAmount(take); // 尝试取出的数量
+                    int maxCanHold = p.getInventory().getMaxStackSize();
+                    int totalAvailableSpace = 0;
+                    for (ItemStack stack : p.getInventory().getStorageContents()) { // 只看主背包+快捷栏（不含盔甲）
+                        if (stack == null || stack.getType() == Material.AIR) {
+                            totalAvailableSpace += maxCanHold;
+                        } else if (stack.isSimilar(itemToGive)) {
+                            totalAvailableSpace += maxCanHold - stack.getAmount();
+                        }
+                    }
+                    int actualTake = Math.min(take, totalAvailableSpace);
+                    if (actualTake <= 0) {
                         p.sendMessage("§c背包空间不足，无法取出物品。");
                         p.playSound(p.getLocation(), Sound.BLOCK_METAL_HIT, 0.3F, 0.5F);
+                    } else {
+                        itemToGive.setAmount(actualTake);
+                        Map<Integer, ItemStack> leftover = p.getInventory().addItem(itemToGive);
+                        if (!leftover.isEmpty()) {
+                            itemCount1 -= actualTake;
+                            data.setData("item_count_" + targetDataSlot, String.valueOf(itemCount1));
+                            p.sendMessage("§a已取出 §e" + actualTake + " §a个 " + ItemStackHelper.getDisplayName(itemPrototypeClone));
+                            p.playSound(p.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5F, 1.0F);
+                            refreshStorageMenu(menu, data, finalCurrentPage2);
+                            p.sendMessage("§c发生异常：部分物品未能放入背包，已掉落在地上。");
+                            for (ItemStack leftoverItem : leftover.values()) {
+                                p.getWorld().dropItem(p.getLocation(), leftoverItem);
+                            }
+                        } else {
+                            itemCount1 -= actualTake;
+                            data.setData("item_count_" + targetDataSlot, String.valueOf(itemCount1));
+                            p.sendMessage("§a已取出 §e" + actualTake + " §a个 " + ItemStackHelper.getDisplayName(itemPrototypeClone));
+                            p.playSound(p.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5F, 1.0F);
+                            refreshStorageMenu(menu, data, finalCurrentPage2);
+                        }
                     }
+
                 } else {
                     p.playSound(p.getLocation(), Sound.BLOCK_METAL_HIT, 0.3F, 0.5F);
                 }
@@ -1943,7 +2024,8 @@ public class CargoCore extends SlimefunItem implements EnergyNetComponent{
 
             try {
                 ItemStack storedItem = itemFromBase64(jsonData);
-                if (storedItem != null && SlimefunUtils.isItemSimilar(storedItem, prototype, true)) {
+                if (storedItem != null && SameItemJudge.isSimilarSafe(storedItem, prototype)) {
+//                if (storedItem != null && SlimefunUtils.isItemSimilar(storedItem, prototype, true)) {
                     String countStr = data.getData("item_count_" + i);
                     if (countStr != null && !countStr.isEmpty()) {
                         try {
@@ -1976,7 +2058,8 @@ public class CargoCore extends SlimefunItem implements EnergyNetComponent{
 
             try {
                 ItemStack storedItem = itemFromBase64(jsonData);
-                if (storedItem != null && SlimefunUtils.isItemSimilar(storedItem, prototype, true)) {
+                if (storedItem != null && SameItemJudge.isSimilarSafe(storedItem, prototype)) {
+//                if (storedItem != null && SlimefunUtils.isItemSimilar(storedItem, prototype, true)) {
                     String countStr = data.getData("item_count_" + i);
                     if (countStr == null || countStr.isEmpty()) continue;
 
@@ -2092,7 +2175,8 @@ public class CargoCore extends SlimefunItem implements EnergyNetComponent{
             if (existing == null || existing.getType().isAir()) {
                 // 空槽位，可以放一整组
                 totalFit += Math.min(prototype.getMaxStackSize(), maxAmount - totalFit);
-            } else if (SlimefunUtils.isItemSimilar(singleItem, existing2, true)) {
+            } else if (SameItemJudge.isSimilarSafe(singleItem, existing2)) {
+//            } else if (SlimefunUtils.isItemSimilar(singleItem, existing2, true)) {
                 // 相同物品，计算剩余空间
                 int space = existing.getMaxStackSize() - existing.getAmount();
                 totalFit += Math.min(space, maxAmount - totalFit);
@@ -2381,7 +2465,8 @@ public class CargoCore extends SlimefunItem implements EnergyNetComponent{
         ItemStack filterCopy = filter.clone();
         filterCopy.setAmount(1);
 
-        boolean isSimilar = SlimefunUtils.isItemSimilar(itemCopy, filterCopy, true);
+        boolean isSimilar = SameItemJudge.isSimilarSafe(itemCopy, filterCopy);
+//        boolean isSimilar = SlimefunUtils.isItemSimilar(itemCopy, filterCopy, true);
 //        Debug.logInfo("物品匹配检查: " + item.getType() + " vs " + filter.getType() + " = " + isSimilar);
 
         return isSimilar;
