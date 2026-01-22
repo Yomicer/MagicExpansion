@@ -173,6 +173,10 @@ public final class MagicExpansionItemSetup {
             new CustomItemStack(doGlow(Material.FIREWORK_ROCKET), ColorGradient.getRandomGradientName("纪念品")), 10
     );
 
+    public static final ItemGroup magicexpansioncooperatecreate = new SubItemGroup(
+            new NamespacedKey(MagicExpansion.getInstance(), "cooperatecreate"), magicexpansion,
+            new CustomItemStack(CustomHead.getHead("7971e55df39a58faad05742d882e9a05ffa511a0c58e4f687777bb74614006eb"), ColorGradient.getGradientName("魔法-共创")), 10
+    );
 
     private static final ItemGroup magicexpansionupdateinfo = new SubItemGroup(
             new NamespacedKey(MagicExpansion.getInstance(), "updateinfo"), magicexpansion,
@@ -526,6 +530,11 @@ public final class MagicExpansionItemSetup {
                 null, null, null
         }).register(plugin);
         new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2026_01_02, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
+        new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2026_01_23, SPECIAL_RECIPE_TYPE, new ItemStack[] {
                 null, null, null,
                 null, null, null,
                 null, null, null
@@ -1329,6 +1338,12 @@ public final class MagicExpansionItemSetup {
 
 
 
+        //钓鱼说明
+        new UnplaceableBlock(magicexpansioncooperatecreate, COOPERATE_CREATION_INFO, RecipeType.NULL, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
         //钓鱼说明
         new UnplaceableBlock(magicexpansionfishing, FISHING_INFO, RecipeType.NULL, new ItemStack[] {
                 null, null, null,

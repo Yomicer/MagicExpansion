@@ -30,7 +30,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientName("信息"),
             "",
-            getGradientName("Version: Build 59"),
+            getGradientName("Version: Build 60"),
             getGradientName("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -781,6 +781,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2025_12_20 = createDefaultItemGlow("UPDATE_LOG_2025_12_20",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2025_12_31 = createDefaultItemGlow("UPDATE_LOG_2025_12_31",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2026_01_02 = createDefaultItemGlow("UPDATE_LOG_2026_01_02",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2026_01_23 = createDefaultItemGlow("UPDATE_LOG_2026_01_23",Material.PAPER);
 
 
 
@@ -842,6 +843,7 @@ public class MagicExpansionItems {
 
 
     public static final SlimefunItemStack FISHING_INFO = createDefaultItemGlow("FISHING_INFO",Material.PAPER);
+    public static final SlimefunItemStack COOPERATE_CREATION_INFO = createDefaultItemGlow("COOPERATE_CREATION_INFO",Material.PAPER);
     public static final SlimefunItemStack FISH_CATEGORY_INFO = createDefaultItemGlow("FISH_CATEGORY_INFO",Material.PAPER);
 
 
