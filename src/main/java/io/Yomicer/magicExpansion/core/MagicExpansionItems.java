@@ -9,12 +9,12 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
+import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientNameVer2;
 import static io.Yomicer.magicExpansion.utils.Utils.doGlow;
 import static io.Yomicer.magicExpansion.utils.Utils.doGlowDisplayEnchant;
-import static io.Yomicer.magicExpansion.utils.itemUtils.newItem.themed;
 import static io.Yomicer.magicExpansion.utils.Language.get;
 import static io.Yomicer.magicExpansion.utils.Language.getList;
-import static io.Yomicer.magicExpansion.utils.itemUtils.newItem.themedOrigin;
+import static io.Yomicer.magicExpansion.utils.itemUtils.newItem.*;
 
 
 public class MagicExpansionItems {
@@ -28,19 +28,19 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack MAGIC_EXPANSION_INFO = new SlimefunItemStack(
             "MAGIC_EXPANSION_INFO",
             Material.PAPER,
-            getGradientName("信息"),
+            getGradientNameVer2("信息"),
             "",
-            getGradientName("Version: Build 60"),
-            getGradientName("您在提issues的时候需要展示这个")
+            getGradientNameVer2("Version: Build 61"),
+            getGradientNameVer2("您在提issues的时候需要展示这个")
     );
     //AUTHOR
     public static final SlimefunItemStack MAGIC_EXPANSION_AUTHOR = new SlimefunItemStack(
-            "MAGIC_EXPANSION_AUTHOR",
+            "MAGIC_EXPANSION_AUTHOR_MAGICSOLO",
             "8adb25ab9976d89d0bd8118d72c1c06bb907060c1e02a729b652d1e86b1ebbbc",
-            getGradientName("开发者 magicsolo"),
+            getGradientNameVer2("开发者 magicsolo"),
             "",
-            getGradientName("Github: Yomicer"),
-            getGradientName("Author of MagicExpansion")
+            getGradientNameVer2("Github: Yomicer"),
+            getGradientNameVer2("Author of MagicExpansion")
     );
 
     public static final SlimefunItemStack MAGIC_EXPANSION_QUICK_MACHINE_INFO = new SlimefunItemStack(
@@ -694,16 +694,16 @@ public class MagicExpansionItems {
 
 
 
-    public static final SlimefunItemStack UI_THX = createDefaultItem("UI_THX",Material.PAPER);
+    public static final SlimefunItemStack UI_THX = createDefaultItemV2("UI_THX",Material.PAPER);
 //    public static final SlimefunItemStack UI_3 = createDefaultItem("UI_3",Material.LIGHT_GRAY_STAINED_GLASS_PANE);
 
     //AUTHOR
     public static final SlimefunItemStack UI_WIKI = new SlimefunItemStack(
             "MAGIC_EXPANSION_UI_WIKI",
             Material.CALIBRATED_SCULK_SENSOR,
-            getGradientName("wiki 网址"),
+            getGradientNameVer2("wiki 网址"),
             "",
-            getGradientName("https://github.com/Yomicer/MagicExpansion/wiki")
+            getGradientNameVer2("https://github.com/Yomicer/MagicExpansion/wiki")
     );
     public static final SlimefunItemStack UI_4 = createDefaultItem("UI_4",Material.LIGHT_GRAY_STAINED_GLASS_PANE);
     public static final SlimefunItemStack UI_5 = createDefaultItem("UI_5",Material.LIGHT_GRAY_STAINED_GLASS_PANE);
@@ -715,25 +715,27 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UI_NOT_LATEST_BUILD = new SlimefunItemStack(
             "MAGIC_EXPANSION_UI_NOT_LATEST_BUILD",
             Material.CALIBRATED_SCULK_SENSOR,
-            getGradientName("当前魔法2.0未开启自动更新/非正式版"),
+            getGradientNameVer2("当前魔法2.0未开启自动更新/非正式版"),
             "",
-            getGradientName("请及时关注最新版更新内容")
+            getGradientNameVer2("请及时关注最新版更新内容")
     );
     public static final SlimefunItemStack UI_IS_LATEST_BUILD = new SlimefunItemStack(
             "MAGIC_EXPANSION_UI_IS_LATEST_BUILD",
             Material.NETHER_STAR,
-            getGradientName("当前魔法2.0为最新版本"),
+            getGradientNameVer2("当前魔法2.0为最新版本"),
             "",
-            getGradientName("期待明天会更好")
+            getGradientNameVer2("期待明天会更好")
     );
 
 
-    public static final SlimefunItemStack NAZUKICYL_TEST = themed("NAZUKICYL_TEST",new CustomItemStack(CustomHead.getHead("8adb25ab9976d89d0bd8118d72c1c06bb907060c1e02a729b652d1e86b1ebbbc")),
+    public static final SlimefunItemStack NAZUKICYL_TEST = themedVer2("NAZUKICYL_TEST",new CustomItemStack(CustomHead.getHead("8adb25ab9976d89d0bd8118d72c1c06bb907060c1e02a729b652d1e86b1ebbbc")),
             get("Items.NAZUKICYL_TEST.Name"),getList("Items.NAZUKICYL_TEST.Lore"));
-    public static final SlimefunItemStack HAIMAN_TEST = themed("HAIMAN_TEST",new CustomItemStack(CustomHead.getHead("1421f1514da756c8c6c7c0b83a79265c26c9ece66b3bad8fbd94bd96d7040d7e")),
+    public static final SlimefunItemStack HAIMAN_TEST = themedVer2("HAIMAN_TEST",new CustomItemStack(CustomHead.getHead("1421f1514da756c8c6c7c0b83a79265c26c9ece66b3bad8fbd94bd96d7040d7e")),
             get("Items.HAIMAN_TEST.Name"),getList("Items.HAIMAN_TEST.Lore"));
-    public static final SlimefunItemStack QIZHIYI_TEST = themed("QIZHIYI_TEST",new CustomItemStack(CustomHead.getHead("f92cbe88217460b5b5edad02d6b9a547ac0a194e75c061fba754a815d8f08f9")),
+    public static final SlimefunItemStack QIZHIYI_TEST = themedVer2("QIZHIYI_TEST",new CustomItemStack(CustomHead.getHead("f92cbe88217460b5b5edad02d6b9a547ac0a194e75c061fba754a815d8f08f9")),
             get("Items.QIZHIYI_TEST.Name"),getList("Items.QIZHIYI_TEST.Lore"));
+    public static final SlimefunItemStack KOMU_A = themedVer2("KOMU_A",new CustomItemStack(CustomHead.getHead("2a06b7ef30db3cd6a869e015e59913e4dfc9212688c281fab18b1f2938fc9f42")),
+            get("Items.KOMU_A.Name"),getList("Items.KOMU_A.Lore"));
 
 
 
@@ -782,6 +784,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2025_12_31 = createDefaultItemGlow("UPDATE_LOG_2025_12_31",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2026_01_02 = createDefaultItemGlow("UPDATE_LOG_2026_01_02",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2026_01_23 = createDefaultItemGlow("UPDATE_LOG_2026_01_23",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2026_01_27 = createDefaultItemGlowV2("UPDATE_LOG_2026_01_27",Material.PAPER);
 
 
 
@@ -794,6 +797,14 @@ public class MagicExpansionItems {
 
 
 
+
+
+
+
+
+
+
+    public static final SlimefunItemStack ITEM_NAME_TAG = createDefaultItemGlowV2("ITEM_NAME_TAG",Material.NAME_TAG);
 
 
 
@@ -843,8 +854,24 @@ public class MagicExpansionItems {
 
 
     public static final SlimefunItemStack FISHING_INFO = createDefaultItemGlow("FISHING_INFO",Material.PAPER);
-    public static final SlimefunItemStack COOPERATE_CREATION_INFO = createDefaultItemGlow("COOPERATE_CREATION_INFO",Material.PAPER);
+    public static final SlimefunItemStack COOPERATE_CREATION_INFO = createDefaultItemGlowV2("COOPERATE_CREATION_INFO",Material.PAPER);
     public static final SlimefunItemStack FISH_CATEGORY_INFO = createDefaultItemGlow("FISH_CATEGORY_INFO",Material.PAPER);
+
+
+
+    public static final SlimefunItemStack TWO_TO_MAGIC_GEO_MACHINE_FORCE = createDefaultItemGlowV2("TWO_TO_MAGIC_GEO_MACHINE_FORCE",Material.FURNACE);
+
+
+
+    //下面是有关食物的Item
+    public static final SlimefunItemStack FARM_HARVEST_BREAD = createDefaultItemGlowV2("FARM_HARVEST_BREAD",Material.BREAD);
+    public static final SlimefunItemStack HARVEST_WHEAT = createDefaultItemGlowV2("HARVEST_WHEAT",Material.WHEAT);
+
+
+
+
+
+
 
 
     public static final SlimefunItemStack FISHING_BOOK = createDefaultItemGlow("FISHING_BOOK",Material.KNOWLEDGE_BOOK);
@@ -1196,6 +1223,22 @@ public class MagicExpansionItems {
     }
     public static SlimefunItemStack createDefaultItemGlow(String id,Material material) {
         return themed(
+                id,
+                doGlow(material),
+                get("Items." + id + ".Name"),
+                getList("Items." + id + ".Lore")
+        );
+    }
+    public static SlimefunItemStack createDefaultItemV2(String id,Material material) {
+        return themedVer2(
+                id,
+                material,
+                get("Items." + id + ".Name"),
+                getList("Items." + id + ".Lore")
+        );
+    }
+    public static SlimefunItemStack createDefaultItemGlowV2(String id,Material material) {
+        return themedVer2(
                 id,
                 doGlow(material),
                 get("Items." + id + ".Name"),

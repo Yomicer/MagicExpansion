@@ -345,11 +345,11 @@ public class MagicExpansionRecipeMachineSetup {
                     .setCapacity(1314)
                     .setConsumption(26)
                     .setProcessingSpeed(1)
-                    .addRecipe(2, new ItemStack[]{sfItemAmount(MagicExpansionItems.RSC_MAGIC_REDSTONE, 1)},
+                    .addRecipe(1, new ItemStack[]{sfItemAmount(MagicExpansionItems.RSC_MAGIC_REDSTONE, 1)},
                             new ItemStack[]{stoneCreateItem("MAGIC_REDSTONE")})
-                    .addRecipe(2, new ItemStack[]{sfItemAmount(MagicExpansionItems.RSC_MAGIC_COSMIC_DUST, 1)},
+                    .addRecipe(1, new ItemStack[]{sfItemAmount(MagicExpansionItems.RSC_MAGIC_COSMIC_DUST, 1)},
                             new ItemStack[]{stoneCreateItem("MAGIC_COSMIC_DUST")})
-                    .addRecipe(2, new ItemStack[]{sfItemAmount(MagicExpansionItems.RSC_MAGIC_SOUL, 1)},
+                    .addRecipe(1, new ItemStack[]{sfItemAmount(MagicExpansionItems.RSC_MAGIC_SOUL, 1)},
                             new ItemStack[]{stoneCreateItem("MAGIC_SOUL")})
                     .register(plugin);
 

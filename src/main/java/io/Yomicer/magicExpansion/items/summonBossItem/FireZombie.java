@@ -122,7 +122,7 @@ public class FireZombie extends SimpleSlimefunItem<ItemUseHandler> implements No
             }
         }.runTaskTimer(MagicExpansion.getInstance(), 0L, 80L + new Random().nextInt(81)); // 每4-8秒执行一次
 
-        // 添加：每隔3秒进行一次传送
+        // 添加：每隔11秒进行一次传送
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -161,7 +161,7 @@ public class FireZombie extends SimpleSlimefunItem<ItemUseHandler> implements No
                 // 传送怪物到新位置
                 mob.teleport(newLocation);
             }
-        }.runTaskTimer(MagicExpansion.getInstance(), 0L, 200L); // 每3秒执行一次
+        }.runTaskTimer(MagicExpansion.getInstance(), 0L, 220L); // 每11秒执行一次
 
 
 

@@ -50,12 +50,16 @@ import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
 
 public class RSCMagicMiner extends AContainer implements RecipeDisplayItem , HologramOwner{
 
+    private static final String HOLOGRAM_ENABLED_KEY = "hologram_enabled";
+    private static final ItemStack TOGGLE_ON = new CustomItemStack(Material.GREEN_DYE, "&a全息文字: &f开启", "&7点击关闭");
+    private static final ItemStack TOGGLE_OFF = new CustomItemStack(Material.GRAY_DYE, "&c全息文字: &f关闭", "&7点击开启");
+
     private static final int[] INPUT_SLOTS = new int[] { 0,1,2,3, 9,10,11,12, 18,19,20,21, 27,28,29,30, 36,37,38,39, 45,46,47,48  };
     private static final int[] OUTPUT_SLOTS = new int[] { 5,6,7,8, 14,15,16,17, 23,24,25,26, 32,33,34,35, 41,42,43,44, 50,51,52,53 };
 
     private static final int[] INPUT_BORDER_SLOTS = new int[] { 13 };
     private static final int[] OUTPUT_BORDER_SLOTS = new int[] { 40 };
-    private static final int[] BACKGROUND_SLOTS = new int[] { 4, 49 };
+    private static final int[] BACKGROUND_SLOTS = new int[] { 49 };
 
     private static final ItemStack PROGRESS_ITEM = new ItemStack(Material.SOUL_LANTERN);
     private static final ItemStack PROGRESS_STACK = new CustomItemStack(Material.SOUL_CAMPFIRE, getGradientName("信息"), getGradientName("类型：五行资源采集器"), getGradientName("所属附属：魔法"));
@@ -158,6 +162,10 @@ public class RSCMagicMiner extends AContainer implements RecipeDisplayItem , Hol
 
             @Override
             public void onPlayerPlace(BlockPlaceEvent e) {
+                SlimefunBlockData data = StorageCacheUtils.getBlock(e.getBlock().getLocation());
+                if (data != null) {
+                    data.setData(HOLOGRAM_ENABLED_KEY, "true"); // 显式初始化
+                }
                 updateHologram(e.getBlock(), "&7待机中...");
             }
         };
@@ -295,19 +303,59 @@ public class RSCMagicMiner extends AContainer implements RecipeDisplayItem , Hol
 
     @Override
     public void updateHologram(@NotNull Block block, @NotNull String text) {
+        SlimefunBlockData data = StorageCacheUtils.getBlock(block.getLocation());
+        if (data != null && !isHologramEnabled(data)) {
+            return;
+        }
         HologramOwner.super.updateHologram(block, text);
     }
 
 
     protected void setupMenu(BlockMenuPreset preset) {
 
-        preset.drawBackground(new CustomItemStack(Material.PINK_STAINED_GLASS_PANE," "), BACKGROUND_SLOTS);
-        preset.drawBackground(new CustomItemStack(Material.LIGHT_BLUE_STAINED_GLASS_PANE," "), INPUT_BORDER_SLOTS);
-        preset.drawBackground(new CustomItemStack(Material.LIME_STAINED_GLASS_PANE," "), OUTPUT_BORDER_SLOTS);
+        preset.drawBackground(new CustomItemStack(Material.PINK_STAINED_GLASS_PANE, " "), BACKGROUND_SLOTS);
+        preset.drawBackground(new CustomItemStack(Material.LIGHT_BLUE_STAINED_GLASS_PANE, " "), INPUT_BORDER_SLOTS);
+        preset.drawBackground(new CustomItemStack(Material.LIME_STAINED_GLASS_PANE, " "), OUTPUT_BORDER_SLOTS);
 
         preset.addItem(getProgressSlot(), new CustomItemStack(Material.PINK_STAINED_GLASS_PANE, " "), ChestMenuUtils.getEmptyClickHandler());
 
         preset.addItem(22, PROGRESS_STACK, ChestMenuUtils.getEmptyClickHandler());
+
+        // === 新增：开关按钮在 slot 4 ===
+        preset.addItem(4, TOGGLE_ON,
+                new ChestMenu.AdvancedMenuClickHandler() {
+                    @Override
+                    public boolean onClick(InventoryClickEvent e, Player p, int slot, ItemStack cursor, ClickAction action) {
+                        if (!(e.getInventory().getHolder() instanceof BlockMenu menu)) return false;
+                        Block b = menu.getBlock();
+                        SlimefunBlockData data = StorageCacheUtils.getBlock(b.getLocation());
+                        if (data == null) return false;
+
+                        boolean enabled = "true".equals(data.getData(HOLOGRAM_ENABLED_KEY));
+                        boolean now = !enabled;
+                        data.setData(HOLOGRAM_ENABLED_KEY, String.valueOf(now));
+
+                        // 更新图标
+                        menu.replaceExistingItem(4,
+                                now ? TOGGLE_ON
+                                        : TOGGLE_OFF
+                        );
+
+                        // 控制全息显示
+                        if (now) {
+                        } else {
+                            removeHologram(b);
+                        }
+
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onClick(Player p, int slot, ItemStack item, ClickAction action) {
+                        return false;
+                    }
+                }
+        );
 
         for (int slot : getOutputSlots()) {
             preset.addMenuClickHandler(slot,new ChestMenu.AdvancedMenuClickHandler() {
@@ -323,6 +371,12 @@ public class RSCMagicMiner extends AContainer implements RecipeDisplayItem , Hol
             });
         }
     }
+
+    private boolean isHologramEnabled(SlimefunBlockData data) {
+        String value = data.getData(HOLOGRAM_ENABLED_KEY);
+        return value == null || Boolean.parseBoolean(value); // 默认开启
+    }
+
 
     @Override
     public List<ItemStack> getDisplayRecipes() {

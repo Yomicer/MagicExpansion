@@ -122,7 +122,7 @@ public class WindElfMB extends MultiBlockMachine {
             }
         }.runTaskTimer(MagicExpansion.getInstance(), 0L, 80L + new Random().nextInt(41)); // 每4-6秒执行一次
 
-        // 添加：每隔0.5秒进行一次传送
+        // 添加：每隔4秒进行一次传送
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -161,7 +161,7 @@ public class WindElfMB extends MultiBlockMachine {
                 // 传送怪物到新位置
                 mob.teleport(newLocation);
             }
-        }.runTaskTimer(MagicExpansion.getInstance(), 0L, 40L); // 每2秒执行一次
+        }.runTaskTimer(MagicExpansion.getInstance(), 0L, 80L); // 每4秒执行一次
 
 
 

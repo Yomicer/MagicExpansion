@@ -84,6 +84,7 @@ public class MagicExpansion extends JavaPlugin implements SlimefunAddon {
         MagicExpansionRecipeMachineSetup.setup(this);
         MagicExpansionPowerMachineSetup.setup(this);
         MagicExpansionQuickMachineSetup.setup(this);
+        MagicExpansionFoodSetup.setup(this);
         getLogger().info("§b物品注册完毕！");
 
 
