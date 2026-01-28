@@ -30,7 +30,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientNameVer2("信息"),
             "",
-            getGradientNameVer2("Version: Build 61"),
+            getGradientNameVer2("Version: Build 62"),
             getGradientNameVer2("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -703,7 +703,8 @@ public class MagicExpansionItems {
             Material.CALIBRATED_SCULK_SENSOR,
             getGradientNameVer2("wiki 网址"),
             "",
-            getGradientNameVer2("https://github.com/Yomicer/MagicExpansion/wiki")
+            getGradientNameVer2("https://github.com/Yomicer/MagicExpansion/wiki"),
+            getGradientNameVer2("企鹅交流群：770346419")
     );
     public static final SlimefunItemStack UI_4 = createDefaultItem("UI_4",Material.LIGHT_GRAY_STAINED_GLASS_PANE);
     public static final SlimefunItemStack UI_5 = createDefaultItem("UI_5",Material.LIGHT_GRAY_STAINED_GLASS_PANE);
@@ -736,6 +737,8 @@ public class MagicExpansionItems {
             get("Items.QIZHIYI_TEST.Name"),getList("Items.QIZHIYI_TEST.Lore"));
     public static final SlimefunItemStack KOMU_A = themedVer2("KOMU_A",new CustomItemStack(CustomHead.getHead("2a06b7ef30db3cd6a869e015e59913e4dfc9212688c281fab18b1f2938fc9f42")),
             get("Items.KOMU_A.Name"),getList("Items.KOMU_A.Lore"));
+    public static final SlimefunItemStack LENGSHANG_TEST = themedVer2("LENGSHANG_TEST",new CustomItemStack(CustomHead.getHead("20b13024045c5c0d6d2afb059ae9660f7ad020fd895bb75f64fcc02ddb07d327")),
+            get("Items.LENGSHANG_TEST.Name"),getList("Items.LENGSHANG_TEST.Lore"));
 
 
 
@@ -785,6 +788,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2026_01_02 = createDefaultItemGlow("UPDATE_LOG_2026_01_02",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2026_01_23 = createDefaultItemGlow("UPDATE_LOG_2026_01_23",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2026_01_27 = createDefaultItemGlowV2("UPDATE_LOG_2026_01_27",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2026_01_28 = createDefaultItemGlowV2("UPDATE_LOG_2026_01_28",Material.PAPER);
 
 
 
