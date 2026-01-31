@@ -1372,9 +1372,17 @@ public final class MagicExpansionItemSetup {
         }).register(plugin);
 
 
+        //魔法擦拭巾
+        new EnchantmentEraser(magicexpansionspecialitem, ENCHANTMENT_ERASER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                new ItemStack(Material.PAPER), REDSTONE, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
 
 
-        //钓鱼说明
+
+
+        //共创说明
         new UnplaceableBlock(magicexpansioncooperatecreate, COOPERATE_CREATION_INFO, RecipeType.NULL, new ItemStack[] {
                 null, null, null,
                 null, null, null,

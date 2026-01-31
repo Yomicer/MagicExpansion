@@ -107,7 +107,7 @@ public class EnchantingTable extends SimpleSlimefunItem<ItemUseHandler> implemen
     }
 
     // 定义中英文映射表
-    private static final Map<String, String> ATTRIBUTE_NAME_MAP = new HashMap<>();
+    public static final Map<String, String> ATTRIBUTE_NAME_MAP = new HashMap<>();
 
     static {
         ATTRIBUTE_NAME_MAP.put("MagicExpansion.Knockback", "击飞等级");

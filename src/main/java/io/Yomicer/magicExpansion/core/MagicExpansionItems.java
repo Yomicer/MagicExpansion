@@ -30,7 +30,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientNameVer2("信息"),
             "",
-            getGradientNameVer2("Version: Build 62"),
+            getGradientNameVer2("Version: Build 63"),
             getGradientNameVer2("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -870,6 +870,10 @@ public class MagicExpansionItems {
     //下面是有关食物的Item
     public static final SlimefunItemStack FARM_HARVEST_BREAD = createDefaultItemGlowV2("FARM_HARVEST_BREAD",Material.BREAD);
     public static final SlimefunItemStack HARVEST_WHEAT = createDefaultItemGlowV2("HARVEST_WHEAT",Material.WHEAT);
+
+
+
+    public static final SlimefunItemStack ENCHANTMENT_ERASER = createDefaultItemGlowV2("ENCHANTMENT_ERASER",Material.PAPER);
 
 
 
