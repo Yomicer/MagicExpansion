@@ -35,6 +35,8 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.items.groups.NestedItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.groups.SubItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import io.github.thebusybiscuit.slimefun4.core.guide.SlimefunGuide;
+import io.github.thebusybiscuit.slimefun4.core.guide.SlimefunGuideMode;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.implementation.items.HiddenItem;
 import io.github.thebusybiscuit.slimefun4.implementation.items.blocks.UnplaceableBlock;
@@ -43,6 +45,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.items.electric.EnergyCo
 import io.github.thebusybiscuit.slimefun4.implementation.items.geo.GEOMiner;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
+import io.github.thebusybiscuit.slimefun4.utils.itemstack.SlimefunGuideItem;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
@@ -563,6 +566,11 @@ public final class MagicExpansionItemSetup {
                 null, null, null
         }).register(plugin);
         new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2026_01_28, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
+        new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2026_02_19, SPECIAL_RECIPE_TYPE, new ItemStack[] {
                 null, null, null,
                 null, null, null,
                 null, null, null
@@ -1377,6 +1385,13 @@ public final class MagicExpansionItemSetup {
                 new ItemStack(Material.PAPER), REDSTONE, null,
                 null, null, null,
                 null, null, null
+        }).register(plugin);
+
+        //神秘知识点
+        new ResearchUnlocker(magicexpansionspecialitem, RESEARCH_UNLOCKER_PAPER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                EARTH_ELEMENT, PURE_ELEMENT_INGOT, WOOD_ELEMENT,
+                WATER_ELEMENT, SlimefunGuide.getItem(SlimefunGuideMode.SURVIVAL_MODE), FIRE_ELEMENT,
+                SlimefunItems.FILLED_FLASK_OF_KNOWLEDGE, GOLD_ELEMENT, SlimefunItems.FILLED_FLASK_OF_KNOWLEDGE
         }).register(plugin);
 
 
@@ -2502,6 +2517,25 @@ public final class MagicExpansionItemSetup {
                 MagicExpansionItems.LEVER,SlimefunItems.PROGRAMMABLE_ANDROID,MagicExpansionItems.LEVER,
                 MagicExpansionItems.OAK_PLANKS,MagicExpansionItems.OAK_PLANKS,MagicExpansionItems.OAK_PLANKS
         }).register(plugin);
+
+
+        //矿脉机器人
+        new ResourceRandomOneMachine(magicexpansionresourcegenerator, FIVE_ELEMENT_GEN_BASIC, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                PURE_ELEMENT_INGOT,MagicExpansionItems.INGOT_PURE_MACHINE,PURE_ELEMENT_INGOT,
+                PURE_FIVE_ELEMENT,PURE_INGOT_POWER_CORE,MAGIC_EXPANSION_MAGIC_SUGAR_7,
+                PURE_ELEMENT_INGOT,MagicExpansionItems.FIVE_ELEMENT_MINER,PURE_ELEMENT_INGOT
+        })
+                .setCraftSecond(3)
+                .setCapacity(1314)
+                .setConsumption(260)
+                .setProcessingSpeed(1)
+                .setItemStackOutputs(new ItemStack[] {sfItemAmount(PURE_ELEMENT_GOLD,1),sfItemAmount(PURE_ELEMENT_WOOD,1),
+                        sfItemAmount(PURE_ELEMENT_WATER,1),sfItemAmount(PURE_ELEMENT_FIRE,1),
+                        sfItemAmount(PURE_ELEMENT_EARTH,1),})
+                .register(plugin);
+
+
+
 
 
 

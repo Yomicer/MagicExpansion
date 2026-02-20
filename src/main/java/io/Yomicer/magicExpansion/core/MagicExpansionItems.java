@@ -30,7 +30,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientNameVer2("信息"),
             "",
-            getGradientNameVer2("Version: Build 63"),
+            getGradientNameVer2("Version: Build 64"),
             getGradientNameVer2("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -789,6 +789,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2026_01_23 = createDefaultItemGlow("UPDATE_LOG_2026_01_23",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2026_01_27 = createDefaultItemGlowV2("UPDATE_LOG_2026_01_27",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2026_01_28 = createDefaultItemGlowV2("UPDATE_LOG_2026_01_28",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2026_02_19 = createDefaultItemGlowV2("UPDATE_LOG_2026_02_19",Material.PAPER);
 
 
 
@@ -866,6 +867,9 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack TWO_TO_MAGIC_GEO_MACHINE_FORCE = createDefaultItemGlowV2("TWO_TO_MAGIC_GEO_MACHINE_FORCE",Material.FURNACE);
 
 
+    public static final SlimefunItemStack FIVE_ELEMENT_GEN_BASIC = createGeneratorGlowV2("FIVE_ELEMENT_GEN_BASIC",Material.ENCHANTING_TABLE);
+
+
 
     //下面是有关食物的Item
     public static final SlimefunItemStack FARM_HARVEST_BREAD = createDefaultItemGlowV2("FARM_HARVEST_BREAD",Material.BREAD);
@@ -874,6 +878,10 @@ public class MagicExpansionItems {
 
 
     public static final SlimefunItemStack ENCHANTMENT_ERASER = createDefaultItemGlowV2("ENCHANTMENT_ERASER",Material.PAPER);
+
+
+
+    public static final SlimefunItemStack RESEARCH_UNLOCKER_PAPER = createDefaultItemGlowV2("RESEARCH_UNLOCKER_PAPER",Material.PAPER);
 
 
 
@@ -1251,6 +1259,14 @@ public class MagicExpansionItems {
                 doGlow(material),
                 get("Items." + id + ".Name"),
                 getList("Items." + id + ".Lore")
+        );
+    }
+    public static SlimefunItemStack createGeneratorGlowV2(String id,Material material) {
+        return themedVer2(
+                id,
+                doGlow(material),
+                get("GENERATOR." + id + ".Name"),
+                getList("GENERATOR." + id + ".Lore")
         );
     }
     public static SlimefunItemStack createDefaultItemGlowGlass(String id,Material material) {

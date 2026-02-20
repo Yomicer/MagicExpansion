@@ -40,8 +40,8 @@ public class PersistentQuantumStorageType implements PersistentDataType<Persiste
         if (complex.getItemStack() != null) {
             container.set(NetworksKeys.ITEM, DataType.ITEM_STACK, complex.getItemStack());
         }
-        container.set(NetworksKeys.AMOUNT, DataType.LONG, complex.getAmount());
-        container.set(NetworksKeys.MAX_AMOUNT, DataType.INTEGER, complex.getLimit());
+        container.set(NetworksKeys.AMOUNT, DataType.LONG, complex.getAmountLong());
+        container.set(NetworksKeys.MAX_AMOUNT, DataType.LONG, complex.getLimitLong());
         container.set(NetworksKeys.VOID, DataType.BOOLEAN, complex.isVoidExcess());
         container.set(NetworksKeys.SUPPORTS_CUSTOM_MAX_AMOUNT, DataType.BOOLEAN, complex.supportsCustomMaxAmount());
         return container;
@@ -80,12 +80,25 @@ public class PersistentQuantumStorageType implements PersistentDataType<Persiste
             amount = amountI.longValue();
         }
 
-        Integer limit = primitive.get(NetworksKeys.MAX_AMOUNT, DataType.INTEGER);
-        if (limit == null) {
-            limit = primitive.get(NetworksKeys.MAX_AMOUNT2, DataType.INTEGER);
-        }
-        if (limit == null) {
-            limit = primitive.getOrDefault(NetworksKeys.MAX_AMOUNT3, DataType.INTEGER, 64);
+        Long limit;
+        try {
+            limit = primitive.get(NetworksKeys.MAX_AMOUNT, DataType.LONG);
+            if (limit == null) {
+                limit = primitive.get(NetworksKeys.MAX_AMOUNT2, DataType.LONG);
+            }
+            if (limit == null) {
+                limit = primitive.getOrDefault(NetworksKeys.MAX_AMOUNT3, DataType.LONG, 64L);
+            }
+        } catch (Throwable ignored) {
+            Integer limitI;
+            limitI = primitive.get(NetworksKeys.MAX_AMOUNT, DataType.INTEGER);
+            if (limitI == null) {
+                limitI = primitive.get(NetworksKeys.MAX_AMOUNT2, DataType.INTEGER);
+            }
+            if (limitI == null) {
+                limitI = primitive.getOrDefault(NetworksKeys.MAX_AMOUNT3, DataType.INTEGER, 64);
+            }
+            limit = limitI.longValue();
         }
 
         Boolean voidExcess = primitive.get(NetworksKeys.VOID, DataType.BOOLEAN);

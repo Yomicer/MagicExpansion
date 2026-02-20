@@ -20,11 +20,26 @@ public class QuantumCache extends ItemStackCache {
     private final boolean supportsCustomMaxAmount;
 
     @Setter
-    @Getter
-    private int limit;
+    private long limit;
+
+    public int getLimit() {
+        return limit > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) limit;
+    }
+
+    public long getLimitLong() {
+        return limit;
+    }
 
     @Getter
     private long amount;
+
+    public int getAmountInt() {
+        return amount > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) amount;
+    }
+
+    public long getAmountLong() {
+        return amount;
+    }
 
     @Setter
     @Getter
@@ -34,6 +49,15 @@ public class QuantumCache extends ItemStackCache {
             @Nullable ItemStack storedItem,
             long amount,
             int limit,
+            boolean voidExcess,
+            boolean supportsCustomMaxAmount) {
+        this(storedItem, amount, (long) limit, voidExcess, supportsCustomMaxAmount);
+    }
+
+    public QuantumCache(
+            @Nullable ItemStack storedItem,
+            long amount,
+            long limit,
             boolean voidExcess,
             boolean supportsCustomMaxAmount) {
         super(storedItem);
@@ -50,7 +74,19 @@ public class QuantumCache extends ItemStackCache {
     }
 
     public void setAmount(int amount) {
-        this.amount = amount;
+        if (amount < -2_000_000_000) {
+            this.amount = -amount; // just for data fix in some case, normally nothing will reach -2B
+        } else {
+            this.amount = amount;
+        }
+    }
+
+    public void setAmount(long amount) {
+        if (amount < -2_000_000_000) {
+            this.amount = -amount; // just for data fix in some case, normally nothing will reach -2B
+        } else {
+            this.amount = amount;
+        }
     }
 
     public boolean supportsCustomMaxAmount() {

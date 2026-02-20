@@ -438,7 +438,8 @@ public class CargoFragmentExtract extends SimpleSlimefunItem<ItemUseHandler> imp
         try {
             // 1. 减少量子存储的数量
             long newStoredAmount = operation.storedAmount - extractAmount;
-            operation.quantumCache.setAmount((int) newStoredAmount);
+//            operation.quantumCache.setAmount((int) newStoredAmount);
+            operation.quantumCache.setAmount(newStoredAmount);
 
             // 2. 更新副手物品的QuantumCache数据
             updateQuantumCacheInItem(operation.offhandItem, operation.quantumCache);
