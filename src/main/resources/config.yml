@@ -4,6 +4,28 @@ options:
   test: false
   clear-old-config: false
 
+StarShardsSword:
+  help: '#####为星陨裁决配置信息#####'
+  StarShards_Atk_Add: 1314.0
+  #基础攻击力加成 默认:1314.0
+  StarShards_Atk_Mult: 6.18
+  #基础攻击力乘区 默认:6.18   +618%
+  StarShards_AtkSpeed: 20.0
+  #攻击速度 默认:20.0 +2000%
+  StarShards_Health_Add: 1314.0
+  #基础生命值加成 默认:1314.0
+  StarShards_Health_Mult: 6.18
+  #基础生命值乘区 默认:6.18   +618%
+  StarShards_MoveSpeed: 0.618
+  #移动速度 默认:0.618 +61.8%
+  StarShards_Armor: 200.0
+  #护甲 默认:200.0
+  StarShards_Toughness: 200.0
+  #护甲韧性 默认:200.0
+  StarShards_FlySpeed: 13.14
+  #飞行速度 默认:13.14 +131.4%
+
+
 
 qwen-help:
   help: '#####这个qwen-help为配置提示，请勿删除，删除也没啥影响'
