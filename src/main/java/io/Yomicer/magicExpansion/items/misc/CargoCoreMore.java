@@ -2996,6 +2996,12 @@ public class CargoCoreMore extends SlimefunItem implements EnergyNetComponent{
 
         // 创建要抽取的物品
         ItemStack toExtract = sourceItem.clone();
+
+        SlimefunItem sfToExtract = SlimefunItem.getByItem(toExtract);
+        if (sfToExtract instanceof CargoFragment) {
+            return 0;
+        }
+
         toExtract.setAmount(maxExtract);
 
         // 直接存储到目标存储系统

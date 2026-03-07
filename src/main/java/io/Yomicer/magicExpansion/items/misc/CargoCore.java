@@ -2373,6 +2373,10 @@ public class CargoCore extends SlimefunItem implements EnergyNetComponent{
 
         for (int outputSlot : outputSlots) {
             ItemStack itemToExtract = sourceMenu.getItemInSlot(outputSlot);
+            SlimefunItem sfToExtract = SlimefunItem.getByItem(itemToExtract);
+            if (sfToExtract instanceof CargoFragment) {
+                continue;
+            }
             if (itemToExtract == null || itemToExtract.getType() == Material.AIR) {
 //                Debug.logInfo("槽位 " + outputSlot + " 为空");
                 continue;
