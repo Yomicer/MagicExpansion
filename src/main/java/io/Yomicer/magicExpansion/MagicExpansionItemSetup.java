@@ -576,6 +576,12 @@ public final class MagicExpansionItemSetup {
                 null, null, null
         }).register(plugin);
 
+        new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2026_03_10, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
+
 
 
 

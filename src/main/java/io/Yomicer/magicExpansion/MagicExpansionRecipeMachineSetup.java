@@ -1,6 +1,7 @@
 package io.Yomicer.magicExpansion;
 
 import io.Yomicer.magicExpansion.core.MagicExpansionItems;
+import io.Yomicer.magicExpansion.items.electric.recipeMachine.IDCardMachineCN;
 import io.Yomicer.magicExpansion.items.electric.recipeMachine.RecipeMachine;
 import io.Yomicer.magicExpansion.items.electric.recipeMachine.RecipeMachinePreBuilding;
 import io.Yomicer.magicExpansion.items.electric.templateMachine.ItemOriginBackTrackMachine;
@@ -385,6 +386,19 @@ public class MagicExpansionRecipeMachineSetup {
                         new ItemStack[] {MagicExpansionItems.PURE_ZINC})
                 .register(plugin);
 
+
+
+        new IDCardMachineCN(magicexpansionrecipemachine, MagicExpansionItems.CHINESE_CHARACTER_CONSTRUCTOR, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                new ItemStack(Material.INK_SAC), new ItemStack(Material.WRITABLE_BOOK),new ItemStack(Material.LEATHER),
+                MagicExpansionItems.ELEMENT_INGOT,MagicExpansionItems.FIVE_ELEMENT,MagicExpansionItems.ELEMENT_INGOT,
+                MagicExpansionItems.ELEMENT_INGOT,new ItemStack(Material.LECTERN),MagicExpansionItems.ELEMENT_INGOT
+        })
+                .setCapacity(1314)
+                .setConsumption(260)
+                .setProcessingSpeed(1)
+                .addRecipe(1, new ItemStack[] {new ItemStack(Material.PAPER),new ItemStack(Material.BAMBOO),new ItemStack(Material.FEATHER),new ItemStack(Material.INK_SAC)},
+                        new ItemStack[] {new CustomItemStack(Material.SUGAR, ColorGradient.getGradientNameVer2("符号"), "&f梦", ColorGradient.getGradientNameVer2("凭空制造物质的基础"))})
+                .register(plugin);
 
 
 
