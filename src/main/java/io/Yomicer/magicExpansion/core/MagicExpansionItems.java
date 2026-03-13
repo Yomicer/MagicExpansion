@@ -30,7 +30,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientNameVer2("信息"),
             "",
-            getGradientNameVer2("Version: Build 67"),
+            getGradientNameVer2("Version: Build 68"),
             getGradientNameVer2("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -695,6 +695,7 @@ public class MagicExpansionItems {
 
 
     public static final SlimefunItemStack UI_THX = createDefaultItemV2("UI_THX",Material.PAPER);
+
 //    public static final SlimefunItemStack UI_3 = createDefaultItem("UI_3",Material.LIGHT_GRAY_STAINED_GLASS_PANE);
 
     //AUTHOR
@@ -739,6 +740,17 @@ public class MagicExpansionItems {
             get("Items.KOMU_A.Name"),getList("Items.KOMU_A.Lore"));
     public static final SlimefunItemStack LENGSHANG_TEST = themedVer2("LENGSHANG_TEST",new CustomItemStack(CustomHead.getHead("20b13024045c5c0d6d2afb059ae9660f7ad020fd895bb75f64fcc02ddb07d327")),
             get("Items.LENGSHANG_TEST.Name"),getList("Items.LENGSHANG_TEST.Lore"));
+
+
+
+
+
+
+    public static final SlimefunItemStack WHEAT_SEEDS = createDefaultItemGlowV2("WHEAT_SEEDS",Material.WHEAT_SEEDS);
+    public static final SlimefunItemStack POTATO = createDefaultItemGlowV2("POTATO",Material.POTATO);
+
+
+
 
 
 
@@ -791,6 +803,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2026_01_28 = createDefaultItemGlowV2("UPDATE_LOG_2026_01_28",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2026_02_19 = createDefaultItemGlowV2("UPDATE_LOG_2026_02_19",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2026_03_10 = createDefaultItemGlowV2("UPDATE_LOG_2026_03_10",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2026_03_13 = createDefaultItemGlowV2("UPDATE_LOG_2026_03_13",Material.PAPER);
 
 
 

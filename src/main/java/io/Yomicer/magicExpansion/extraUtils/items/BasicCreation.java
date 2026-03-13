@@ -14,9 +14,8 @@ import static io.Yomicer.magicExpansion.utils.ConvertItem.stoneCreateItem;
 
 public class BasicCreation {
 
-    public static String MagicExpansionVer2ColorBuild(String s) {
-        return ColorGradient.getGradientNameVer2(s);
-    }
+
+
     /*
     魔法2.0二代自适应渐变字体
     js脚本调用示例:
@@ -34,6 +33,10 @@ public class BasicCreation {
     使用示例:
     java就不用多描述了，s只是一个字符串，你想哪里用都可以，只要在这个方法里面
     */
+    public static String MagicExpansionVer2ColorBuild(String s) {
+        return ColorGradient.getGradientNameVer2(s);
+    }
+
 
 
     /*
