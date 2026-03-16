@@ -200,7 +200,7 @@ public class MagicExpansionRecipeMachineSetup {
                                 NamedTagBuilder.nameTag("KFCMiddle"),MagicExpansionItems.SPACE_INFINITY_MAGIC},
                         new ItemStack[] {MagicExpansionItems.PRE_BUILDING_KFC_MIDDLE})
                 .addRecipe(20,new ItemStack[] {
-                                sfItemAmount(MagicExpansionItems.COLOR_CONCRETE_1,25),sfItemAmount(MagicExpansionItems.STONE_BRICKS_1,21),sfItemAmount(MagicExpansionItems.COLOR_CONCRETE_1,18),
+                                sfItemAmount(MagicExpansionItems.COLOR_CONCRETE_1,25),sfItemAmount(MagicExpansionItems.STONE_BRICKS_1,21),sfItemAmount(MagicExpansionItems.COLOR_LEAVES_1,18),
                                 sfItemAmount(MagicExpansionItems.COLOR_LOG_1,3),sfItemAmount(MagicExpansionItems.COLOR_WOOL_1,2),sfItemAmount(MagicExpansionItems.COBBLESTONE_1,2),
                                 NamedTagBuilder.nameTag("LargeSnowKing"),MagicExpansionItems.SPACE_INFINITY_MAGIC},
                         new ItemStack[] {MagicExpansionItems.PRE_BUILDING_LARGE_SNOW_KING})
@@ -219,7 +219,6 @@ public class MagicExpansionRecipeMachineSetup {
                                 sfItemAmount(MagicExpansionItems.GLASS_1,7),sfItemAmount(MagicExpansionItems.IRON_INGOT_1,3),sfItemAmount(MagicExpansionItems.LIGHT_1,3),
                                 NamedTagBuilder.nameTag("KrustyKrab"),MagicExpansionItems.SPACE_INFINITY_MAGIC},
                         new ItemStack[] {MagicExpansionItems.PRE_BUILDING_KRUSTY_KRAB})
-
                 .register(plugin);
 
         //泥土园

@@ -45,10 +45,8 @@ import io.github.thebusybiscuit.slimefun4.implementation.items.electric.EnergyCo
 import io.github.thebusybiscuit.slimefun4.implementation.items.geo.GEOMiner;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
-import io.github.thebusybiscuit.slimefun4.utils.itemstack.SlimefunGuideItem;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.block.BlockFace;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
@@ -61,8 +59,7 @@ import java.util.List;
 import java.util.Map;
 
 import static io.Yomicer.magicExpansion.core.MagicExpansionItems.*;
-import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
-import static io.Yomicer.magicExpansion.utils.ColorGradient.getRandomGradientName;
+import static io.Yomicer.magicExpansion.utils.ColorGradient.*;
 import static io.Yomicer.magicExpansion.utils.ConvertItem.*;
 import static io.Yomicer.magicExpansion.utils.Language.get;
 import static io.Yomicer.magicExpansion.utils.Language.getList;
@@ -586,6 +583,11 @@ public final class MagicExpansionItemSetup {
                 null, null, null,
                 null, null, null
         }).register(plugin);
+        new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2026_03_17, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
 
 
 
@@ -928,7 +930,7 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(new ItemStack(Material.MANGROVE_LOG), 3),
                                 new WeightedItem(new ItemStack(Material.CRIMSON_STEM), 3),
                                 new WeightedItem(new ItemStack(Material.WARPED_STEM), 3),
-                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientNameVer2("鱼饵·记忆碎片"),("§f这个鱼饵可以钓到任何物品"),("§f他存在于过去或者是未来"),("§f你现在看到的他并非真正的他")
                                 ), 1)
                         )
                 ), List.of()).register(plugin);
@@ -980,7 +982,7 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 1),
                                 new WeightedItem(RANDOM_FISH_EPIC, 1),
                                 new WeightedItem(FISH_LEGENDARY_EEL_POWER, 1),
-                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientNameVer2("鱼饵·记忆碎片"),("§f这个鱼饵可以钓到任何物品"),("§f他存在于过去或者是未来"),("§f你现在看到的他并非真正的他")
                                 ), 18)
                         ),
                         "bread", List.of(
@@ -1012,7 +1014,7 @@ public final class MagicExpansionItemSetup {
                                 ), 40),
                                 new WeightedItem(new CustomItemStack(Material.POPPY, "§a露珠莲瓣", getGradientName("带着晨露的清香，能净化水域的浊气")
                                 ), 80),
-                                new WeightedItem(new CustomItemStack(Material.PRISMARINE_SHARD, "§a鱼鳞尘", getGradientName("在阳光下闪烁微光，是鱼群身份的信号")
+                                new WeightedItem(new CustomItemStack(Material.PRISMARINE_SHARD, "§a鱼鳞尘", ("§f在阳光下闪烁微光，是鱼群身份的信号")
                                 ), 50),
                                 new WeightedItem(RANDOM_FISH_COMMON, 160),
                                 new WeightedItem(RANDOM_FISH_UNCOMMON, 140),
@@ -1033,7 +1035,7 @@ public final class MagicExpansionItemSetup {
                                 ), 60),
                                 new WeightedItem(new CustomItemStack(Material.COAL, "§6碳晶颗粒", getGradientName("深埋地壳的古老植物遗骸，为矿粉提供能量基底")
                                 ), 30),
-                                new WeightedItem(new CustomItemStack(Material.NETHER_STAR, "§d星辰铁微尘", getGradientName("极其稀有，传说来自陨星核心，能大幅提升引诱力")
+                                new WeightedItem(new CustomItemStack(Material.NETHER_STAR, "§d星辰铁微尘", ("§f极其稀有，传说来自陨星核心，能大幅提升引诱力")
                                 ), 6),
                                 new WeightedItem(RANDOM_FISH_COMMON, 90),
                                 new WeightedItem(RANDOM_FISH_UNCOMMON, 50),
@@ -1046,7 +1048,7 @@ public final class MagicExpansionItemSetup {
                         "fishLureOre", List.of(
                                 new WeightedItem(new CustomItemStack(Material.COPPER_INGOT, "§b原生铜脉碎片", getGradientName("并非冶炼所得，而是从岩层中直接剥离的天然导电矿络")
                                 ), 20),
-                                new WeightedItem(new CustomItemStack(Material.IRON_INGOT, "§b赤铁矿核", getGradientName("保留了完整晶体结构的高纯度铁核，能散发‘金属心跳’般的信号")
+                                new WeightedItem(new CustomItemStack(Material.IRON_INGOT, "§b赤铁矿核", ("§f保留了完整晶体结构的高纯度铁核，能散发‘金属心跳’般的信号")
                                 ), 30),
                                 new WeightedItem(new CustomItemStack(Material.GOLD_INGOT, "§b金脉结晶", getGradientName("在高压下自然形成的网状金晶，是‘富矿区’的活体信标")
                                 ), 70),
@@ -1089,7 +1091,7 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_EPIC_POOL_ALLOY_INGOT, 5),
                                 new WeightedItem(RANDOM_FISH_EPIC, 9),
                                 new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 3),
-                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientNameVer2("鱼饵·记忆碎片"),("§f这个鱼饵可以钓到任何物品"),("§f他存在于过去或者是未来"),("§f你现在看到的他并非真正的他")
                                 ), 1)
                         ),
                         "default", List.of(
@@ -1190,7 +1192,7 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 300),
                                 new WeightedItem(RANDOM_FISH_EPIC, 300),
                                 new WeightedItem(FISH_LEGENDARY_EEL_POWER, 300),
-                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientNameVer2("鱼饵·记忆碎片"),("§f这个鱼饵可以钓到任何物品"),("§f他存在于过去或者是未来"),("§f你现在看到的他并非真正的他")
                                 ), 1800)
                         ),
                         "bread", List.of(
@@ -1212,7 +1214,7 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_DUST, 18),
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_ORE, 18),
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_INDUSTRY, 16),
-                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientNameVer2("鱼饵·记忆碎片"),("§f这个鱼饵可以钓到任何物品"),("§f他存在于过去或者是未来"),("§f你现在看到的他并非真正的他")
                                 ), 1)
                         ),
                         "fishLureBasic", List.of(
@@ -1224,7 +1226,7 @@ public final class MagicExpansionItemSetup {
                                 ), 4),
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.POPPY,3), "§a露珠莲瓣", getGradientName("带着晨露的清香，能净化水域的浊气")
                                 ), 8),
-                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,3), "§a鱼鳞尘", getGradientName("在阳光下闪烁微光，是鱼群身份的信号")
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,3), "§a鱼鳞尘", ("§f在阳光下闪烁微光，是鱼群身份的信号")
                                 ), 5),
                                 new WeightedItem(RANDOM_FISH_COMMON, 20),
                                 new WeightedItem(RANDOM_FISH_UNCOMMON, 18),
@@ -1233,7 +1235,7 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_INDUSTRY, 15),
                                 new WeightedItem(RANDOM_FISH_EPIC, 8),
                                 new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 8),
-                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientNameVer2("鱼饵·记忆碎片"),("§f这个鱼饵可以钓到任何物品"),("§f他存在于过去或者是未来"),("§f你现在看到的他并非真正的他")
                                 ), 1)
                         ),
                         "fishLureDust", List.of(
@@ -1247,7 +1249,7 @@ public final class MagicExpansionItemSetup {
                                 ), 6),
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.COAL,3), "§6碳晶颗粒", getGradientName("深埋地壳的古老植物遗骸，为矿粉提供能量基底")
                                 ), 3),
-                                new WeightedItem(new CustomItemStack(new ItemStack(Material.NETHER_STAR,3), "§d星辰铁微尘", getGradientName("极其稀有，传说来自陨星核心，能大幅提升引诱力")
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.NETHER_STAR,3), "§d星辰铁微尘", ("§f极其稀有，传说来自陨星核心，能大幅提升引诱力")
                                 ), 5),
                                 new WeightedItem(RANDOM_FISH_COMMON, 12),
                                 new WeightedItem(RANDOM_FISH_UNCOMMON, 3),
@@ -1256,13 +1258,13 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_INDUSTRY, 1),
                                 new WeightedItem(RANDOM_FISH_EPIC, 3),
                                 new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 3),
-                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientNameVer2("鱼饵·记忆碎片"),("§f这个鱼饵可以钓到任何物品"),("§f他存在于过去或者是未来"),("§f你现在看到的他并非真正的他")
                                 ), 1)
                         ),
                         "fishLureOre", List.of(
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.COPPER_INGOT,3), "§b原生铜脉碎片", getGradientName("并非冶炼所得，而是从岩层中直接剥离的天然导电矿络")
                                 ), 2),
-                                new WeightedItem(new CustomItemStack(new ItemStack(Material.IRON_INGOT,3), "§b赤铁矿核", getGradientName("保留了完整晶体结构的高纯度铁核，能散发‘金属心跳’般的信号")
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.IRON_INGOT,3), "§b赤铁矿核", ("§f保留了完整晶体结构的高纯度铁核，能散发‘金属心跳’般的信号")
                                 ), 3),
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.GOLD_INGOT,3), "§b金脉结晶", getGradientName("在高压下自然形成的网状金晶，是‘富矿区’的活体信标")
                                 ), 7),
@@ -1279,7 +1281,7 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_INDUSTRY, 1),
                                 new WeightedItem(RANDOM_FISH_EPIC, 3),
                                 new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 3),
-                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientNameVer2("鱼饵·记忆碎片"),("§f这个鱼饵可以钓到任何物品"),("§f他存在于过去或者是未来"),("§f你现在看到的他并非真正的他")
                                 ), 1)
                         ),
                         "fishLureAlloyIngot", List.of(
@@ -1307,7 +1309,7 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_EPIC_POOL_ALLOY_INGOT, 16),
                                 new WeightedItem(RANDOM_FISH_EPIC, 10),
                                 new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 10),
-                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientNameVer2("鱼饵·记忆碎片"),("§f这个鱼饵可以钓到任何物品"),("§f他存在于过去或者是未来"),("§f你现在看到的他并非真正的他")
                                 ), 1)
                         ),
                         "default", List.of(
@@ -1331,7 +1333,7 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_EPIC, 3),
                                 new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 3),
                                 new WeightedItem(FISHING_ROD_FINAL_HOOK, 1),
-                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientNameVer2("鱼饵·记忆碎片"),("§f这个鱼饵可以钓到任何物品"),("§f他存在于过去或者是未来"),("§f你现在看到的他并非真正的他")
                                 ), 1)
                         )
                 ),Arrays.asList(SlimefunItems.MAGIC_SUGAR,new ItemStack(Material.BREAD),
@@ -1360,7 +1362,7 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_EPIC_POOL_ALLOY_INGOT, 1),
                                 new WeightedItem(RANDOM_FISH_LEGENDARY, 1),
                                 new WeightedItem(FISH_LEGENDARY_EEL_POWER, 1),
-                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,8),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,8),getGradientNameVer2("鱼饵·记忆碎片"),("§f这个鱼饵可以钓到任何物品"),("§f他存在于过去或者是未来"),("§f你现在看到的他并非真正的他")
                                 ), 1)
                         ),
                         "default", List.of(
@@ -1375,19 +1377,19 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_LEGENDARY, 3),
                                 new WeightedItem(FISH_LEGENDARY_EEL_POWER, 1),
                                 new WeightedItem(FISHING_ROD_FINAL_HOOK, 1),
-                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,5),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,5),getGradientNameVer2("鱼饵·记忆碎片"),("§f这个鱼饵可以钓到任何物品"),("§f他存在于过去或者是未来"),("§f你现在看到的他并非真正的他")
                                 ), 3)
                         )
-                ), List.of(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他")
+                ), List.of(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientNameVer2("鱼饵·记忆碎片"),("§f这个鱼饵可以钓到任何物品"),("§f他存在于过去或者是未来"),("§f你现在看到的他并非真正的他")
                 )
         )).register(plugin);
 
 
         //星辰木
         new UnplaceableBlock(magicexpansionresource, FISHING_STICK_STAR_IRON, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                null, STICK, new CustomItemStack(Material.PRISMARINE_SHARD, "§a鱼鳞尘", getGradientName("在阳光下闪烁微光，是鱼群身份的信号")),
-                STICK, new CustomItemStack(Material.NETHER_STAR, "§d星辰铁微尘", getGradientName("极其稀有，传说来自陨星核心，能大幅提升引诱力")),STICK,
-                new CustomItemStack(Material.IRON_INGOT, "§b赤铁矿核", getGradientName("保留了完整晶体结构的高纯度铁核，能散发‘金属心跳’般的信号")), STICK, null
+                null, STICK, new CustomItemStack(Material.PRISMARINE_SHARD, "§a鱼鳞尘", ("§f在阳光下闪烁微光，是鱼群身份的信号")),
+                STICK, new CustomItemStack(Material.NETHER_STAR, "§d星辰铁微尘", ("§f极其稀有，传说来自陨星核心，能大幅提升引诱力")),STICK,
+                new CustomItemStack(Material.IRON_INGOT, "§b赤铁矿核", ("§f保留了完整晶体结构的高纯度铁核，能散发‘金属心跳’般的信号")), STICK, null
         }).register(plugin);
 
 
@@ -1742,17 +1744,28 @@ public final class MagicExpansionItemSetup {
         }).register(plugin);
 
 
+        new UnplaceableBlock(magicexpansionfoodresource, MagicExpansionItems.MAGIC_CROP_INFO, RecipeType.NULL, new ItemStack[] {
+                null, null,null,
+                null, null,null,
+                null, null,null
+        }).register(plugin);
         new MagicCrop(magicexpansionfoodresource, MagicExpansionItems.WHEAT_SEEDS, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 AMETHYST_SHARD, MAGIC_EXPANSION_MAGIC_SUGAR_1,AMETHYST_SHARD,
                 MAGIC_EXPANSION_MAGIC_SUGAR_1, new ItemStack(Material.WHEAT_SEEDS),MAGIC_EXPANSION_MAGIC_SUGAR_1,
                 AMETHYST_SHARD, MAGIC_EXPANSION_MAGIC_SUGAR_1,AMETHYST_SHARD
-        }, new ItemStack[]{new ItemStack(Material.WHEAT), WHEAT_SEEDS, MAGIC_EXPANSION_MAGIC_SUGAR_1, HARVEST_WHEAT},3,10).register(plugin);
+        }, new ItemStack[]{new ItemStack(Material.WHEAT), WHEAT_SEEDS, MAGIC_EXPANSION_MAGIC_SUGAR_1, HARVEST_WHEAT},3,9).register(plugin);
 
         new MagicCrop(magicexpansionfoodresource, POTATO, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 AMETHYST_SHARD, MAGIC_EXPANSION_FINAL_STRING_1,AMETHYST_SHARD,
                 MAGIC_EXPANSION_FINAL_STRING_1, new ItemStack(Material.POTATO),MAGIC_EXPANSION_FINAL_STRING_1,
                 AMETHYST_SHARD, MAGIC_EXPANSION_FINAL_STRING_1,AMETHYST_SHARD
-        }, new ItemStack[]{new ItemStack(Material.POTATO), POTATO, MAGIC_EXPANSION_FINAL_STRING_1},4,12).register(plugin);
+        }, new ItemStack[]{new ItemStack(Material.POTATO), POTATO, MAGIC_EXPANSION_FINAL_STRING_1},4,8).register(plugin);
+
+        new MagicCrop(magicexpansionfoodresource, HYBRID_RICE_SEEDS, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                new ItemStack(Material.HAY_BLOCK), new ItemStack(Material.HAY_BLOCK),new ItemStack(Material.HAY_BLOCK),
+                AMETHYST_SHARD, new ItemStack(Material.WHEAT_SEEDS),AMETHYST_SHARD,
+                new ItemStack(Material.WATER_BUCKET), new ItemStack(Material.DIRT),new ItemStack(Material.WATER_BUCKET)
+        }, new ItemStack[]{HARVEST_RICE, HYBRID_RICE_SEEDS, DREAM_KERNEL},19,30).register(plugin);
 
 
 
@@ -2543,7 +2556,7 @@ public final class MagicExpansionItemSetup {
         }).register(plugin);
 
 
-        //矿脉机器人
+        //五行聚灵阵-基础
         new ResourceRandomOneMachine(magicexpansionresourcegenerator, FIVE_ELEMENT_GEN_BASIC, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 PURE_ELEMENT_INGOT,MagicExpansionItems.INGOT_PURE_MACHINE,PURE_ELEMENT_INGOT,
                 PURE_FIVE_ELEMENT,PURE_INGOT_POWER_CORE,MAGIC_EXPANSION_MAGIC_SUGAR_7,
@@ -2553,9 +2566,9 @@ public final class MagicExpansionItemSetup {
                 .setCapacity(1314)
                 .setConsumption(260)
                 .setProcessingSpeed(1)
-                .setItemStackOutputs(new ItemStack[] {sfItemAmount(PURE_ELEMENT_GOLD,1),sfItemAmount(PURE_ELEMENT_WOOD,1),
-                        sfItemAmount(PURE_ELEMENT_WATER,1),sfItemAmount(PURE_ELEMENT_FIRE,1),
-                        sfItemAmount(PURE_ELEMENT_EARTH,1),})
+                .setItemStackOutputs(new ItemStack[] {sfItemAmount(GOLD_ELEMENT,1),sfItemAmount(WOOD_ELEMENT,1),
+                        sfItemAmount(WATER_ELEMENT,1),sfItemAmount(FIRE_ELEMENT,1),
+                        sfItemAmount(EARTH_ELEMENT,1),})
                 .register(plugin);
 
 

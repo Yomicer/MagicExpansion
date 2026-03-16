@@ -19,8 +19,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
-import static io.Yomicer.magicExpansion.utils.ColorGradient.getRandomGradientName;
+import static io.Yomicer.magicExpansion.utils.ColorGradient.*;
+import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientNameVer2;
 import static org.bukkit.inventory.EquipmentSlot.HAND;
 
 public class PreBuildingTree extends SimpleSlimefunItem<ItemUseHandler> implements NotPlaceable {
@@ -64,6 +64,32 @@ public class PreBuildingTree extends SimpleSlimefunItem<ItemUseHandler> implemen
             if (e.getHand()!= HAND) {
                 player.sendMessage(getGradientName("请使用主手使用~"));
                 return;
+            }
+            // 检查是否按住 Shift
+            if (player.isSneaking()) {
+
+                String fileName = buildingName;
+                // 调用工具类获取尺寸
+                int[] dims = PreBuildingsTreeUtils.getBuildingDimensions(fileName);
+                if (dims == null) {
+                    player.sendMessage(getGradientNameVer2("错误：无法读取建筑文件，请检查 resources/buildings/" + fileName + ".json"));
+                    return;
+                }
+
+                int x = dims[0];
+                int y = dims[1];
+                int z = dims[2];
+
+                // 发送消息给玩家
+                player.sendMessage(getGradientNameVer2("========================="));
+                player.sendMessage(getGradientNameVer2("建筑预览信息："));
+                player.sendMessage(getGradientNameVer2("文件名：" + fileName + ".json"));
+                player.sendMessage(getGradientNameVer2("尺寸大小：X: " + x + " | Y: " + y + " | Z: " + z));
+                player.sendMessage(getGradientNameVer2("占地面积：" + (x * z) + " 方块"));
+                player.sendMessage(getGradientNameVer2("占地体积：" + (x * y * z) + " 方块"));
+                player.sendMessage(getGradientNameVer2("========================="));
+
+                return; // 处理完 Shift+右键 后直接返回，不再执行放置逻辑
             }
 
             if(!ItemPermissionUtils.hasPermissionRe(player)){

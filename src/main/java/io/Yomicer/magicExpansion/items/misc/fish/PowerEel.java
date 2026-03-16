@@ -156,7 +156,7 @@ public class PowerEel extends SimpleSlimefunItem<ItemUseHandler> implements NotP
         }
 
         // 添加电量显示
-        String powerLine = getGradientName("当前储电量: " + nowPower + "/" + maxPowerValue + " J");
+        String powerLine = ("§x§F§F§3§2§C§E当前储电量: " + nowPower + "/" + maxPowerValue + " J");
         lore.add(powerLine);
 
         meta.setLore(lore);

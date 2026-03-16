@@ -20,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
+import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientNameVer2;
 import static io.Yomicer.magicExpansion.utils.CreateItem.createItem;
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
 
@@ -544,8 +545,8 @@ public class FishingGuideMenu {
                 break;
             case "junk":
                 items.add(new CustomItemStack(Material.COD,getGradientName("关于鱼群喜好"),getGradientName("喜好只是这种鱼更喜欢这种鱼饵"),getGradientName("其他鱼饵也有一定概率钓到这种鱼"),getGradientName("当然也有可能根本钓不到")));
-                items.add(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientName("鱼饵·记忆碎片"),
-                        getGradientName("这个鱼饵可以钓到任何物品"),getGradientName("他存在于过去或者是未来"),getGradientName("你现在看到的他并非真正的他"),
+                items.add(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientNameVer2("鱼饵·记忆碎片"),
+                        ("§f这个鱼饵可以钓到任何物品"),("§f他存在于过去或者是未来"),("§f你现在看到的他并非真正的他"),
                         "",getGradientName("专属钓竿: 原木鱼竿"),getGradientName("专属钓竿: 风语者之杆"),getGradientName("专属钓竿: 纠缠之节：终焉之丝·悖论为钩")));
                 items.add(new CustomItemStack(new ItemStack(Material.COD),"§b迷路的生鳕鱼",getGradientName("这是谁家的鳕鱼？"),
                         "",getGradientName("专属钓饵: 面包")));
@@ -568,7 +569,7 @@ public class FishingGuideMenu {
                         "",getGradientName("专属钓饵: 基础魔法饵料")));
                 items.add(new CustomItemStack(Material.POPPY, "§a露珠莲瓣", getGradientName("带着晨露的清香，能净化水域的浊气"),
                         "",getGradientName("专属钓饵: 基础魔法饵料")));
-                items.add(new CustomItemStack(Material.PRISMARINE_SHARD, "§a鱼鳞尘", getGradientName("在阳光下闪烁微光，是鱼群身份的信号"),
+                items.add(new CustomItemStack(Material.PRISMARINE_SHARD, "§a鱼鳞尘", ("§f在阳光下闪烁微光，是鱼群身份的信号"),
                         "",getGradientName("专属钓饵: 基础魔法饵料")));
 
                 items.add(new CustomItemStack(Material.RED_SAND, "§6磨碎的铜砂", getGradientName("带有微弱金属光泽，是铜脉鱼的气息信标"),
@@ -581,12 +582,12 @@ public class FishingGuideMenu {
                         "",getGradientName("专属钓饵: 魔法鱼饵·混合矿粉")));
                 items.add(new CustomItemStack(Material.COAL, "§6碳晶颗粒", getGradientName("深埋地壳的古老植物遗骸，为矿粉提供能量基底"),
                         "",getGradientName("专属钓饵: 魔法鱼饵·混合矿粉")));
-                items.add(new CustomItemStack(Material.NETHER_STAR, "§d星辰铁微尘", getGradientName("极其稀有，传说来自陨星核心，能大幅提升引诱力"),
+                items.add(new CustomItemStack(Material.NETHER_STAR, "§d星辰铁微尘", ("§f极其稀有，传说来自陨星核心，能大幅提升引诱力"),
                         "",getGradientName("专属钓饵: 魔法鱼饵·混合矿粉")));
 
                 items.add(new CustomItemStack(Material.COPPER_INGOT, "§b原生铜脉碎片", getGradientName("并非冶炼所得，而是从岩层中直接剥离的天然导电矿络"),
                         "",getGradientName("专属钓饵: 魔法鱼饵·混合矿物质")));
-                items.add(new CustomItemStack(Material.IRON_INGOT, "§b赤铁矿核", getGradientName("保留了完整晶体结构的高纯度铁核，能散发‘金属心跳’般的信号"),
+                items.add(new CustomItemStack(Material.IRON_INGOT, "§b赤铁矿核", ("§f保留了完整晶体结构的高纯度铁核，能散发‘金属心跳’般的信号"),
                         "",getGradientName("专属钓饵: 魔法鱼饵·混合矿物质")));
                 items.add(new CustomItemStack(Material.GOLD_INGOT, "§b金脉结晶", getGradientName("在高压下自然形成的网状金晶，是‘富矿区’的活体信标"),
                         "",getGradientName("专属钓饵: 魔法鱼饵·混合矿物质")));
@@ -671,10 +672,10 @@ public class FishingGuideMenu {
                 items.add(FishManager.getFishItemWithLore(BaseFish.LegendaryEelFish,"",getGradientName("专属钓饵：魔法糖")));
                 items.add(new CustomItemStack(
                         new ItemStack(Material.PRISMARINE_SHARD, 1),
-                        getGradientName("鱼饵·记忆碎片"),
-                        getGradientName("这个鱼饵可以钓到任何物品"),
-                        getGradientName("他存在于过去或者是未来"),
-                        getGradientName("你现在看到的他并非真正的他")
+                        getGradientNameVer2("鱼饵·记忆碎片"),
+                        ("§f这个鱼饵可以钓到任何物品"),
+                        ("§f他存在于过去或者是未来"),
+                        ("§f你现在看到的他并非真正的他")
                 ));
                 break;
             case "bread":
@@ -694,10 +695,10 @@ public class FishingGuideMenu {
                 items.add(MagicExpansionItems.RANDOM_FISH_RARE_POOL_INDUSTRY);
                 items.add(new CustomItemStack(
                         new ItemStack(Material.PRISMARINE_SHARD, 1),
-                        getGradientName("鱼饵·记忆碎片"),
-                        getGradientName("这个鱼饵可以钓到任何物品"),
-                        getGradientName("他存在于过去或者是未来"),
-                        getGradientName("你现在看到的他并非真正的他")
+                        getGradientNameVer2("鱼饵·记忆碎片"),
+                        ("§f这个鱼饵可以钓到任何物品"),
+                        ("§f他存在于过去或者是未来"),
+                        ("§f你现在看到的他并非真正的他")
                 ));
                 break;
             default:

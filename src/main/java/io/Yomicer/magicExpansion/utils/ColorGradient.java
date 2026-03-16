@@ -122,6 +122,105 @@ public class ColorGradient {
     }
 
 
+    /**
+     * 生成纵向渐变的 Lore 列表
+     * - 自动计算总行数
+     * - 自动使用默认颜色列表
+     * - 行内颜色统一，行与行之间渐变
+     *
+     * @param lore 原始文本列表
+     * @return 处理后的带颜色文本列表
+     */
+    public static List<String> getVerticalGradientLineV2(List<String> lore) {
+        // 处理空列表情况
+        if (lore == null || lore.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        // 1. 自动获取默认颜色列表
+        List<Color> colorList = createCustomColorListV2();
+
+        // 2. 自动计算总行数
+        int totalLines = lore.size();
+        List<String> result = new ArrayList<>();
+
+        // 3. 遍历每一行进行计算
+        for (int lineIndex = 0; lineIndex < totalLines; lineIndex++) {
+            String text = lore.get(lineIndex);
+
+            if (text == null || text.isEmpty()) {
+                result.add("");
+                continue;
+            }
+
+            // 计算进度 p (0.0 ~ 1.0)
+            double p;
+            if (totalLines <= 1) {
+                p = 0;
+            } else {
+                p = ((double) lineIndex) / (totalLines - 1);
+            }
+
+            // 确定起始和结束颜色索引
+            int maxIndex = colorList.size() - 1;
+            int index1 = (int) Math.floor(p * maxIndex);
+            int index2 = (int) Math.ceil(p * maxIndex);
+
+            // 边界保护
+            if (index1 > maxIndex) index1 = maxIndex;
+            if (index2 > maxIndex) index2 = maxIndex;
+
+            Color color1 = colorList.get(index1);
+            Color color2 = colorList.get(index2);
+
+            Color finalColor;
+
+            // 计算插值颜色
+            if (index1 == index2) {
+                finalColor = color1;
+            } else {
+                double localP = (p * maxIndex) - index1;
+
+                int r1 = color1.getRed();
+                int g1 = color1.getGreen();
+                int b1 = color1.getBlue();
+
+                int r2 = color2.getRed();
+                int g2 = color2.getGreen();
+                int b2 = color2.getBlue();
+
+                int red = (int) (r1 * (1 - localP) + r2 * localP);
+                int green = (int) (g1 * (1 - localP) + g2 * localP);
+                int blue = (int) (b1 * (1 - localP) + b2 * localP);
+
+                finalColor = Color.fromRGB(red, green, blue);
+            }
+
+            // 应用颜色并添加结果
+            result.add(applySingleColor(text, finalColor));
+        }
+
+        return result;
+    }
+
+    private static String applySingleColor(String text, Color color) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("§x")
+                .append("§").append(codeColor(color.getRed() / 16))
+                .append("§").append(codeColor(color.getRed() % 16))
+                .append("§").append(codeColor(color.getGreen() / 16))
+                .append("§").append(codeColor(color.getGreen() % 16))
+                .append("§").append(codeColor(color.getBlue() / 16))
+                .append("§").append(codeColor(color.getBlue() % 16));
+
+        return sb.toString() + text;
+    }
+
+
+
+
+
+
 
     /**
      * 生成带有渐变色的字符串（Minecraft § 格式）

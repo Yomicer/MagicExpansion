@@ -182,6 +182,54 @@ public class PreBuildingsTreeUtils {
     }
 
 
+    /**
+     * 获取建筑的尺寸 (X, Y, Z)
+     * @param fileName 文件名 (不带 .json)
+     * @return int[]{xSize, ySize, zSize}，如果文件不存在或出错返回 null
+     */
+    public static int[] getBuildingDimensions(String fileName) {
+        InputStream inputStream = PreBuildingsTreeUtils.class.getClassLoader().getResourceAsStream("buildings/" + fileName + ".json");
+        if (inputStream == null) {
+            return null;
+        }
+
+        try (InputStreamReader reader = new InputStreamReader(inputStream)) {
+            Type listType = new TypeToken<List<BlockData>>() {}.getType();
+            List<BlockData> blocks = gson.fromJson(reader, listType);
+
+            if (blocks == null || blocks.isEmpty()) {
+                return null;
+            }
+
+            int minX = Integer.MAX_VALUE, maxX = Integer.MIN_VALUE;
+            int minY = Integer.MAX_VALUE, maxY = Integer.MIN_VALUE;
+            int minZ = Integer.MAX_VALUE, maxZ = Integer.MIN_VALUE;
+
+            for (BlockData block : blocks) {
+                if (block.x < minX) minX = block.x;
+                if (block.x > maxX) maxX = block.x;
+
+                if (block.y < minY) minY = block.y;
+                if (block.y > maxY) maxY = block.y;
+
+                if (block.z < minZ) minZ = block.z;
+                if (block.z > maxZ) maxZ = block.z;
+            }
+
+            // 计算尺寸 (最大值 - 最小值 + 1)
+            int xSize = maxX - minX + 1;
+            int ySize = maxY - minY + 1;
+            int zSize = maxZ - minZ + 1;
+
+            return new int[]{xSize, ySize, zSize};
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 
 
 

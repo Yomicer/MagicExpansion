@@ -1,16 +1,23 @@
 package io.Yomicer.magicExpansion.items.misc;
 
+import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 import io.Yomicer.magicExpansion.MagicExpansion;
+import io.Yomicer.magicExpansion.items.electric.entitykillMachinee.EntityKillMachine;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import io.github.thebusybiscuit.slimefun4.core.attributes.Placeable;
 import io.github.thebusybiscuit.slimefun4.core.attributes.RecipeDisplayItem;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockPlaceHandler;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
+import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
+import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
+import net.guizhanss.guizhanlib.slimefun.utils.BlockStorageUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -24,6 +31,7 @@ import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scoreboard.Scoreboard;
 import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -32,7 +40,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientNameVer2;
 
-public class MagicCrop extends SlimefunItem implements Listener, RecipeDisplayItem {
+public class MagicCrop extends SlimefunItem implements Listener, RecipeDisplayItem, Placeable {
 
     private final ItemStack seedDrop;
     private final ItemStack[] fruitDrops;
@@ -52,7 +60,6 @@ public class MagicCrop extends SlimefunItem implements Listener, RecipeDisplayIt
         addItemHandler(onBlockBreak(), onBlockPlace());
         Bukkit.getPluginManager().registerEvents(this, MagicExpansion.getInstance());
     }
-
     /**
      * 处理玩家破坏 (正常收获)
      */
@@ -72,9 +79,10 @@ public class MagicCrop extends SlimefunItem implements Listener, RecipeDisplayIt
     }
     @Nonnull
     private BlockPlaceHandler onBlockPlace() {
-        return new BlockPlaceHandler(false) {
+        return new BlockPlaceHandler(true) {
             @Override
             public void onPlayerPlace(BlockPlaceEvent e) {
+                StorageCacheUtils.setData(e.getBlockPlaced().getLocation(), "type", "none");
             }
         };
     }
@@ -87,7 +95,6 @@ public class MagicCrop extends SlimefunItem implements Listener, RecipeDisplayIt
         if (sfItem != MagicCrop.this) {
             return;
         }
-
         if (block.getType() == Material.WATER || block.getType() == Material.AIR) {
             handleDestructionByWater(block, e);
             return;

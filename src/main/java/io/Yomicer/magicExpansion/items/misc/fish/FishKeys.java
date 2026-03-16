@@ -137,9 +137,9 @@ public class FishKeys {
         // --- 修改 Lore ---
         List<String> lore = new ArrayList<>();
         lore.add(""); // 空行分隔
-        lore.add(ColorGradient.getGradientName("鱼种稀有度: ")+ "§r§f" + chosenFish.getRarity().getDisplayName());
-        lore.add(ColorGradient.getGradientName("重量: ")+ "§r§f" + String.format("%.3f", weight) + " kg");
-        lore.add(ColorGradient.getGradientName("稀有度: ")+ "§r" + weightRarity.getDisplayName() +" "+ weightRareThis);
+        lore.add(("§d鱼种稀有度: ")+ "§r§f" + chosenFish.getRarity().getDisplayName());
+        lore.add(("§a重量: ")+ "§r§f" + String.format("%.3f", weight) + " kg");
+        lore.add(("§e稀有度: ")+ "§r" + weightRarity.getDisplayName() +" "+ weightRareThis);
         if (chosenFish.getLoreLines() != null && chosenFish.getLoreLines().length > 0) {
             lore.add(""); // 空行分隔
             lore.addAll(Arrays.asList(chosenFish.getLoreLines()));

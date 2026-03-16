@@ -39,24 +39,21 @@ public class newItem {
 
 
 
-    public static SlimefunItemStack themed(String id, Material itemStack, String name, String... lore){
-        return themed(id,new ItemStack(itemStack),name,lore);
+    public static SlimefunItemStack themedVer2Vertical(String id, Material itemStack, String name, String... lore){
+        return themedVer2Vertical(id,new ItemStack(itemStack),name,lore);
     }
-    public static SlimefunItemStack themed(String id, ItemStack itemStack, String name, String... lore){
-        return themed(id, itemStack, name, Arrays.asList(lore));
+    public static SlimefunItemStack themedVer2Vertical(String id, ItemStack itemStack, String name, String... lore){
+        return themedVer2Vertical(id, itemStack, name, Arrays.asList(lore));
     }
-    public static SlimefunItemStack themed(String id , Material itemStack , String name, List<String> lore){
-        return themed(id,new ItemStack(itemStack),name,lore);
+    public static SlimefunItemStack themedVer2Vertical(String id , Material itemStack , String name, List<String> lore){
+        return themedVer2Vertical(id,new ItemStack(itemStack),name,lore);
     }
-    public static  SlimefunItemStack themed(String id, ItemStack itemStack, String name, List<String> lore){
-        // 对 lore 的每一行应用变色方法
-        List<String> coloredLore = lore.stream()
-                .map(ColorGradient::getGradientName)
-                .toList();
+    public static  SlimefunItemStack themedVer2Vertical(String id, ItemStack itemStack, String name, List<String> lore){
+        List<String> coloredLore = ColorGradient.getVerticalGradientLineV2(lore);
         return new SlimefunItemStack(
                 idDecorator(id),
                 itemStack,
-                getGradientName(name),
+                getGradientNameVer2(name),
                 coloredLore.toArray(String[]::new)
         );
     }
@@ -85,15 +82,14 @@ public class newItem {
 
 
 
-
     public static SlimefunItemStack themedOrigin(String id, Material itemStack, String name, String... lore){
-        return themed(id,new ItemStack(itemStack),name,lore);
+        return themedVer2Vertical(id,new ItemStack(itemStack),name,lore);
     }
     public static SlimefunItemStack themedOrigin(String id, ItemStack itemStack, String name, String... lore){
-        return themed(id, itemStack, name, Arrays.asList(lore));
+        return themedVer2Vertical(id, itemStack, name, Arrays.asList(lore));
     }
     public static SlimefunItemStack themedOrigin(String id , Material itemStack , String name, List<String> lore){
-        return themed(id,new ItemStack(itemStack),name,lore);
+        return themedVer2Vertical(id,new ItemStack(itemStack),name,lore);
     }
     public static  SlimefunItemStack themedOrigin(String id, ItemStack itemStack, String name, List<String> lore){
         return new SlimefunItemStack(

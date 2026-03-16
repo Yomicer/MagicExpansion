@@ -59,7 +59,7 @@ public class BasicCreation {
         int range = end - start;
         int randomOffset = new Random().nextInt(range);
         ans = (char) (start + randomOffset);
-        ItemStack it = new CustomItemStack(Material.SUGAR, ColorGradient.getGradientNameVer2("符号"), "&f" + ans, ColorGradient.getGradientNameVer2("凭空制造物质的基础"));
+        ItemStack it = new CustomItemStack(Material.SUGAR, ColorGradient.getGradientNameVer2("符号"), "&f" + ans, ("§7凭空制造物质的基础"));
         ItemStack s = new SlimefunItemStack("MOMOTECH_LETTER", it);
         return s;
     }
