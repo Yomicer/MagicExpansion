@@ -178,7 +178,7 @@ public class DefaultRecipes implements RecipeProvider{
         recipes.put("ultra_looting", new MagicAltarRecipe(recipe4, result4, enchantAlter));
 
 
-        // 配方5：抢夺1314520附魔书
+        // 配方5：星陨裁决
         ItemStack[] [] recipe5 = new ItemStack[9][9];
 
         for (int j = 0; j < 9; j++){

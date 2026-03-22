@@ -1,5 +1,6 @@
 package io.Yomicer.magicExpansion.Listener.fishingListener;
 
+import io.Yomicer.magicExpansion.MagicExpansion;
 import io.Yomicer.magicExpansion.core.MagicExpansionItems;
 import io.Yomicer.magicExpansion.items.misc.Lure;
 import io.Yomicer.magicExpansion.items.misc.WeightedItem;
@@ -10,6 +11,7 @@ import io.Yomicer.magicExpansion.utils.ColorGradient;
 import io.Yomicer.magicExpansion.utils.log.Debug;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import net.guizhanss.guizhanlib.minecraft.helper.inventory.ItemStackHelper;
@@ -39,6 +41,7 @@ import static io.Yomicer.magicExpansion.utils.MagicExpansionSlimefunItemCache.ge
 
 public class PlayerFishingListener implements Listener {
 
+    Config cfg = new Config(MagicExpansion.getInstance());
     // 所有鱼饵类型（优先级顺序）
     private static final List<Lure> LURES = List.of(
             new MoreLure(SlimefunItems.MAGIC_SUGAR,"magic_sugar"),
@@ -108,6 +111,15 @@ public class PlayerFishingListener implements Listener {
             consumeLure(player, activeLure);
         }
         ItemStack drop = getSmartLoot(player, fishingRod).clone();
+        Boolean FinalLureEnable = cfg.getBoolean("Fish.FishingRod.FISHING_ROD_FINAL_STICK.Enable.FinalLure_Obtain");
+        if (!FinalLureEnable) {
+            while (drop.isSimilar(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD), getGradientNameVer2("鱼饵·记忆碎片"),
+                    ("§f这个鱼饵可以钓到任何物品"),
+                    ("§f他存在于过去或者是未来"),
+                    ("§f你现在看到的他并非真正的他")))) {
+                drop = getSmartLoot(player, fishingRod).clone();
+            }
+        }
         Entity hook = e.getHook();
         Location hookLocation = hook.getLocation();
 

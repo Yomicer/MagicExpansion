@@ -29,7 +29,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientNameVer2("信息"),
             "",
-            getGradientNameVer2("Version: Build 69"),
+            getGradientNameVer2("Version: Build 70"),
             getGradientNameVer2("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -749,6 +749,37 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack WHEAT_SEEDS = createDefaultItemGlowV2Vertical("WHEAT_SEEDS",Material.WHEAT_SEEDS);
     public static final SlimefunItemStack POTATO = createDefaultItemGlowV2Vertical("POTATO",Material.POTATO);
     public static final SlimefunItemStack HYBRID_RICE_SEEDS = createDefaultItemGlowV2Vertical("HYBRID_RICE_SEEDS",Material.WHEAT_SEEDS);
+
+    //矿粉相关魔法植物
+    public static final SlimefunItemStack WHEAT_COPPER = createDefaultItemGlowV2Vertical("WHEAT_COPPER",Material.WHEAT_SEEDS);
+    public static final SlimefunItemStack RADISH_IRON = createDefaultItemGlowV2Vertical("RADISH_IRON",Material.CARROT);
+    public static final SlimefunItemStack BEET_GOLD = createDefaultItemGlowV2Vertical("BEET_GOLD",Material.BEETROOT_SEEDS);
+    public static final SlimefunItemStack RADISH_SILVER = createDefaultItemGlowV2Vertical("RADISH_SILVER",Material.CARROT);
+    public static final SlimefunItemStack WHEAT_ZINC = createDefaultItemGlowV2Vertical("WHEAT_ZINC",Material.WHEAT_SEEDS);
+    public static final SlimefunItemStack BEET_MAGNESIUM = createDefaultItemGlowV2Vertical("BEET_MAGNESIUM",Material.BEETROOT_SEEDS);
+    public static final SlimefunItemStack POTATO_TIN = createDefaultItemGlowV2Vertical("POTATO_TIN",Material.POTATO);
+    public static final SlimefunItemStack BEET_LEAD = createDefaultItemGlowV2Vertical("BEET_LEAD",Material.BEETROOT_SEEDS);
+    public static final SlimefunItemStack WHEAT_ALUMINUM = createDefaultItemGlowV2Vertical("WHEAT_ALUMINUM",Material.WHEAT_SEEDS);
+    //矿锭相关魔法植物
+    public static final SlimefunItemStack WHEAT_COPPER_INGOT = createDefaultItemGlowV2Vertical("WHEAT_COPPER_INGOT",Material.WHEAT_SEEDS);
+    public static final SlimefunItemStack RADISH_IRON_INGOT = createDefaultItemGlowV2Vertical("RADISH_IRON_INGOT",Material.CARROT);
+    public static final SlimefunItemStack BEET_GOLD_INGOT = createDefaultItemGlowV2Vertical("BEET_GOLD_INGOT",Material.BEETROOT_SEEDS);
+    public static final SlimefunItemStack RADISH_SILVER_INGOT = createDefaultItemGlowV2Vertical("RADISH_SILVER_INGOT",Material.CARROT);
+    public static final SlimefunItemStack WHEAT_ZINC_INGOT = createDefaultItemGlowV2Vertical("WHEAT_ZINC_INGOT",Material.WHEAT_SEEDS);
+    public static final SlimefunItemStack BEET_MAGNESIUM_INGOT = createDefaultItemGlowV2Vertical("BEET_MAGNESIUM_INGOT",Material.BEETROOT_SEEDS);
+    public static final SlimefunItemStack POTATO_TIN_INGOT = createDefaultItemGlowV2Vertical("POTATO_TIN_INGOT",Material.POTATO);
+    public static final SlimefunItemStack BEET_LEAD_INGOT = createDefaultItemGlowV2Vertical("BEET_LEAD_INGOT",Material.BEETROOT_SEEDS);
+    public static final SlimefunItemStack WHEAT_ALUMINUM_INGOT = createDefaultItemGlowV2Vertical("WHEAT_ALUMINUM_INGOT",Material.WHEAT_SEEDS);
+
+    //合金锭相关魔法植物
+    public static final SlimefunItemStack WHEAT_BRONZE_INGOT = createDefaultItemGlowV2Vertical("WHEAT_BRONZE_INGOT",Material.WHEAT_SEEDS);
+    public static final SlimefunItemStack BEET_BRASS_INGOT = createDefaultItemGlowV2Vertical("BEET_BRASS_INGOT",Material.BEETROOT_SEEDS);
+
+
+
+    public static final SlimefunItemStack ORE_DUST_CRYSTAL = createDefaultItemGlowV2Vertical("ORE_DUST_CRYSTAL",Material.AMETHYST_SHARD);
+    public static final SlimefunItemStack ORE_INGOT_CRYSTAL = createDefaultItemGlowV2Vertical("ORE_INGOT_CRYSTAL",Material.AMETHYST_CLUSTER);
+    public static final SlimefunItemStack ORE_MIX_CRYSTAL = createDefaultItemGlowV2Vertical("ORE_MIX_CRYSTAL",Material.PRISMARINE_CRYSTALS);
 
 
 

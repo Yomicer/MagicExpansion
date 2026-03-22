@@ -25,6 +25,12 @@ StarShardsSword:
   StarShards_FlySpeed: 13.14
   #飞行速度 默认:13.14 +131.4%
 
+Fish:
+  FishingRod:
+    FISHING_ROD_FINAL_STICK: #终焉鱼竿配置
+      Enable:
+       FinalLure: true #是否启用终焉鱼饵[鱼饵·记忆碎片]（独立生效）
+       FinalLure_Obtain: true #是否可以从水中钓取终焉鱼饵[鱼饵·记忆碎片]（独立生效）
 
 
 qwen-help:

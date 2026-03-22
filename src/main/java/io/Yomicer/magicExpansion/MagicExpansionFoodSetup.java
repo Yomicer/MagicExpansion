@@ -75,6 +75,27 @@ public class MagicExpansionFoodSetup {
                 ColorGradient.getGradientNameVer2("成熟的杂交水稻有概率掉落")), null,
                 null, null,null
         }).register(plugin);
+        //
+        new UnplaceableBlock(magicexpansionfoodresource, MagicExpansionItems.ORE_DUST_CRYSTAL, RecipeType.NULL, new ItemStack[] {
+                null, null ,null,
+                null, new CustomItemStack(new ItemStack(Material.IRON_HOE), ColorGradient.getGradientNameVer2("通过收割成熟农作物获取"),
+                ColorGradient.getGradientNameVer2("成熟的矿粉农作物有概率掉落")), null,
+                null, null,null
+        }).register(plugin);
+        //
+        new UnplaceableBlock(magicexpansionfoodresource, MagicExpansionItems.ORE_INGOT_CRYSTAL, RecipeType.NULL, new ItemStack[] {
+                null, null ,null,
+                null, new CustomItemStack(new ItemStack(Material.IRON_HOE), ColorGradient.getGradientNameVer2("通过收割成熟农作物获取"),
+                ColorGradient.getGradientNameVer2("成熟的矿锭农作物有概率掉落")), null,
+                null, null,null
+        }).register(plugin);
+        //
+        new UnplaceableBlock(magicexpansionfoodresource, MagicExpansionItems.ORE_MIX_CRYSTAL, RecipeType.NULL, new ItemStack[] {
+                null, null ,null,
+                null, new CustomItemStack(new ItemStack(Material.IRON_HOE), ColorGradient.getGradientNameVer2("通过收割成熟农作物获取"),
+                ColorGradient.getGradientNameVer2("成熟的合金锭锭农作物有概率掉落")), null,
+                null, null,null
+        }).register(plugin);
 
 
 

@@ -43,20 +43,39 @@ import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientNameVer2;
 public class MagicCrop extends SlimefunItem implements Listener, RecipeDisplayItem, Placeable {
 
     private final ItemStack seedDrop;
-    private final ItemStack[] fruitDrops;
+//    private final ItemStack[] fruitDrops;
+    private final List<WeightedDrop> weightedDrops;
+    private final int totalWeight;
     private final int min;
     private final int minDisplay;
     private final int maxDisplay;
     private final int bound;
 
-    public MagicCrop(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, ItemStack[] fruits, int min, int max) {
+    public static class WeightedDrop {
+        public final ItemStack item;
+        public final int weight;
+
+        public WeightedDrop(ItemStack item, int weight) {
+            this.item = item;
+            this.weight = weight;
+        }
+    }
+
+    public MagicCrop(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, List<WeightedDrop> drops, int min, int max) {
         super(itemGroup, item, recipeType, recipe);
         this.seedDrop = item;
-        this.fruitDrops = fruits;
+        this.weightedDrops = new ArrayList<>(drops);
         this.min = min-1;
         this.minDisplay = min;
         this.maxDisplay = max;
         this.bound = max - min;
+        int sum = 0;
+        for (WeightedDrop drop : weightedDrops) {
+            if (drop.weight > 0) {
+                sum += drop.weight;
+            }
+        }
+        this.totalWeight = sum;
         addItemHandler(onBlockBreak(), onBlockPlace());
         Bukkit.getPluginManager().registerEvents(this, MagicExpansion.getInstance());
     }
@@ -145,11 +164,14 @@ public class MagicCrop extends SlimefunItem implements Listener, RecipeDisplayIt
             // 成熟：掉种子 + 果实
             block.getWorld().dropItemNaturally(dropLoc, new CustomItemStack(seedDrop, 1));
 
-            int fruitCount = min + ThreadLocalRandom.current().nextInt(bound); // 2~9 个果实
+            // 生成指定数量的果实
+            int fruitCount = min + ThreadLocalRandom.current().nextInt(bound);
             for (int i = 0; i < fruitCount; i++) {
-                if (fruitDrops.length > 0) {
-                    ItemStack randomFruit = fruitDrops[ThreadLocalRandom.current().nextInt(fruitDrops.length)];
-                    block.getWorld().dropItemNaturally(dropLoc, new CustomItemStack(randomFruit, 1));
+                if (!weightedDrops.isEmpty()) {
+                    ItemStack selected = getWeightedRandomItem();
+                    if (selected != null) {
+                        block.getWorld().dropItemNaturally(dropLoc, new CustomItemStack(selected, 1));
+                    }
                 }
             }
         }
@@ -169,63 +191,94 @@ public class MagicCrop extends SlimefunItem implements Listener, RecipeDisplayIt
         drops.clear();
         if (age >= maxAge) {
             drops.add(new CustomItemStack(seedDrop, 1));
+
             int fruitCount = min + ThreadLocalRandom.current().nextInt(bound);
             for (int i = 0; i < fruitCount; i++) {
-                if (fruitDrops.length > 0) {
-                    ItemStack randomFruit = fruitDrops[ThreadLocalRandom.current().nextInt(fruitDrops.length)];
-                    drops.add(new CustomItemStack(randomFruit, 1));
+                if (!weightedDrops.isEmpty()) {
+                    ItemStack selected = getWeightedRandomItem();
+                    if (selected != null) {
+                        drops.add(new CustomItemStack(selected, 1));
+                    }
                 }
             }
         }
     }
 
+    /**
+     * 核心算法：根据权重随机获取物品
+     * 算法逻辑：生成一个 [1, totalWeight] 的随机数，遍历累加权重，落在哪个区间就返回哪个物品
+     */
+    private ItemStack getWeightedRandomItem() {
+        if (totalWeight <= 0 || weightedDrops.isEmpty()) return null;
+
+        int randomValue = ThreadLocalRandom.current().nextInt(totalWeight) + 1;
+        int currentSum = 0;
+
+        for (WeightedDrop drop : weightedDrops) {
+            currentSum += drop.weight;
+            if (randomValue <= currentSum) {
+                return drop.item;
+            }
+        }
+        // 理论上不会运行到这里，除非权重计算有误
+        return weightedDrops.get(weightedDrops.size() - 1).item;
+    }
+
     @Override
     public @NotNull List<ItemStack> getDisplayRecipes() {
         List<ItemStack> display = new ArrayList<>();
+
         display.add(new CustomItemStack(Material.KNOWLEDGE_BOOK, getGradientNameVer2("丰收时刻 · 掉落一览➵"),
                 getGradientNameVer2("每次成熟后采集随机掉落" + minDisplay + "~" + maxDisplay + "个果实"),
                 getGradientNameVer2("植物特性：保底掉落一个本体植物种子"),
-                getGradientNameVer2("可使用骨粉对其进行催熟")));
+                getGradientNameVer2("可使用骨粉对其进行催熟"),
+                getGradientNameVer2("不同果实拥有不同的掉落权重")));
+
         display.add(new CustomItemStack(Material.KNOWLEDGE_BOOK, getGradientNameVer2("丰收时刻 · 掉落一览➵"),
                 getGradientNameVer2("每次成熟后采集随机掉落" + minDisplay + "~" + maxDisplay + "个果实"),
                 getGradientNameVer2("植物特性：保底掉落一个本体植物种子"),
-                getGradientNameVer2("可使用骨粉对其进行催熟")));
-        int validCount = 0;
-        if (fruitDrops != null) {
-            for (ItemStack fruit : fruitDrops) {
-                if (fruit != null) {
-                    validCount++;
-                }
-            }
+                getGradientNameVer2("可使用骨粉对其进行催熟"),
+                getGradientNameVer2("不同果实拥有不同的掉落权重")));
+
+        if (weightedDrops.isEmpty()) {
+            return display;
         }
-        double probability = 0;
-        if (validCount > 0) {
-            probability = 100.0 / validCount;
-        }
-        String probString;
-        if (probability == (long) probability) {
-            probString = String.format("%d%%", (long) probability);
-        } else {
-            probString = String.format("%.2f%%", probability);
-        }
-        if (fruitDrops != null) {
-            for (ItemStack fruit : fruitDrops) {
-                if (fruit != null) {
-                    ItemStack displayFruit = fruit.clone();
-                    ItemMeta meta = displayFruit.getItemMeta();
-                    if (meta != null) {
-                        List<String> lore = meta.getLore();
-                        if (lore == null) {
-                            lore = new ArrayList<>();
-                        }
-                        lore.add(getGradientNameVer2("------------------"));
-                        String probLine = getGradientNameVer2("掉落概率: " + probString);
-                        lore.add(probLine);
-                        meta.setLore(lore);
-                        displayFruit.setItemMeta(meta);
+
+        // 计算并添加每个果实的详细概率
+        for (WeightedDrop drop : weightedDrops) {
+            if (drop.item != null) {
+                ItemStack displayFruit = drop.item.clone();
+                ItemMeta meta = displayFruit.getItemMeta();
+                if (meta != null) {
+                    List<String> lore = meta.getLore();
+                    if (lore == null) {
+                        lore = new ArrayList<>();
                     }
-                    display.add(displayFruit);
+
+                    lore.add(getGradientNameVer2("------------------"));
+
+                    // 计算百分比：(权重 / 总权重) * 100
+                    double probability = (double) drop.weight / totalWeight * 100.0;
+                    String probString;
+
+                    // 格式化：如果是整数则显示整数，否则保留两位小数
+                    if (probability == (long) probability) {
+                        probString = String.format("%d%%", (long) probability);
+                    } else {
+                        probString = String.format("%.2f%%", probability);
+                    }
+
+                    lore.add(getGradientNameVer2("掉落权重: " + drop.weight));
+                    lore.add(getGradientNameVer2("掉落概率: " + probString));
+
+                    meta.setLore(lore);
+                    displayFruit.setItemMeta(meta);
                 }
+                // 为了在 Slimefun 机器界面中正确显示，通常需要一个占位符或者配对项
+                // 这里简单起见，直接添加物品，Slimefun 会尝试配对，如果奇数个最后一个可能不显示配对
+                // 如果需要严格配对，可以在这里添加一个空气或者重复添加
+                display.add(new CustomItemStack(Material.GRAY_STAINED_GLASS_PANE, " "));
+                display.add(displayFruit);
             }
         }
         return display;

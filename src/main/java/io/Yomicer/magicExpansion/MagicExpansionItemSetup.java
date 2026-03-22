@@ -69,7 +69,6 @@ import static io.Yomicer.magicExpansion.utils.itemUtils.sfItemUtils.sfItemAmount
 
 public final class MagicExpansionItemSetup {
 
-
     // ItemGroups
     public static final NestedItemGroup magicexpansion = new NestedItemGroup(
             new NamespacedKey(MagicExpansion.getInstance(), "magicexpansion"),
@@ -1339,6 +1338,66 @@ public final class MagicExpansionItemSetup {
                 ),Arrays.asList(SlimefunItems.MAGIC_SUGAR,new ItemStack(Material.BREAD),
                 FISH_LURE_BASIC,FISH_LURE_DUST,FISH_LURE_ORE,FISH_LURE_ALLOY_INGOT)).register(plugin);
 
+        Boolean FinalLureEnable = cfg.getBoolean("Fish.FishingRod.FISHING_ROD_FINAL_STICK.Enable.FinalLure");
+        Map lootTable;
+        List USABLE_LURES;
+        if(FinalLureEnable){
+            lootTable = Map.of(
+                    "fishLureFinal", List.of(
+                            new WeightedItem(FISHING_ROD_FISH_ANYTHING, 20),
+                            new WeightedItem(RANDOM_FISH_COMMON, 1),
+                            new WeightedItem(RANDOM_FISH_UNCOMMON, 1),
+                            new WeightedItem(RANDOM_FISH_RARE_POOL_DUST, 1),
+                            new WeightedItem(RANDOM_FISH_RARE_POOL_ORE, 1),
+                            new WeightedItem(RANDOM_FISH_RARE_POOL_INDUSTRY, 1),
+                            new WeightedItem(RANDOM_FISH_EPIC, 1),
+                            new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 1),
+                            new WeightedItem(RANDOM_FISH_EPIC_POOL_ALLOY_INGOT, 1),
+                            new WeightedItem(RANDOM_FISH_LEGENDARY, 1),
+                            new WeightedItem(FISH_LEGENDARY_EEL_POWER, 1),
+                            new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,8),getGradientNameVer2("鱼饵·记忆碎片"),("§f这个鱼饵可以钓到任何物品"),("§f他存在于过去或者是未来"),("§f你现在看到的他并非真正的他")
+                            ), 1)
+                    ),
+                    "default", List.of(
+                            new WeightedItem(RANDOM_FISH_COMMON, 8),
+                            new WeightedItem(RANDOM_FISH_UNCOMMON, 6),
+                            new WeightedItem(RANDOM_FISH_RARE_POOL_DUST, 3),
+                            new WeightedItem(RANDOM_FISH_RARE_POOL_ORE, 3),
+                            new WeightedItem(RANDOM_FISH_RARE_POOL_INDUSTRY, 3),
+                            new WeightedItem(RANDOM_FISH_EPIC, 3),
+                            new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 3),
+                            new WeightedItem(RANDOM_FISH_EPIC_POOL_ALLOY_INGOT, 3),
+                            new WeightedItem(RANDOM_FISH_LEGENDARY, 3),
+                            new WeightedItem(FISH_LEGENDARY_EEL_POWER, 1),
+                            new WeightedItem(FISHING_ROD_FINAL_HOOK, 1),
+                            new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,5),getGradientNameVer2("鱼饵·记忆碎片"),("§f这个鱼饵可以钓到任何物品"),("§f他存在于过去或者是未来"),("§f你现在看到的他并非真正的他")
+                            ), 3)
+                    )
+            );
+            USABLE_LURES =List.of(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientNameVer2("鱼饵·记忆碎片"),("§f这个鱼饵可以钓到任何物品"),("§f他存在于过去或者是未来"),("§f你现在看到的他并非真正的他")
+            ));
+        } else {
+            lootTable = Map.of(
+                    "default", List.of(
+                            new WeightedItem(RANDOM_FISH_COMMON, 8),
+                            new WeightedItem(RANDOM_FISH_UNCOMMON, 6),
+                            new WeightedItem(RANDOM_FISH_RARE_POOL_DUST, 3),
+                            new WeightedItem(RANDOM_FISH_RARE_POOL_ORE, 3),
+                            new WeightedItem(RANDOM_FISH_RARE_POOL_INDUSTRY, 3),
+                            new WeightedItem(RANDOM_FISH_EPIC, 3),
+                            new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 3),
+                            new WeightedItem(RANDOM_FISH_EPIC_POOL_ALLOY_INGOT, 3),
+                            new WeightedItem(RANDOM_FISH_LEGENDARY, 3),
+                            new WeightedItem(FISH_LEGENDARY_EEL_POWER, 1),
+                            new WeightedItem(FISHING_ROD_FINAL_HOOK, 1),
+                            new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,5),getGradientNameVer2("鱼饵·记忆碎片"),("§f这个鱼饵可以钓到任何物品"),("§f他存在于过去或者是未来"),("§f你现在看到的他并非真正的他")
+                            ), 3)
+                    )
+            );
+            USABLE_LURES =List.of(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientNameVer2("鱼饵·记忆碎片"),("§f这个鱼饵可以钓到任何物品"),("§f他存在于过去或者是未来"),("§f你现在看到的他并非真正的他"),(""),("§6§l当前未启用")
+            ));
+        }
+
 
         // 终焉鱼杆
         new FishingRod(magicexpansionfishing, MagicExpansionItems.FISHING_ROD_FINAL_STICK, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
@@ -1349,40 +1408,7 @@ public final class MagicExpansionItemSetup {
             put(Enchantment.LUCK, 25);
             put(Enchantment.LURE, 5);
         }}, false,
-                Map.of(
-                        "fishLureFinal", List.of(
-                                new WeightedItem(FISHING_ROD_FISH_ANYTHING, 20),
-                                new WeightedItem(RANDOM_FISH_COMMON, 1),
-                                new WeightedItem(RANDOM_FISH_UNCOMMON, 1),
-                                new WeightedItem(RANDOM_FISH_RARE_POOL_DUST, 1),
-                                new WeightedItem(RANDOM_FISH_RARE_POOL_ORE, 1),
-                                new WeightedItem(RANDOM_FISH_RARE_POOL_INDUSTRY, 1),
-                                new WeightedItem(RANDOM_FISH_EPIC, 1),
-                                new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 1),
-                                new WeightedItem(RANDOM_FISH_EPIC_POOL_ALLOY_INGOT, 1),
-                                new WeightedItem(RANDOM_FISH_LEGENDARY, 1),
-                                new WeightedItem(FISH_LEGENDARY_EEL_POWER, 1),
-                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,8),getGradientNameVer2("鱼饵·记忆碎片"),("§f这个鱼饵可以钓到任何物品"),("§f他存在于过去或者是未来"),("§f你现在看到的他并非真正的他")
-                                ), 1)
-                        ),
-                        "default", List.of(
-                                new WeightedItem(RANDOM_FISH_COMMON, 8),
-                                new WeightedItem(RANDOM_FISH_UNCOMMON, 6),
-                                new WeightedItem(RANDOM_FISH_RARE_POOL_DUST, 3),
-                                new WeightedItem(RANDOM_FISH_RARE_POOL_ORE, 3),
-                                new WeightedItem(RANDOM_FISH_RARE_POOL_INDUSTRY, 3),
-                                new WeightedItem(RANDOM_FISH_EPIC, 3),
-                                new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 3),
-                                new WeightedItem(RANDOM_FISH_EPIC_POOL_ALLOY_INGOT, 3),
-                                new WeightedItem(RANDOM_FISH_LEGENDARY, 3),
-                                new WeightedItem(FISH_LEGENDARY_EEL_POWER, 1),
-                                new WeightedItem(FISHING_ROD_FINAL_HOOK, 1),
-                                new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,5),getGradientNameVer2("鱼饵·记忆碎片"),("§f这个鱼饵可以钓到任何物品"),("§f他存在于过去或者是未来"),("§f你现在看到的他并非真正的他")
-                                ), 3)
-                        )
-                ), List.of(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientNameVer2("鱼饵·记忆碎片"),("§f这个鱼饵可以钓到任何物品"),("§f他存在于过去或者是未来"),("§f你现在看到的他并非真正的他")
-                )
-        )).register(plugin);
+                lootTable,USABLE_LURES).register(plugin);
 
 
         //星辰木
@@ -1749,23 +1775,265 @@ public final class MagicExpansionItemSetup {
                 null, null,null,
                 null, null,null
         }).register(plugin);
+
         new MagicCrop(magicexpansionfoodresource, MagicExpansionItems.WHEAT_SEEDS, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 AMETHYST_SHARD, MAGIC_EXPANSION_MAGIC_SUGAR_1,AMETHYST_SHARD,
                 MAGIC_EXPANSION_MAGIC_SUGAR_1, new ItemStack(Material.WHEAT_SEEDS),MAGIC_EXPANSION_MAGIC_SUGAR_1,
                 AMETHYST_SHARD, MAGIC_EXPANSION_MAGIC_SUGAR_1,AMETHYST_SHARD
-        }, new ItemStack[]{new ItemStack(Material.WHEAT), WHEAT_SEEDS, MAGIC_EXPANSION_MAGIC_SUGAR_1, HARVEST_WHEAT},3,9).register(plugin);
+        }, List.of(
+                new MagicCrop.WeightedDrop(new ItemStack(Material.WHEAT), 100),
+                new MagicCrop.WeightedDrop(WHEAT_SEEDS, 30),
+                new MagicCrop.WeightedDrop(MAGIC_EXPANSION_MAGIC_SUGAR_1, 3),
+                new MagicCrop.WeightedDrop(HARVEST_WHEAT, 5)
+        ),3,9).register(plugin);
 
         new MagicCrop(magicexpansionfoodresource, POTATO, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 AMETHYST_SHARD, MAGIC_EXPANSION_FINAL_STRING_1,AMETHYST_SHARD,
                 MAGIC_EXPANSION_FINAL_STRING_1, new ItemStack(Material.POTATO),MAGIC_EXPANSION_FINAL_STRING_1,
                 AMETHYST_SHARD, MAGIC_EXPANSION_FINAL_STRING_1,AMETHYST_SHARD
-        }, new ItemStack[]{new ItemStack(Material.POTATO), POTATO, MAGIC_EXPANSION_FINAL_STRING_1},4,8).register(plugin);
+        }, List.of(
+                new MagicCrop.WeightedDrop(new ItemStack(Material.POTATO), 100),
+                new MagicCrop.WeightedDrop(POTATO, 80),
+                new MagicCrop.WeightedDrop(MAGIC_EXPANSION_FINAL_STRING_1, 1)
+        ),12,26).register(plugin);
 
         new MagicCrop(magicexpansionfoodresource, HYBRID_RICE_SEEDS, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 new ItemStack(Material.HAY_BLOCK), new ItemStack(Material.HAY_BLOCK),new ItemStack(Material.HAY_BLOCK),
                 AMETHYST_SHARD, new ItemStack(Material.WHEAT_SEEDS),AMETHYST_SHARD,
                 new ItemStack(Material.WATER_BUCKET), new ItemStack(Material.DIRT),new ItemStack(Material.WATER_BUCKET)
-        }, new ItemStack[]{HARVEST_RICE, HYBRID_RICE_SEEDS, DREAM_KERNEL},19,30).register(plugin);
+        }, List.of(
+                new MagicCrop.WeightedDrop(new ItemStack(Material.WHEAT), 80),
+                new MagicCrop.WeightedDrop(HARVEST_RICE, 100),
+                new MagicCrop.WeightedDrop(HYBRID_RICE_SEEDS, 20),
+                new MagicCrop.WeightedDrop(DREAM_KERNEL, 3)
+        ),19,30).register(plugin);
+
+        //矿粉相关魔法植物
+
+        new MagicCrop(magicexpansionfoodresource, WHEAT_COPPER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                SlimefunItems.COPPER_DUST, WOOD_ELEMENT,SlimefunItems.COPPER_DUST,
+                AMETHYST_SHARD, new ItemStack(Material.WHEAT_SEEDS),AMETHYST_SHARD,
+                SlimefunItems.COPPER_DUST, WOOD_ELEMENT,SlimefunItems.COPPER_DUST
+        }, List.of(
+                new MagicCrop.WeightedDrop(new ItemStack(Material.WHEAT), 21),
+                new MagicCrop.WeightedDrop(SlimefunItems.COPPER_DUST, 83),
+                new MagicCrop.WeightedDrop(WHEAT_COPPER, 16),
+                new MagicCrop.WeightedDrop(ORE_DUST_CRYSTAL, 1)
+        ),5,11).register(plugin);
+
+        new MagicCrop(magicexpansionfoodresource, RADISH_IRON, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                SlimefunItems.IRON_DUST, WOOD_ELEMENT,SlimefunItems.IRON_DUST,
+                AMETHYST_SHARD, new ItemStack(Material.CARROT),AMETHYST_SHARD,
+                SlimefunItems.IRON_DUST, WOOD_ELEMENT,SlimefunItems.IRON_DUST
+        }, List.of(
+                new MagicCrop.WeightedDrop(new ItemStack(Material.CARROT), 21),
+                new MagicCrop.WeightedDrop(SlimefunItems.IRON_DUST, 83),
+                new MagicCrop.WeightedDrop(RADISH_IRON, 16),
+                new MagicCrop.WeightedDrop(ORE_DUST_CRYSTAL, 1)
+        ),5,11).register(plugin);
+
+        new MagicCrop(magicexpansionfoodresource, BEET_GOLD, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                SlimefunItems.GOLD_DUST, WOOD_ELEMENT,SlimefunItems.GOLD_DUST,
+                AMETHYST_SHARD, new ItemStack(Material.BEETROOT_SEEDS),AMETHYST_SHARD,
+                SlimefunItems.GOLD_DUST, WOOD_ELEMENT,SlimefunItems.GOLD_DUST
+        }, List.of(
+                new MagicCrop.WeightedDrop(new ItemStack(Material.BEETROOT), 21),
+                new MagicCrop.WeightedDrop(SlimefunItems.GOLD_DUST, 83),
+                new MagicCrop.WeightedDrop(BEET_GOLD, 16),
+                new MagicCrop.WeightedDrop(ORE_DUST_CRYSTAL, 1)
+        ),5,11).register(plugin);
+
+        new MagicCrop(magicexpansionfoodresource, RADISH_SILVER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                SlimefunItems.SILVER_DUST, WOOD_ELEMENT,SlimefunItems.SILVER_DUST,
+                AMETHYST_SHARD, new ItemStack(Material.CARROT),AMETHYST_SHARD,
+                SlimefunItems.SILVER_DUST, WOOD_ELEMENT,SlimefunItems.SILVER_DUST
+        }, List.of(
+                new MagicCrop.WeightedDrop(new ItemStack(Material.CARROT), 21),
+                new MagicCrop.WeightedDrop(SlimefunItems.SILVER_DUST, 83),
+                new MagicCrop.WeightedDrop(RADISH_SILVER, 16),
+                new MagicCrop.WeightedDrop(ORE_DUST_CRYSTAL, 1)
+        ),5,11).register(plugin);
+
+        new MagicCrop(magicexpansionfoodresource, WHEAT_ZINC, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                SlimefunItems.ZINC_DUST, WOOD_ELEMENT,SlimefunItems.ZINC_DUST,
+                AMETHYST_SHARD, new ItemStack(Material.WHEAT_SEEDS),AMETHYST_SHARD,
+                SlimefunItems.ZINC_DUST, WOOD_ELEMENT,SlimefunItems.ZINC_DUST
+        }, List.of(
+                new MagicCrop.WeightedDrop(new ItemStack(Material.WHEAT), 21),
+                new MagicCrop.WeightedDrop(SlimefunItems.ZINC_DUST, 83),
+                new MagicCrop.WeightedDrop(WHEAT_ZINC, 16),
+                new MagicCrop.WeightedDrop(ORE_DUST_CRYSTAL, 1)
+        ),5,11).register(plugin);
+
+        new MagicCrop(magicexpansionfoodresource, BEET_MAGNESIUM, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                SlimefunItems.MAGNESIUM_DUST, WOOD_ELEMENT,SlimefunItems.MAGNESIUM_DUST,
+                AMETHYST_SHARD, new ItemStack(Material.BEETROOT_SEEDS),AMETHYST_SHARD,
+                SlimefunItems.MAGNESIUM_DUST, WOOD_ELEMENT,SlimefunItems.MAGNESIUM_DUST
+        }, List.of(
+                new MagicCrop.WeightedDrop(new ItemStack(Material.BEETROOT), 21),
+                new MagicCrop.WeightedDrop(SlimefunItems.MAGNESIUM_DUST, 83),
+                new MagicCrop.WeightedDrop(BEET_MAGNESIUM, 16),
+                new MagicCrop.WeightedDrop(ORE_DUST_CRYSTAL, 1)
+        ),5,11).register(plugin);
+
+        new MagicCrop(magicexpansionfoodresource, POTATO_TIN, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                SlimefunItems.TIN_DUST, WOOD_ELEMENT,SlimefunItems.TIN_DUST,
+                AMETHYST_SHARD, new ItemStack(Material.POTATO),AMETHYST_SHARD,
+                SlimefunItems.TIN_DUST, WOOD_ELEMENT,SlimefunItems.TIN_DUST
+        }, List.of(
+                new MagicCrop.WeightedDrop(new ItemStack(Material.POTATO), 21),
+                new MagicCrop.WeightedDrop(SlimefunItems.TIN_DUST, 83),
+                new MagicCrop.WeightedDrop(POTATO_TIN, 16),
+                new MagicCrop.WeightedDrop(ORE_DUST_CRYSTAL, 1)
+        ),5,11).register(plugin);
+
+        new MagicCrop(magicexpansionfoodresource, BEET_LEAD, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                SlimefunItems.LEAD_DUST, WOOD_ELEMENT,SlimefunItems.LEAD_DUST,
+                AMETHYST_SHARD, new ItemStack(Material.BEETROOT_SEEDS),AMETHYST_SHARD,
+                SlimefunItems.LEAD_DUST, WOOD_ELEMENT,SlimefunItems.LEAD_DUST
+        }, List.of(
+                new MagicCrop.WeightedDrop(new ItemStack(Material.BEETROOT), 21),
+                new MagicCrop.WeightedDrop(SlimefunItems.LEAD_DUST, 83),
+                new MagicCrop.WeightedDrop(BEET_LEAD, 16),
+                new MagicCrop.WeightedDrop(ORE_DUST_CRYSTAL, 1)
+        ),5,11).register(plugin);
+
+        new MagicCrop(magicexpansionfoodresource, WHEAT_ALUMINUM, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                SlimefunItems.ALUMINUM_DUST, WOOD_ELEMENT,SlimefunItems.ALUMINUM_DUST,
+                AMETHYST_SHARD, new ItemStack(Material.WHEAT_SEEDS),AMETHYST_SHARD,
+                SlimefunItems.ALUMINUM_DUST, WOOD_ELEMENT,SlimefunItems.ALUMINUM_DUST
+        }, List.of(
+                new MagicCrop.WeightedDrop(new ItemStack(Material.WHEAT), 21),
+                new MagicCrop.WeightedDrop(SlimefunItems.ALUMINUM_DUST, 83),
+                new MagicCrop.WeightedDrop(WHEAT_ALUMINUM, 16),
+                new MagicCrop.WeightedDrop(ORE_DUST_CRYSTAL, 1)
+        ),5,11).register(plugin);
+
+
+        //矿锭相关魔法植物
+
+        new MagicCrop(magicexpansionfoodresource, WHEAT_COPPER_INGOT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                COAL, WHEAT_COPPER,COAL,
+                WHEAT_COPPER, ORE_DUST_CRYSTAL,WHEAT_COPPER,
+                COAL, WHEAT_COPPER,COAL
+        }, List.of(
+                new MagicCrop.WeightedDrop(new ItemStack(Material.WHEAT), 15),
+                new MagicCrop.WeightedDrop(SlimefunItems.COPPER_INGOT, 73),
+                new MagicCrop.WeightedDrop(WHEAT_COPPER_INGOT, 15),
+                new MagicCrop.WeightedDrop(ORE_INGOT_CRYSTAL, 1)
+        ),7,18).register(plugin);
+        new MagicCrop(magicexpansionfoodresource, RADISH_IRON_INGOT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                COAL, RADISH_IRON,COAL,
+                RADISH_IRON, ORE_DUST_CRYSTAL,RADISH_IRON,
+                COAL, RADISH_IRON,COAL
+        }, List.of(
+                new MagicCrop.WeightedDrop(new ItemStack(Material.WHEAT), 15),
+                new MagicCrop.WeightedDrop(new ItemStack(Material.IRON_INGOT), 73),
+                new MagicCrop.WeightedDrop(RADISH_IRON_INGOT, 15),
+                new MagicCrop.WeightedDrop(ORE_INGOT_CRYSTAL, 1)
+        ),7,18).register(plugin);
+        new MagicCrop(magicexpansionfoodresource, BEET_GOLD_INGOT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                COAL, BEET_GOLD,COAL,
+                BEET_GOLD, ORE_DUST_CRYSTAL,BEET_GOLD,
+                COAL, BEET_GOLD,COAL
+        }, List.of(
+                new MagicCrop.WeightedDrop(new ItemStack(Material.WHEAT), 15),
+                new MagicCrop.WeightedDrop(new ItemStack(Material.GOLD_INGOT), 73),
+                new MagicCrop.WeightedDrop(BEET_GOLD_INGOT, 15),
+                new MagicCrop.WeightedDrop(ORE_INGOT_CRYSTAL, 1)
+        ),7,18).register(plugin);
+        new MagicCrop(magicexpansionfoodresource, RADISH_SILVER_INGOT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                COAL, RADISH_SILVER,COAL,
+                RADISH_SILVER, ORE_DUST_CRYSTAL,RADISH_SILVER,
+                COAL, RADISH_SILVER,COAL
+        }, List.of(
+                new MagicCrop.WeightedDrop(new ItemStack(Material.WHEAT), 15),
+                new MagicCrop.WeightedDrop(SlimefunItems.SILVER_INGOT, 73),
+                new MagicCrop.WeightedDrop(RADISH_SILVER_INGOT, 15),
+                new MagicCrop.WeightedDrop(ORE_INGOT_CRYSTAL, 1)
+        ),7,18).register(plugin);
+        new MagicCrop(magicexpansionfoodresource, WHEAT_ZINC_INGOT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                COAL, WHEAT_ZINC,COAL,
+                WHEAT_ZINC, ORE_DUST_CRYSTAL,WHEAT_ZINC,
+                COAL, WHEAT_ZINC,COAL
+        }, List.of(
+                new MagicCrop.WeightedDrop(new ItemStack(Material.WHEAT), 15),
+                new MagicCrop.WeightedDrop(SlimefunItems.ZINC_INGOT, 73),
+                new MagicCrop.WeightedDrop(WHEAT_ZINC_INGOT, 15),
+                new MagicCrop.WeightedDrop(ORE_INGOT_CRYSTAL, 1)
+        ),7,18).register(plugin);
+        new MagicCrop(magicexpansionfoodresource, BEET_MAGNESIUM_INGOT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                COAL, BEET_MAGNESIUM,COAL,
+                BEET_MAGNESIUM, ORE_DUST_CRYSTAL,BEET_MAGNESIUM,
+                COAL, BEET_MAGNESIUM,COAL
+        }, List.of(
+                new MagicCrop.WeightedDrop(new ItemStack(Material.WHEAT), 15),
+                new MagicCrop.WeightedDrop(SlimefunItems.MAGNESIUM_INGOT, 73),
+                new MagicCrop.WeightedDrop(BEET_MAGNESIUM_INGOT, 15),
+                new MagicCrop.WeightedDrop(ORE_INGOT_CRYSTAL, 1)
+        ),7,18).register(plugin);
+        new MagicCrop(magicexpansionfoodresource, POTATO_TIN_INGOT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                COAL, POTATO_TIN,COAL,
+                POTATO_TIN, ORE_DUST_CRYSTAL,POTATO_TIN,
+                COAL, POTATO_TIN,COAL
+        }, List.of(
+                new MagicCrop.WeightedDrop(new ItemStack(Material.WHEAT), 15),
+                new MagicCrop.WeightedDrop(SlimefunItems.TIN_INGOT, 73),
+                new MagicCrop.WeightedDrop(POTATO_TIN_INGOT, 15),
+                new MagicCrop.WeightedDrop(ORE_INGOT_CRYSTAL, 1)
+        ),7,18).register(plugin);
+        new MagicCrop(magicexpansionfoodresource, BEET_LEAD_INGOT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                COAL, BEET_LEAD,COAL,
+                BEET_LEAD, ORE_DUST_CRYSTAL,BEET_LEAD,
+                COAL, BEET_LEAD,COAL
+        }, List.of(
+                new MagicCrop.WeightedDrop(new ItemStack(Material.WHEAT), 15),
+                new MagicCrop.WeightedDrop(SlimefunItems.LEAD_INGOT, 73),
+                new MagicCrop.WeightedDrop(BEET_LEAD_INGOT, 15),
+                new MagicCrop.WeightedDrop(ORE_INGOT_CRYSTAL, 1)
+        ),7,18).register(plugin);
+        new MagicCrop(magicexpansionfoodresource, WHEAT_ALUMINUM_INGOT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                COAL, WHEAT_ALUMINUM,COAL,
+                WHEAT_ALUMINUM, ORE_DUST_CRYSTAL,WHEAT_ALUMINUM,
+                COAL, WHEAT_ALUMINUM,COAL
+        }, List.of(
+                new MagicCrop.WeightedDrop(new ItemStack(Material.WHEAT), 15),
+                new MagicCrop.WeightedDrop(SlimefunItems.ALUMINUM_INGOT, 73),
+                new MagicCrop.WeightedDrop(WHEAT_ALUMINUM_INGOT, 15),
+                new MagicCrop.WeightedDrop(ORE_INGOT_CRYSTAL, 1)
+        ),7,18).register(plugin);
+
+        //合金锭相关魔法植物
+        new MagicCrop(magicexpansionfoodresource, WHEAT_BRONZE_INGOT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                WHEAT_COPPER, POTATO_TIN,WHEAT_COPPER_INGOT,
+                null, null,null,
+                null, null,null
+        }, List.of(
+                new MagicCrop.WeightedDrop(new ItemStack(Material.WHEAT), 19),
+                new MagicCrop.WeightedDrop(new ItemStack(Material.POTATO), 7),
+                new MagicCrop.WeightedDrop(SlimefunItems.BRONZE_INGOT, 100),
+                new MagicCrop.WeightedDrop(WHEAT_BRONZE_INGOT, 20),
+                new MagicCrop.WeightedDrop(WHEAT_COPPER, 3),
+                new MagicCrop.WeightedDrop(POTATO_TIN, 3),
+                new MagicCrop.WeightedDrop(WHEAT_COPPER_INGOT, 3),
+                new MagicCrop.WeightedDrop(ORE_MIX_CRYSTAL, 1)
+        ),6,15).register(plugin);
+        new MagicCrop(magicexpansionfoodresource, BEET_BRASS_INGOT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                WHEAT_COPPER, WHEAT_ZINC,WHEAT_COPPER_INGOT,
+                null, null,null,
+                null, null,null
+        }, List.of(
+                new MagicCrop.WeightedDrop(new ItemStack(Material.BEETROOT), 19),
+                new MagicCrop.WeightedDrop(new ItemStack(Material.WHEAT), 7),
+                new MagicCrop.WeightedDrop(SlimefunItems.BRASS_INGOT, 100),
+                new MagicCrop.WeightedDrop(BEET_BRASS_INGOT, 20),
+                new MagicCrop.WeightedDrop(WHEAT_COPPER, 3),
+                new MagicCrop.WeightedDrop(WHEAT_ZINC, 3),
+                new MagicCrop.WeightedDrop(WHEAT_COPPER_INGOT, 3),
+                new MagicCrop.WeightedDrop(ORE_MIX_CRYSTAL, 1)
+        ),6,15).register(plugin);
+
+
 
 
 
