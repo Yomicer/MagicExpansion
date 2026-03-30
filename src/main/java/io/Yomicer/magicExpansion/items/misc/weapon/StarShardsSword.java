@@ -52,6 +52,12 @@ public class StarShardsSword extends SimpleSlimefunItem<ItemUseHandler> implemen
     Double StarShards_Armor = cfg.getDouble("StarShardsSword.StarShards_Armor");
     Double StarShards_Toughness = cfg.getDouble("StarShardsSword.StarShards_Toughness");
     Double StarShards_FlySpeed = cfg.getDouble("StarShardsSword.StarShards_FlySpeed");
+    Long StarShards_BlazingSlash_CD = cfg.getLong("StarShardsSword.StarShards_BlazingSlash_CD");
+    Long StarShards_ArcaneBlast_CD = cfg.getLong("StarShardsSword.StarShards_ArcaneBlast_CD");
+    Long StarShards_AstralShield_CD = cfg.getLong("StarShardsSword.StarShards_AstralShield_CD");
+    Long StarShards_AstralShield_During = cfg.getLong("StarShardsSword.StarShards_AstralShield_During");
+    Long StarShards_InstantBlink_CD = cfg.getLong("StarShardsSword.StarShards_InstantBlink_CD");
+
 
     public StarShardsSword(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
@@ -211,7 +217,7 @@ public class StarShardsSword extends SimpleSlimefunItem<ItemUseHandler> implemen
     }
 
     private void castBlazingSlash(Player player, Location hitLoc) {
-        if (!checkCooldown(player, "blazing_slash", 1)) return;
+        if (!checkCooldown(player, "blazing_slash", StarShards_BlazingSlash_CD)) return;
 
         player.getWorld().playSound(hitLoc, Sound.ENTITY_GENERIC_EXPLODE, 1.0f, 1.3f);
 
@@ -247,7 +253,7 @@ public class StarShardsSword extends SimpleSlimefunItem<ItemUseHandler> implemen
     }
 
     private void castArcaneBlast(Player player, Location origin) {
-        if (!checkCooldown(player, "arcane_blast", 3)) return;
+        if (!checkCooldown(player, "arcane_blast", StarShards_ArcaneBlast_CD)) return;
 
         Vector playerForward = player.getEyeLocation().getDirection().normalize();
         Location playerOrigin = player.getEyeLocation();
@@ -310,14 +316,14 @@ public class StarShardsSword extends SimpleSlimefunItem<ItemUseHandler> implemen
     }
 
     private void useAstralShield(Player player) {
-        if (!checkCooldown(player, "astral_shield", 5)) return;
+        if (!checkCooldown(player, "astral_shield", StarShards_AstralShield_CD)) return;
         player.sendMessage("§b✨ 星界護盾已激活！");
         player.getWorld().playSound(player.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1.0f, 1.5f);
         player.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, player.getLocation().add(0, 1, 0), 30, 0.5, 0.5, 0.5, 0.1);
         player.setInvulnerable(true);
         Bukkit.getScheduler().runTaskLater(getAddon().getJavaPlugin(), () -> {
             if (player.isOnline()) player.setInvulnerable(false);
-        }, 100);
+        }, StarShards_AstralShield_During*20L);
 
         holyProtectedPlayers.add(player.getUniqueId());
         new BukkitRunnable() {
@@ -328,12 +334,12 @@ public class StarShardsSword extends SimpleSlimefunItem<ItemUseHandler> implemen
                     player.sendMessage(ChatColor.GRAY + "§7星界護盾已消散...");
                 }
             }
-        }.runTaskLater(MagicExpansion.getInstance(), 100L);
+        }.runTaskLater(MagicExpansion.getInstance(), StarShards_AstralShield_During*20L);
 
     }
 
     private void useInstantBlink(Player player) {
-        if (!checkCooldown(player, "instant_blink", 5)) return;
+        if (!checkCooldown(player, "instant_blink", StarShards_InstantBlink_CD)) return;
         Location eye = player.getEyeLocation();
         Vector dir = eye.getDirection();
         Location target = null;

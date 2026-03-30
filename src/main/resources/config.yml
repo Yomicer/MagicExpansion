@@ -24,6 +24,16 @@ StarShardsSword:
   #护甲韧性 默认:200.0
   StarShards_FlySpeed: 13.14
   #飞行速度 默认:13.14 +131.4%
+  StarShards_BlazingSlash_CD: 1
+  #左键技能冷却时间 默认:1.0
+  StarShards_ArcaneBlast_CD: 3
+  #shift左键技能冷却时间 默认:3.0
+  StarShards_AstralShield_CD: 5
+  #右键技能冷却时间 默认:5.0
+  StarShards_AstralShield_During: 5
+  #右键技能持续时间 默认:5.0
+  StarShards_InstantBlink_CD: 3
+  #shift右键技能冷却时间 默认:3.0
 
 Fish:
   FishingRod:

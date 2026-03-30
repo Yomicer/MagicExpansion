@@ -191,6 +191,11 @@ public final class MagicExpansionItemSetup {
             new CustomItemStack(doGlow(Material.PAPER), ColorGradient.getRandomGradientName("魔法-更新日志")), 11
     );
 
+    private static final ItemGroup magicexpansionnamecollection = new SubItemGroup(
+            new NamespacedKey(MagicExpansion.getInstance(), "namecollection"), magicexpansion,
+            new CustomItemStack(doGlow(Material.FLINT), ColorGradient.getRandomGradientName("留名集")), 11
+    );
+
 
     // 定义一个新的配方类型
     public static final RecipeType SPECIAL_RECIPE_TYPE = new RecipeType(
@@ -583,6 +588,11 @@ public final class MagicExpansionItemSetup {
                 null, null, null
         }).register(plugin);
         new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2026_03_17, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
+        new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2026_03_22, SPECIAL_RECIPE_TYPE, new ItemStack[] {
                 null, null, null,
                 null, null, null,
                 null, null, null

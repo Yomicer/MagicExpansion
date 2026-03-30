@@ -1,9 +1,11 @@
 package io.Yomicer.magicExpansion.core;
 
+import io.Yomicer.magicExpansion.MagicExpansion;
 import io.Yomicer.magicExpansion.utils.CustomHeadUtils.CustomHead;
 import io.Yomicer.magicExpansion.utils.itemUtils.MagicStringBuilder;
 import io.Yomicer.magicExpansion.utils.itemUtils.MagicSugarBuilder;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import org.bukkit.Material;
 
@@ -18,7 +20,7 @@ import static io.Yomicer.magicExpansion.utils.itemUtils.newItem.*;
 
 public class MagicExpansionItems {
 
-
+    static Config cfg = new Config(MagicExpansion.getInstance());
 
 
     private MagicExpansionItems(){
@@ -29,7 +31,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientNameVer2("信息"),
             "",
-            getGradientNameVer2("Version: Build 70"),
+            getGradientNameVer2("Version: Build 71"),
             getGradientNameVer2("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -301,9 +303,45 @@ public class MagicExpansionItems {
 
 
 
-    public static final SlimefunItemStack WEAPON_STAR_SHARDS_SWORD = themedOrigin("WEAPON_STAR_SHARDS_SWORD",doGlowDisplayEnchant(Material.NETHERITE_SWORD),
-            get("Items.WEAPON_STAR_SHARDS_SWORD.Name"),getList("Items.WEAPON_STAR_SHARDS_SWORD.Lore"));
+//    public static final SlimefunItemStack WEAPON_STAR_SHARDS_SWORD = themedOrigin("WEAPON_STAR_SHARDS_SWORD",doGlowDisplayEnchant(Material.NETHERITE_SWORD),
+//            get("Items.WEAPON_STAR_SHARDS_SWORD.Name"),getList("Items.WEAPON_STAR_SHARDS_SWORD.Lore"));
 
+
+    static Long StarShards_BlazingSlash_CD = cfg.getLong("StarShardsSword.StarShards_BlazingSlash_CD");
+    static Long StarShards_ArcaneBlast_CD = cfg.getLong("StarShardsSword.StarShards_ArcaneBlast_CD");
+    static Long StarShards_AstralShield_CD = cfg.getLong("StarShardsSword.StarShards_AstralShield_CD");
+    static Long StarShards_AstralShield_During = cfg.getLong("StarShardsSword.StarShards_AstralShield_During");
+    static Long StarShards_InstantBlink_CD = cfg.getLong("StarShardsSword.StarShards_InstantBlink_CD");
+
+    public static final SlimefunItemStack WEAPON_STAR_SHARDS_SWORD = new SlimefunItemStack(
+            "MAGIC_EXPANSION_WEAPON_STAR_SHARDS_SWORD",
+            Material.NETHERITE_SWORD,
+            "§x§E§8§4§2§3§D星§x§D§A§5§5§6§B隕§x§C§C§6§8§9§9裁§x§B§E§7§B§C§7決",
+            "",
+            "§x§D§9§4§2§F§5傳說中斬落星辰的神兵，",
+            "§x§A§3§5§7§B§9劍鋒所指，虛空為之顫慄。",
+            "§x§6§A§8§C§E§F蘊含奧術本源與天火之力，",
+            "§x§F§2§5§4§5§9唯有被命運選中者方可喚醒其真名。",
+            "",
+            "§x§A§3§5§7§B§9稀有度: §c神話",
+            "§x§A§3§5§7§B§9傷害倍率: §c61.8x",
+            "",
+            "§f• 左鍵§7：熾焰斬（冷卻: "+StarShards_BlazingSlash_CD+"秒）",
+            "§7揮出燃燒劍氣，對目標造成額外火焰傷害。",
+            "§7擊中時產生小型爆炸，擊退周圍敵人。",
+            "",
+            "§f• 蹲下 + 左鍵§7：奧爆衝擊（冷卻: "+StarShards_ArcaneBlast_CD+"秒）",
+            "§7蓄力釋放錐形奧術脈衝，貫穿前方區域。",
+            "§7命中敵人附加虛弱與緩速，持續4秒。",
+            "",
+            "§f• 右鍵§7：星界護盾（冷卻: "+StarShards_AstralShield_CD+"秒）",
+            "§7展開魔法屏障，"+StarShards_AstralShield_During+"秒內免疫所有傷害。",
+            "§7期間受到遠程攻擊將自動反彈至來源方向。",
+            "",
+            "§f• 蹲下 + 右鍵§7：瞬影躍遷（冷卻: "+StarShards_InstantBlink_CD+"秒）",
+            "§7瞬間傳送至準星所指地面（最遠15格）。",
+            "§7落地時釋放衝擊波，短暫眩暈附近敵人。"
+    );
 
 
 
@@ -837,6 +875,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2026_03_10 = createDefaultItemGlowV2Vertical("UPDATE_LOG_2026_03_10",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2026_03_13 = createDefaultItemGlowV2Vertical("UPDATE_LOG_2026_03_13",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2026_03_17 = createDefaultItemGlowV2Vertical("UPDATE_LOG_2026_03_17",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2026_03_22 = createDefaultItemGlowV2Vertical("UPDATE_LOG_2026_03_22",Material.PAPER);
 
 
 
