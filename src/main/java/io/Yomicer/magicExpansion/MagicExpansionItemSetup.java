@@ -1447,6 +1447,12 @@ public final class MagicExpansionItemSetup {
                 WATER_ELEMENT, SlimefunGuide.getItem(SlimefunGuideMode.SURVIVAL_MODE), FIRE_ELEMENT,
                 SlimefunItems.FILLED_FLASK_OF_KNOWLEDGE, GOLD_ELEMENT, SlimefunItems.FILLED_FLASK_OF_KNOWLEDGE
         }).register(plugin);
+        //全息文字清理
+        new WordClear(magicexpansionspecialitem, WORD_CLEAR, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                REDSTONE, REDSTONE, REDSTONE,
+                REDSTONE, SlimefunItems.HOLOGRAM_PROJECTOR, REDSTONE,
+                REDSTONE, REDSTONE, REDSTONE
+        }).register(plugin);
 
 
 

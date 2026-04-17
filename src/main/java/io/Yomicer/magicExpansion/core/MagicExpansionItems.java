@@ -31,7 +31,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientNameVer2("信息"),
             "",
-            getGradientNameVer2("Version: Build 72"),
+            getGradientNameVer2("Version: Build 73"),
             getGradientNameVer2("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -974,6 +974,7 @@ public class MagicExpansionItems {
 
 
     public static final SlimefunItemStack RESEARCH_UNLOCKER_PAPER = createDefaultItemGlowV2Vertical("RESEARCH_UNLOCKER_PAPER",Material.PAPER);
+    public static final SlimefunItemStack WORD_CLEAR = createDefaultItemGlowV2Vertical("WORD_CLEAR",Material.STICK);
 
 
     public static final SlimefunItemStack CHINESE_CHARACTER_CONSTRUCTOR = createDefaultItemGlowV2Vertical("CHINESE_CHARACTER_CONSTRUCTOR",Material.SMOKER);
