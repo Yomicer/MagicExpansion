@@ -119,7 +119,7 @@ public class MagicCrop extends SlimefunItem implements Listener, RecipeDisplayIt
             return;
         }
 
-        if (below.getType() == Material.FARMLAND) {
+        if (below.getType() == Material.FARMLAND || below.getType() == Material.SOUL_SAND) {
             return;
         }
         handleDestruction(block, e);
