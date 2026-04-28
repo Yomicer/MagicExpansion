@@ -1323,6 +1323,7 @@ zh_CN:
         - ' '
         - '1. 修复抽奖机异常复制UI的bug'
         - '2. 新增全系文字清理器'
+        - '3. 修复鱼饵异常判定的bug'
 
 
     COOPERATE_CREATION_INFO:

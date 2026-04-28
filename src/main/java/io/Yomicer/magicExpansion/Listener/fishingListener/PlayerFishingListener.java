@@ -107,9 +107,6 @@ public class PlayerFishingListener implements Listener {
                     .findFirst()
                     .orElse(null);
         }
-        if (activeLure != null) {
-            consumeLure(player, activeLure);
-        }
         ItemStack drop = getSmartLoot(player, fishingRod).clone();
         Boolean FinalLureEnable = cfg.getBoolean("Fish.FishingRod.FISHING_ROD_FINAL_STICK.Enable.FinalLure_Obtain");
         if (!FinalLureEnable) {
@@ -119,6 +116,9 @@ public class PlayerFishingListener implements Listener {
                     ("§f你现在看到的他并非真正的他")))) {
                 drop = getSmartLoot(player, fishingRod).clone();
             }
+        }
+        if (activeLure != null) {
+            consumeLure(player, activeLure);
         }
         Entity hook = e.getHook();
         Location hookLocation = hook.getLocation();
