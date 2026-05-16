@@ -2859,6 +2859,18 @@ public final class MagicExpansionItemSetup {
                         sfItemAmount(WATER_ELEMENT,1),sfItemAmount(FIRE_ELEMENT,1),
                         sfItemAmount(EARTH_ELEMENT,1),})
                 .register(plugin);
+        //印书厂
+        new ResourceRandomOneMachine(magicexpansionresourcegenerator, SLIME_BOOK_GEN_ADVANCE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                PURE_ELEMENT_INGOT,new ItemStack(Material.BOOK),PURE_ELEMENT_INGOT,
+                PURE_ELEMENT_WOOD,PURE_INGOT_POWER_CORE,PURE_ELEMENT_WOOD,
+                PURE_ELEMENT_INGOT,new ItemStack(Material.SLIME_BALL),PURE_ELEMENT_INGOT
+        })
+                .setCraftSecond(2)
+                .setCapacity(1314)
+                .setConsumption(260)
+                .setProcessingSpeed(1)
+                .setItemStackOutputs(new ItemStack[] {new CustomItemStack(SlimefunGuide.getItem(SlimefunGuideMode.SURVIVAL_MODE),64)})
+                .register(plugin);
 
 
 

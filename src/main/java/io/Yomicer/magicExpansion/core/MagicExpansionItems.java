@@ -31,7 +31,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientNameVer2("信息"),
             "",
-            getGradientNameVer2("Version: Build 74"),
+            getGradientNameVer2("Version: Build 75"),
             getGradientNameVer2("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -955,6 +955,7 @@ public class MagicExpansionItems {
 
 
     public static final SlimefunItemStack FIVE_ELEMENT_GEN_BASIC = createGeneratorGlowV2Vertical("FIVE_ELEMENT_GEN_BASIC",Material.ENCHANTING_TABLE);
+    public static final SlimefunItemStack SLIME_BOOK_GEN_ADVANCE = createGeneratorGlowV2Vertical("SLIME_BOOK_GEN_ADVANCE",Material.BOOKSHELF);
 
 
 
