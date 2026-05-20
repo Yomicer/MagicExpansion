@@ -31,7 +31,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientNameVer2("信息"),
             "",
-            getGradientNameVer2("Version: Build 75"),
+            getGradientNameVer2("Version: Build 76"),
             getGradientNameVer2("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -877,6 +877,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2026_03_17 = createDefaultItemGlowV2Vertical("UPDATE_LOG_2026_03_17",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2026_03_22 = createDefaultItemGlowV2Vertical("UPDATE_LOG_2026_03_22",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2026_04_18 = createDefaultItemGlowV2Vertical("UPDATE_LOG_2026_04_18",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2026_05_21 = createDefaultItemGlowV2Vertical("UPDATE_LOG_2026_05_21",Material.PAPER);
 
 
 
@@ -956,6 +957,13 @@ public class MagicExpansionItems {
 
     public static final SlimefunItemStack FIVE_ELEMENT_GEN_BASIC = createGeneratorGlowV2Vertical("FIVE_ELEMENT_GEN_BASIC",Material.ENCHANTING_TABLE);
     public static final SlimefunItemStack SLIME_BOOK_GEN_ADVANCE = createGeneratorGlowV2Vertical("SLIME_BOOK_GEN_ADVANCE",Material.BOOKSHELF);
+
+
+
+    public static final SlimefunItemStack ORIGIN_MATERIAL_GEN_MAKER_ALPHA = createGeneratorGlowV2Vertical("ORIGIN_MATERIAL_GEN_ALPHA",Material.CRAFTING_TABLE);
+
+    //万物演化台
+    public static final SlimefunItemStack ORIGIN_MATERIAL_GEN = createGeneratorGlowV2Vertical("ORIGIN_MATERIAL_GEN",Material.ENCHANTING_TABLE);
 
 
 

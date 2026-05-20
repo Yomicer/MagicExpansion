@@ -7,6 +7,7 @@ import io.Yomicer.magicExpansion.items.electric.recipeMachine.RandomBoxMachine;
 import io.Yomicer.magicExpansion.items.electric.recipeMachine.RecipeMachine;
 import io.Yomicer.magicExpansion.items.electric.recipeMachine.RecipeRandomMachine;
 import io.Yomicer.magicExpansion.items.electric.recipeMachine.RecipeRandomMachineDefault;
+import io.Yomicer.magicExpansion.items.electric.resourceGenerator.OriginMaterialGen;
 import io.Yomicer.magicExpansion.items.electric.resourceGenerator.ResourceMachine;
 import io.Yomicer.magicExpansion.items.electric.resourceGenerator.ResourceRandomOneMachine;
 import io.Yomicer.magicExpansion.items.enchantMachine.EnchantingTable;
@@ -59,6 +60,7 @@ import java.util.List;
 import java.util.Map;
 
 import static io.Yomicer.magicExpansion.core.MagicExpansionItems.*;
+import static io.Yomicer.magicExpansion.core.MagicExpansionItems.ORIGIN_MATERIAL_GEN_MAKER_ALPHA;
 import static io.Yomicer.magicExpansion.utils.ColorGradient.*;
 import static io.Yomicer.magicExpansion.utils.ConvertItem.*;
 import static io.Yomicer.magicExpansion.utils.Language.get;
@@ -254,6 +256,12 @@ public final class MagicExpansionItemSetup {
     public static final RecipeType MAGICEXPANSION_MOB_DROP = new RecipeType(
             new NamespacedKey(MagicExpansion.getInstance(), "magicexpansion_mob_drop"),
             new CustomItemStack(Material.TOTEM_OF_UNDYING,ColorGradient.getGradientName("魔法生物掉落"),getGradientName("通过召唤魔法生物"),getGradientName("并将其击败"),getGradientName("有概率获取")), // 图标
+            (input, output) -> {});
+
+    //  掉落物
+    public static final RecipeType ORIGIN_MATERIAL_GEN_MAKER_ALPHA = new RecipeType(
+            new NamespacedKey(MagicExpansion.getInstance(), "magicexpansion_origin_material_gen_maker"),
+            MagicExpansionItems.ORIGIN_MATERIAL_GEN_MAKER_ALPHA, // 图标
             (input, output) -> {});
 
     private MagicExpansionItemSetup() {
@@ -598,6 +606,11 @@ public final class MagicExpansionItemSetup {
                 null, null, null
         }).register(plugin);
         new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2026_04_18, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
+        new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2026_05_21, SPECIAL_RECIPE_TYPE, new ItemStack[] {
                 null, null, null,
                 null, null, null,
                 null, null, null
@@ -2872,6 +2885,17 @@ public final class MagicExpansionItemSetup {
                 .setItemStackOutputs(new ItemStack[] {new CustomItemStack(SlimefunGuide.getItem(SlimefunGuideMode.SURVIVAL_MODE),64)})
                 .register(plugin);
 
+        new OriginMaterialGen(magicexpansionresourcegenerator, ORIGIN_MATERIAL_GEN, ORIGIN_MATERIAL_GEN_MAKER_ALPHA, new ItemStack[] {
+                sfItemAmount(PURE_ELEMENT_GOLD,31),sfItemAmount(MAGIC_CAPACITY_ULTRA,1),sfItemAmount(PURE_ELEMENT_WOOD,31),
+                sfItemAmount(PURE_ELEMENT_WATER,31),new CustomItemStack(Material.PAPER, ColorGradient.getGradientNameVer2("任何物品"),  ColorGradient.getGradientNameVer2("合成材料决定了演化台的最终产出"), "" , ColorGradient.getGradientNameVer2("或许这本就是剧本吧")),sfItemAmount(PURE_ELEMENT_FIRE,31),
+                sfItemAmount(PURE_FIVE_ELEMENT,9),sfItemAmount(PURE_ELEMENT_EARTH,31),sfItemAmount(MAGIC_EXPANSION_MAGIC_SUGAR_19,9)
+        })
+                .setCraftSecond(1)
+                .setCapacity(131452)
+                .setConsumption(26000)
+                .setProcessingSpeed(1)
+                .setItemStackOutputs(new ItemStack[] {new CustomItemStack(Material.PAPER, ColorGradient.getGradientNameVer2("任何物品 x 99 x 36"),  ColorGradient.getGradientNameVer2("不要怀疑你的眼睛，就是99"),  ColorGradient.getGradientNameVer2("产出取决于合成演化台时的材料"), "" , ColorGradient.getGradientNameVer2("或许这本就是剧本吧"))})
+                .register(plugin);
 
 
 

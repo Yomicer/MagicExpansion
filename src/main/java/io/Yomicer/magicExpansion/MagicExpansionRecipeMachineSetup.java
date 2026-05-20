@@ -2,6 +2,7 @@ package io.Yomicer.magicExpansion;
 
 import io.Yomicer.magicExpansion.core.MagicExpansionItems;
 import io.Yomicer.magicExpansion.items.electric.recipeMachine.IDCardMachineCN;
+import io.Yomicer.magicExpansion.items.electric.recipeMachine.OriginMaterialGenMaker;
 import io.Yomicer.magicExpansion.items.electric.recipeMachine.RecipeMachine;
 import io.Yomicer.magicExpansion.items.electric.recipeMachine.RecipeMachinePreBuilding;
 import io.Yomicer.magicExpansion.items.electric.templateMachine.ItemOriginBackTrackMachine;
@@ -17,6 +18,12 @@ import org.bukkit.inventory.ItemStack;
 import javax.annotation.Nonnull;
 
 import static io.Yomicer.magicExpansion.MagicExpansionItemSetup.*;
+import static io.Yomicer.magicExpansion.core.MagicExpansionItems.*;
+import static io.Yomicer.magicExpansion.core.MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_9;
+import static io.Yomicer.magicExpansion.core.MagicExpansionItems.PURE_ELEMENT_EARTH;
+import static io.Yomicer.magicExpansion.core.MagicExpansionItems.PURE_ELEMENT_INGOT;
+import static io.Yomicer.magicExpansion.core.MagicExpansionItems.PURE_ELEMENT_WOOD;
+import static io.Yomicer.magicExpansion.core.MagicExpansionItems.PURE_FIVE_ELEMENT;
 import static io.Yomicer.magicExpansion.utils.ConvertItem.*;
 import static io.Yomicer.magicExpansion.utils.Utils.doGlow;
 import static io.Yomicer.magicExpansion.utils.itemUtils.sfItemUtils.sfItemAmount;
@@ -397,6 +404,21 @@ public class MagicExpansionRecipeMachineSetup {
                 .setProcessingSpeed(1)
                 .addRecipe(1, new ItemStack[] {new ItemStack(Material.PAPER),new ItemStack(Material.BAMBOO),new ItemStack(Material.FEATHER),new ItemStack(Material.INK_SAC)},
                         new ItemStack[] {new CustomItemStack(Material.SUGAR, ColorGradient.getGradientNameVer2("符号"), "&f梦", ColorGradient.getGradientNameVer2("凭空制造物质的基础"))})
+                .register(plugin);
+
+
+        new OriginMaterialGenMaker(magicexpansionenergy, MagicExpansionItems.ORIGIN_MATERIAL_GEN_MAKER_ALPHA, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MAGIC_EXPANSION_RANDOM_SPAWNER, PURE_ELEMENT_INGOT,RESEARCH_UNLOCKER_PAPER,
+                SCHRODINGER_FRAME_ONE,new ItemStack(Material.CRAFTING_TABLE),SCHRODINGER_FRAME_INFINITE,
+                BASIC_ENCHANT_STONE,WIND_SPIRIT,BASIC_ENCHANT_STONE
+        })
+                .setCapacity(131452)
+                .setConsumption(26000)
+                .setProcessingSpeed(1)
+                .addRecipe(5, new ItemStack[] {sfItemAmount(PURE_ELEMENT_GOLD,31),sfItemAmount(MAGIC_CAPACITY_ULTRA,1),sfItemAmount(PURE_ELEMENT_WOOD,31),
+                                sfItemAmount(PURE_ELEMENT_WATER,31),          sfItemAmount(PURE_ELEMENT_FIRE,31),
+                                        sfItemAmount(PURE_FIVE_ELEMENT,9),sfItemAmount(PURE_ELEMENT_EARTH,31),sfItemAmount(MAGIC_EXPANSION_MAGIC_SUGAR_19,9)},
+                        new ItemStack[] {MagicExpansionItems.ORIGIN_MATERIAL_GEN})
                 .register(plugin);
 
 
