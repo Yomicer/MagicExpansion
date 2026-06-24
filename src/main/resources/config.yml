@@ -6,12 +6,18 @@ options:
 
 StarShardsSword:
   help: '#####为星陨裁决配置信息#####'
+  StarShards_Atk_Mix: 3.8
+  #基础攻击倍率 默认:3.8 +280%
   StarShards_Atk_Add: 1314.0
   #基础攻击力加成 默认:1314.0
   StarShards_Atk_Mult: 6.18
   #基础攻击力乘区 默认:6.18   +618%
   StarShards_AtkSpeed: 20.0
   #攻击速度 默认:20.0 +2000%
+  StarShards_Atk_ExtraPercent: 0.08
+  #攻击力加成 默认:0.15 +15% 固定额外百分比伤害
+  StarShards_Atk_Blood: 0.05
+  #流血效果 默认:0.03 +3% 可叠加，独立生效
   StarShards_Health_Add: 1314.0
   #基础生命值加成 默认:1314.0
   StarShards_Health_Mult: 6.18

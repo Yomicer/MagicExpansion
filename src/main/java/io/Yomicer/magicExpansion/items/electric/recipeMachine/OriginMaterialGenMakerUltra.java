@@ -18,24 +18,26 @@ import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import net.guizhanss.guizhanlib.minecraft.helper.inventory.ItemStackHelper;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.util.io.BukkitObjectInputStream;
+import org.bukkit.util.io.BukkitObjectOutputStream;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.*;
 
 import static io.Yomicer.magicExpansion.core.MagicExpansionItems.ORIGIN_MATERIAL_GEN;
+import static io.Yomicer.magicExpansion.core.MagicExpansionItems.ORIGIN_MATERIAL_GEN_ULTRA;
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientNameVer2;
 
-public class OriginMaterialGenMaker extends AbstractElectricRecipeMachine {
+public class OriginMaterialGenMakerUltra extends AbstractElectricRecipeMachine {
     private static final int[] INPUT_SLOTS = new int[] { 0,1,2, 9,10,11,12, 18,19,20,21, 27,28,29,30, 36,37,38,39, 45,46,47,48  };
     private static final int[] OUTPUT_SLOTS = new int[] { 6,7,8, 14,15,16,17, 23,24,25,26, 32,33,34,35, 41,42,43,44, 50,51,52,53 };
 
@@ -48,9 +50,9 @@ public class OriginMaterialGenMaker extends AbstractElectricRecipeMachine {
     private static final int[] BACKGROUND_SLOTS = new int[] { 49 };
 
     private static final ItemStack PROGRESS_ITEM = new ItemStack(Material.SOUL_LANTERN);
-    private static final ItemStack PROGRESS_STACK = new CustomItemStack(Material.SOUL_CAMPFIRE, getGradientName("信息"), getGradientName("类型：资源生成器"), getGradientName("所属附属：魔法"));
+    private static final ItemStack PROGRESS_STACK = new CustomItemStack(Material.SOUL_CAMPFIRE, getGradientName("信息"), getGradientName("类型：加工机器"), getGradientName("所属附属：魔法"));
 
-    public OriginMaterialGenMaker(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    public OriginMaterialGenMakerUltra(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
 
     }
@@ -166,9 +168,8 @@ public class OriginMaterialGenMaker extends AbstractElectricRecipeMachine {
     }
 
     private ItemStack OriginMaterialGen(ItemStack item) {
-
-        String n = ItemStackHelper.getName(item);
-        ItemStack itemOutput = ORIGIN_MATERIAL_GEN.clone();
+        String n = ItemStackHelper.getDisplayName(item);
+        ItemStack itemOutput = ORIGIN_MATERIAL_GEN_ULTRA.clone();
         ItemMeta meta = itemOutput.getItemMeta();
         if (meta != null) {
             String originalName = meta.getDisplayName();
@@ -177,15 +178,51 @@ public class OriginMaterialGenMaker extends AbstractElectricRecipeMachine {
             if (lore == null) {
                 lore = new ArrayList<>();
             }
-            lore.add(getGradientNameVer2( "当前推演物品：" + n));
+            lore.add(getGradientNameVer2( "当前推演物品：") + n);
             meta.setLore(lore);
 
+            // 【修改点】：将完整的物品序列化为 Base64 字符串，保留所有 NBT、附魔、Slimefun 属性等
+            String serializedItem = serializeItemStack(item);
+
             NamespacedKey key = new NamespacedKey(MagicExpansion.getInstance(), "origin_material");
-            meta.getPersistentDataContainer().set(key, PersistentDataType.STRING, item.getType().name());
+            // 存储序列化后的完整物品数据，而不是仅存 Material 名字
+            meta.getPersistentDataContainer().set(key, PersistentDataType.STRING, serializedItem);
             itemOutput.setItemMeta(meta);
         }
         return itemOutput;
     }
+
+    /**
+     * 将 ItemStack 序列化为 Base64 字符串
+     */
+    private String serializeItemStack(ItemStack item) {
+        if (item == null) return "";
+        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+             BukkitObjectOutputStream dataOutput = new BukkitObjectOutputStream(outputStream)) {
+            dataOutput.writeObject(item);
+            return Base64.getEncoder().encodeToString(outputStream.toByteArray());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    /**
+     * 将 Base64 字符串反序列化回 ItemStack
+     * （在其他地方需要取出原始物品数据时调用此方法）
+     */
+    public static ItemStack deserializeItemStack(String base64) {
+        if (base64 == null || base64.isEmpty()) return null;
+        try (ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64.getDecoder().decode(base64));
+             BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream)) {
+            return (ItemStack) dataInput.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 
 //    protected void addOutputs(BlockMenu menu, Block b, ItemStack[] outputs) {
 //        ItemStack item = menu.getItemInSlot(ORIGIN_MATERIAL_SLOTS);

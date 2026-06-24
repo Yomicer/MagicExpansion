@@ -1,10 +1,7 @@
 package io.Yomicer.magicExpansion;
 
 import io.Yomicer.magicExpansion.core.MagicExpansionItems;
-import io.Yomicer.magicExpansion.items.electric.recipeMachine.IDCardMachineCN;
-import io.Yomicer.magicExpansion.items.electric.recipeMachine.OriginMaterialGenMaker;
-import io.Yomicer.magicExpansion.items.electric.recipeMachine.RecipeMachine;
-import io.Yomicer.magicExpansion.items.electric.recipeMachine.RecipeMachinePreBuilding;
+import io.Yomicer.magicExpansion.items.electric.recipeMachine.*;
 import io.Yomicer.magicExpansion.items.electric.templateMachine.ItemOriginBackTrackMachine;
 import io.Yomicer.magicExpansion.items.electric.templateMachine.TemplateMachine;
 import io.Yomicer.magicExpansion.utils.ColorGradient;
@@ -20,6 +17,7 @@ import javax.annotation.Nonnull;
 import static io.Yomicer.magicExpansion.MagicExpansionItemSetup.*;
 import static io.Yomicer.magicExpansion.core.MagicExpansionItems.*;
 import static io.Yomicer.magicExpansion.core.MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_9;
+import static io.Yomicer.magicExpansion.core.MagicExpansionItems.ORIGIN_MATERIAL_GEN_MAKER_ALPHA;
 import static io.Yomicer.magicExpansion.core.MagicExpansionItems.PURE_ELEMENT_EARTH;
 import static io.Yomicer.magicExpansion.core.MagicExpansionItems.PURE_ELEMENT_INGOT;
 import static io.Yomicer.magicExpansion.core.MagicExpansionItems.PURE_ELEMENT_WOOD;
@@ -407,7 +405,7 @@ public class MagicExpansionRecipeMachineSetup {
                 .register(plugin);
 
 
-        new OriginMaterialGenMaker(magicexpansionenergy, MagicExpansionItems.ORIGIN_MATERIAL_GEN_MAKER_ALPHA, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+        new OriginMaterialGenMaker(magicexpansionenergy, ORIGIN_MATERIAL_GEN_MAKER_ALPHA, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 MAGIC_EXPANSION_RANDOM_SPAWNER, PURE_ELEMENT_INGOT,RESEARCH_UNLOCKER_PAPER,
                 SCHRODINGER_FRAME_ONE,new ItemStack(Material.CRAFTING_TABLE),SCHRODINGER_FRAME_INFINITE,
                 BASIC_ENCHANT_STONE,WIND_SPIRIT,BASIC_ENCHANT_STONE
@@ -419,6 +417,21 @@ public class MagicExpansionRecipeMachineSetup {
                                 sfItemAmount(PURE_ELEMENT_WATER,31),          sfItemAmount(PURE_ELEMENT_FIRE,31),
                                         sfItemAmount(PURE_FIVE_ELEMENT,9),sfItemAmount(PURE_ELEMENT_EARTH,31),sfItemAmount(MAGIC_EXPANSION_MAGIC_SUGAR_19,9)},
                         new ItemStack[] {MagicExpansionItems.ORIGIN_MATERIAL_GEN})
+                .register(plugin);
+
+
+        new OriginMaterialGenMakerUltra(magicexpansionenergy, MagicExpansionItems.ORIGIN_MATERIAL_GEN_MAKER_BETA, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MAGIC_EXPANSION_MAGIC_SUGAR_29, MAGIC_EXPANSION_MAGIC_SUGAR_30,MAGIC_EXPANSION_MAGIC_SUGAR_31,
+                new ItemStack(Material.SUGAR),ORIGIN_MATERIAL_GEN_MAKER_ALPHA,new ItemStack(Material.STRING),
+                MAGIC_EXPANSION_FINAL_STRING_19,MAGIC_EXPANSION_FINAL_STRING_20,MAGIC_EXPANSION_FINAL_STRING_21
+        })
+                .setCapacity(131452)
+                .setConsumption(26000)
+                .setProcessingSpeed(1)
+                .addRecipe(5, new ItemStack[] {sfItemAmount(MAGIC_EXPANSION_MAGIC_SUGAR_1,31),sfItemAmount(MAGIC_CAPACITY_ULTRA,1),sfItemAmount(MAGIC_EXPANSION_MAGIC_SUGAR_31,31),
+                                sfItemAmount(PURE_ELEMENT_WATER,1),          sfItemAmount(PURE_ELEMENT_FIRE,1),
+                                sfItemAmount(PURE_FIVE_ELEMENT,31),sfItemAmount(PURE_ELEMENT_EARTH,31),sfItemAmount(MAGIC_EXPANSION_MAGIC_SUGAR_19,31)},
+                        new ItemStack[] {ORIGIN_MATERIAL_GEN_ULTRA})
                 .register(plugin);
 
 

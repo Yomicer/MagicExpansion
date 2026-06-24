@@ -1,6 +1,7 @@
 package io.Yomicer.magicExpansion.items.misc.weapon;
 
 import io.Yomicer.magicExpansion.MagicExpansion;
+import io.Yomicer.magicExpansion.utils.log.Debug;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -27,25 +28,36 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 public class StarShardsSword extends SimpleSlimefunItem<ItemUseHandler> implements RecipeDisplayItem, Listener {
 
-    public static final double DAMAGE_MULTIPLIER = 61.8;
+
+    //新增自定义倍率
+//    public static final double DAMAGE_MULTIPLIER = 61.8;
     private final Map<UUID, Map<String, Long>> cooldowns = new HashMap<>();
     private final Map<UUID, Long> lastMessageTime = new HashMap<>();
+    // 用于存储实体的流血任务，Key是实体UUID，Value是BukkitRunnable任务列表
+    private final Map<UUID, List<BukkitTask>> bleedingTasks = new ConcurrentHashMap<>();
 
     Config cfg = new Config(MagicExpansion.getInstance());
+    Double StarShards_Atk_Mix = cfg.getDouble("StarShardsSword.StarShards_Atk_Mix");
     Double StarShards_Atk_Add = cfg.getDouble("StarShardsSword.StarShards_Atk_Add");
     Double StarShards_Atk_Mult = cfg.getDouble("StarShardsSword.StarShards_Atk_Mult");
     Double StarShards_Atk_Speed = cfg.getDouble("StarShardsSword.StarShards_Atk_Speed");
+    Double StarShards_Atk_ExtraPercent = cfg.getDouble("StarShardsSword.StarShards_Atk_ExtraPercent");
+    Double StarShards_Atk_Blood = cfg.getDouble("StarShardsSword.StarShards_Atk_Blood");
     Double StarShards_Health_Add = cfg.getDouble("StarShardsSword.StarShards_Health_Add");
     Double StarShards_Health_Mult = cfg.getDouble("StarShardsSword.StarShards_Health_Mult");
     Double StarShards_MoveSpeed = cfg.getDouble("StarShardsSword.StarShards_MoveSpeed");
@@ -57,6 +69,7 @@ public class StarShardsSword extends SimpleSlimefunItem<ItemUseHandler> implemen
     Long StarShards_AstralShield_CD = cfg.getLong("StarShardsSword.StarShards_AstralShield_CD");
     Long StarShards_AstralShield_During = cfg.getLong("StarShardsSword.StarShards_AstralShield_During");
     Long StarShards_InstantBlink_CD = cfg.getLong("StarShardsSword.StarShards_InstantBlink_CD");
+
 
 
     public StarShardsSword(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
@@ -171,18 +184,47 @@ public class StarShardsSword extends SimpleSlimefunItem<ItemUseHandler> implemen
         }
     }
 
+
     // ✅ 攻击事件监听（SF9 唯一方式）
     @EventHandler
     public void onPlayerAttack(EntityDamageByEntityEvent event) {
         if (!(event.getDamager() instanceof Player player)) return;
-        if (!(event.getEntity() instanceof LivingEntity)) return;
+        if (!(event.getEntity() instanceof LivingEntity target)) return;
 
         // 判断玩家主手是否持有本 Slimefun 物品
         ItemStack hand = player.getInventory().getItemInMainHand();
         SlimefunItem handSfItem = getByItem(hand);
         if (!(handSfItem instanceof StarShardsSword)) return;
         // 应用伤害倍率
-        event.setDamage(event.getDamage() * DAMAGE_MULTIPLIER);
+        // *新增固定百分比伤害
+        // 1. 计算本次要扣除的伤害值（保留你原有的公式）
+        double damageToDeal = event.getDamage() * StarShards_Atk_Mix
+                + target.getMaxHealth() * (StarShards_Atk_ExtraPercent);
+
+        // 2. 计算扣除伤害后的新血量
+        double newHealth = target.getHealth() - damageToDeal;
+
+        // 3. 核心修改：如果血量小于等于 0，则强制设为 0.1
+        if (newHealth <= 0.0) {
+            newHealth = 0.1;
+        }
+
+        target.setHealth(newHealth);
+
+
+//        double damage =  event.getDamage();
+//        String formatted = String.format("%.2f", damage);
+//        Bukkit.broadcastMessage(ChatColor.GOLD + "⚔ " + ChatColor.YELLOW + player.getName()
+//                + ChatColor.GOLD + " 使用 " + ChatColor.AQUA + handSfItem.getItemName()
+//                + ChatColor.GOLD + " 对 " + ChatColor.RED + target.getName()
+//                + ChatColor.GOLD + " 造成了 " + ChatColor.WHITE + formatted
+//                + ChatColor.GOLD + " 点真实伤害！");
+
+        if (target.isDead()) return;
+
+        // --- *新增 触发流血效果 (Bleed Effect) ---
+        //流血简化
+        applyBleedEffect(player, target);
 
         // 触发技能
         if (player.isSneaking()) {
@@ -191,6 +233,79 @@ public class StarShardsSword extends SimpleSlimefunItem<ItemUseHandler> implemen
             castBlazingSlash(player, event.getEntity().getLocation());
         }
     }
+
+    // 修改后：支持多层叠加、直接扣血、保底0.1血量的流血效果
+    private void applyBleedEffect(Player damager, LivingEntity target) {
+        // 1. 计算每秒造成的伤害 (目标最大生命值的 StarShards_Atk_Blood 百分比)
+        double damagePerSecond = target.getMaxHealth() * StarShards_Atk_Blood;
+
+        // 2. 为流血效果创建一个唯一的标识符，用于在目标身上打标签
+        // 格式为 "MagicExpansion_BLEED_<攻击者UUID>"，确保来自不同玩家的流血效果可以叠加
+        String bleedTagKey = "MagicExpansion_BLEED_" + damager.getUniqueId();
+
+        // 3. 启动一个持续3秒的异步任务
+        BukkitTask bleedTask = new BukkitRunnable() {
+            int ticksPassed = 0; // 记录已过去的游戏刻
+
+            @Override
+            public void run() {
+                // 如果目标已死亡或无效，则取消任务
+                if (!target.isValid() || target.isDead()) {
+                    this.cancel();
+                    return;
+                }
+
+                // 每秒执行一次 (20游戏刻)
+                if (ticksPassed % 20 == 0) {
+                    // --- 核心修改：使用 setHealth 直接扣血 ---
+                    double newHealth = target.getHealth() - damagePerSecond;
+
+                    // --- 核心修改：如果血量小于等于0，则强制设为0.1 ---
+                    if (newHealth <= 0.0) {
+                        newHealth = 0.1;
+                    }
+
+                    target.setHealth(newHealth);
+
+                    // 在目标位置生成血粒子效果
+                    target.getWorld().spawnParticle(
+                            Particle.REDSTONE,
+                            target.getLocation().add(0, 1, 0),
+                            5,
+                            0.3, 0.3, 0.3,
+                            0,
+                            new Particle.DustOptions(Color.RED, 1.5F) // 新增的颜色与大小参数
+                    );
+                }
+
+                ticksPassed++;
+
+                // 5秒后 (100游戏刻) 取消任务
+                if (ticksPassed >= 160) {
+                    this.cancel();
+                }
+            }
+        }.runTaskTimer(MagicExpansion.getInstance(), 0L, 1L); // 立即开始，每1游戏刻检查一次
+
+        // 4. 将此任务存储在目标的元数据中，以便实现效果叠加
+        List<BukkitTask> targetBleedTasks;
+
+        // 检查目标身上是否已经存在该流血标签
+        if (target.hasMetadata(bleedTagKey)) {
+            // 如果存在，安全地提取出原来的任务列表
+            targetBleedTasks = (List<BukkitTask>) target.getMetadata(bleedTagKey).get(0).value();
+        } else {
+            // 如果不存在，创建一个全新的列表
+            targetBleedTasks = new ArrayList<>();
+        }
+
+        // 将新启动的流血任务添加到列表中
+        targetBleedTasks.add(bleedTask);
+
+        // 更新元数据（覆盖旧数据）
+        target.setMetadata(bleedTagKey, new FixedMetadataValue(MagicExpansion.getInstance(), targetBleedTasks));
+    }
+
 
     // ========== 冷却与技能方法（保持不变）==========
     private boolean checkCooldown(Player player, String skill, long seconds) {
@@ -224,7 +339,7 @@ public class StarShardsSword extends SimpleSlimefunItem<ItemUseHandler> implemen
         player.getWorld().spawnParticle(Particle.FLAME, hitLoc, 30, 0.5, 0.5, 0.5, 0.1);
         player.getWorld().spawnParticle(Particle.EXPLOSION_LARGE, hitLoc, 8, 0.1, 0.1, 0.1, 0);
 
-        hitLoc.getWorld().createExplosion(hitLoc, 0.3f, false, false);
+//        hitLoc.getWorld().createExplosion(hitLoc, 0.3f, false, false);
 
         for (Entity e : hitLoc.getWorld().getNearbyEntities(hitLoc, 2.8, 2.8, 2.8)) {
             if (e instanceof LivingEntity le && e != player && e.isValid()) {

@@ -31,7 +31,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientNameVer2("信息"),
             "",
-            getGradientNameVer2("Version: Build 76"),
+            getGradientNameVer2("Version: Build 77"),
             getGradientNameVer2("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -312,6 +312,9 @@ public class MagicExpansionItems {
     static Long StarShards_AstralShield_CD = cfg.getLong("StarShardsSword.StarShards_AstralShield_CD");
     static Long StarShards_AstralShield_During = cfg.getLong("StarShardsSword.StarShards_AstralShield_During");
     static Long StarShards_InstantBlink_CD = cfg.getLong("StarShardsSword.StarShards_InstantBlink_CD");
+    static Double StarShards_Atk_Mix = cfg.getDouble("StarShardsSword.StarShards_Atk_Mix");
+    static Double StarShards_Atk_ExtraPercent = cfg.getDouble("StarShardsSword.StarShards_Atk_ExtraPercent");
+    static Double StarShards_Atk_Blood = cfg.getDouble("StarShardsSword.StarShards_Atk_Blood");
 
     public static final SlimefunItemStack WEAPON_STAR_SHARDS_SWORD = new SlimefunItemStack(
             "MAGIC_EXPANSION_WEAPON_STAR_SHARDS_SWORD",
@@ -324,7 +327,10 @@ public class MagicExpansionItems {
             "§x§F§2§5§4§5§9唯有被命運選中者方可喚醒其真名。",
             "",
             "§x§A§3§5§7§B§9稀有度: §c神話",
-            "§x§A§3§5§7§B§9傷害倍率: §c61.8x",
+            "§x§A§3§5§7§B§9傷害倍率: §c" + StarShards_Atk_Mix + "x",
+            "§x§A§3§5§7§B§9*處決* §e 每次額外造成最大生命值 " + StarShards_Atk_ExtraPercent*100 + "% 的伤害",
+            "§x§A§3§5§7§B§9*流血* §4 血量流失速度: " + StarShards_Atk_Blood*100 + "% (持续8秒/可叠加)",
+            "§x§A§3§5§7§B§9*慈悲爲懷* §b 攻擊玩家或生物大概率會保留0.1點生命值",
             "",
             "§f• 左鍵§7：熾焰斬（冷卻: "+StarShards_BlazingSlash_CD+"秒）",
             "§7揮出燃燒劍氣，對目標造成額外火焰傷害。",
@@ -878,6 +884,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2026_03_22 = createDefaultItemGlowV2Vertical("UPDATE_LOG_2026_03_22",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2026_04_18 = createDefaultItemGlowV2Vertical("UPDATE_LOG_2026_04_18",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2026_05_21 = createDefaultItemGlowV2Vertical("UPDATE_LOG_2026_05_21",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2026_06_24 = createDefaultItemGlowV2Vertical("UPDATE_LOG_2026_06_24",Material.PAPER);
 
 
 
@@ -960,10 +967,12 @@ public class MagicExpansionItems {
 
 
 
-    public static final SlimefunItemStack ORIGIN_MATERIAL_GEN_MAKER_ALPHA = createGeneratorGlowV2Vertical("ORIGIN_MATERIAL_GEN_ALPHA",Material.CRAFTING_TABLE);
+    public static final SlimefunItemStack ORIGIN_MATERIAL_GEN_MAKER_ALPHA = createGeneratorGlowV2Vertical("ORIGIN_MATERIAL_GEN_MAKER_ALPHA",Material.CRAFTING_TABLE);
+            public static final SlimefunItemStack ORIGIN_MATERIAL_GEN_MAKER_BETA = createGeneratorGlowV2Vertical("ORIGIN_MATERIAL_GEN_MAKER_BETA",Material.FLETCHING_TABLE);
 
     //万物演化台
     public static final SlimefunItemStack ORIGIN_MATERIAL_GEN = createGeneratorGlowV2Vertical("ORIGIN_MATERIAL_GEN",Material.ENCHANTING_TABLE);
+    public static final SlimefunItemStack ORIGIN_MATERIAL_GEN_ULTRA = createGeneratorGlowV2Vertical("ORIGIN_MATERIAL_GEN_ULTRA",Material.SCULK_SHRIEKER);
 
 
 
