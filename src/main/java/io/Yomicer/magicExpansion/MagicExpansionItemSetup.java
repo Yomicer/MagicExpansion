@@ -13,6 +13,7 @@ import io.Yomicer.magicExpansion.items.electric.resourceGenerator.ResourceMachin
 import io.Yomicer.magicExpansion.items.electric.resourceGenerator.ResourceRandomOneMachine;
 import io.Yomicer.magicExpansion.items.enchantMachine.EnchantingTable;
 import io.Yomicer.magicExpansion.items.misc.*;
+import io.Yomicer.magicExpansion.items.misc.FishWeightEnhancer;
 import io.Yomicer.magicExpansion.items.misc.fish.CommonFish;
 import io.Yomicer.magicExpansion.items.misc.fish.CommonFishHidden;
 import io.Yomicer.magicExpansion.items.misc.fish.FishingBook;
@@ -620,6 +621,11 @@ public final class MagicExpansionItemSetup {
                 null, null, null
         }).register(plugin);
         new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2026_06_24, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
+        new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2026_07_03, SPECIAL_RECIPE_TYPE, new ItemStack[] {
                 null, null, null,
                 null, null, null,
                 null, null, null
@@ -1461,6 +1467,12 @@ public final class MagicExpansionItemSetup {
                 new ItemStack(Material.PAPER), REDSTONE, null,
                 null, null, null,
                 null, null, null
+        }).register(plugin);
+        //魔法擦拭巾
+        new FishWeightEnhancer(magicexpansionspecialitem, FISH_WEIGHT_ENHANCER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                FISH_LURE_BASIC, MAGIC_EXPANSION_MAGIC_SUGAR_7, FISH_LURE_ORE,
+                new ItemStack(Material.BROWN_MUSHROOM), new ItemStack(Material.BOWL), new ItemStack(Material.RED_MUSHROOM),
+                FISH_LURE_DUST, new ItemStack(Material.SUGAR_CANE), FISH_LURE_ALLOY_INGOT
         }).register(plugin);
 
         //神秘知识点
@@ -2907,7 +2919,7 @@ public final class MagicExpansionItemSetup {
                 .register(plugin);
 
         new OriginMaterialGenUltra(magicexpansionresourcegenerator, ORIGIN_MATERIAL_GEN_ULTRA, ORIGIN_MATERIAL_GEN_MAKER_BETA, new ItemStack[] {
-                sfItemAmount(MAGIC_EXPANSION_MAGIC_SUGAR_1,31),sfItemAmount(MAGIC_CAPACITY_ULTRA,1),sfItemAmount(MAGIC_EXPANSION_MAGIC_SUGAR_31,31),
+                sfItemAmount(ITEM_ORIGIN_BACK_TRACK,1),sfItemAmount(MAGIC_CAPACITY_ULTRA,1),sfItemAmount(MAGIC_EXPANSION_MAGIC_SUGAR_31,31),
                 sfItemAmount(PURE_ELEMENT_WATER,1),new CustomItemStack(Material.PAPER, ColorGradient.getGradientNameVer2("任何物品"),  ColorGradient.getGradientNameVer2("合成材料决定了演化台的最终产出"), "" , ColorGradient.getGradientNameVer2("或许这本就是剧本吧")),sfItemAmount(PURE_ELEMENT_FIRE,1),
                 sfItemAmount(PURE_FIVE_ELEMENT,31),sfItemAmount(PURE_ELEMENT_EARTH,31),sfItemAmount(MAGIC_EXPANSION_MAGIC_SUGAR_19,31)
         })

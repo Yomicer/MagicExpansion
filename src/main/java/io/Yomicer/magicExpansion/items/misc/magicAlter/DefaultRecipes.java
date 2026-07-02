@@ -18,7 +18,7 @@ public class DefaultRecipes implements RecipeProvider{
 
 
     Material[][] pattern1 = {
-            {Material.OBSIDIAN, Material.OBSIDIAN, Material.OBSIDIAN, Material.OBSIDIAN, Material.OBSIDIAN},
+            {Material.GLASS, Material.OBSIDIAN, Material.OBSIDIAN, Material.OBSIDIAN, Material.OBSIDIAN},
             {Material.OBSIDIAN, Material.GOLD_BLOCK, Material.GOLD_BLOCK, Material.GOLD_BLOCK, Material.OBSIDIAN},
             {Material.OBSIDIAN, Material.GOLD_BLOCK, Material.DIAMOND_BLOCK, Material.GOLD_BLOCK, Material.OBSIDIAN},
             {Material.OBSIDIAN, Material.GOLD_BLOCK, Material.GOLD_BLOCK, Material.GOLD_BLOCK, Material.OBSIDIAN},
@@ -26,7 +26,7 @@ public class DefaultRecipes implements RecipeProvider{
     };
 
     Material[][] customBase = {
-            {Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK},
+            {Material.GLASS, Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK, Material.NETHERRACK},
             {Material.NETHERRACK, Material.MAGMA_BLOCK, Material.MAGMA_BLOCK, Material.MAGMA_BLOCK, Material.NETHERRACK},
             {Material.NETHERRACK, Material.MAGMA_BLOCK, Material.OBSIDIAN, Material.MAGMA_BLOCK, Material.NETHERRACK},
             {Material.NETHERRACK, Material.MAGMA_BLOCK, Material.MAGMA_BLOCK, Material.MAGMA_BLOCK, Material.NETHERRACK},
@@ -34,7 +34,7 @@ public class DefaultRecipes implements RecipeProvider{
     };
 
     Material[][] enchantAlter = {
-            {Material.LAPIS_BLOCK, Material.LAPIS_BLOCK, Material.LAPIS_BLOCK, Material.LAPIS_BLOCK, Material.LAPIS_BLOCK},
+            {Material.GLASS, Material.LAPIS_BLOCK, Material.LAPIS_BLOCK, Material.LAPIS_BLOCK, Material.LAPIS_BLOCK},
             {Material.LAPIS_BLOCK, Material.BLUE_CONCRETE, Material.BLUE_TERRACOTTA, Material.BLUE_CONCRETE, Material.LAPIS_BLOCK},
             {Material.LAPIS_BLOCK, Material.BLUE_TERRACOTTA, Material.ENCHANTING_TABLE, Material.BLUE_TERRACOTTA, Material.LAPIS_BLOCK},
             {Material.LAPIS_BLOCK, Material.BLUE_CONCRETE, Material.BLUE_TERRACOTTA, Material.BLUE_CONCRETE, Material.LAPIS_BLOCK},
@@ -42,7 +42,7 @@ public class DefaultRecipes implements RecipeProvider{
     };
 
     Material[][] anvilAlter = {
-            {Material.ANVIL, Material.FURNACE, Material.ENCHANTING_TABLE, Material.FURNACE, Material.ANVIL},
+            {Material.GLASS, Material.FURNACE, Material.ENCHANTING_TABLE, Material.FURNACE, Material.ANVIL},
             {Material.FURNACE, Material.CRYING_OBSIDIAN, Material.CARTOGRAPHY_TABLE, Material.CRYING_OBSIDIAN, Material.FURNACE},
             {Material.ENCHANTING_TABLE, Material.CARTOGRAPHY_TABLE, Material.EMERALD_BLOCK, Material.CARTOGRAPHY_TABLE, Material.ENCHANTING_TABLE},
             {Material.FURNACE, Material.CRYING_OBSIDIAN, Material.CARTOGRAPHY_TABLE, Material.CRYING_OBSIDIAN, Material.FURNACE},

@@ -11,6 +11,10 @@ import io.Yomicer.magicExpansion.items.misc.fish.Fish;
 import io.Yomicer.magicExpansion.items.misc.fish.FishKeys;
 import io.Yomicer.magicExpansion.items.tools.VoidTouch;
 import io.Yomicer.magicExpansion.utils.CustomHeadUtils.CustomHead;
+import io.Yomicer.magicExpansion.utils.networksUtils.DataTypeMethods;
+import io.Yomicer.magicExpansion.utils.networksUtils.NetworksKeys;
+import io.Yomicer.magicExpansion.utils.networksUtils.PersistentQuantumStorageType;
+import io.Yomicer.magicExpansion.utils.networksUtils.QuantumCache;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -373,6 +377,39 @@ public class FishOutputMachineStack extends MenuBlock implements EnergyNetCompon
                     }
                 }
             }
+            else if (VoidTouchSlotItem.getItemMeta() != null){
+                ItemMeta VoidSlotQuantumCacheItemMeta = VoidTouchSlotItem.getItemMeta();
+                QuantumCache quantumCache = DataTypeMethods.getCustom(VoidSlotQuantumCacheItemMeta,
+                        NetworksKeys.QUANTUM_STORAGE_INSTANCE, PersistentQuantumStorageType.TYPE);
+                if (quantumCache == null || quantumCache.getItemStack() == null) {
+                    return;
+                }
+                ItemStack cacheItem = quantumCache.getItemStack();
+                if (SlimefunUtils.isItemSimilar(outItems, cacheItem, true)) {
+                    long currentAmount = quantumCache.getAmount();
+                    long maxCapacity = quantumCache.getLimit();
+                    long remainingSpace = maxCapacity - currentAmount;
+                    if (remainingSpace > 0) {
+                        int outAmount = outItems.getAmount();
+                        long maxTransfer;
+                        if (outAmount > remainingSpace) {
+                            maxTransfer = remainingSpace;
+                        } else {
+                            maxTransfer = outAmount;
+                        }
+                        if (maxTransfer > 0) {
+                            quantumCache.increaseAmount((int) maxTransfer);
+                            DataTypeMethods.setCustom(VoidSlotQuantumCacheItemMeta, NetworksKeys.QUANTUM_STORAGE_INSTANCE,
+                                    PersistentQuantumStorageType.TYPE, quantumCache);
+                            quantumCache.updateMetaLore(VoidSlotQuantumCacheItemMeta);
+                            VoidTouchSlotItem.setItemMeta(VoidSlotQuantumCacheItemMeta);
+                            inv.replaceExistingItem(VoidTouchSlot, VoidTouchSlotItem);
+                            removeCharge(block.getLocation(), getEnergyConsumption());
+                        }
+                    }
+                }
+
+            }
         }
 
     }
@@ -539,11 +576,11 @@ public class FishOutputMachineStack extends MenuBlock implements EnergyNetCompon
 
     @Override
     protected void setup(BlockMenuPreset var1) {
-        var1.drawBackground(new CustomItemStack(Material.LIGHT_BLUE_STAINED_GLASS_PANE,getGradientName("请将鱼放入到该槽位中")),new int[] {
+        var1.drawBackground(new CustomItemStack(Material.LIGHT_BLUE_STAINED_GLASS_PANE,getGradientName("↓魔法鱼槽位↓")),new int[] {
 
                 40
         });
-        var1.drawBackground(new CustomItemStack(Material.CHAIN,getGradientName("虚空之触槽位")),new int[] {
+        var1.drawBackground(new CustomItemStack(Material.CHAIN,getGradientName("虚空之触↓网络量子存储")),new int[] {
 
                 41
         });

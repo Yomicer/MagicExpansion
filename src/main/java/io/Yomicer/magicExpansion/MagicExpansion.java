@@ -14,11 +14,8 @@ import io.Yomicer.magicExpansion.Listener.worldListener.Events;
 import io.Yomicer.magicExpansion.items.misc.CargoFragmentDistributor;
 import io.Yomicer.magicExpansion.items.misc.DrawMachine;
 import io.Yomicer.magicExpansion.items.misc.magicAlter.PluginInitializer;
-import io.Yomicer.magicExpansion.specialActions.Command.AIChat;
-import io.Yomicer.magicExpansion.specialActions.Command.FishingGuideCommand;
-import io.Yomicer.magicExpansion.specialActions.Command.MagicExpansionCommand;
+import io.Yomicer.magicExpansion.specialActions.Command.*;
 import io.Yomicer.magicExpansion.Listener.magicItemEffectManager.ItemEffectKillListener;
-import io.Yomicer.magicExpansion.specialActions.Command.WorldCommand;
 import io.Yomicer.magicExpansion.utils.Language;
 import io.Yomicer.magicExpansion.utils.aiManager.AIManager;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
@@ -101,6 +98,7 @@ public class MagicExpansion extends JavaPlugin implements SlimefunAddon {
         this.getCommand("mxf").setExecutor(new FishingGuideCommand());
         this.getCommand("mxf").setTabCompleter(new FishingGuideCommand());
         this.getCommand("mxai").setExecutor(new AIChat(aiManager));
+        this.getCommand("magicfish").setExecutor(new MagicFishCommand());
 //        this.getCommand("mxai").setTabCompleter(new AIChat());
 
         // 创建地图保存目录

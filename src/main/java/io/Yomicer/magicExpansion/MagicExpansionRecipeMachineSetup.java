@@ -428,7 +428,7 @@ public class MagicExpansionRecipeMachineSetup {
                 .setCapacity(131452)
                 .setConsumption(26000)
                 .setProcessingSpeed(1)
-                .addRecipe(5, new ItemStack[] {sfItemAmount(MAGIC_EXPANSION_MAGIC_SUGAR_1,31),sfItemAmount(MAGIC_CAPACITY_ULTRA,1),sfItemAmount(MAGIC_EXPANSION_MAGIC_SUGAR_31,31),
+                .addRecipe(5, new ItemStack[] {sfItemAmount(ITEM_ORIGIN_BACK_TRACK,1),sfItemAmount(MAGIC_CAPACITY_ULTRA,1),sfItemAmount(MAGIC_EXPANSION_MAGIC_SUGAR_31,31),
                                 sfItemAmount(PURE_ELEMENT_WATER,1),          sfItemAmount(PURE_ELEMENT_FIRE,1),
                                 sfItemAmount(PURE_FIVE_ELEMENT,31),sfItemAmount(PURE_ELEMENT_EARTH,31),sfItemAmount(MAGIC_EXPANSION_MAGIC_SUGAR_19,31)},
                         new ItemStack[] {ORIGIN_MATERIAL_GEN_ULTRA})
@@ -449,6 +449,38 @@ public class MagicExpansionRecipeMachineSetup {
                 .addRecipe(5,new ItemStack[] {new CustomItemStack(doGlow(Material.LIGHT), ColorGradient.getGradientName("放入任意粘液物品"),ColorGradient.getGradientName("即可对物品配方进行溯源"))},
                         new ItemStack[] {new CustomItemStack(doGlow(Material.NETHER_STAR), ColorGradient.getGradientName("在等待一定时间后，机器会产出源材料"))})
                 .register(plugin);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        new RecipeMachineCrude(magicexpansionrecipemachine, MagicExpansionItems.CRUDE_MACHINE_TEST, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                SlimefunItems.TRASH_CAN, SlimefunItems.TRASH_CAN,SlimefunItems.TRASH_CAN,
+                MagicExpansionItems.ELEMENT_INGOT, MAGIC_EXPANSION_MAGIC_SUGAR_3,MagicExpansionItems.ELEMENT_INGOT,
+                SlimefunItems.TRASH_CAN,MagicExpansionItems.ELEMENT_INGOT,SlimefunItems.TRASH_CAN
+        }, 10, 40)
+                .setCapacity(1314)
+                .setConsumption(260)
+                .setProcessingSpeed(1)
+                .addRecipe(1, new ItemStack[] {sfItemAmount(MagicExpansionItems.IRON_INGOT,1),sfItemAmount(MagicExpansionItems.ELEMENT_INGOT,1)},
+                        new ItemStack[] {sfItemAmount(MagicExpansionItems.ELEMENT_INGOT,2)})
+                .register(plugin);
+
+
+
+
+
 
 
 

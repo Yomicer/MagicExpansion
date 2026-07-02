@@ -31,7 +31,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientNameVer2("信息"),
             "",
-            getGradientNameVer2("Version: Build 77"),
+            getGradientNameVer2("Version: Build 78"),
             getGradientNameVer2("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -885,6 +885,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2026_04_18 = createDefaultItemGlowV2Vertical("UPDATE_LOG_2026_04_18",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2026_05_21 = createDefaultItemGlowV2Vertical("UPDATE_LOG_2026_05_21",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2026_06_24 = createDefaultItemGlowV2Vertical("UPDATE_LOG_2026_06_24",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2026_07_03 = createDefaultItemGlowV2Vertical("UPDATE_LOG_2026_07_03",Material.PAPER);
 
 
 
@@ -988,6 +989,7 @@ public class MagicExpansionItems {
 
 
     public static final SlimefunItemStack ENCHANTMENT_ERASER = createDefaultItemGlowV2Vertical("ENCHANTMENT_ERASER",Material.PAPER);
+    public static final SlimefunItemStack FISH_WEIGHT_ENHANCER = createDefaultItemGlowV2Vertical("FISH_WEIGHT_ENHANCER",Material.HONEYCOMB);
 
 
 
@@ -1217,6 +1219,9 @@ public class MagicExpansionItems {
 
 
     public static final SlimefunItemStack TWO_TO_MAGIC_GEO_MACHINE = createDefaultRecipeMachine("TWO_TO_MAGIC_GEO_MACHINE",Material.AMETHYST_BLOCK);
+
+
+    public static final SlimefunItemStack CRUDE_MACHINE_TEST = createDefaultRecipeMachine("CRUDE_MACHINE_TEST",Material.BLAST_FURNACE);
 
 
 

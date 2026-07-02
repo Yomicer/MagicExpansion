@@ -73,7 +73,7 @@ public class MagicExpansionPowerMachineSetup {
         new FishOutputMachine(magicexpansionresourcegenerator, MagicExpansionItems.FISH_VIVARIUM, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 MagicExpansionItems.PURE_FIVE_ELEMENT, MagicExpansionItems.MAGIC_EXPANSION_MAGIC_SUGAR_9,MagicExpansionItems.LIGHT_GEN_BASIC,
                 SlimefunItems.BOOSTED_URANIUM,MagicExpansionItems.FISH_VIVARIUM_EASY,SlimefunItems.BOOSTED_URANIUM,
-                MagicExpansionItems.LIGHT_GEN_BASIC,MagicExpansionItems.FISH_LEGENDARY_EEL_POWER,MagicExpansionItems.PURE_FIVE_ELEMENT
+                MagicExpansionItems.LIGHT_GEN_BASIC,SlimefunItems.LARGE_CAPACITOR,MagicExpansionItems.PURE_FIVE_ELEMENT
         },131452)
                 .setPowerType("生态缸")
                 .register(plugin);

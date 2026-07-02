@@ -33,6 +33,14 @@ commands:
     permission: mxai.use
     permission-message: 你没有使用AI命令的权限！
 
+  magicfish:
+    description: 管理员获取指定魔法鱼
+    usage: /magicfish give <鱼种> [重量] [数量]
+    permission: magicexpansion.admin.fish
+    permission-message: "&c你没有权限执行此指令！"
+
+
+
 #  record:
 #    description: 开始或停止录制玩家行为
 #    usage: /<command> start|stop
@@ -67,6 +75,10 @@ permissions:
 
   mxwand.wand:
     description: 获取魔法祭坛魔杖
+    default: op
+
+  magicexpansion.admin.fish:
+    description: 允许使用 /magicfish 管理员鱼指令
     default: op
 
 
