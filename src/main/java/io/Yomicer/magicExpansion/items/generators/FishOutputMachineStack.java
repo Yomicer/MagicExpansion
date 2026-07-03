@@ -377,7 +377,7 @@ public class FishOutputMachineStack extends MenuBlock implements EnergyNetCompon
                     }
                 }
             }
-            else if (VoidTouchSlotItem.getItemMeta() != null){
+            else if (VoidTouchSlotItem.getItemMeta() != null && VoidTouchSlotItem.getAmount() == 1){
                 ItemMeta VoidSlotQuantumCacheItemMeta = VoidTouchSlotItem.getItemMeta();
                 QuantumCache quantumCache = DataTypeMethods.getCustom(VoidSlotQuantumCacheItemMeta,
                         NetworksKeys.QUANTUM_STORAGE_INSTANCE, PersistentQuantumStorageType.TYPE);
