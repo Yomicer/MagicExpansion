@@ -630,6 +630,11 @@ public final class MagicExpansionItemSetup {
                 null, null, null,
                 null, null, null
         }).register(plugin);
+        new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2026_07_12, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
 
 
 
@@ -1468,7 +1473,7 @@ public final class MagicExpansionItemSetup {
                 null, null, null,
                 null, null, null
         }).register(plugin);
-        //魔法擦拭巾
+        //增重鱼饲料
         new FishWeightEnhancer(magicexpansionspecialitem, FISH_WEIGHT_ENHANCER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 FISH_LURE_BASIC, MAGIC_EXPANSION_MAGIC_SUGAR_7, FISH_LURE_ORE,
                 new ItemStack(Material.BROWN_MUSHROOM), new ItemStack(Material.BOWL), new ItemStack(Material.RED_MUSHROOM),
@@ -1489,6 +1494,12 @@ public final class MagicExpansionItemSetup {
         }).register(plugin);
 
 
+        //奇迹 · 市集
+        new PortableShop(magicexpansionspecialitem, PORTABLE_SHOP, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                MAGIC_EXPANSION_MAGIC_SUGAR_1, MAGIC_EXPANSION_MAGIC_SUGAR_1, MAGIC_EXPANSION_MAGIC_SUGAR_1,
+                MAGIC_EXPANSION_MAGIC_SUGAR_1, new ItemStack(Material.BOOK), MAGIC_EXPANSION_MAGIC_SUGAR_1,
+                MAGIC_EXPANSION_MAGIC_SUGAR_1, MAGIC_EXPANSION_MAGIC_SUGAR_1, MAGIC_EXPANSION_MAGIC_SUGAR_1
+        }).register(plugin);
 
 
         //共创说明

@@ -18,6 +18,10 @@ import io.Yomicer.magicExpansion.specialActions.Command.*;
 import io.Yomicer.magicExpansion.Listener.magicItemEffectManager.ItemEffectKillListener;
 import io.Yomicer.magicExpansion.utils.Language;
 import io.Yomicer.magicExpansion.utils.aiManager.AIManager;
+import io.Yomicer.magicExpansion.utils.shop.BlackMarketManager;
+import io.Yomicer.magicExpansion.utils.shop.ShopCommand;
+import io.Yomicer.magicExpansion.utils.shop.ShopGUI;
+import io.Yomicer.magicExpansion.utils.shop.ShopManager;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import lombok.SneakyThrows;
@@ -99,6 +103,8 @@ public class MagicExpansion extends JavaPlugin implements SlimefunAddon {
         this.getCommand("mxf").setTabCompleter(new FishingGuideCommand());
         this.getCommand("mxai").setExecutor(new AIChat(aiManager));
         this.getCommand("magicfish").setExecutor(new MagicFishCommand());
+        ShopCommand shopCommand = new ShopCommand();
+        this.getCommand("magicshop").setExecutor(shopCommand);
 //        this.getCommand("mxai").setTabCompleter(new AIChat());
 
         // 创建地图保存目录
@@ -121,6 +127,10 @@ public class MagicExpansion extends JavaPlugin implements SlimefunAddon {
         getServer().getPluginManager().registerEvents(new Events(), this);
         getServer().getPluginManager().registerEvents(new ItemFrameListener(), this);
         getServer().getPluginManager().registerEvents(aiManager, this);
+        ShopManager.load();
+        getServer().getPluginManager().registerEvents(new ShopGUI(), this);
+        BlackMarketManager.init();
+        getLogger().info("便携商店系统已加载！");
         getLogger().info("§b监听注册完毕！");
 
 
@@ -165,6 +175,7 @@ public class MagicExpansion extends JavaPlugin implements SlimefunAddon {
 
         //便携式以太秘匣传输器
         onPluginDisable();
+        ShopManager.saveAll();
 
 
         // Plugin shutdown logic

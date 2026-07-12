@@ -59,6 +59,12 @@ commands:
   mxalter:
     description: 获取配方书命令
     usage: /<command> <guide|open_guide>
+    aliases: [ malt ]
+
+  magicshop:
+    description: 便携商店指令
+    usage: /magicshop <open|admin>
+    aliases: [ mshop ]
 
 
 permissions:
@@ -81,6 +87,9 @@ permissions:
     description: 允许使用 /magicfish 管理员鱼指令
     default: op
 
+  magicexpansion.shop.admin:
+    description: 允许使用管理员商店菜单
+    default: op
 
 #  magicexpansion.record:
 #    description: 可以使用 /record 命令
