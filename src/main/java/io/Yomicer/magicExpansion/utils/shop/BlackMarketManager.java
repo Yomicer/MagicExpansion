@@ -24,6 +24,10 @@ public class BlackMarketManager {
     // 困难奖励池及权重 (20%概率)
     private static Map<ItemStack, Integer> hardRewardPool = new LinkedHashMap<>();
 
+    // 全局概率定义 (简单0.8，困难0.2)
+    public static final double SIMPLE_CHANCE = 0.80;
+    public static final double HARD_CHANCE = 0.20;
+
     // 消耗物池
     private static List<ItemStack> costItemPool = new ArrayList<>();
 
@@ -36,6 +40,7 @@ public class BlackMarketManager {
         public boolean isFree;
         public boolean isHard;
     }
+
 
     public static void init() {
         simpleRewardPool.clear();
@@ -79,134 +84,137 @@ public class BlackMarketManager {
         costItemPool.add(PURE_ELEMENT_INGOT);
         costItemPool.add(PURE_FIVE_ELEMENT);
 
+
         try {
 
-            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_1, 500);
-            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_2, 500);
-            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_3, 500);
-            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_4, 400);
-            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_5, 400);
-            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_11, 180);
-            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_12, 180);
-            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_13, 180);
-            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_14, 180);
-            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_15, 180);
-            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_16, 130);
-            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_17, 130);
-            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_18, 130);
-            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_25, 8);
-            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_26, 8);
-            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_27, 8);
-            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_28, 8);
-            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_29, 8);
-            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_30, 8);
-            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_31, 8);
-            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_35, 8);
-            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_36, 8);
-            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_37, 8);
+            double min = 0.8;
+            double max = 1.2;
 
+            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_1, (int) (60000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_2, (int) (60000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_3, (int) (60000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_4, (int) (25000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_5, (int) (25000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_11, (int) (1000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_12, (int) (1000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_13, (int) (1000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_14, (int) (1000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_15, (int) (100 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_16, (int) (100 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_17, (int) (100 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_18, (int) (100 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_25, (int) (30 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_26, (int) (30 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_27, (int) (30 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_28, (int) (30 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_29, (int) (30 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_30, (int) (12 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_31, (int) (11 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_35, (int) (10 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_36, (int) (9 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_37, (int) (8 * (min + Math.random() * (max - min))));
 
-            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_CANE, 3);
+            hardRewardPool.put(MAGIC_EXPANSION_MAGIC_SUGAR_CANE, (int) (12 * (min + Math.random() * (max - min))));
 
-            hardRewardPool.put(MAGIC_EXPANSION_FINAL_STRING_1, 4);
-            hardRewardPool.put(MAGIC_EXPANSION_FINAL_STRING_2, 4);
-            hardRewardPool.put(MAGIC_EXPANSION_FINAL_STRING_3, 4);
-            hardRewardPool.put(MAGIC_EXPANSION_FINAL_STRING_4, 4);
-            hardRewardPool.put(MAGIC_EXPANSION_FINAL_STRING_5, 4);
-            hardRewardPool.put(MAGIC_EXPANSION_FINAL_STRING_6, 4);
-            hardRewardPool.put(MAGIC_EXPANSION_FINAL_STRING_11, 3);
-            hardRewardPool.put(MAGIC_EXPANSION_FINAL_STRING_12, 3);
-            hardRewardPool.put(MAGIC_EXPANSION_FINAL_STRING_13, 1);
-            hardRewardPool.put(MAGIC_EXPANSION_FINAL_STRING_14, 1);
-            hardRewardPool.put(MAGIC_EXPANSION_FINAL_STRING_15, 1);
+            hardRewardPool.put(MAGIC_EXPANSION_FINAL_STRING_1, (int) (11 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_FINAL_STRING_2, (int) (11 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_FINAL_STRING_3, (int) (11 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_FINAL_STRING_4, (int) (11 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_FINAL_STRING_5, (int) (11 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_FINAL_STRING_6, (int) (11 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_FINAL_STRING_11, (int) (8 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_FINAL_STRING_12, (int) (8 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_FINAL_STRING_13, (int) (7 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_FINAL_STRING_14, (int) (7 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_FINAL_STRING_15, (int) (6 * (min + Math.random() * (max - min))));
 
+            hardRewardPool.put(INFINITY_FLINT_AND_STEEL, (int) (20000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_RANDOM_SPAWNER, (int) (21000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(VOID_TOUCH, (int) (22000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(FIVE_ELEMENT_TOUCH, (int) (23000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_EXPANSION_ENCHANTING_TABLE, (int) (24000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(DEATH_LIFE_BOOK, (int) (19000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(ITEM_NAME_TAG, (int) (20000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(ENCHANTMENT_ERASER, (int) (20000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(FISH_WEIGHT_ENHANCER, (int) (20000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(RESEARCH_UNLOCKER_PAPER, (int) (20000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(WORD_CLEAR, (int) (20000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(PORTABLE_SHOP, (int) (20000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(DOUBLE_SIDED_TAPE, (int) (20000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(PORTABLE_CARGO_TRANSPORTER, (int) (20000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(CUSTOM_SEQUENCE_TOOL, (int) (20000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(CARGO_FRAGMENT_EXTRACT, (int) (21000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MUSIC_TEST, (int) (20000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MAGIC_WAND, (int) (20000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(RESOURCE_MACHINE_WOOD_BASIC, (int) (20000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(RESOURCE_MACHINE_WOOD_ULTRA, (int) (12000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(LIGHT_GEN_BASIC, (int) (20000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(STRING_GEN_BASIC, (int) (20000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(STRING_GEN_ULTRA, (int) (16000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(FIVE_ELEMENT_GEN_BASIC, (int) (11000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(SLIME_BOOK_GEN_ADVANCE, (int) (20000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(ORIGIN_MATERIAL_GEN, (int) (12000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(FISH_VIVARIUM_EASY, (int) (20000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(FISH_VIVARIUM, (int) (20000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(FISH_VIVARIUM_STACK, (int) (20000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(WOOD_TRANSFORM_BASIC, (int) (20000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(WOOD_TRANSFORM_ULTRA, (int) (20000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(LIGHT_TRANSFORM_BASIC, (int) (20000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(LIGHT_EXTRACT_BASIC, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(QUARTZ_PURE_MACHINE_BAISC, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(QUARTZ_PURE_MACHINE_ULTRA, (int) (13000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE, (int) (25000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE_DEFAULT, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE_ULTRA, (int) (15000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(DIRT_MEAL_MACHINE, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(FISHING_MACHINE, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(INGOT_PURE_MACHINE, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(CHINESE_CHARACTER_CONSTRUCTOR, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(SEND_ITEMS_TO_PLAYER_MACHINE, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(SEND_ITEMS_TO_PLAYER_MACHINE_SF, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(WHITE_SLOTS_CHEST_53, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(PHANTON_SUPPRESSION, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(RIGHT_CLICK_MAN, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(SF_TIMINGS_HOLOGRAM, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MIHOYO_STAR_RAY_MACHINE, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(CARGO_TERMINAL_RENEW, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(DRAW_MACHINE, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(GEO_MINER_PLUS, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(FIVE_ELEMENT_MINER, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(ENERGY_CONNECTOR_GLASS_INFO, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(POWER_CORE, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(PURE_INGOT_POWER_CORE, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(BAD_LUCK_CAPACITY, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(PANDORA_CAPACITY, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(POWER_FIRE_STABILITY, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(POWER_COLOR_EGG_BLOCK, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(POWER_COLOR_EGG_KEY, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(POWER_FISH_ELECTRIC, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MINE_MAN_NETHERITE_INGOT_BASIC, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MINE_MAN_MINERAL_BASIC, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MINE_MAN_MINERAL_ULTRA, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MINE_MAN_MAGNESIUM_INGOT_BASIC, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MINE_MAN_ZINC_INGOT_BASIC, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MINE_MAN_ALUMINUM_INGOT_BASIC, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MINE_MAN_LEAD_INGOT_BASIC, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MINE_MAN_SILVER_INGOT_BASIC, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MINE_MAN_TIN_INGOT_BASIC, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MINE_MAN_COPPER_INGOT_BASIC, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MINE_MAN_GOLD_INGOT_BASIC, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(MINE_MAN_IRON_INGOT_BASIC, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(FIRE_ZOMBIE, (int) (18000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(WIND_ELF_SPAWN, (int) (18000 * (min + Math.random() * (max - min))));
 
+            hardRewardPool.put(PRE_BUILDING_OAK_TREE, (int) (900 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(PRE_BUILDING_MANGROVE_TREE, (int) (9000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(PRE_BUILDING_FISHING_PORT, (int) (9000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(PRE_BUILDING_KFC_SMALL, (int) (9000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(PRE_BUILDING_LARGE_SNOW_KING, (int) (9000 * (min + Math.random() * (max - min))));
+            hardRewardPool.put(PRE_BUILDING_KRUSTY_KRAB, (int) (9000 * (min + Math.random() * (max - min))));
 
-            hardRewardPool.put(INFINITY_FLINT_AND_STEEL, 90);
-            hardRewardPool.put(MAGIC_EXPANSION_RANDOM_SPAWNER, 90);
-            hardRewardPool.put(VOID_TOUCH, 90);
-            hardRewardPool.put(FIVE_ELEMENT_TOUCH, 90);
-            hardRewardPool.put(MAGIC_EXPANSION_ENCHANTING_TABLE, 90);
-            hardRewardPool.put(DEATH_LIFE_BOOK, 90);
-            hardRewardPool.put(ITEM_NAME_TAG, 90);
-            hardRewardPool.put(ENCHANTMENT_ERASER, 90);
-            hardRewardPool.put(FISH_WEIGHT_ENHANCER, 90);
-            hardRewardPool.put(RESEARCH_UNLOCKER_PAPER, 90);
-            hardRewardPool.put(WORD_CLEAR, 90);
-            hardRewardPool.put(PORTABLE_SHOP, 90);
-            hardRewardPool.put(DOUBLE_SIDED_TAPE, 90);
-            hardRewardPool.put(PORTABLE_CARGO_TRANSPORTER, 90);
-            hardRewardPool.put(CUSTOM_SEQUENCE_TOOL, 90);
-            hardRewardPool.put(CARGO_FRAGMENT_EXTRACT, 90);
-            hardRewardPool.put(MUSIC_TEST, 90);
-            hardRewardPool.put(MAGIC_WAND, 90);
-            hardRewardPool.put(RESOURCE_MACHINE_WOOD_BASIC, 90);
-            hardRewardPool.put(RESOURCE_MACHINE_WOOD_ULTRA, 90);
-            hardRewardPool.put(LIGHT_GEN_BASIC, 90);
-            hardRewardPool.put(STRING_GEN_BASIC, 90);
-            hardRewardPool.put(STRING_GEN_ULTRA, 90);
-            hardRewardPool.put(FIVE_ELEMENT_GEN_BASIC, 30);
-            hardRewardPool.put(SLIME_BOOK_GEN_ADVANCE, 20);
-            hardRewardPool.put(ORIGIN_MATERIAL_GEN, 10);
-            hardRewardPool.put(FISH_VIVARIUM_EASY, 90);
-            hardRewardPool.put(FISH_VIVARIUM, 90);
-            hardRewardPool.put(FISH_VIVARIUM_STACK, 90);
-            hardRewardPool.put(WOOD_TRANSFORM_BASIC, 90);
-            hardRewardPool.put(WOOD_TRANSFORM_ULTRA, 90);
-            hardRewardPool.put(LIGHT_TRANSFORM_BASIC, 90);
-            hardRewardPool.put(LIGHT_EXTRACT_BASIC, 90);
-            hardRewardPool.put(QUARTZ_PURE_MACHINE_BAISC, 90);
-            hardRewardPool.put(QUARTZ_PURE_MACHINE_ULTRA, 90);
-            hardRewardPool.put(INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE, 90);
-            hardRewardPool.put(INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE_DEFAULT, 90);
-            hardRewardPool.put(INTEGRATION_ORIGIN_SLIME_MINERAL_POWDER_LINE_ULTRA, 90);
-            hardRewardPool.put(DIRT_MEAL_MACHINE, 90);
-            hardRewardPool.put(FISHING_MACHINE, 90);
-            hardRewardPool.put(INGOT_PURE_MACHINE, 90);
-            hardRewardPool.put(CHINESE_CHARACTER_CONSTRUCTOR, 90);
-            hardRewardPool.put(SEND_ITEMS_TO_PLAYER_MACHINE, 90);
-            hardRewardPool.put(SEND_ITEMS_TO_PLAYER_MACHINE_SF, 90);
-            hardRewardPool.put(WHITE_SLOTS_CHEST_53, 90);
-            hardRewardPool.put(PHANTON_SUPPRESSION, 90);
-            hardRewardPool.put(RIGHT_CLICK_MAN, 90);
-            hardRewardPool.put(SF_TIMINGS_HOLOGRAM, 90);
-            hardRewardPool.put(MIHOYO_STAR_RAY_MACHINE, 90);
-            hardRewardPool.put(CARGO_TERMINAL_RENEW, 90);
-            hardRewardPool.put(DRAW_MACHINE, 90);
-            hardRewardPool.put(GEO_MINER_PLUS, 90);
-            hardRewardPool.put(FIVE_ELEMENT_MINER, 90);
             hardRewardPool.put(ITEM_ORIGIN_BACK_TRACK, 1);
-            hardRewardPool.put(ENERGY_CONNECTOR_GLASS_INFO, 90);
-            hardRewardPool.put(POWER_CORE, 90);
-            hardRewardPool.put(PURE_INGOT_POWER_CORE, 90);
-            hardRewardPool.put(BAD_LUCK_CAPACITY, 90);
-            hardRewardPool.put(PANDORA_CAPACITY, 90);
-            hardRewardPool.put(POWER_FIRE_STABILITY, 90);
-            hardRewardPool.put(POWER_COLOR_EGG_BLOCK, 90);
-            hardRewardPool.put(POWER_COLOR_EGG_KEY, 90);
-            hardRewardPool.put(POWER_FISH_ELECTRIC, 90);
-            hardRewardPool.put(MINE_MAN_NETHERITE_INGOT_BASIC, 90);
-            hardRewardPool.put(MINE_MAN_MINERAL_BASIC, 90);
-            hardRewardPool.put(MINE_MAN_MINERAL_ULTRA, 90);
-            hardRewardPool.put(MINE_MAN_MAGNESIUM_INGOT_BASIC, 90);
-            hardRewardPool.put(MINE_MAN_ZINC_INGOT_BASIC, 90);
-            hardRewardPool.put(MINE_MAN_ALUMINUM_INGOT_BASIC, 90);
-            hardRewardPool.put(MINE_MAN_LEAD_INGOT_BASIC, 90);
-            hardRewardPool.put(MINE_MAN_SILVER_INGOT_BASIC, 90);
-            hardRewardPool.put(MINE_MAN_TIN_INGOT_BASIC, 90);
-            hardRewardPool.put(MINE_MAN_COPPER_INGOT_BASIC, 90);
-            hardRewardPool.put(MINE_MAN_GOLD_INGOT_BASIC, 90);
-            hardRewardPool.put(MINE_MAN_IRON_INGOT_BASIC, 90);
-            hardRewardPool.put(FIRE_ZOMBIE, 90);
-            hardRewardPool.put(WIND_ELF_SPAWN, 90);
-//            hardRewardPool.put(WEAPON_STAR_SHARDS_SWORD, 1);
-            hardRewardPool.put(PRE_BUILDING_OAK_TREE, 90);
-            hardRewardPool.put(PRE_BUILDING_MANGROVE_TREE, 90);
-            hardRewardPool.put(PRE_BUILDING_FISHING_PORT, 90);
-            hardRewardPool.put(PRE_BUILDING_KFC_SMALL, 90);
-            hardRewardPool.put(PRE_BUILDING_LARGE_SNOW_KING, 90);
-            hardRewardPool.put(PRE_BUILDING_KRUSTY_KRAB, 90);
-
+            hardRewardPool.put(WEAPON_STAR_SHARDS_SWORD, 1);
+            hardRewardPool.put(ORIGIN_MATERIAL_GEN_ULTRA, 1);
 
 
 
@@ -286,7 +294,7 @@ public class BlackMarketManager {
 
         for (int i = 0; i < 10; i++) {
             BlackMarketTrade trade = new BlackMarketTrade();
-            trade.isHard = random.nextDouble() < 0.30;
+            trade.isHard = random.nextDouble() < HARD_CHANCE;
 
             if (trade.isHard) {
                 if (hardItems.isEmpty()) {
@@ -350,6 +358,13 @@ public class BlackMarketManager {
         }
     }
 
+    public static List<ItemStack> getSimplePool() {
+        return simpleRewardPool;
+    }
+
+    public static Map<ItemStack, Integer> getHardPool() {
+        return hardRewardPool;
+    }
 
 
     public static List<BlackMarketTrade> getTodayTrades() {

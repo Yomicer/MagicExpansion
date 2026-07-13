@@ -114,9 +114,9 @@ public class ShopManager {
     }
 
     public static void reload() {
-        for (Shop shop : shops) {
-            saveShop(shop);
-        }
+//        for (Shop shop : shops) {
+//            saveShop(shop);
+//        }
         load();
     }
 

@@ -30,6 +30,8 @@ public class ShopGUI implements Listener {
     private static final Map<UUID, Map<String, Integer>> shopTradesPage = new HashMap<>();
     private static final Map<UUID, Map<String, Integer>> adminTradesPage = new HashMap<>();
 
+    private static final Map<UUID, Integer> probPage = new HashMap<>();
+
     private static final Map<UUID, ShopEditData> currentEditingData = new HashMap<>();
     private static final Set<UUID> safeClose = new HashSet<>();
 
@@ -111,7 +113,8 @@ public class ShopGUI implements Listener {
         inv.setItem(49, createInfoItem(Material.WITHER_SKELETON_SKULL, ChatColor.DARK_PURPLE + "每日神秘黑市", Arrays.asList(
                 ChatColor.GRAY + "每4小时刷新 10 个神秘商品",
                 ChatColor.GRAY + "有概率出现免费好礼",
-                ChatColor.GRAY + "每人每款商品限购 1 次"
+                ChatColor.GRAY + "每人每款商品限购 1 次",
+                ChatColor.GRAY + "每天商品的刷新概率均会变化哦"
         )));
 
         player.openInventory(inv);
@@ -395,10 +398,95 @@ public class ShopGUI implements Listener {
             inv.setItem(slot, display);
         }
 
+        inv.setItem(45, createInfoItem(Material.KNOWLEDGE_BOOK, ChatColor.AQUA + "物品概率公示", Arrays.asList(ChatColor.GRAY + "点击查看所有物品的刷出概率")));
         // 返回按钮放在第49格
         inv.setItem(49, createInfoItem(Material.ARROW, ChatColor.GRAY + "返回", null));
         player.openInventory(inv);
     }
+
+
+    public static void openBlackMarketProbabilities(Player player) {
+        openBlackMarketProbabilities(player, probPage.getOrDefault(player.getUniqueId(), 0));
+    }
+
+    public static void openBlackMarketProbabilities(Player player, int page) {
+        List<ItemStack> simplePool = BlackMarketManager.getSimplePool();
+        Map<ItemStack, Integer> hardPool = BlackMarketManager.getHardPool();
+
+        double hardChance = BlackMarketManager.HARD_CHANCE;
+        double simpleChance = BlackMarketManager.SIMPLE_CHANCE;
+
+        Map<String, Double> nameToProb = new HashMap<>();
+        Map<String, ItemStack> nameToItem = new HashMap<>();
+
+        if (simplePool != null && !simplePool.isEmpty()) {
+            double singleProb = simpleChance / simplePool.size();
+            for (ItemStack item : simplePool) {
+                if (item == null || item.getType() == Material.AIR) continue;
+                String name = ItemStackHelper.getDisplayName(item);
+                nameToProb.merge(name, singleProb, Double::sum);
+                nameToItem.putIfAbsent(name, item.clone());
+            }
+        }
+
+        double hardTotalWeight = 0;
+        if (hardPool != null) {
+            for (Integer weight : hardPool.values()) {
+                hardTotalWeight += (weight == null ? 1 : weight);
+            }
+        }
+
+        if (hardPool != null && hardTotalWeight > 0) {
+            for (Map.Entry<ItemStack, Integer> entry : hardPool.entrySet()) {
+                ItemStack item = entry.getKey();
+                if (item == null || item.getType() == Material.AIR) continue;
+
+                double weight = entry.getValue() == null ? 1 : entry.getValue();
+                double singleProb = hardChance * (weight / hardTotalWeight);
+
+                String name = ItemStackHelper.getDisplayName(item);
+                nameToProb.merge(name, singleProb, Double::sum);
+                nameToItem.putIfAbsent(name, item.clone());
+            }
+        }
+
+        // 将 Map 转为 List 方便分页
+        List<Map.Entry<String, Double>> probList = new ArrayList<>(nameToProb.entrySet());
+
+        Inventory inv = Bukkit.createInventory(new ShopHolder(), 54, ChatColor.DARK_AQUA + "黑市物品概率公示");
+        fillBorder(inv);
+
+        int maxPage = Math.max(0, (probList.size() - 1) / CONTENT_SLOTS.length);
+        if (page < 0) page = 0;
+        page = Math.min(page, maxPage);
+        probPage.put(player.getUniqueId(), page);
+
+        int startIndex = page * CONTENT_SLOTS.length;
+        for (int i = 0; i < CONTENT_SLOTS.length && (startIndex + i) < probList.size(); i++) {
+            Map.Entry<String, Double> entry = probList.get(startIndex + i);
+            ItemStack displayItem = nameToItem.get(entry.getKey());
+            ItemMeta meta = displayItem.getItemMeta();
+            if (meta != null) {
+                List<String> lore = meta.hasLore() ? new ArrayList<>(meta.getLore()) : new ArrayList<>();
+                lore.add("");
+                double prob = entry.getValue() * 100;
+                lore.add(ChatColor.GOLD + "刷新概率: " + String.format("%.5f", prob) + "%");
+                meta.setLore(lore);
+                displayItem.setItemMeta(meta);
+            }
+            inv.setItem(CONTENT_SLOTS[i], displayItem);
+        }
+
+        // 翻页按钮
+        if (page > 0) inv.setItem(45, createInfoItem(Material.ARROW, ChatColor.YELLOW + "上一页", null));
+        if (page < maxPage) inv.setItem(53, createInfoItem(Material.ARROW, ChatColor.YELLOW + "下一页", null));
+
+        inv.setItem(49, createInfoItem(Material.ARROW, ChatColor.GRAY + "返回", null));
+        player.openInventory(inv);
+    }
+
+
+
 
 
     private void handleBlackMarketClick(Player player, int slot) {
@@ -550,8 +638,23 @@ public class ShopGUI implements Listener {
         else if (title.equals(ChatColor.DARK_PURPLE + "每日神秘黑市")) {
             if (slot == 49) {
                 openPlayerMainMenu(player);
-            } else {
+            } else if (slot == 45) {
+                openBlackMarketProbabilities(player);
+            }else {
                 handleBlackMarketClick(player, slot);
+            }
+        }
+        // 黑市概率公示界面
+        else if (title.equals(ChatColor.DARK_AQUA + "黑市物品概率公示")) {
+            if (slot == 49) {
+                // 返回到黑市主界面
+                openBlackMarket(player);
+            } else if (slot == 45) {
+                // 上一页
+                openBlackMarketProbabilities(player, probPage.getOrDefault(player.getUniqueId(), 0) - 1);
+            } else if (slot == 53) {
+                // 下一页
+                openBlackMarketProbabilities(player, probPage.getOrDefault(player.getUniqueId(), 0) + 1);
             }
         }
         // 管理员商店列表
