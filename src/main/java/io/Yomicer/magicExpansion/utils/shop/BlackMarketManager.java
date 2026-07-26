@@ -6,6 +6,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
@@ -14,7 +15,7 @@ import static io.Yomicer.magicExpansion.core.MagicExpansionItems.*;
 
 public class BlackMarketManager {
 
-    private static List<BlackMarketTrade> todayTrades = new ArrayList<>();
+    private static final Map<UUID, List<BlackMarketTrade>> playerTrades = new HashMap<>();
     private static long lastRefreshTime = 0;
     private static final long REFRESH_INTERVAL = 4 * 60 * 60 * 1000L; // 4小时(毫秒)
 
@@ -233,7 +234,6 @@ public class BlackMarketManager {
 
         if (lastRefreshTime == 0) {
             lastRefreshTime = System.currentTimeMillis();
-            generateDailyTrades();
         } else {
             checkAndRefresh();
         }
@@ -252,7 +252,7 @@ public class BlackMarketManager {
     }
 
     public static void forceRefresh() {
-        generateDailyTrades();
+        playerTrades.clear();
         lastRefreshTime = System.currentTimeMillis();
         dailyPurchases.clear();
         revealedSlots.clear();
@@ -270,13 +270,13 @@ public class BlackMarketManager {
         return hours + "小时" + minutes + "分" + seconds + "秒";
     }
 
-    private static void generateDailyTrades() {
+    private static List<BlackMarketTrade> generateTradesForPlayer() {
         // 每次生成前检查，确保池子绝对不为空
         if (simpleRewardPool.isEmpty()) simpleRewardPool.add(new ItemStack(Material.DIRT));
         if (hardRewardPool.isEmpty()) hardRewardPool.put(new ItemStack(Material.BEDROCK), 1);
         if (costItemPool.isEmpty()) costItemPool.add(new ItemStack(Material.STONE));
 
-        todayTrades.clear();
+        List<BlackMarketTrade> todayTrades = new ArrayList<>(); // 改为局部变量
         Random random = new Random();
 
         // 过滤掉可能混入的 null 物品
@@ -338,11 +338,10 @@ public class BlackMarketManager {
                     for (int c = 0; c < costTypeCount; c++) {
                         ItemStack costItem = costItemPool.get(random.nextInt(costItemPool.size())).clone();
                         if (costItem != null) {
-                            // 简单物品 1~5，困难物品 3~17
                             if (trade.isHard) {
-                                costItem.setAmount(random.nextInt(15) + 3); // 0~14 + 3 = 3~17
+                                costItem.setAmount(random.nextInt(15) + 3);
                             } else {
-                                costItem.setAmount(random.nextInt(5) + 1); // 0~4 + 1 = 1~5
+                                costItem.setAmount(random.nextInt(5) + 1);
                             }
                             trade.costs.add(costItem);
                         }
@@ -353,10 +352,12 @@ public class BlackMarketManager {
                 }
             }
 
-
             todayTrades.add(trade);
         }
+
+        return todayTrades;
     }
+
 
     public static List<ItemStack> getSimplePool() {
         return simpleRewardPool;
@@ -367,9 +368,10 @@ public class BlackMarketManager {
     }
 
 
-    public static List<BlackMarketTrade> getTodayTrades() {
+    public static List<BlackMarketTrade> getTodayTrades(Player player) {
         checkAndRefresh();
-        return todayTrades;
+        // 如果该玩家没有生成过，则为他单独生成一份
+        return playerTrades.computeIfAbsent(player.getUniqueId(), k -> generateTradesForPlayer());
     }
 
     public static boolean hasPurchased(UUID uuid, int index) {

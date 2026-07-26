@@ -342,7 +342,7 @@ public class ShopGUI implements Listener {
             inv.setItem(slot, null);
         }
 
-        List<BlackMarketManager.BlackMarketTrade> trades = BlackMarketManager.getTodayTrades();
+        List<BlackMarketManager.BlackMarketTrade> trades = BlackMarketManager.getTodayTrades(player);
         UUID playerId = player.getUniqueId();
 
         for (int i = 0; i < trades.size(); i++) {
@@ -492,7 +492,7 @@ public class ShopGUI implements Listener {
     private void handleBlackMarketClick(Player player, int slot) {
         // 改为获取黑市专属槽位索引
         int index = getBlackMarketIndexBySlot(slot);
-        if (index == -1 || index >= BlackMarketManager.getTodayTrades().size()) return;
+        if (index == -1 || index >= BlackMarketManager.getTodayTrades(player).size()) return;
 
         UUID playerId = player.getUniqueId();
 
@@ -503,7 +503,7 @@ public class ShopGUI implements Listener {
 
         if (!BlackMarketManager.isRevealed(playerId, index)) {
             BlackMarketManager.reveal(playerId, index);
-            BlackMarketManager.BlackMarketTrade trade = BlackMarketManager.getTodayTrades().get(index);
+            BlackMarketManager.BlackMarketTrade trade = BlackMarketManager.getTodayTrades(player).get(index);
 
             org.bukkit.Sound sound;
             if (trade.isFree) {
@@ -525,7 +525,7 @@ public class ShopGUI implements Listener {
 
     private void handleBlackMarketPurchase(Player player, int index) {
         UUID playerId = player.getUniqueId();
-        BlackMarketManager.BlackMarketTrade trade = BlackMarketManager.getTodayTrades().get(index);
+        BlackMarketManager.BlackMarketTrade trade = BlackMarketManager.getTodayTrades(player).get(index);
 
         if (!trade.isFree && trade.costs != null) {
             for (ItemStack cost : trade.costs) {
