@@ -434,6 +434,21 @@ public class MagicExpansionRecipeMachineSetup {
                         new ItemStack[] {ORIGIN_MATERIAL_GEN_ULTRA})
                 .register(plugin);
 
+        //新增  万物演化·源起
+        new OriginMaterialGenMakerLite(magicexpansionenergy, MagicExpansionItems.ORIGIN_MATERIAL_GEN_MAKER_LITE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                GOLD_ELEMENT, LIGHT_ENERGY_ALPHA,WOOD_ELEMENT,
+                WATER_ELEMENT,REDSTONE_EXECUTE_ELEMENT,FIRE_ELEMENT,
+                BASIC_ENCHANT_STONE,EARTH_ELEMENT,WIND_SPIRIT
+        })
+                .setCapacity(131452)
+                .setConsumption(260)
+                .setProcessingSpeed(1)
+                .addRecipe(5, new ItemStack[] {sfItemAmount(GOLD_ELEMENT,11),sfItemAmount(BAD_LUCK_CAPACITY,1),sfItemAmount(WOOD_ELEMENT,45),
+                                sfItemAmount(WATER_ELEMENT,14)              ,sfItemAmount(FIRE_ELEMENT,19),
+                                sfItemAmount(FIVE_ELEMENT,8),sfItemAmount(EARTH_ELEMENT,19),sfItemAmount(PURE_ELEMENT_INGOT,10)},
+                        new ItemStack[] {ORIGIN_MATERIAL_GEN_LITE})
+                .register(plugin);
+
 
 
 

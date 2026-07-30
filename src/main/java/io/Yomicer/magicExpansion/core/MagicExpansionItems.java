@@ -31,7 +31,7 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientNameVer2("信息"),
             "",
-            getGradientNameVer2("Version: Build 82"),
+            getGradientNameVer2("Version: Build 83"),
             getGradientNameVer2("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -887,6 +887,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2026_06_24 = createDefaultItemGlowV2Vertical("UPDATE_LOG_2026_06_24",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2026_07_03 = createDefaultItemGlowV2Vertical("UPDATE_LOG_2026_07_03",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2026_07_12 = createDefaultItemGlowV2Vertical("UPDATE_LOG_2026_07_12",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2026_07_30 = createDefaultItemGlowV2Vertical("UPDATE_LOG_2026_07_30",Material.PAPER);
 
 
 
@@ -970,11 +971,16 @@ public class MagicExpansionItems {
 
 
     public static final SlimefunItemStack ORIGIN_MATERIAL_GEN_MAKER_ALPHA = createGeneratorGlowV2Vertical("ORIGIN_MATERIAL_GEN_MAKER_ALPHA",Material.CRAFTING_TABLE);
-            public static final SlimefunItemStack ORIGIN_MATERIAL_GEN_MAKER_BETA = createGeneratorGlowV2Vertical("ORIGIN_MATERIAL_GEN_MAKER_BETA",Material.FLETCHING_TABLE);
+    public static final SlimefunItemStack ORIGIN_MATERIAL_GEN_MAKER_BETA = createGeneratorGlowV2Vertical("ORIGIN_MATERIAL_GEN_MAKER_BETA",Material.FLETCHING_TABLE);
+    public static final SlimefunItemStack ORIGIN_MATERIAL_GEN_MAKER_LITE = createGeneratorGlowV2Vertical("ORIGIN_MATERIAL_GEN_MAKER_LITE",Material.CAMPFIRE);
 
     //万物演化台
     public static final SlimefunItemStack ORIGIN_MATERIAL_GEN = createGeneratorGlowV2Vertical("ORIGIN_MATERIAL_GEN",Material.ENCHANTING_TABLE);
     public static final SlimefunItemStack ORIGIN_MATERIAL_GEN_ULTRA = createGeneratorGlowV2Vertical("ORIGIN_MATERIAL_GEN_ULTRA",Material.SCULK_SHRIEKER);
+
+    public static final SlimefunItemStack ORIGIN_MATERIAL_GEN_LITE = createGeneratorGlowV2Vertical("ORIGIN_MATERIAL_GEN_LITE",Material.BLAST_FURNACE);
+
+    public static final SlimefunItemStack ORIGIN_MATERIAL_GEN_LITE_PRESS = createGeneratorGlowV2Vertical("ORIGIN_MATERIAL_GEN_LITE_PRESS",Material.GLOWSTONE);
 
 
 
@@ -986,6 +992,8 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack WHEAT_FLOUR = createDefaultItemGlowV2Vertical("WHEAT_FLOUR",Material.SUGAR);
     public static final SlimefunItemStack HARVEST_RICE = createDefaultItemGlowV2Vertical("HARVEST_RICE",Material.WHEAT);
     public static final SlimefunItemStack DREAM_KERNEL = createDefaultItemGlowV2Vertical("DREAM_KERNEL",Material.NETHER_STAR);
+
+    public static final SlimefunItemStack PRESS_CORE_ALPHA = createDefaultItemGlowV2Vertical("PRESS_CORE_ALPHA",Material.FIREWORK_STAR);
 
 
 

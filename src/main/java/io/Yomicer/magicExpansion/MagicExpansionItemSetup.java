@@ -7,10 +7,7 @@ import io.Yomicer.magicExpansion.items.electric.recipeMachine.RandomBoxMachine;
 import io.Yomicer.magicExpansion.items.electric.recipeMachine.RecipeMachine;
 import io.Yomicer.magicExpansion.items.electric.recipeMachine.RecipeRandomMachine;
 import io.Yomicer.magicExpansion.items.electric.recipeMachine.RecipeRandomMachineDefault;
-import io.Yomicer.magicExpansion.items.electric.resourceGenerator.OriginMaterialGen;
-import io.Yomicer.magicExpansion.items.electric.resourceGenerator.OriginMaterialGenUltra;
-import io.Yomicer.magicExpansion.items.electric.resourceGenerator.ResourceMachine;
-import io.Yomicer.magicExpansion.items.electric.resourceGenerator.ResourceRandomOneMachine;
+import io.Yomicer.magicExpansion.items.electric.resourceGenerator.*;
 import io.Yomicer.magicExpansion.items.enchantMachine.EnchantingTable;
 import io.Yomicer.magicExpansion.items.misc.*;
 import io.Yomicer.magicExpansion.items.misc.FishWeightEnhancer;
@@ -62,6 +59,7 @@ import java.util.List;
 import java.util.Map;
 
 import static io.Yomicer.magicExpansion.core.MagicExpansionItems.*;
+import static io.Yomicer.magicExpansion.core.MagicExpansionItems.ORIGIN_MATERIAL_GEN_MAKER_ALPHA;
 import static io.Yomicer.magicExpansion.utils.ColorGradient.*;
 import static io.Yomicer.magicExpansion.utils.ConvertItem.*;
 import static io.Yomicer.magicExpansion.utils.Language.get;
@@ -267,6 +265,10 @@ public final class MagicExpansionItemSetup {
     public static final RecipeType ORIGIN_MATERIAL_GEN_MAKER_BETA = new RecipeType(
             new NamespacedKey(MagicExpansion.getInstance(), "magicexpansion_origin_material_gen_maker_beta"),
             MagicExpansionItems.ORIGIN_MATERIAL_GEN_MAKER_BETA, // 图标
+            (input, output) -> {});
+    public static final RecipeType ORIGIN_MATERIAL_GEN_MAKER_LITE = new RecipeType(
+            new NamespacedKey(MagicExpansion.getInstance(), "magicexpansion_origin_material_gen_maker_lite"),
+            MagicExpansionItems.ORIGIN_MATERIAL_GEN_MAKER_LITE, // 图标
             (input, output) -> {});
 
     private MagicExpansionItemSetup() {
@@ -631,6 +633,11 @@ public final class MagicExpansionItemSetup {
                 null, null, null
         }).register(plugin);
         new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2026_07_12, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
+        new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2026_07_30, SPECIAL_RECIPE_TYPE, new ItemStack[] {
                 null, null, null,
                 null, null, null,
                 null, null, null
@@ -1069,7 +1076,44 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_ORE, 60),
                                 new WeightedItem(RANDOM_FISH_RARE_POOL_INDUSTRY, 50),
                                 new WeightedItem(RANDOM_FISH_EPIC, 5),
-                                new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 5)
+                                new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 5),
+
+                                new WeightedItem(SlimefunItems.REINFORCED_ALLOY_INGOT, 15),
+                                new WeightedItem(SlimefunItems.HARDENED_METAL_INGOT, 15),
+                                new WeightedItem(SlimefunItems.DAMASCUS_STEEL_INGOT, 15),
+                                new WeightedItem(SlimefunItems.STEEL_INGOT, 15),
+                                new WeightedItem(SlimefunItems.BRONZE_INGOT, 15),
+                                new WeightedItem(SlimefunItems.DURALUMIN_INGOT, 15),
+                                new WeightedItem(SlimefunItems.BILLON_INGOT, 15),
+                                new WeightedItem(SlimefunItems.BRASS_INGOT, 15),
+                                new WeightedItem(SlimefunItems.ALUMINUM_BRASS_INGOT, 15),
+                                new WeightedItem(SlimefunItems.ALUMINUM_BRONZE_INGOT, 15),
+                                new WeightedItem(SlimefunItems.CORINTHIAN_BRONZE_INGOT, 15),
+                                new WeightedItem(SlimefunItems.SOLDER_INGOT, 15),
+                                new WeightedItem(SlimefunItems.SYNTHETIC_SAPPHIRE, 15),
+                                new WeightedItem(SlimefunItems.SYNTHETIC_DIAMOND, 15),
+                                new WeightedItem(SlimefunItems.RAW_CARBONADO, 15),
+                                new WeightedItem(SlimefunItems.NICKEL_INGOT, 15),
+                                new WeightedItem(SlimefunItems.COBALT_INGOT, 15),
+                                new WeightedItem(SlimefunItems.CARBONADO, 15),
+                                new WeightedItem(SlimefunItems.FERROSILICON, 15),
+                                new WeightedItem(SlimefunItems.COMPRESSED_CARBON, 15),
+                                new WeightedItem(SlimefunItems.CARBON, 15),
+                                new WeightedItem(SlimefunItems.CARBON_CHUNK, 15),
+                                new WeightedItem(SlimefunItems.GOLD_24K, 15),
+                                new WeightedItem(SlimefunItems.GILDED_IRON, 15),
+                                new WeightedItem(SlimefunItems.SYNTHETIC_EMERALD, 15),
+                                new WeightedItem(SlimefunItems.URANIUM, 15),
+                                new WeightedItem(SlimefunItems.OIL_BUCKET, 15),
+                                new WeightedItem(SlimefunItems.FUEL_BUCKET, 15),
+                                new WeightedItem(SlimefunItems.NETHER_ICE, 15),
+                                new WeightedItem(SlimefunItems.BLISTERING_INGOT_3, 15),
+                                new WeightedItem(SlimefunItems.ENRICHED_NETHER_ICE, 15),
+                                new WeightedItem(SlimefunItems.NEPTUNIUM, 15),
+                                new WeightedItem(SlimefunItems.PLUTONIUM, 15),
+                                new WeightedItem(BASIC_ENCHANT_STONE, 35),
+                                new WeightedItem(WIND_SPIRIT, 35),
+                                new WeightedItem(SlimefunItems.BOOSTED_URANIUM, 15)
                         ),
                         "fishLureDust", List.of(
                                 new WeightedItem(new CustomItemStack(Material.RED_SAND, "§6磨碎的铜砂", getGradientName("带有微弱金属光泽，是铜脉鱼的气息信标")
@@ -1151,6 +1195,7 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_COMMON, 2),
                                 new WeightedItem(RANDOM_FISH_UNCOMMON, 1),
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.COCOA_BEANS),getGradientName("一个TNT")), 2)
+
 
                         )
                 ),Arrays.asList(SlimefunItems.MAGIC_SUGAR,new ItemStack(Material.BREAD),
@@ -1283,7 +1328,44 @@ public final class MagicExpansionItemSetup {
                                 new WeightedItem(RANDOM_FISH_EPIC, 8),
                                 new WeightedItem(RANDOM_FISH_EPIC_POOL_INDUSTRY, 8),
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.PRISMARINE_SHARD,1),getGradientNameVer2("鱼饵·记忆碎片"),("§f这个鱼饵可以钓到任何物品"),("§f他存在于过去或者是未来"),("§f你现在看到的他并非真正的他")
-                                ), 1)
+                                ), 1),
+
+                                new WeightedItem(SlimefunItems.REINFORCED_ALLOY_INGOT, 9),
+                                new WeightedItem(SlimefunItems.HARDENED_METAL_INGOT, 9),
+                                new WeightedItem(SlimefunItems.DAMASCUS_STEEL_INGOT, 9),
+                                new WeightedItem(SlimefunItems.STEEL_INGOT, 9),
+                                new WeightedItem(SlimefunItems.BRONZE_INGOT, 9),
+                                new WeightedItem(SlimefunItems.DURALUMIN_INGOT, 9),
+                                new WeightedItem(SlimefunItems.BILLON_INGOT, 9),
+                                new WeightedItem(SlimefunItems.BRASS_INGOT, 9),
+                                new WeightedItem(SlimefunItems.ALUMINUM_BRASS_INGOT, 9),
+                                new WeightedItem(SlimefunItems.ALUMINUM_BRONZE_INGOT, 9),
+                                new WeightedItem(SlimefunItems.CORINTHIAN_BRONZE_INGOT, 9),
+                                new WeightedItem(SlimefunItems.SOLDER_INGOT, 9),
+                                new WeightedItem(SlimefunItems.SYNTHETIC_SAPPHIRE, 9),
+                                new WeightedItem(SlimefunItems.SYNTHETIC_DIAMOND, 9),
+                                new WeightedItem(SlimefunItems.RAW_CARBONADO, 9),
+                                new WeightedItem(SlimefunItems.NICKEL_INGOT, 9),
+                                new WeightedItem(SlimefunItems.COBALT_INGOT, 9),
+                                new WeightedItem(SlimefunItems.CARBONADO, 9),
+                                new WeightedItem(SlimefunItems.FERROSILICON, 9),
+                                new WeightedItem(SlimefunItems.COMPRESSED_CARBON, 9),
+                                new WeightedItem(SlimefunItems.CARBON, 9),
+                                new WeightedItem(SlimefunItems.CARBON_CHUNK, 9),
+                                new WeightedItem(SlimefunItems.GOLD_24K, 9),
+                                new WeightedItem(SlimefunItems.GILDED_IRON, 9),
+                                new WeightedItem(SlimefunItems.SYNTHETIC_EMERALD, 9),
+                                new WeightedItem(SlimefunItems.URANIUM, 9),
+                                new WeightedItem(SlimefunItems.OIL_BUCKET, 9),
+                                new WeightedItem(SlimefunItems.FUEL_BUCKET, 9),
+                                new WeightedItem(SlimefunItems.NETHER_ICE, 9),
+                                new WeightedItem(SlimefunItems.BLISTERING_INGOT_3, 9),
+                                new WeightedItem(SlimefunItems.ENRICHED_NETHER_ICE, 9),
+                                new WeightedItem(SlimefunItems.NEPTUNIUM, 9),
+                                new WeightedItem(SlimefunItems.PLUTONIUM, 9),
+                                new WeightedItem(BASIC_ENCHANT_STONE, 25),
+                                new WeightedItem(WIND_SPIRIT, 25),
+                                new WeightedItem(SlimefunItems.BOOSTED_URANIUM, 9)
                         ),
                         "fishLureDust", List.of(
                                 new WeightedItem(new CustomItemStack(new ItemStack(Material.RED_SAND,3), "§6磨碎的铜砂", getGradientName("带有微弱金属光泽，是铜脉鱼的气息信标")
@@ -1493,6 +1575,12 @@ public final class MagicExpansionItemSetup {
                 REDSTONE, REDSTONE, REDSTONE
         }).register(plugin);
 
+        //工业空间核心
+        new UnplaceableBlock(magicexpansionresource, PRESS_CORE_ALPHA, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                INFINITY_FLINT_AND_STEEL, BASIC_ENCHANT_STONE, PURE_ELEMENT_INGOT,
+                FIVE_ELEMENT, SPACE_INFINITY_MAGIC, FIVE_ELEMENT,
+                PURE_ELEMENT_INGOT, FIVE_ELEMENT, INFINITY_FLINT_AND_STEEL
+        }).register(plugin);
 
         //奇迹 · 市集
         new PortableShop(magicexpansionspecialitem, PORTABLE_SHOP, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
@@ -2919,14 +3007,14 @@ public final class MagicExpansionItemSetup {
 
         new OriginMaterialGen(magicexpansionresourcegenerator, ORIGIN_MATERIAL_GEN, ORIGIN_MATERIAL_GEN_MAKER_ALPHA, new ItemStack[] {
                 sfItemAmount(PURE_ELEMENT_GOLD,31),sfItemAmount(MAGIC_CAPACITY_ULTRA,1),sfItemAmount(PURE_ELEMENT_WOOD,31),
-                sfItemAmount(PURE_ELEMENT_WATER,31),new CustomItemStack(Material.PAPER, ColorGradient.getGradientNameVer2("任何物品"),  ColorGradient.getGradientNameVer2("合成材料决定了演化台的最终产出"), "" , ColorGradient.getGradientNameVer2("或许这本就是剧本吧")),sfItemAmount(PURE_ELEMENT_FIRE,31),
+                sfItemAmount(PURE_ELEMENT_WATER,31),new CustomItemStack(Material.PAPER, ColorGradient.getGradientNameVer2("任何原版物品"),  ColorGradient.getGradientNameVer2("合成材料决定了演化台的最终产出"), "" , ColorGradient.getGradientNameVer2("或许这本就是剧本吧")),sfItemAmount(PURE_ELEMENT_FIRE,31),
                 sfItemAmount(PURE_FIVE_ELEMENT,9),sfItemAmount(PURE_ELEMENT_EARTH,31),sfItemAmount(MAGIC_EXPANSION_MAGIC_SUGAR_19,9)
         })
                 .setCraftSecond(1)
                 .setCapacity(131452)
                 .setConsumption(26000)
                 .setProcessingSpeed(1)
-                .setItemStackOutputs(new ItemStack[] {new CustomItemStack(Material.PAPER, ColorGradient.getGradientNameVer2("任何物品 x 99 x 36"),  ColorGradient.getGradientNameVer2("不要怀疑你的眼睛，就是99"),  ColorGradient.getGradientNameVer2("产出取决于合成演化台时的材料"), "" , ColorGradient.getGradientNameVer2("或许这本就是剧本吧"))})
+                .setItemStackOutputs(new ItemStack[] {new CustomItemStack(Material.PAPER, ColorGradient.getGradientNameVer2("任何原版物品 x 99 x 36"),  ColorGradient.getGradientNameVer2("不要怀疑你的眼睛，就是99"),  ColorGradient.getGradientNameVer2("产出取决于合成演化台时的材料"), "" , ColorGradient.getGradientNameVer2("或许这本就是剧本吧"))})
                 .register(plugin);
 
         new OriginMaterialGenUltra(magicexpansionresourcegenerator, ORIGIN_MATERIAL_GEN_ULTRA, ORIGIN_MATERIAL_GEN_MAKER_BETA, new ItemStack[] {
@@ -2942,6 +3030,32 @@ public final class MagicExpansionItemSetup {
                 .register(plugin);
 
 
+
+
+
+        new OriginMaterialGenLite(magicexpansionresourcegenerator, ORIGIN_MATERIAL_GEN_LITE, ORIGIN_MATERIAL_GEN_MAKER_LITE, new ItemStack[] {
+                sfItemAmount(GOLD_ELEMENT,11),sfItemAmount(BAD_LUCK_CAPACITY,1),sfItemAmount(WOOD_ELEMENT,45),
+                sfItemAmount(WATER_ELEMENT,14),new CustomItemStack(Material.PAPER, ColorGradient.getGradientNameVer2("任何原版物品"),  ColorGradient.getGradientNameVer2("合成材料决定了演化台的最终产出"), "" , ColorGradient.getGradientNameVer2("或许这本就是剧本吧")),sfItemAmount(FIRE_ELEMENT,19),
+                sfItemAmount(FIVE_ELEMENT,8),sfItemAmount(EARTH_ELEMENT,19),sfItemAmount(PURE_ELEMENT_INGOT,10)
+        })
+                .setCraftSecond(0)
+                .setCapacity(131452)
+                .setConsumption(26)
+                .setProcessingSpeed(1)
+                .setItemStackOutputs(new ItemStack[] {new CustomItemStack(Material.PAPER, ColorGradient.getGradientNameVer2("任何原版物品 x 1"),  ColorGradient.getGradientNameVer2("比较简陋的演化台"),  ColorGradient.getGradientNameVer2("产出取决于合成演化台时的材料"), "" , ColorGradient.getGradientNameVer2("或许这本就是剧本吧"))})
+                .register(plugin);
+
+        new OriginMaterialGenStack(magicexpansionenergy, ORIGIN_MATERIAL_GEN_LITE_PRESS, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                PURE_ELEMENT_INGOT, PANDORA_CAPACITY,PURE_ELEMENT_INGOT,
+                BAD_LUCK_CAPACITY,PRESS_CORE_ALPHA,PURE_INGOT_POWER_CORE,
+                PURE_ELEMENT_INGOT,CORE_ORIGIN,PURE_ELEMENT_INGOT
+        })
+                .setCraftSecond(0)
+                .setCapacity(131452)
+                .setConsumption(26000)
+                .setProcessingSpeed(1)
+                .setItemStackOutputs(new ItemStack[] {new CustomItemStack(Material.PAPER, ColorGradient.getGradientNameVer2("可并行多个 万物演化台·源起"),  ColorGradient.getGradientNameVer2("一种特殊的演化台,本身并不产出任何物品"),  ColorGradient.getGradientNameVer2("产出取决于合成演化台时的材料"), "" , ColorGradient.getGradientNameVer2("或许这本就是剧本吧"))})
+                .register(plugin);
 
 
 

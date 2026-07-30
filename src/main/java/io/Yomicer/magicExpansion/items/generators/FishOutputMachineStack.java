@@ -303,6 +303,7 @@ public class FishOutputMachineStack extends MenuBlock implements EnergyNetCompon
                 if (baseOutput != null) {
                     int multiplier = WeightRarity.getMultiplierByName(weightRarityName);
                     int multiplierEasy = 0;
+                    if (multiplier == 1) multiplierEasy = 1;
                     if (multiplier == 7) multiplierEasy = 3;
                     if (multiplier == 15) multiplierEasy = 8;
                     if (multiplier == 9999) multiplierEasy = 888;
