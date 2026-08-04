@@ -54,7 +54,16 @@ public class PlayerFishingListener implements Listener {
                     ("§f这个鱼饵可以钓到任何物品"),
                     ("§f他存在于过去或者是未来"),
                     ("§f你现在看到的他并非真正的他")),
-                    "fishLureFinal")
+                    "fishLureFinal"),
+
+
+            //新系列鱼饵  水云间
+            new MoreLure(MagicExpansionItems.FISH_LURE_BETWEEN_WATER_CLOUD_CUIXIA,"CuiXia"),// 淬霞
+            new MoreLure(MagicExpansionItems.FISH_LURE_BETWEEN_WATER_CLOUD_WEICHEN,"WeiChen"),// 微尘
+            new MoreLure(MagicExpansionItems.FISH_LURE_BETWEEN_WATER_CLOUD_RONGHUO,"RongHuo"),// 熔火
+            new MoreLure(MagicExpansionItems.FISH_LURE_BETWEEN_WATER_CLOUD_YUEJIN,"YueJin"),// 跃金
+            new MoreLure(MagicExpansionItems.FISH_LURE_BETWEEN_WATER_CLOUD_XINGHE,"XingHe")// 星核
+
     );
 
     private static final Set<ItemStack> RANDOM_FISH_TYPES = new HashSet<>();

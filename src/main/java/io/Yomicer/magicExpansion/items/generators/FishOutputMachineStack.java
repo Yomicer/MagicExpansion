@@ -11,10 +11,7 @@ import io.Yomicer.magicExpansion.items.misc.fish.Fish;
 import io.Yomicer.magicExpansion.items.misc.fish.FishKeys;
 import io.Yomicer.magicExpansion.items.tools.VoidTouch;
 import io.Yomicer.magicExpansion.utils.CustomHeadUtils.CustomHead;
-import io.Yomicer.magicExpansion.utils.networksUtils.DataTypeMethods;
-import io.Yomicer.magicExpansion.utils.networksUtils.NetworksKeys;
-import io.Yomicer.magicExpansion.utils.networksUtils.PersistentQuantumStorageType;
-import io.Yomicer.magicExpansion.utils.networksUtils.QuantumCache;
+import io.Yomicer.magicExpansion.utils.NetworkStorage;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -269,6 +266,19 @@ public class FishOutputMachineStack extends MenuBlock implements EnergyNetCompon
                 }
             }
             }
+            // === 第三步：检查是否为量子存储物品（内部存有生态缸/简易生态缸时计入） ===
+            if (NetworkStorage.isQuantumStorageItem(item)) {
+                NetworkStorage.QuantumCache qc = NetworkStorage.getQuantumCache(item.getItemMeta());
+                if (qc != null && qc.getItemStack() != null) {
+                    SlimefunItem storedSf = SlimefunItem.getByItem(qc.getItemStack());
+                    long storedAmount = qc.getAmountLong();
+                    if (storedSf instanceof FishOutputMachine) {
+                        totalNormalAmount += storedAmount;
+                    } else if (storedSf instanceof FishOutputMachineEasy) {
+                        totalEasyAmount += storedAmount;
+                    }
+                }
+            }
         }
 
 
@@ -312,9 +322,9 @@ public class FishOutputMachineStack extends MenuBlock implements EnergyNetCompon
                     long amountEasy = (long) (weight * multiplierEasy);
                     if (amount <= 0) amount = 1;
                     if (amountEasy <= 0) amountEasy = 1;
-                    long finalAmount = amount * totalNormalAmount;
-                    long finalAmountEasy = amountEasy * totalEasyAmount;
-                    long finalAmountTotal = finalAmount + finalAmountEasy;
+                    long finalAmount = safeMul(amount, totalNormalAmount);
+                    long finalAmountEasy = safeMul(amountEasy, totalEasyAmount);
+                    long finalAmountTotal = safeAdd(finalAmount, finalAmountEasy);
                     if (finalAmountTotal > Integer.MAX_VALUE) {
                         finalAmountTotal = Integer.MAX_VALUE;
                     } else if (finalAmountTotal <= 0) {
@@ -347,6 +357,7 @@ public class FishOutputMachineStack extends MenuBlock implements EnergyNetCompon
         ItemStack VoidTouchSlotItem = inv.getItemInSlot(VoidTouchSlot);
         if (VoidTouchSlotItem != null && !VoidTouchSlotItem.getType().isAir() && outItems != null){
             SlimefunItem VoidTouchItem = SlimefunItem.getByItem(VoidTouchSlotItem);
+            // ① 虚空之触：绑定魔法存储终端 / 网络量子存储方块
             if (VoidTouchItem != null && VoidTouchItem instanceof VoidTouch) {
                 ItemMeta VoidTouchMeta = VoidTouchSlotItem.getItemMeta();
                 if (VoidTouchMeta != null) {
@@ -367,52 +378,63 @@ public class FishOutputMachineStack extends MenuBlock implements EnergyNetCompon
                             Location targetLocation = new Location(world, x, y, z);
                             SlimefunItem sfItem = StorageCacheUtils.getSfItem(targetLocation);
 
-                            if (sfItem != null) {
-                                if (sfItem instanceof CargoCoreMore) {
-                                    if (pushItemToCargoCore(targetLocation, outItems)){
-                                        removeCharge(block.getLocation(), getEnergyConsumption());
-                                    }
+                            if (sfItem instanceof CargoCoreMore) {
+                                if (pushItemToCargoCore(targetLocation, outItems)){
+                                    removeCharge(block.getLocation(), getEnergyConsumption());
                                 }
+                            } else if (NetworkStorage.isQuantumStorageBlock(sfItem)) {
+                                // 新增：虚空之触绑定网络量子存储方块
+                                long leftover = NetworkStorage.storeToQuantumStorageBlock(targetLocation, outItems);
+                                if (leftover < outItems.getAmount()) {
+                                    removeCharge(block.getLocation(), getEnergyConsumption());
+                                }
+                            } else {
+                                // 绑定目标已被销毁或不是可存储方块：提示玩家，不扣电
+                                showDeadTargetWarning(inv);
                             }
                         }
                     }
                 }
             }
-            else if (VoidTouchSlotItem.getItemMeta() != null && VoidTouchSlotItem.getAmount() == 1){
-                ItemMeta VoidSlotQuantumCacheItemMeta = VoidTouchSlotItem.getItemMeta();
-                QuantumCache quantumCache = DataTypeMethods.getCustom(VoidSlotQuantumCacheItemMeta,
-                        NetworksKeys.QUANTUM_STORAGE_INSTANCE, PersistentQuantumStorageType.TYPE);
-                if (quantumCache == null || quantumCache.getItemStack() == null) {
-                    return;
+            // ② 量子存储物品：直接存入（最大值/溢出保护封装在 NetworkStorage 中）
+            else if (VoidTouchSlotItem.getAmount() == 1 && NetworkStorage.isQuantumStorageItem(VoidTouchSlotItem)) {
+                long leftover = NetworkStorage.store(VoidTouchSlotItem, outItems);
+                if (leftover < outItems.getAmount()) {
+                    inv.replaceExistingItem(VoidTouchSlot, VoidTouchSlotItem);
+                    removeCharge(block.getLocation(), getEnergyConsumption());
                 }
-                ItemStack cacheItem = quantumCache.getItemStack();
-                if (SlimefunUtils.isItemSimilar(outItems, cacheItem, true)) {
-                    long currentAmount = quantumCache.getAmount();
-                    long maxCapacity = quantumCache.getLimit();
-                    long remainingSpace = maxCapacity - currentAmount;
-                    if (remainingSpace > 0) {
-                        int outAmount = outItems.getAmount();
-                        long maxTransfer;
-                        if (outAmount > remainingSpace) {
-                            maxTransfer = remainingSpace;
-                        } else {
-                            maxTransfer = outAmount;
-                        }
-                        if (maxTransfer > 0) {
-                            quantumCache.increaseAmount((int) maxTransfer);
-                            DataTypeMethods.setCustom(VoidSlotQuantumCacheItemMeta, NetworksKeys.QUANTUM_STORAGE_INSTANCE,
-                                    PersistentQuantumStorageType.TYPE, quantumCache);
-                            quantumCache.updateMetaLore(VoidSlotQuantumCacheItemMeta);
-                            VoidTouchSlotItem.setItemMeta(VoidSlotQuantumCacheItemMeta);
-                            inv.replaceExistingItem(VoidTouchSlot, VoidTouchSlotItem);
-                            removeCharge(block.getLocation(), getEnergyConsumption());
-                        }
-                    }
-                }
-
             }
         }
 
+    }
+
+    // 虚空之触绑定的存储目标已失效时的提示（仅在有玩家打开界面时显示）
+    private void showDeadTargetWarning(BlockMenu inv) {
+        if (inv != null && inv.hasViewer()) {
+            inv.replaceExistingItem(48, new CustomItemStack(doGlow(Material.BARRIER),
+                    getGradientName("⚡虚空之触目标失效⚡"),
+                    getGradientName("绑定的存储方块已被销毁"),
+                    getGradientName("请重新绑定或移除虚空之触")));
+        }
+    }
+
+    // 乘法溢出保护：结果超过 long 上限时返回 Long.MAX_VALUE
+    private static long safeMul(long a, long b) {
+        if (a == 0 || b == 0) {
+            return 0;
+        }
+        if (a > Long.MAX_VALUE / b) {
+            return Long.MAX_VALUE;
+        }
+        return a * b;
+    }
+
+    // 加法溢出保护：结果超过 long 上限时返回 Long.MAX_VALUE
+    private static long safeAdd(long a, long b) {
+        if (b > Long.MAX_VALUE - a) {
+            return Long.MAX_VALUE;
+        }
+        return a + b;
     }
 
     private boolean pushItemToCargoCore (Location loc, ItemStack item) {
