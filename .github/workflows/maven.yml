@@ -1,0 +1,33 @@
+name: MagicExpansion-vOfficial
+on:
+  push:
+    branches: [master]        # ← 改成你仓库的默认分支名
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: 17     # ← 改成你 pom.xml 里的版本
+          distribution: 'temurin'
+
+      - run: mvn package --file pom.xml
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MagicExpansion-vOfficial
+          path: target/*.jar
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: target/*.jar
+          tag_name: build-${{ github.run_number }}
+          name: MagicExpansion-vOfficial #${{ github.run_number }}
+          body: |
+            由 GitHub Actions 自动构建。
