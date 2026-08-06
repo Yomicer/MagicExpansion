@@ -31,7 +31,10 @@ public class MagicExpansionItems {
             Material.PAPER,
             getGradientNameVer2("信息"),
             "",
-            getGradientNameVer2("Version: Build 84"),
+            getGradientNameVer2("guizhanss Version:"),
+            getGradientNameVer2("Version: Build 86"),
+            getGradientNameVer2("Github Version:"),
+            getGradientNameVer2("Official Version: Release 5"),
             getGradientNameVer2("您在提issues的时候需要展示这个")
     );
     //AUTHOR
@@ -889,6 +892,7 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack UPDATE_LOG_2026_07_12 = createDefaultItemGlowV2Vertical("UPDATE_LOG_2026_07_12",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2026_07_30 = createDefaultItemGlowV2Vertical("UPDATE_LOG_2026_07_30",Material.PAPER);
     public static final SlimefunItemStack UPDATE_LOG_2026_08_05 = createDefaultItemGlowV2Vertical("UPDATE_LOG_2026_08_05",Material.PAPER);
+    public static final SlimefunItemStack UPDATE_LOG_2026_08_07 = createDefaultItemGlowV2Vertical("UPDATE_LOG_2026_08_07",Material.PAPER);
 
 
 
@@ -935,6 +939,7 @@ public class MagicExpansionItems {
 
     //新系列鱼竿 水云间
     public static final SlimefunItemStack FISHING_ROD_BETWEEN_WATER_CLOUD_CYAN_BAMBOO = createDefaultItem("FISHING_ROD_BETWEEN_WATER_CLOUD_CYAN_BAMBOO",Material.FISHING_ROD);
+    public static final SlimefunItemStack FISHING_ROD_BETWEEN_WATER_CLOUD_REED = createDefaultItem("FISHING_ROD_BETWEEN_WATER_CLOUD_REED",Material.FISHING_ROD);
 
 
 
@@ -1100,6 +1105,10 @@ public class MagicExpansionItems {
     public static final SlimefunItemStack FISH_SPECIAL_ACTION_BETWEEN_WATER_CLOUD_RONGHUO = createDefaultItem("FISH_SPECIAL_ACTION_BETWEEN_WATER_CLOUD_RONGHUO",Material.WATER_BUCKET);
     public static final SlimefunItemStack FISH_SPECIAL_ACTION_BETWEEN_WATER_CLOUD_YUEJIN = createDefaultItem("FISH_SPECIAL_ACTION_BETWEEN_WATER_CLOUD_YUEJIN",Material.WATER_BUCKET);
     public static final SlimefunItemStack FISH_SPECIAL_ACTION_BETWEEN_WATER_CLOUD_XINGHE = createDefaultItem("FISH_SPECIAL_ACTION_BETWEEN_WATER_CLOUD_XINGHE",Material.WATER_BUCKET);
+
+    // 水云间材料
+    public static final SlimefunItemStack BAMBOO_JOINT = createDefaultItem("BAMBOO_JOINT",Material.BAMBOO);
+    public static final SlimefunItemStack MAGIC_THREAD = createDefaultItem("MAGIC_THREAD",Material.STRING);
 
 
 

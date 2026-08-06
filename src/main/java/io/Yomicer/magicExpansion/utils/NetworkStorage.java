@@ -1,6 +1,8 @@
 package io.Yomicer.magicExpansion.utils;
 
 import com.jeff_media.morepersistentdatatypes.DataType;
+import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
+import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
@@ -21,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import static io.Yomicer.magicExpansion.utils.SameItemJudge.itemFromBase64;
 
 /**
  * 网络量子存储统一封装类。
@@ -500,6 +504,124 @@ public final class NetworkStorage {
             return output.getAmount();
         }
     }
+
+    /**
+     * 虚空之触绑定魔法存储终端（CargoCoreMore）时，把产物存入终端已有物品的槽位。
+     * <p>
+     * 与生态缸行为一致：仅当终端里已存在该物品种类时才存入（不创建新槽位）。
+     *
+     * @param location 魔法存储终端坐标
+     * @param item     本次产出的物品
+     * @return true 表示已存入终端
+     */
+    public static boolean storeToCargoCore(@NotNull Location location, @NotNull ItemStack item) {
+        BlockMenu inv = StorageCacheUtils.getMenu(location);
+        if (inv == null) {
+            return false;
+        }
+        SlimefunBlockData data = StorageCacheUtils.getBlock(location);
+        if (data == null) {
+            return false;
+        }
+        if (hasStoredItem(data, item)) {
+            storeItemToExistingSlot(data, item);
+            return true;
+        }
+        return false;
+    }
+
+    /** 检查 CargoCoreMore 中是否已经有该物品（有且数量>0） */
+    private static boolean hasStoredItem(SlimefunBlockData data, ItemStack item) {
+        if (item == null || item.getType() == Material.AIR) {
+            return false;
+        }
+
+        ItemStack prototype = item.clone();
+        prototype.setAmount(1);
+
+        for (int i = 0; i < CARGO_CORE_MAX_STORED_ITEMS; i++) {
+            String jsonData = data.getData("item_type_" + i);
+            if (jsonData == null || jsonData.isEmpty()) {
+                continue;
+            }
+
+            try {
+                ItemStack storedItem = itemFromBase64(jsonData);
+                if (storedItem != null && storedItem.getType() != Material.AIR) {
+                    storedItem.setAmount(1);
+                    if (SlimefunUtils.isItemSimilar(prototype, storedItem, true)) {
+                        String countStr = data.getData("item_count_" + i);
+                        if (countStr != null && !countStr.isEmpty()) {
+                            try {
+                                if (Long.parseLong(countStr) > 0) {
+                                    return true;
+                                }
+                            } catch (NumberFormatException ignored) {
+                            }
+                        }
+                    }
+                }
+            } catch (Exception ignored) {
+            }
+        }
+        return false;
+    }
+
+    /** 只向已有物品的槽位存储（不创建新槽位），并做最大值保护 */
+    private static void storeItemToExistingSlot(SlimefunBlockData data, ItemStack item) {
+        if (item == null || item.getType() == Material.AIR) {
+            return;
+        }
+
+        ItemStack prototype = item.clone();
+        prototype.setAmount(1);
+        long amountToStore = item.getAmount();
+
+        for (int i = 0; i < CARGO_CORE_MAX_STORED_ITEMS; i++) {
+            String jsonData = data.getData("item_type_" + i);
+            if (jsonData == null || jsonData.isEmpty()) {
+                continue;
+            }
+
+            try {
+                ItemStack storedItem = itemFromBase64(jsonData);
+                if (storedItem != null && storedItem.getType() != Material.AIR) {
+                    storedItem.setAmount(1);
+                    if (SlimefunUtils.isItemSimilar(prototype, storedItem, true)) {
+                        long currentCount = 0;
+                        String countStr = data.getData("item_count_" + i);
+                        if (countStr != null && !countStr.isEmpty()) {
+                            try {
+                                currentCount = Long.parseLong(countStr);
+                            } catch (NumberFormatException ignored) {
+                            }
+                        }
+
+                        // 最大值保护：新数量不溢出
+                        long newCount = amountToStore > Long.MAX_VALUE - currentCount
+                                ? Long.MAX_VALUE : currentCount + amountToStore;
+                        data.setData("item_count_" + i, String.valueOf(newCount));
+
+                        // 数量上限保护
+                        String maxStr = data.getData("item_max_" + i);
+                        if (maxStr != null && !maxStr.isEmpty()) {
+                            try {
+                                long maxCount = Long.parseLong(maxStr);
+                                if (maxCount != -1 && newCount > maxCount) {
+                                    data.setData("item_count_" + i, String.valueOf(maxCount));
+                                }
+                            } catch (NumberFormatException ignored) {
+                            }
+                        }
+                        return;
+                    }
+                }
+            } catch (Exception ignored) {
+            }
+        }
+    }
+
+    private static final int CARGO_CORE_MAX_STORED_ITEMS = 1145;
 
     /**
      * 向量子存储物品中存入产物（最大值保护 / 数据溢出保护）。

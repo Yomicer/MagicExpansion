@@ -1,5 +1,6 @@
 package io.Yomicer.magicExpansion.items.tools;
 
+import io.Yomicer.magicExpansion.utils.WaterCloudPoolMenu;
 import io.Yomicer.magicExpansion.items.misc.Lure;
 import io.Yomicer.magicExpansion.items.misc.WeightedItem;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
@@ -115,6 +116,8 @@ public class FishingRodWaterCloud extends SlimefunItem implements RecipeDisplayI
             display.add(lure);
         }
 
+        // 查看鱼饵池按钮(渲染后由监听器摆放到配方页右侧槽 26)
+        display.add(WaterCloudPoolMenu.createPoolButton(this));
 
         return display;
     }

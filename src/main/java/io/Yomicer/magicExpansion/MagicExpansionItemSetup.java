@@ -647,6 +647,11 @@ public final class MagicExpansionItemSetup {
                 null, null, null,
                 null, null, null
         }).register(plugin);
+        new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2026_08_07, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
 
 
 
@@ -1555,9 +1560,9 @@ public final class MagicExpansionItemSetup {
 
         //新系列鱼竿  水云间
         new FishingRodWaterCloud(magicexpansionfishing, MagicExpansionItems.FISHING_ROD_BETWEEN_WATER_CLOUD_CYAN_BAMBOO, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                null,null,STICK,
-                null,STICK,STRING_1,
-                STICK,null,MAGIC_EXPANSION_MAGIC_SUGAR_1
+                null,null,MagicExpansionItems.BAMBOO_JOINT,
+                null,MagicExpansionItems.BAMBOO_JOINT,MagicExpansionItems.MAGIC_THREAD,
+                MagicExpansionItems.BAMBOO_JOINT,null,MAGIC_EXPANSION_MAGIC_SUGAR_1
         }, new HashMap<>() {{
             put(Enchantment.LUCK, 1);
             put(Enchantment.LURE, 2);
@@ -1683,6 +1688,137 @@ public final class MagicExpansionItemSetup {
                 ),
                 Arrays.asList(FISH_LURE_BETWEEN_WATER_CLOUD_CUIXIA,FISH_LURE_BETWEEN_WATER_CLOUD_WEICHEN,FISH_LURE_BETWEEN_WATER_CLOUD_RONGHUO,
                         FISH_LURE_BETWEEN_WATER_CLOUD_YUEJIN,FISH_LURE_BETWEEN_WATER_CLOUD_XINGHE)).register(plugin);
+
+        //水云间·芦花钓(暂定:先独立内联一份与青竹竿相同的鱼饵池,后续可单独调整)
+        new FishingRodWaterCloud(magicexpansionfishing, MagicExpansionItems.FISHING_ROD_BETWEEN_WATER_CLOUD_REED, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                null,new ItemStack(Material.SUGAR_CANE),null,
+                new ItemStack(Material.SUGAR_CANE),MagicExpansionItems.FISHING_ROD_BETWEEN_WATER_CLOUD_CYAN_BAMBOO,MagicExpansionItems.MAGIC_THREAD,
+                null,new ItemStack(Material.SUGAR_CANE),null
+        }, new HashMap<>() {{
+            put(Enchantment.LUCK, 2);
+            put(Enchantment.LURE, 2);
+        }}, false,
+                Map.of(
+                        // 淬霞
+                        "CuiXia", List.of(
+                                new WeightedItem(SlimefunItems.REINFORCED_ALLOY_INGOT, 222),
+                                new WeightedItem(SlimefunItems.DAMASCUS_STEEL_INGOT, 222),
+                                new WeightedItem(SlimefunItems.STEEL_INGOT, 222),
+                                new WeightedItem(SlimefunItems.BRONZE_INGOT, 222),
+                                new WeightedItem(SlimefunItems.DURALUMIN_INGOT, 222),
+                                new WeightedItem(SlimefunItems.ALUMINUM_BRASS_INGOT, 222),
+                                new WeightedItem(SlimefunItems.ALUMINUM_BRONZE_INGOT, 222),
+                                new WeightedItem(SlimefunItems.SYNTHETIC_SAPPHIRE, 222),
+                                new WeightedItem(SlimefunItems.SYNTHETIC_DIAMOND, 222),
+                                new WeightedItem(SlimefunItems.BILLON_INGOT, 222),
+                                new WeightedItem(SlimefunItems.BRASS_INGOT, 222),
+                                new WeightedItem(SlimefunItems.CORINTHIAN_BRONZE_INGOT, 222),
+                                new WeightedItem(SlimefunItems.RAW_CARBONADO, 222),
+                                new WeightedItem(SlimefunItems.SOLDER_INGOT, 222),
+                                new WeightedItem(SlimefunItems.CARBONADO, 222),
+                                new WeightedItem(SlimefunItems.NICKEL_INGOT, 222),
+                                new WeightedItem(SlimefunItems.COBALT_INGOT, 222),
+                                new WeightedItem(SlimefunItems.FERROSILICON, 222),
+                                new WeightedItem(SlimefunItems.CARBON, 222),
+                                new WeightedItem(SlimefunItems.COMPRESSED_CARBON, 222),
+                                new WeightedItem(SlimefunItems.CARBON_CHUNK, 222),
+                                new WeightedItem(SlimefunItems.SILICON, 222),
+                                new WeightedItem(SlimefunItems.GILDED_IRON, 222),
+                                new WeightedItem(SlimefunItems.SYNTHETIC_EMERALD, 222),
+                                new WeightedItem(SlimefunItems.URANIUM, 222),
+                                new WeightedItem(SlimefunItems.REDSTONE_ALLOY, 222),
+                                new WeightedItem(SlimefunItems.HARDENED_METAL_INGOT, 222),
+                                new WeightedItem(new ItemStack(Material.COBBLESTONE,15), 667),
+                                new WeightedItem(new ItemStack(Material.FLINT,15), 667),
+                                new WeightedItem(new ItemStack(Material.GRAVEL,15), 667),
+                                new WeightedItem(new ItemStack(Material.SAND,15), 667),
+                                new WeightedItem(new ItemStack(Material.STRING,15), 667),
+                                new WeightedItem(new ItemStack(Material.BONE,15), 667),
+                                new WeightedItem(FISH_SPECIAL_ACTION_BETWEEN_WATER_CLOUD_CUIXIA, 10)
+                        ),
+                        // 微尘
+                        "WeiChen", List.of(
+                                new WeightedItem(SlimefunItems.IRON_DUST, 370),
+                                new WeightedItem(SlimefunItems.GOLD_DUST, 370),
+                                new WeightedItem(SlimefunItems.COPPER_DUST, 370),
+                                new WeightedItem(SlimefunItems.TIN_DUST, 370),
+                                new WeightedItem(SlimefunItems.SILVER_DUST, 370),
+                                new WeightedItem(SlimefunItems.LEAD_DUST, 370),
+                                new WeightedItem(SlimefunItems.ALUMINUM_DUST, 370),
+                                new WeightedItem(SlimefunItems.ZINC_DUST, 370),
+                                new WeightedItem(SlimefunItems.MAGNESIUM_DUST, 370),
+                                new WeightedItem(new ItemStack(Material.COBBLESTONE,15), 1110),
+                                new WeightedItem(new ItemStack(Material.FLINT,15), 1110),
+                                new WeightedItem(new ItemStack(Material.GRAVEL,15), 1110),
+                                new WeightedItem(new ItemStack(Material.SAND,15), 1110),
+                                new WeightedItem(new ItemStack(Material.STRING,15), 1110),
+                                new WeightedItem(new ItemStack(Material.BONE,15), 1110),
+                                new WeightedItem(FISH_SPECIAL_ACTION_BETWEEN_WATER_CLOUD_WEICHEN, 10)
+                        ),
+                        // 熔火
+                        "RongHuo", List.of(
+                                new WeightedItem(SlimefunItems.COPPER_INGOT, 381),
+                                new WeightedItem(SlimefunItems.TIN_INGOT, 381),
+                                new WeightedItem(SlimefunItems.SILVER_INGOT, 381),
+                                new WeightedItem(SlimefunItems.LEAD_INGOT, 381),
+                                new WeightedItem(SlimefunItems.ALUMINUM_INGOT, 381),
+                                new WeightedItem(SlimefunItems.ZINC_INGOT, 381),
+                                new WeightedItem(SlimefunItems.MAGNESIUM_INGOT, 381),
+                                new WeightedItem(SlimefunItems.SULFATE, 381),
+                                new WeightedItem(new ItemStack(Material.COBBLESTONE,15), 1154),
+                                new WeightedItem(new ItemStack(Material.FLINT,15), 1154),
+                                new WeightedItem(new ItemStack(Material.GRAVEL,15), 1154),
+                                new WeightedItem(new ItemStack(Material.SAND,15), 1154),
+                                new WeightedItem(new ItemStack(Material.STRING,15), 1154),
+                                new WeightedItem(new ItemStack(Material.BONE,15), 1154),
+                                new WeightedItem(FISH_SPECIAL_ACTION_BETWEEN_WATER_CLOUD_RONGHUO, 28)
+                        ),
+                        // 跃金
+                        "YueJin", List.of(
+                                new WeightedItem(SlimefunItems.GOLD_24K, 345),
+                                new WeightedItem(SlimefunItems.GOLD_22K, 345),
+                                new WeightedItem(SlimefunItems.GOLD_20K, 345),
+                                new WeightedItem(SlimefunItems.GOLD_18K, 345),
+                                new WeightedItem(SlimefunItems.GOLD_16K, 345),
+                                new WeightedItem(SlimefunItems.GOLD_14K, 345),
+                                new WeightedItem(SlimefunItems.GOLD_12K, 345),
+                                new WeightedItem(SlimefunItems.GOLD_10K, 345),
+                                new WeightedItem(SlimefunItems.GOLD_8K, 345),
+                                new WeightedItem(SlimefunItems.GOLD_6K, 345),
+                                new WeightedItem(SlimefunItems.GOLD_4K, 345),
+                                new WeightedItem(new ItemStack(Material.COBBLESTONE,15), 1030),
+                                new WeightedItem(new ItemStack(Material.FLINT,15), 1030),
+                                new WeightedItem(new ItemStack(Material.GRAVEL,15), 1030),
+                                new WeightedItem(new ItemStack(Material.SAND,15), 1030),
+                                new WeightedItem(new ItemStack(Material.STRING,15), 1030),
+                                new WeightedItem(new ItemStack(Material.BONE,15), 1030),
+                                new WeightedItem(FISH_SPECIAL_ACTION_BETWEEN_WATER_CLOUD_YUEJIN, 25)
+                        ),
+                        // 星核
+                        "XingHe", List.of(
+                                new WeightedItem(SlimefunItems.MAGNESIUM_SALT, 345),
+                                new WeightedItem(SlimefunItems.OIL_BUCKET, 345),
+                                new WeightedItem(SlimefunItems.FUEL_BUCKET, 345),
+                                new WeightedItem(SlimefunItems.NETHER_ICE, 345),
+                                new WeightedItem(SlimefunItems.BLISTERING_INGOT, 345),
+                                new WeightedItem(SlimefunItems.BLISTERING_INGOT_2, 345),
+                                new WeightedItem(SlimefunItems.BLISTERING_INGOT_3, 345),
+                                new WeightedItem(SlimefunItems.ENRICHED_NETHER_ICE, 345),
+                                new WeightedItem(SlimefunItems.NEPTUNIUM, 345),
+                                new WeightedItem(SlimefunItems.PLUTONIUM, 345),
+                                new WeightedItem(SlimefunItems.BOOSTED_URANIUM, 345),
+                                new WeightedItem(new ItemStack(Material.COBBLESTONE,15), 1030),
+                                new WeightedItem(new ItemStack(Material.FLINT,15), 1030),
+                                new WeightedItem(new ItemStack(Material.GRAVEL,15), 1030),
+                                new WeightedItem(new ItemStack(Material.SAND,15), 1030),
+                                new WeightedItem(new ItemStack(Material.STRING,15), 1030),
+                                new WeightedItem(new ItemStack(Material.BONE,15), 1030),
+                                new WeightedItem(FISH_SPECIAL_ACTION_BETWEEN_WATER_CLOUD_XINGHE, 25)
+                        )
+                ),
+                Arrays.asList(FISH_LURE_BETWEEN_WATER_CLOUD_CUIXIA,FISH_LURE_BETWEEN_WATER_CLOUD_WEICHEN,FISH_LURE_BETWEEN_WATER_CLOUD_RONGHUO,
+                        FISH_LURE_BETWEEN_WATER_CLOUD_YUEJIN,FISH_LURE_BETWEEN_WATER_CLOUD_XINGHE)).register(plugin);
+
 
 
 
@@ -1971,6 +2107,20 @@ public final class MagicExpansionItemSetup {
                 SlimefunItems.MAGIC_SUGAR,new ItemStack(Material.GLISTERING_MELON_SLICE),SlimefunItems.MAGIC_SUGAR,
                 SlimefunItems.MAGIC_SUGAR,SlimefunItems.MAGIC_SUGAR,SlimefunItems.MAGIC_SUGAR
         },sfItemAmount(FISH_LURE_BETWEEN_WATER_CLOUD_XINGHE,64)).register(plugin);
+
+        //水云间材料·青竹节
+        new UnplaceableBlock(magicexpansionresource, MagicExpansionItems.BAMBOO_JOINT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                SlimefunItems.REINFORCED_ALLOY_INGOT,new ItemStack(Material.BAMBOO),SlimefunItems.REINFORCED_ALLOY_INGOT,
+                new ItemStack(Material.BAMBOO),MAGIC_EXPANSION_MAGIC_SUGAR_1,new ItemStack(Material.BAMBOO),
+                SlimefunItems.REINFORCED_ALLOY_INGOT,new ItemStack(Material.BAMBOO),SlimefunItems.REINFORCED_ALLOY_INGOT
+        }).register(plugin);
+
+        //水云间材料·魔法线
+        new UnplaceableBlock(magicexpansionresource, MagicExpansionItems.MAGIC_THREAD, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                SlimefunItems.MAGIC_LUMP_1,MAGIC_EXPANSION_MAGIC_SUGAR_1,SlimefunItems.MAGIC_LUMP_1,
+                MAGIC_EXPANSION_MAGIC_SUGAR_1,new ItemStack(Material.STRING),MAGIC_EXPANSION_MAGIC_SUGAR_1,
+                SlimefunItems.MAGIC_LUMP_1,MAGIC_EXPANSION_MAGIC_SUGAR_1,SlimefunItems.MAGIC_LUMP_1
+        }).register(plugin);
 
 
 
@@ -4069,6 +4219,8 @@ public final class MagicExpansionItemSetup {
                 .addRecipe(0, new ItemStack[]{MagicExpansionItems.HONKAI_STAR_RAIL_BOX}, new ItemStack[]{MagicExpansionItems.SUNDAY})
                 .addRecipe(0, new ItemStack[]{MagicExpansionItems.HONKAI_STAR_RAIL_BOX}, new ItemStack[]{MagicExpansionItems.HUOHUO})
                 .addRecipe(0, new ItemStack[]{MagicExpansionItems.HONKAI_STAR_RAIL_BOX}, new ItemStack[]{MagicExpansionItems.LUNAE})
+                .addRecipe(0, new ItemStack[]{sfItemAmount(FIREZOMBIE_BODY,20),sfItemAmount(FIREZOMBIE_HEAD,10)}, new ItemStack[]{BASIC_ENCHANT_STONE})
+                .addRecipe(0, new ItemStack[]{sfItemAmount(WIND_ELF_BODY,20),sfItemAmount(WIND_ELF_HEAD,10)}, new ItemStack[]{WIND_SPIRIT})
                 .register(plugin);
         //崩铁
         new HonkaiStarRailBox(magicexpansionhonkai, MagicExpansionItems.HONKAI_STAR_RAIL_BOX, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {

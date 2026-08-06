@@ -1,14 +1,17 @@
 package io.Yomicer.magicExpansion.Listener.fishingListener;
 
+import io.Yomicer.magicExpansion.MagicExpansion;
 import io.Yomicer.magicExpansion.core.MagicExpansionItems;
 import io.Yomicer.magicExpansion.items.misc.Lure;
 import io.Yomicer.magicExpansion.items.misc.WeightedItem;
 import io.Yomicer.magicExpansion.items.misc.moreLure.MoreLure;
 import io.Yomicer.magicExpansion.items.tools.FishingRodWaterCloud;
 import io.Yomicer.magicExpansion.utils.ColorGradient;
+import io.Yomicer.magicExpansion.utils.WaterCloudRodProficiency;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import net.guizhanss.guizhanlib.minecraft.helper.inventory.ItemStackHelper;
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
@@ -36,6 +39,11 @@ import java.util.Set;
  */
 public class PlayerFishingWaterCloudListener implements Listener {
 
+    // 拥有熟练度系统的水云间鱼竿 ID(后续新竿按需加入)
+    private static final Set<String> PROFICIENCY_ROD_IDS = Set.of(
+            "FISHING_ROD_BETWEEN_WATER_CLOUD_REED"
+    );
+
     // 水云间系列鱼饵(当前鱼饵作为特殊事件判定依据)
     private static final List<MoreLure> SHUIYUNJIAN_LURES = List.of(
             new MoreLure(MagicExpansionItems.FISH_LURE_BETWEEN_WATER_CLOUD_CUIXIA, "CuiXia"),   // 淬霞
@@ -47,47 +55,52 @@ public class PlayerFishingWaterCloudListener implements Listener {
 
     // 水云间专属钓获提示词(普通钓物)
     private static final List<String> SHUIYUNJIAN_PHRASES = List.of(
-            "竹影摇碎一江月。",
-            "水云相合处，有物上钩。",
-            "浮标点破千山倒影。",
-            "竿头微颤，似有故人来。",
-            "月沉水底，钩起浮光。",
-            "这一竿，钓起半江晚照。",
-            "渔线入云，惊起满江星子。",
-            "静水无波，却暗藏生机。",
-            "风止于水面，涟漪犹疑。",
-            "收竿，莫负这一江秋水。",
-            "水云之间，泛起一圈涟漪。",
-            "夜太静，连鱼都忘了呼吸。",
-            "叮——水面漾开一圈月。"
+            "风起云涌，竿头微颤，那是",
+            "水面静谧，忽而涟漪荡开，原来是",
+            "一竿入水，钓起半江浮光，竟是",
+            "云影徘徊，不知惊扰了何物，乃是",
+            "渔线轻收，似有故人相赠，此物为",
+            "水云之间，有灵物破水而来，名为",
+            "竿梢一点，惊碎了满池星辰，化作",
+            "长夜无声，唯有此物随波而至，乃是",
+            "碧波深处，一抹流光浮现，那是",
+            "收竿之时，风月俱在，钓起了",
+            "浮标沉浮，似在诉说古老的故事，那是",
+            "水天一色，竟从虚无中钓出了"
     );
 
     // 水云间特殊事件提示词(钓到特殊钓物时)
+    // 优化点：增强了史诗感和画面感，用词更华丽。
     private static final List<String> SHUIYUNJIAN_SPECIAL_PHRASES = List.of(
-            "水云翻涌，钓起了个大家伙：",
-            "巨物出水，惊起一滩芦花。",
-            "星核微光，水面亮了一瞬。",
-            "天外之物，自己咬上了钩。",
-            "这一竿，惊动了整片水云。"
+            "深渊低语，千年的秘密破水而出，乃是",
+            "天地变色，水云翻涌，这一竿竟钓起了",
+            "寒芒乍现，连星辰都黯然失色，那是",
+            "亘古的沉默被打破，传说中的奇珍现身：",
+            "云海震荡，似乎有什么东西正在苏醒，那是",
+            "此物出世，引得江河逆流，名为",
+            "一股浩然气息自水底升起，那竟是"
     );
 
     // 水云间消耗鱼饵提示词(前缀 + 饵名 + ！)
+    // 优化点：改为四字或短句结尾，留出气口给物品名，意境优美。
     private static final List<String> SHUIYUNJIAN_CONSUME_PHRASES = List.of(
-            "一饵入水，万般皆静。",
-            "水云间，此饵付与流水：",
-            "竿起饵落，风月入水。",
-            "这一饵，沉进了水云深处。",
-            "溪山为证，少了一饵：",
-            "饵落无声，涟漪自开。",
-            "又一份风月，付与流水："
+            "轻抚入水，化作涟漪：",
+            "付与长风，归于水云：",
+            "指尖轻捻，许你一场风月：",
+            "沉入水底，去寻那未知的归处：",
+            "随波逐流，静候佳音：",
+            "此饵入水，万籁俱寂，唯有",
+            "投石问路，化作一声叹息："
     );
 
     // 水云间最后一组鱼饵提示词(接在饵名之后)
+    // 优化点：强调“缘分已尽”、“空留余韵”，带有淡淡的惆怅感。
     private static final List<String> SHUIYUNJIAN_LAST_PHRASES = List.of(
-            " 最后一枚，已随此竿沉入水云。",
-            " 付与流水，自此无余。",
-            " 用尽于此，此后唯余水声。",
-            " 既尽，水云间少了一抹颜色。"
+            "，这是最后的馈赠，自此缘尽。",
+            "，散入水中，此后再无。",
+            "，用尽于此，唯余江上清风。",
+            "，随风而逝，水云间终成空。",
+            "，既是最后一枚，便以此祭奠这满江月色。"
     );
 
     /**
@@ -95,6 +108,11 @@ public class PlayerFishingWaterCloudListener implements Listener {
      */
     @EventHandler
     public void onFish(PlayerFishEvent e) {
+        if (e.getState() == PlayerFishEvent.State.FISHING) {
+            // 抛竿时按熟练度等级应用 LURE 附魔(提升上钩速度)
+            applyHookSpeed(e.getPlayer());
+            return;
+        }
         fishingUtil(e);
     }
 
@@ -117,7 +135,9 @@ public class PlayerFishingWaterCloudListener implements Listener {
         Lure activeLure = getActiveLure(player, fishingRod);
 
         // 3. 没有鱼饵 → 按原版普通鱼竿走,不干预原版钓获
-        if (activeLure == null) return;
+        if (activeLure == null) {
+            return;
+        }
 
         // 4. 使用原本的战利品池加权随机逻辑获取钓获物
         ItemStack drop = getCaughtDrop(player, fishingRod, activeLure);
@@ -135,10 +155,13 @@ public class PlayerFishingWaterCloudListener implements Listener {
         // 7. 在鱼钩位置生成掉落物
         spawnDrop(player, e.getHook().getLocation(), drop);
 
-        // 8. 钓起的物品中被标记为特殊事件入口的 → 特殊事件;否则普通事件
+        // 8. 熟练度系统:按钓获品质给鱼竿增加熟练度
+        grantProficiency(player, fishingRod, activeLure, drop);
+
+        // 9. 钓起的物品中被标记为特殊事件入口的 → 特殊事件;否则普通事件
         ItemStack specialCatch = getSpecialCatchForLure(activeLure);
         if (specialCatch != null && SlimefunUtils.isItemSimilar(drop, specialCatch, true)) {
-            triggerSpecialEvent(player, drop);
+            triggerSpecialEvent(player, activeLure, drop);
         } else {
             handleNormalCatch(player, drop);
         }
@@ -256,9 +279,59 @@ public class PlayerFishingWaterCloudListener implements Listener {
     /**
      * 特殊钓物 → 特殊事件(专属提示,后续可继续加表现)
      */
-    private void triggerSpecialEvent(Player player, ItemStack drop) {
+    private void triggerSpecialEvent(Player player, Lure activeLure, ItemStack drop) {
+        // 先识别触发了哪个鱼饵的特殊事件,再分发给对应的一对一处理方法
+        switch (activeLure.getKey()) {
+            case "CuiXia" -> handleCuiXiaSpecialEvent(player, drop);
+            case "WeiChen" -> handleWeiChenSpecialEvent(player, drop);
+            case "RongHuo" -> handleRongHuoSpecialEvent(player, drop);
+            case "YueJin" -> handleYueJinSpecialEvent(player, drop);
+            case "XingHe" -> handleXingHeSpecialEvent(player, drop);
+            default -> playSpecialEventEffects(player, drop);
+        }
+    }
+
+    /**
+     * 淬霞特殊事件(TODO:后续在此方法中完善淬霞独有的特殊效果)
+     */
+    private void handleCuiXiaSpecialEvent(Player player, ItemStack drop) {
+        playSpecialEventEffects(player, drop);
+    }
+
+    /**
+     * 微尘特殊事件(TODO:后续在此方法中完善微尘独有的特殊效果)
+     */
+    private void handleWeiChenSpecialEvent(Player player, ItemStack drop) {
+        playSpecialEventEffects(player, drop);
+    }
+
+    /**
+     * 熔火特殊事件(TODO:后续在此方法中完善熔火独有的特殊效果)
+     */
+    private void handleRongHuoSpecialEvent(Player player, ItemStack drop) {
+        playSpecialEventEffects(player, drop);
+    }
+
+    /**
+     * 跃金特殊事件(TODO:后续在此方法中完善跃金独有的特殊效果)
+     */
+    private void handleYueJinSpecialEvent(Player player, ItemStack drop) {
+        playSpecialEventEffects(player, drop);
+    }
+
+    /**
+     * 星核特殊事件(TODO:后续在此方法中完善星核独有的特殊效果)
+     */
+    private void handleXingHeSpecialEvent(Player player, ItemStack drop) {
+        playSpecialEventEffects(player, drop);
+    }
+
+    /**
+     * 特殊事件通用表现:传送门音效 + 庆祝烟花 + 专属提示语
+     */
+    private void playSpecialEventEffects(Player player, ItemStack drop) {
         // 原版获得经验音效
-        player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
+        player.playSound(player.getLocation(), Sound.BLOCK_END_PORTAL_SPAWN, 1.0f, 1.0f);
         // 从玩家脚底发射一枚无伤害的庆祝烟花
         spawnCelebrationFirework(player);
         String message = SHUIYUNJIAN_SPECIAL_PHRASES.get(new Random().nextInt(SHUIYUNJIAN_SPECIAL_PHRASES.size()));
@@ -278,5 +351,75 @@ public class PlayerFishingWaterCloudListener implements Listener {
                 .build());
         meta.setPower(1);
         firework.setFireworkMeta(meta);
+    }
+
+    /**
+     * 是否为拥有熟练度系统的水云间鱼竿
+     */
+    private boolean isProficiencyRod(SlimefunItem sfItem) {
+        if (sfItem == null) return false;
+        String id = sfItem.getId();
+        // SlimefunItem.getId() 返回带命名空间前缀的完整 ID(如 MAGIC_EXPANSION_FISHING_ROD_BETWEEN_WATER_CLOUD_REED),
+        // 这里同时兼容裸 ID 与带前缀 ID
+        return PROFICIENCY_ROD_IDS.contains(id)
+                || PROFICIENCY_ROD_IDS.stream().anyMatch(suffix -> id.endsWith("_" + suffix));
+    }
+
+    /**
+     * 抛竿时按熟练度等级应用 LURE 附魔(每 2 级 +1,封顶 5),提升上钩速度
+     */
+    private void applyHookSpeed(Player player) {
+        ItemStack rod = player.getInventory().getItemInMainHand();
+        SlimefunItem sfItem = SlimefunItem.getByItem(rod);
+        if (sfItem instanceof FishingRodWaterCloud && isProficiencyRod(sfItem)) {
+            WaterCloudRodProficiency.applyLureEnchant(rod);
+            player.getInventory().setItemInMainHand(rod);
+        }
+    }
+
+    /**
+     * 熟练度系统:按钓获品质(特殊/稀有/普通)给鱼竿增加熟练度
+     * 获得熟练度时动作栏显示进度条 2 秒;升级时播放音效并发送意境提示
+     */
+    private void grantProficiency(Player player, FishingRodWaterCloud fishingRod, Lure activeLure, ItemStack drop) {
+        ItemStack rod = player.getInventory().getItemInMainHand();
+        SlimefunItem sfItem = SlimefunItem.getByItem(rod);
+        if (!(sfItem instanceof FishingRodWaterCloud) || !isProficiencyRod(sfItem)) {
+            return;
+        }
+
+        ItemStack specialCatch = getSpecialCatchForLure(activeLure);
+
+        int xp;
+        if (specialCatch != null && SlimefunUtils.isItemSimilar(drop, specialCatch, true)) {
+            xp = WaterCloudRodProficiency.XP_SPECIAL;
+        } else {
+            xp = WaterCloudRodProficiency.XP_COMMON;
+        }
+
+        int oldLevel = WaterCloudRodProficiency.getLevel(rod);
+        int newLevel = WaterCloudRodProficiency.addProficiency(rod, xp);
+        WaterCloudRodProficiency.updateLore(rod);
+        WaterCloudRodProficiency.applyLureEnchant(rod);
+        player.getInventory().setItemInMainHand(rod);
+
+        // 动作栏进度条,2 秒后消失
+        int level = WaterCloudRodProficiency.getLevel(rod);
+        int xpNow = WaterCloudRodProficiency.getXp(rod);
+        player.sendActionBar("§b熟练度: §f" + WaterCloudRodProficiency.getLevelName(level)
+                + " §e" + WaterCloudRodProficiency.getPipeBar(level, xpNow)
+                + " " + WaterCloudRodProficiency.getPercent(level, xpNow) + " §a+" + xp);
+        Bukkit.getScheduler().runTaskLater(MagicExpansion.getInstance(), () -> {
+            if (player.isOnline()) {
+                player.sendActionBar("");
+            }
+        }, 40L);
+
+        // 升级反馈
+        if (newLevel > oldLevel) {
+            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);
+            int index = Math.max(0, Math.min(newLevel - 1, WaterCloudRodProficiency.LEVEL_UP_MESSAGES.length - 1));
+            player.sendMessage(ColorGradient.getRandomGradientName("✦ " + WaterCloudRodProficiency.LEVEL_UP_MESSAGES[index]));
+        }
     }
 }

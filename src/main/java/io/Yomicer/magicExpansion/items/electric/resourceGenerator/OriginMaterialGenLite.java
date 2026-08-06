@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static io.Yomicer.magicExpansion.core.MagicExpansionItems.ORIGIN_MATERIAL_GEN;
+import static io.Yomicer.magicExpansion.core.MagicExpansionItems.ORIGIN_MATERIAL_GEN_LITE;
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientName;
 import static io.Yomicer.magicExpansion.utils.ColorGradient.getGradientNameVer2;
 
@@ -66,7 +66,7 @@ public class OriginMaterialGenLite extends AbstractElectricResourceMachine imple
             data.removeData("origin_material");
             return;
         }
-        ItemStack drop = ORIGIN_MATERIAL_GEN.clone();
+        ItemStack drop = ORIGIN_MATERIAL_GEN_LITE.clone();
         if (drop == null || !drop.hasItemMeta()) return;
         ItemMeta meta = drop.getItemMeta();
         if (meta != null) {

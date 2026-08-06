@@ -27,7 +27,7 @@ jobs:
       - uses: softprops/action-gh-release@v2
         with:
           files: target/*.jar
-          tag_name: build-${{ github.run_number }}
-          name: MagicExpansion ${{ github.run_number }}
+          tag_name: Release -${{ github.run_number }}
+          name: MagicExpansion - Release ${{ github.run_number }}
           body: |
             由 GitHub Actions 自动构建。
