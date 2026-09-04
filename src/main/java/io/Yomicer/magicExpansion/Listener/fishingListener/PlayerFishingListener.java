@@ -161,8 +161,7 @@ public class PlayerFishingListener implements Listener {
         if (caught instanceof Item item) {
             item.remove();
         }
-        // C3: 补上事件取消，防止原版钓鱼经验/掉落重复发放
-        e.setCancelled(true);
+
 
         if(isAnythingItem(drop)){
             drop = getRandomItemStack();

@@ -117,8 +117,14 @@ public final class WaterCloudHookManager {
     public static void startSession(Player player, FishHook hook, ItemStack rod) {
         UUID id = player.getUniqueId();
         HookSession old = SESSIONS.remove(id);
-        if (old != null && old.hook.isValid()) {
-            old.hook.remove();
+        if (old != null) {
+            // 修复经验丢失: 覆盖旧会话前先还原其接管的经验条(旧会话可能正处于蓄力阶段)
+            if (player.isOnline()) {
+                restoreExpBar(player, old);
+            }
+            if (old.hook.isValid()) {
+                old.hook.remove();
+            }
         }
         SESSIONS.put(id, new HookSession(player, hook, rod));
     }
@@ -145,7 +151,19 @@ public final class WaterCloudHookManager {
      */
     public static boolean onReel(Player player) {
         HookSession session = SESSIONS.remove(player.getUniqueId());
-        if (session == null || !session.hook.isValid()) {
+        if (session == null) {
+            return false;
+        }
+        if (!session.hook.isValid()) {
+            // 修复经验丢失: 鱼钩已失效(被收回/被破坏)时同样要先还原被接管的经验条
+            restoreExpBar(player, session);
+            return false;
+        }
+        // 水域防护(修复无水钓鱼): 鱼钩不在水中时收竿一律不中鱼
+        // (堵住等待状态 1% 概率直接中鱼的路径, 等待状态从不咬钩故经验条必未被接管, 但仍防御性还原)
+        if (!isHookInWater(session.hook)) {
+            restoreExpBar(player, session);
+            playEscapedFeedback(player, session.hook);
             return false;
         }
         double chance;
@@ -171,6 +189,10 @@ public final class WaterCloudHookManager {
             HookSession session = it.next().getValue();
             Player player = session.player;
             if (player == null || !player.isOnline() || !session.hook.isValid()) {
+                // 修复经验丢失: 会话异常终止(玩家离线/鱼钩失效)前, 先还原被接管的经验条
+                if (player != null && player.isOnline()) {
+                    restoreExpBar(player, session);
+                }
                 it.remove();
                 continue;
             }
@@ -181,6 +203,16 @@ public final class WaterCloudHookManager {
                 continue;
             }
             session.stateTicks++;
+            // 水域守门(修复无水钓鱼): 原版咬钩的前提是鱼钩浸在水中, 新系统接管咬钩后必须补回该校验
+            if (!isHookInWater(session.hook)) {
+                // 轻咬/蓄力阶段被强制离水(鱼钩被拉出/水被抽走等) → 强制脱钩(含还原经验条与状态重置)
+                if (session.state != WaterCloudHookState.WAITING) {
+                    finishByEscape(player, session);
+                }
+                // 等待状态且鱼钩不在水中: 静默挂起, 不推进咬钩判定、不刷钓鱼文案
+                // (等效原版"陆地鱼钩永不咬钩"; 收竿由 onReel 的水域防护兜底)
+                continue;
+            }
             rollState(session, player);
             refreshActionBar(session, player);
         }
@@ -297,6 +329,22 @@ public final class WaterCloudHookManager {
     private static void playEscapedFeedback(Player player, FishHook hook) {
         player.playSound(player.getLocation(), Sound.ENTITY_FISHING_BOBBER_RETRIEVE, 0.7f, 0.9f);
         player.sendActionBar("§7" + WaterCloudHookPhrases.getRandomEscaped());
+    }
+
+    /**
+     * 水域判定(修复无水钓鱼): 鱼钩实体当前是否浸在水中
+     * 原版咬钩的自然前提就是鱼钩落水, 新钓鱼系统接管咬钩判定后用本方法补回该约束。
+     * Bukkit 无 isInWater API, 通过鱼钩所在方块(含向下 0.1 格兜底)判断水方块。
+     */
+    private static boolean isHookInWater(FishHook hook) {
+        Location loc = hook.getLocation();
+        // 常规情况: 鱼钩实体略沉入水面, 所在方块即为水
+        if (loc.getBlock().getType() == org.bukkit.Material.WATER) {
+            return true;
+        }
+        // 边缘情况: 鱼钩浮在水面顶端时实体位置可能高于水方块顶面, 向下探测 0.1 格兜底
+        Location probe = loc.clone().subtract(0, 0.1, 0);
+        return probe.getBlock().getType() == org.bukkit.Material.WATER;
     }
 
     // ==================== 20Hz 瞄准与蓄力 ====================
