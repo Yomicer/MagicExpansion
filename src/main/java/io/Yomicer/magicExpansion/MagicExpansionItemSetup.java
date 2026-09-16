@@ -651,6 +651,11 @@ public final class MagicExpansionItemSetup {
                 null, null, null,
                 null, null, null
         }).register(plugin);
+        new UnplaceableBlock(magicexpansionupdateinfo, UPDATE_LOG_2026_09_16, SPECIAL_RECIPE_TYPE, new ItemStack[] {
+                null, null, null,
+                null, null, null,
+                null, null, null
+        }).register(plugin);
 
 
 
@@ -2028,7 +2033,8 @@ public final class MagicExpansionItemSetup {
                 SlimefunItems.MAGIC_SUGAR,new ItemStack(Material.GLISTERING_MELON_SLICE),SlimefunItems.MAGIC_SUGAR,
                 SlimefunItems.MAGIC_SUGAR,SlimefunItems.MAGIC_SUGAR,SlimefunItems.MAGIC_SUGAR
         },sfItemAmount(FISH_LURE_BETWEEN_WATER_CLOUD_XINGHE,64)).register(plugin);
-        //水云间·芦花钓专用鱼饵·蒹葭(魔法糖×8 + 书 → 64, 注册在青竹竿五饵之后保持粘液书同竿相邻)
+
+        //水云间·芦花钓专用鱼饵·蒹葭(魔法糖×8 + 书 → 64, 注册在青竹竿五饵之后保持粘液书同竿相邻)
         new UnplaceableBlock(magicexpansionwatercloudlure, FISH_LURE_BETWEEN_WATER_CLOUD_REED_JIANJIA, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 SlimefunItems.MAGIC_SUGAR,SlimefunItems.MAGIC_SUGAR,SlimefunItems.MAGIC_SUGAR,
                 SlimefunItems.MAGIC_SUGAR,new ItemStack(Material.BOOK),SlimefunItems.MAGIC_SUGAR,

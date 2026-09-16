@@ -40,7 +40,7 @@ public class PlayerCleanupListener implements Listener {
         safeCleanup("ShopGUI", () -> ShopGUI.cleanup(uuid));
         safeCleanup("BlackMarketManager", () -> BlackMarketManager.cleanup(uuid));
         safeCleanup("AIManager", () -> AIManager.cleanup(uuid));
-        safeCleanup("ItemNameTag", () -> ItemNameTag.cleanup(uuid));
+//        safeCleanup("ItemNameTag", () -> ItemNameTag.cleanup(uuid));
         safeCleanup("ItemEffectAttackListener", () -> ItemEffectAttackListener.cleanup(uuid));
     }
 
