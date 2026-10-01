@@ -580,8 +580,12 @@ public class CargoCoreMore extends SlimefunItem implements EnergyNetComponent{
             }
         }
 
-        // 新物品，检查默认限制（这里可以设置全局默认限制，或者无限制）
-        // 对于新物品，我们暂时返回全部数量，因为会在storeItem中设置默认限制
+        // 新物品：必须存在空槽位才能存入。
+        // 此前无论是否满仓都返回全部数量，导致 storeItem 找不到空槽后走掉落逻辑，
+        // 而 tick 运行在异步线程，world.dropItem 触发 AsyncCatcher 报错并停用机器。
+        if (findEmptySlot(data) == -1) {
+            return 0;
+        }
         return amountToAdd;
     }
 
@@ -625,7 +629,8 @@ public class CargoCoreMore extends SlimefunItem implements EnergyNetComponent{
         }
 
         // 新物品，检查默认限制（这里可以设置全局默认限制，或者无限制）
-        return true;
+        // 与 canStoreMoreAmount 保持一致：满仓时新物品不可存入，避免抽取后存失败导致物品丢失
+        return findEmptySlot(data) != -1;
     }
 
 
@@ -675,21 +680,17 @@ public class CargoCoreMore extends SlimefunItem implements EnergyNetComponent{
                 stored = Math.addExact(stored, amountToStore);
                 data.setData("item_count_" + slot, String.valueOf(stored));
             } catch (ArithmeticException e) {
-                // 溢出，丢弃
+                // 溢出，掉落（兜底，正常流程已被 canStoreMoreAmount 上限拦截）
                 Location loc = data.getLocation();
-                if (loc != null) {
-                    loc.getWorld().dropItem(loc, template);
-                }
+                dropItemSafely(loc, template, amountToStore);
             }
 
         } else {
-            // 找一个真正的空槽位
+            // 找一个真正的空槽位（正常情况下 canStoreMoreAmount 已保证有空槽，此处仅为兜底）
             slot = findEmptySlot(data);
             if (slot == -1) {
                 Location loc = data.getLocation();
-                if (loc != null) {
-                    loc.getWorld().dropItem(loc, template);
-                }
+                dropItemSafely(loc, template, amountToStore);
                 return;
             }
 
@@ -704,6 +705,46 @@ public class CargoCoreMore extends SlimefunItem implements EnergyNetComponent{
         }
     }
 
+
+    /**
+     * 线程安全的物品掉落：tick 在异步线程执行，不能直接调用 world.dropItem
+     * (会触发 AsyncCatcher "main thread check: entity add" 并导致机器被停用)。
+     * 统一调度回主线程执行；已在主线程则直接掉落。
+     * 掉落按最大堆叠成组，最多 64 组，超出部分仅记录日志(仅兜底路径会走到这里)。
+     */
+    private void dropItemSafely(Location loc, ItemStack template, int count) {
+        if (loc == null || loc.getWorld() == null || template == null || count <= 0) return;
+
+        Runnable dropTask = () -> {
+            int remaining = count;
+            int maxStack = Math.max(1, template.getMaxStackSize());
+            int droppedStacks = 0;
+            while (remaining > 0 && droppedStacks < 64) {
+                int n = Math.min(maxStack, remaining);
+                ItemStack stack = template.clone();
+                stack.setAmount(n);
+                loc.getWorld().dropItem(loc, stack);
+                remaining -= n;
+                droppedStacks++;
+            }
+            if (remaining > 0) {
+                MagicExpansion.getInstance().getLogger().warning(
+                        "CargoCoreMore 兜底掉落数量超过上限(64组)，丢失 " + remaining + " 个物品 @ "
+                                + loc.getWorld().getName() + " " + loc.getBlockX() + "," + loc.getBlockY() + "," + loc.getBlockZ());
+            }
+        };
+
+        if (Bukkit.isPrimaryThread()) {
+            dropTask.run();
+        } else {
+            try {
+                Bukkit.getScheduler().runTask(MagicExpansion.getInstance(), dropTask);
+            } catch (Exception e) {
+                // 插件正在关闭等情况下调度失败，只能放弃掉落
+                MagicExpansion.getInstance().getLogger().warning("CargoCoreMore 兜底掉落调度失败: " + e.getMessage());
+            }
+        }
+    }
 
     /**
      * 查找是否已有相同物品（修复版）

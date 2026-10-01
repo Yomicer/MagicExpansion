@@ -32,9 +32,9 @@ public class MagicExpansionItems {
             getGradientNameVer2("信息"),
             "",
             getGradientNameVer2("guizhanss Version:"),
-            getGradientNameVer2("Version: Build 92"),
+            getGradientNameVer2("Version: Build 93"),
             getGradientNameVer2("Github Version:"),
-            getGradientNameVer2("Official Version: Release 12"),
+            getGradientNameVer2("Official Version: Release 13"),
             getGradientNameVer2("您在提issues的时候需要展示这个")
     );
     //AUTHOR

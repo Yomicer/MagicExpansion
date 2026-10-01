@@ -18,6 +18,10 @@ StarShardsSword:
   #攻击力加成 默认:0.15 +15% 固定额外百分比伤害
   StarShards_Atk_Blood: 0.05
   #流血效果 默认:0.03 +3% 可叠加，独立生效
+  StarShards_Atk_Fire: 0.8
+  #炽焰斩额外火焰伤害倍率 默认:0.8 基于本次攻击伤害
+  StarShards_ArcaneBlast_Mult: 0.6
+  #奥爆冲击伤害倍率 默认:0.6 基于本次攻击伤害
   StarShards_Health_Add: 1314.0
   #基础生命值加成 默认:1314.0
   StarShards_Health_Mult: 6.18
