@@ -467,11 +467,12 @@ public class BlackMarketManager {
     }
 
     /**
-     * 修复：玩家退出时清理该玩家的黑市会话数据，防止内存泄漏
+     * 修复（B1）：黑市数据属于 4 小时刷新周期内的会话数据（玩家专属 10 个交易、已购记录、已揭晓状态）。
+     * 玩家退出时**不得清理**——否则重登后 getTodayTrades 会重新生成 10 个盒子，
+     * 且 dailyPurchases 丢失导致已购记录失效，玩家可以无限重复开盒刷奖励。
+     * 这些数据会在每次 forceRefresh（刷新周期轮换）时统一清空，内存占用有界。
      */
     public static void cleanup(UUID uuid) {
-        playerTrades.remove(uuid);
-        dailyPurchases.remove(uuid);
-        revealedSlots.remove(uuid);
+        // 保留数据直到下一次 forceRefresh，禁止在退出时清空
     }
 }
